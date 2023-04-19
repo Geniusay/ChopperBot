@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect x="0" y="0" width="100" height="100" fill="purple"/>
+  <circle cx="50" cy="50" r="30" fill="white"/>
+  <circle cx="40" cy="40" r="4" fill="black"/>
+  <circle cx="60" cy="40" r="4" fill="black"/>
+  <path d="M 40 60 Q 50 70, 60 60" stroke="black" stroke-width="2" fill="none"/>
+  <polygon points="90,90 80,70 70,90" fill="black"/>
+  <rect x="78" y="65" width="2" height="25" fill="black" transform="rotate(-45, 79, 65)"/>
+  <circle cx="79" cy="65" r="3" fill="white"/>
+</svg>

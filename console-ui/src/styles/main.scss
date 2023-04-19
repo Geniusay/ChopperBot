@@ -1,0 +1,9 @@
+// enforce font globally
+// @use "vuetify/variables";
+@import "./variables";
+@import 'vuetify/styles';
+@import "./override";
+@import "./common/gradients.scss";
+@import "./common/animation.scss";
+@import "./common/beautify.scss";
+@import "vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css";

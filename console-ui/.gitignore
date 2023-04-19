@@ -1,9 +1,11 @@
 .DS_Store
 node_modules
 /dist
+/.vite_cache
 
 
 # local env files
+.env
 .env.local
 .env.*.local
 
@@ -21,3 +23,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Local Netlify folder
+.netlify
+.env

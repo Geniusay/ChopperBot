@@ -1,0 +1,84 @@
+// Theme gradients
+.gradient {
+  &.primary {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(67, 56, 202, 1) 0%,
+      rgba(79, 70, 229, 1) 50%,
+      rgba(99, 102, 241, 1) 100%
+    ) !important;
+  }
+  &.purple {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(148, 76, 206, 1) 0%,
+      rgba(191, 60, 179, 1) 50%,
+      rgba(236, 39, 145, 1) 100%
+    ) !important;
+  }
+  &.cancel {
+    // color: #1e293b;
+    background: linear-gradient(
+      318deg,
+      rgba(203, 213, 225, 1) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(241, 245, 249, 1) 100%
+    ) !important;
+  }
+  &.success {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(66, 186, 91, 1) 0%,
+      rgba(113, 207, 86, 1) 50%,
+      rgba(153, 223, 75, 1) 100%
+    ) !important;
+  }
+  &.info {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(72, 118, 252, 1) 0%,
+      rgba(69, 165, 249, 1) 50%,
+      rgba(62, 202, 242, 1) 100%
+    ) !important;
+  }
+  &.blue {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(30, 64, 175, 1) 0%,
+      rgba(37, 99, 235, 1) 50%,
+      rgba(59, 130, 246, 1) 100%
+    ) !important;
+  }
+  &.warning {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(240, 96, 93, 1) 0%,
+      rgba(243, 153, 89, 1) 50%,
+      rgba(236, 197, 81, 1) 100%
+    ) !important;
+  }
+  &.error {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(233, 53, 55, 1) 0%,
+      rgba(239, 89, 99, 1) 50%,
+      rgba(240, 116, 136, 1) 100%
+    ) !important;
+  }
+  &.gray {
+    color: white;
+    background: linear-gradient(
+      318deg,
+      rgba(62, 67, 83, 1) 0%,
+      rgba(75, 80, 108, 1) 50%,
+      rgba(80, 87, 125, 1) 100%
+    ) !important;
+  }
+}

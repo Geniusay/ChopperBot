@@ -1,0 +1,111 @@
+.heartBeat {
+  animation: heartBeat 0.5s;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+
+  14% {
+    transform: scale(1.3);
+  }
+
+  28% {
+    transform: scale(1);
+  }
+
+  42% {
+    transform: scale(1.3);
+  }
+
+  70% {
+    transform: scale(1);
+  }
+}
+
+.headShake {
+  animation-timing-function: ease-in-out;
+  animation-name: headShake;
+}
+
+@keyframes headShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  6.5% {
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+
+  18.5% {
+    transform: translateX(5px) rotateY(7deg);
+  }
+
+  31.5% {
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+
+  43.5% {
+    transform: translateX(2px) rotateY(3deg);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+
+// Base
+.v-enter-active,
+.v-leave-active {
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+// Side Y 
+.slide-y-enter-active,
+.slide-y-leave-active {
+  position: absolute;
+  transition: all 0.25s ease-out;
+}
+
+.slide-y-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-y-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+
+// Side X
+.slide-x-enter-active,
+.slide-x-leave-active {
+  position: absolute;
+  transition: all 0.5s ease;
+}
+
+.slide-x-enter-from,
+.slide-x-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}

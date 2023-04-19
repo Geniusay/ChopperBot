@@ -1,0 +1,33 @@
+<svg y="563.665" x="996.5" version="1.1" width="335" height="38" viewBox="0 0 335 38" id="svg194368" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata194374">image/svg+xml</metadata>
+
+ <linearGradient id="3d_gradient2-logo-682f3222-452d-46d2-bf30-c93cee4278d2" x1="30%" y1="120%" x2="-10%" y2="30%" spreadMethod="pad">
+  <stop offset="0%" stop-color="#ffffff" id="stop194349"/>
+  <stop offset="100%" stop-color="#000000" id="stop194351"/>
+ </linearGradient>
+ <linearGradient id="3d_gradient3-logo-682f3222-452d-46d2-bf30-c93cee4278d2" x1="30%" y1="120%" x2="-10%" y2="30%" spreadMethod="pad" gradientTransform="rotate(-30)">
+  <stop offset="0%" stop-color="#ffffff" id="stop194354"/>
+  <stop offset="50%" stop-color="#cccccc" id="stop194356"/>
+  <stop offset="100%" stop-color="#000000" id="stop194358"/>
+ </linearGradient>
+ <g id="logo-group">
+  <g id="logo-center">
+   <image width="0" height="0" y="-364.91104" x="-344.33633" id="icon_container"/>
+   <g text-anchor="middle" font-family="Orienta" font-size="32px" font-weight="400" font-style="normal" transform="translate(0 0)" id="slogan"/>
+   <g text-anchor="middle" font-family="'Brandmark Didone 1'" font-size="72px" font-weight="normal" font-style="normal" transform="translate(0 0)" id="title">
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#3a456c" fill="#3a456c" stroke-miterlimit="2" stroke-width="0" d="m32.13001,-302.32904l-11.07,32.454l-9.342,-27.378c-1.08,-3.186 -3.834,-5.076 -7.128,-5.076l-4.59,0l0,0.27c2.538,0 3.996,1.89 4.914,4.32l11.34,33.588l3.942,0l13.014,-38.178l-1.08,0z" id="path194377"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#454f74" fill="#454f74" stroke-miterlimit="2" stroke-width="0" d="m68.34123,-302.32904l0,23.598c0,7.344 -6.534,13.284 -12.69001,13.284c-6.156,0 -9.66599,-5.94 -9.66599,-13.284l0,-23.598l-10.69201,0l0,0.27c2.70001,0 4.86001,2.16 4.86001,4.806l0,18.522c0,8.046 6.53399,14.58 14.634,14.58c8.1,0 14.634,-6.534 14.634,-14.58l0,-23.598l-1.08,0z" id="path194379"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#4f597c" fill="#4f597c" stroke-miterlimit="2" stroke-width="0" d="m85.11918,-301.24904l16.308,0l0,-1.08l-27,0l0,0.27c2.7,0 4.86,2.16 4.86,4.806l0,32.67l22.14,0l0,-1.08l-16.308,0l0,-21.276l15.012,0l0,-1.08l-15.012,0l0,-13.23z" id="path194381"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#5a6484" fill="#5a6484" stroke-miterlimit="2" stroke-width="0" d="m132.94632,-301.24904l0,-1.08l-29.376,0l0,1.08l11.772,0l0,36.666l5.832,0l0,-36.666l11.772,0z" id="path194383"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#646e8c" fill="#646e8c" stroke-miterlimit="2" stroke-width="0" d="m145.34183,-302.32904l-10.692,0l0,0.27c2.7,0 4.86001,2.16 4.86001,4.806l0,32.67l5.83199,0l0,-37.746z" id="path194385"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#6f7894" fill="#6f7894" stroke-miterlimit="2" stroke-width="0" d="m161.58402,-301.24904l16.308,0l0,-1.08l-27,0l0,0.27c2.7,0 4.86001,2.16 4.86001,4.806l0,32.67l5.83199,0l0,-22.302l14.256,0l0,-1.08l-14.256,0l0,-13.284z" id="path194387"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#7a829b" fill="#7a829b" stroke-miterlimit="2" stroke-width="0" d="m200.94833,-282.78104l12.47401,-19.548l-1.13401,0l-11.826,18.576l-8.856,-15.066c-1.296,-2.268 -3.564,-3.51 -6.156,-3.51l-6.15599,0l0,0.27c2.7,0 4.752,2.16 6.31799,4.806l9.45001,16.146l0,16.524l5.88599,0l0,-18.198z" id="path194389"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#848ca3" fill="#848ca3" stroke-miterlimit="2" stroke-width="0" d="m212.79459,-280.40504l18.57599,0l0,-1.89l-18.57599,0l0,1.89z" id="path194391"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#8f97ab" fill="#8f97ab" stroke-miterlimit="2" stroke-width="0" d="m262.8475,-265.66304l-18.576,0l0,-36.666l-10.69201,0l0,0.27c2.7,0 4.86,2.16 4.86,4.806l0,32.67l24.40801,0l0,-1.08z" id="path194393"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#99a1b3" fill="#99a1b3" stroke-miterlimit="2" stroke-width="0" d="m292.25141,-302.32904l0,23.598c0,7.344 -6.534,13.284 -12.69,13.284c-6.156,0 -9.666,-5.94 -9.666,-13.284l0,-23.598l-10.692,0l0,0.27c2.7,0 4.86,2.16 4.86,4.806l0,18.522c0,8.046 6.534,14.58 14.634,14.58c8.1,0 14.634,-6.534 14.634,-14.58l0,-23.598l-1.08,0z" id="path194395"/>
+    <path transform="translate(1.13687e-13 0) translate(0 302.329)" stroke="#a4abbb" fill="#a4abbb" stroke-miterlimit="2" stroke-width="0" d="m329.33336,-268.79504l-11.77201,-18.414l11.88001,-15.12l-1.08001,0l-11.34,14.364l-7.074,-11.124c-1.34999,-2.052 -3.50999,-3.24 -5.94,-3.24l-6.10199,0l0,0.27c2.69999,0 4.91399,2.16 6.588,4.806l8.91,13.878l-14.79601,18.792l1.13401,0l14.148,-17.982l9.44999,14.742c1.35001,2.052 3.51001,3.24 5.94001,3.24l6.04799,0l0,-0.27c-2.376,0 -4.374,-1.674 -5.99399,-3.942z" id="path194397"/>
+   </g>
+   <image width="0" height="0" y="-364.91104" x="-344.33633" id="icon"/>
+  </g>
+ </g>
+</svg>

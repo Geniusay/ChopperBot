@@ -1,0 +1,22 @@
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:meta';
+@use 'vuetify/lib/styles/tools/functions' as *;
+@use "vuetify/elevations";
+@use "vuetify/font";
+@use "vuetify/global";
+
+// Custom Variables
+$white: #fff !default;
+$font-family: "Quicksand";
+
+// Vuetify Variables
+@forward 'vuetify/settings' with ( //elevations
+    $shadow-key-umbra-opacity: elevations.$shadow-key-umbra-opacity,
+    $shadow-key-penumbra-opacity: elevations.$shadow-key-penumbra-opacity,
+    $shadow-key-ambient-opacity: elevations.$shadow-key-ambient-opacity,
+    $shadow-key-umbra: elevations.$shadow-key-umbra,
+    $shadow-key-penumbra: elevations.$shadow-key-penumbra,
+    $shadow-key-ambient: elevations.$shadow-key-ambient,
+
+)

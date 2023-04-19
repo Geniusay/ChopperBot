@@ -1,0 +1,161 @@
+html {
+  font-family: $font-family;
+
+
+
+  .v-application {
+    [class*="text-"] {
+      font-family: $font-family, sans-serif !important;
+    }
+
+    font-size: 15px;
+    ;
+    font-family: $font-family,
+
+    sans-serif !important;
+
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 500;
+  }
+
+  // tables beautify
+  .v-table {
+    table {
+
+      padding: 4px;
+      padding-bottom: 8px;
+
+      th {
+        font-weight: bold !important;
+        text-transform: capitalize !important;
+        white-space: nowrap;
+      }
+
+      td {
+        border-bottom: 0 !important;
+      }
+
+      tbody {
+        tr {
+          font-size: 0.875em;
+          transition: box-shadow 0.2s, transform 0.2s;
+
+          &:not(.v-data-table__selected):hover {
+            box-shadow: 0 3px 15px -2px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+          }
+        }
+      }
+    }
+  }
+
+  .v-card {
+    .v-card-title {
+      display: flex;
+      align-items: center;
+    }
+
+
+  }
+
+  // Outline Card
+  .v-card--variant-outlined {
+    border-color: #e5eaef;
+  }
+
+
+
+  .v-list-item {
+
+    // align-center 
+    .v-list-item__append,
+    .v-list-item__prepend {
+      height: 100%;
+    }
+
+    .v-list-item__title {
+      font-size: 0.975rem;
+      font-weight: 600;
+    }
+
+    .v-list-item__action:first-child,
+    .v-list-item__icon:first-child {
+      margin-right: 14px !important;
+    }
+
+
+    .v-list-item__action:first-child,
+    .v-list-item__icon:first-child {
+      margin-right: 14px !important;
+    }
+
+    .v-list-item__icon {
+      margin: auto;
+      justify-content: center;
+    }
+  }
+
+  .v-application--is-rtl .v-list-item__action:first-child,
+  .v-application--is-rtl .v-list-item__icon:first-child {
+    margin-right: 0 !important;
+    margin-left: 14px !important;
+  }
+
+  .v-list-group__header__append-icon .v-icon {
+    font-size: 1rem;
+  }
+
+  .v-list-group__header .v-list-item__icon.v-list-group__header__append-icon {
+    min-width: 0 !important;
+  }
+
+
+
+  .v-list-group--sub-group .v-list-group__header {
+    padding-left: 8px !important;
+  }
+
+  .v-btn {
+    text-transform: capitalize;
+  }
+
+  .border,
+  .v-divider {
+    border-color: rgba(var(--v-border-color), 1) !important;
+  }
+
+  .avtar-border {
+    border: 2px solid rgb(var(--v-theme-surface)) !important;
+  }
+
+
+
+  // input
+  // comfortable
+  .v-input--density-comfortable {
+    --v-input-control-height: 44px;
+  }
+
+  // compact
+  .v-input--density-compact {
+    --v-input-padding-top: 10px;
+  }
+
+  .v-label {
+    font-size: 0.875rem;
+    opacity: 1;
+  }
+
+  .v-text-field__suffix {
+    opacity: 1;
+    padding-left: 20px;
+  }
+
+}

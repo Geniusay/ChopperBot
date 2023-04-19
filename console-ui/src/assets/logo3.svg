@@ -1,0 +1,33 @@
+<svg y="588.165" x="922" version="1.1" width="488" height="49" viewBox="0 0 488 49" id="svg164351" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <metadata id="metadata164357">image/svg+xml</metadata>
+
+ <linearGradient id="3d_gradient2-logo-b69ed5b7-9e72-4003-be77-c6c49a364658" x1="30%" y1="120%" x2="-10%" y2="30%" spreadMethod="pad">
+  <stop offset="0%" stop-color="#ffffff" id="stop164332"/>
+  <stop offset="100%" stop-color="#000000" id="stop164334"/>
+ </linearGradient>
+ <linearGradient id="3d_gradient3-logo-b69ed5b7-9e72-4003-be77-c6c49a364658" x1="30%" y1="120%" x2="-10%" y2="30%" spreadMethod="pad" gradientTransform="rotate(-30)">
+  <stop offset="0%" stop-color="#ffffff" id="stop164337"/>
+  <stop offset="50%" stop-color="#cccccc" id="stop164339"/>
+  <stop offset="100%" stop-color="#000000" id="stop164341"/>
+ </linearGradient>
+ <g id="logo-group">
+  <g id="logo-center">
+   <image width="0" height="0" y="-359.3645" x="-267.7655" id="icon_container"/>
+   <g text-anchor="middle" font-family="'Nunito Sans'" font-size="32px" font-weight="300" font-style="oblique" transform="translate(0 0)" id="slogan"/>
+   <g text-anchor="middle" font-family="'Meedori Sans'" font-size="72px" font-weight="700" font-style="normal" transform="translate(0 0)" id="title">
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#5e636e" fill="#5e636e" stroke-miterlimit="2" stroke-width="0" d="m307.79824,54.932l9.10727,0l-24.57,49.14l-24.57,-49.14l9.95904,0l14.61096,30.99096l15.46273,-30.99096z" id="path164360"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#656a74" fill="#656a74" stroke-miterlimit="2" stroke-width="0" d="m362.42759,54.932l0,30.92544q0,0.6552 -0.13104,2.2932q-0.06552,1.57248 -0.58968,3.6036q-0.52416,2.03112 -1.70351,4.2588q-1.11385,2.16216 -3.27601,3.99672q-2.09663,1.76904 -5.37264,2.9484q-3.21048,1.11384 -7.99344,1.11384q-4.52088,0 -7.66583,-1.11384q-3.14496,-1.17936 -5.17609,-2.9484q-2.03111,-1.83456 -3.14495,-3.99672q-1.04833,-2.22768 -1.57248,-4.2588q-0.45865,-2.03112 -0.58969,-3.6036q-0.06552,-1.638 -0.06552,-2.2932l0,-30.92544l8.19,0l0,30.92544q0,0.72072 0.13104,2.48976q0.19656,1.76904 1.11384,3.66912q0.91729,1.83456 2.9484,3.276q2.09665,1.44144 5.83128,1.44144q4.06224,0 6.2244,-1.44144q2.22769,-1.44144 3.21048,-3.276q1.04832,-1.90008 1.17936,-3.66912q0.19656,-1.76904 0.19656,-2.48976l0,-30.92544l8.25552,0z" id="path164362"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#6c707b" fill="#6c707b" stroke-miterlimit="2" stroke-width="0" d="m408.65397,63.122l-24.63552,0l0,12.25224l20.96641,0l0,8.19l-20.96641,0l0,12.31776l24.63552,0l0,8.19l-32.82552,0l0,-49.14l32.82552,0l0,8.19z" id="path164364"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#727781" fill="#727781" stroke-miterlimit="2" stroke-width="0" d="m458.21678,63.122l-16.38,0l0,40.95l-8.19,0l0,-40.95l-16.38,0l0,-8.19l40.95,0l0,8.19z" id="path164366"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#797d88" fill="#797d88" stroke-miterlimit="2" stroke-width="0" d="m468.09393,54.932l8.12448,0l0,49.14l-8.12448,0l0,-49.14z" id="path164368"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#80848e" fill="#80848e" stroke-miterlimit="2" stroke-width="0" d="m498.0386,84.0884l0,19.9836l-8.19,0l0,-49.14l32.76,0l0,8.19l-24.57,0l0,12.71088l21.88368,0l0,8.25552l-21.88368,0z" id="path164370"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#878b94" fill="#878b94" stroke-miterlimit="2" stroke-width="0" d="m557.82253,81.33656l0,22.73544l-8.19,0l0,-22.73544l-20.04912,-26.40456l10.02457,0l14.61096,18.21456l13.62815,-18.21456l10.94185,0l-20.96641,26.40456z" id="path164372"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#8e919b" fill="#8e919b" stroke-miterlimit="2" stroke-width="0" d="m609.90891,76.68464l0,8.25552l-23.19407,0l0,-8.25552l23.19407,0z" id="path164374"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#9498a1" fill="#9498a1" stroke-miterlimit="2" stroke-width="0" d="m651.95222,95.882l0,8.19l-32.82552,0l0,-49.20552l8.12448,0l0.06552,41.01552l24.63552,0z" id="path164376"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#9b9ea8" fill="#9b9ea8" stroke-miterlimit="2" stroke-width="0" d="m698.34551,54.932l0,30.92544q0,0.6552 -0.13104,2.2932q-0.06552,1.57248 -0.58968,3.6036q-0.52416,2.03112 -1.70352,4.2588q-1.11384,2.16216 -3.276,3.99672q-2.09664,1.76904 -5.37264,2.9484q-3.21048,1.11384 -7.99344,1.11384q-4.52088,0 -7.66584,-1.11384q-3.14496,-1.17936 -5.17608,-2.9484q-2.03112,-1.83456 -3.14496,-3.99672q-1.04832,-2.22768 -1.57248,-4.2588q-0.45864,-2.03112 -0.58968,-3.6036q-0.06552,-1.638 -0.06552,-2.2932l0,-30.92544l8.19,0l0,30.92544q0,0.72072 0.13104,2.48976q0.19656,1.76904 1.11384,3.66912q0.91728,1.83456 2.9484,3.276q2.09664,1.44144 5.83128,1.44144q4.06224,0 6.2244,-1.44144q2.22768,-1.44144 3.21048,-3.276q1.04832,-1.90008 1.17936,-3.66912q0.19656,-1.76904 0.19656,-2.48976l0,-30.92544l8.25552,0z" id="path164378"/>
+    <path transform="translate(-267.766 -359.365) translate(0 304.498)" stroke="#a2a5ae" fill="#a2a5ae" stroke-miterlimit="2" stroke-width="0" d="m707.02898,104.13752l19.06632,-24.50448l-19.06632,-24.70104l10.87632,0l13.62816,18.21456l13.7592,-18.21456l10.94184,0l-18.21456,24.70104l18.21456,24.50448l-10.94184,0l-13.7592,-18.14904l-13.62816,18.14904l-10.87632,0z" id="path164380"/>
+   </g>
+   <image width="0" height="0" y="-359.3645" x="-267.7655" id="icon"/>
+  </g>
+ </g>
+</svg>

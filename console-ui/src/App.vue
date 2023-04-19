@@ -1,32 +1,48 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
-  </div>
+  <v-app id="app" :theme="customizeTheme.darkTheme ? 'dark' : 'light'">
+    <component :is="currentLayout" v-if="isRouterLoaded">
+      <router-view> </router-view>
+    </component>
+    <CustomizationMenu />
+    <BackToTop />
+    <Snackbar />
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script setup lang="ts">
+import UILayout from "@/layouts/UILayout.vue";
+import LandingLayout from "@/layouts/LandingLayout.vue";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import AuthLayout from "@/layouts/AuthLayout.vue";
+import CustomizationMenu from "@/components/CustomizationMenu.vue";
+import { useCustomizeThemeStore } from "@/stores/customizeTheme";
+import BackToTop from "@/components/common/BackToTop.vue";
+import Snackbar from "@/components/common/Snackbar.vue";
 
-nav {
-  padding: 30px;
-}
+const customizeTheme = useCustomizeThemeStore();
+const route = useRoute();
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+const isRouterLoaded = computed(() => {
+  if (route.name !== null) return true;
+  return false;
+});
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+const layouts = {
+  default: DefaultLayout,
+  ui: UILayout,
+  landing: LandingLayout,
+  auth: AuthLayout,
+};
+
+type LayoutName = "default" | "ui" | "landing" | "auth" | "error";
+
+const currentLayout = computed(() => {
+  const layoutName = route.meta.layout as LayoutName;
+  if (!layoutName) {
+    return DefaultLayout;
+  }
+  return layouts[layoutName];
+});
+</script>
+
+<style scoped></style>
