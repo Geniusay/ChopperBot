@@ -18,6 +18,21 @@
     ------
 
 ```
+------
+
+## [V 1.0.1] - 2023.4.21
+### common
+- 🎈新增: 新增 `ConstPool` 常量池，用于存放常量，目前存放了模块名称常量，便于开发统一
+- 🎈新增: 新增 `ConfigFile` 配置文件类，用于存放配置文件路径, 包装配置文件,目前配置文件主要内容为data,新增更新时间
+
+### FileModule
+- 🛑更名：`ModuleConfigSrcInit` ➡ `ModuleSrcConfigInit`
+- 🛑更名：`ModuleConfigSrc` ➡ `ModuleSrcConfig`
+- 🧹重构: 重构 `ModuleSrcConfig` 现在作为某块路径的配置文件类，负责管理模块的配置文件路径
+- ❌移除: 移除 `ModuleSrcConfigInit` 模块配置文件路径管理功能，只负责**初始化**
+
+------
+
 ## [V 1.0.0] - 2023.4.20
 ### console-ui
 - 🧹重构: 重构console-ui，使用vue3.0,vite,typescript进行重构
@@ -37,14 +52,3 @@
 - 🎈新增: 新增 `InitMachine` 初始化机器接口，为所有模块初始化类提供统一接口
 
 ------
-## [V 1.0.1] - 2023.4.21
-### common
-- 🎈新增: 新增 `ConstPool` 常量池，用于存放常量，目前存放了模块名称常量，便于开发统一
-- 🎈新增: 新增 `ConfigFile` 配置文件类，用于存放配置文件路径, 包装配置文件,目前配置文件主要内容为data,新增更新时间
-
-### FileModule
-- 🛑更名：`ModuleConfigSrcInit` ➡ `ModuleSrcConfigInit`
-- 🛑更名：`ModuleConfigSrc` ➡ `ModuleSrcConfig`
-- 🧹重构: 重构 `ModuleSrcConfig` 现在作为某块路径的配置文件类，负责管理模块的配置文件路径
-- ❌移除: 移除 `ModuleSrcConfigInit` 模块配置文件路径管理功能，只负责**初始化**
-
