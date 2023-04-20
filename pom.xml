@@ -16,6 +16,7 @@
     <module>HotModule</module>
     <module>PublishModule</module>
     <module>console</module>
+      <module>common</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -35,6 +36,7 @@
     <spring-boot-test.version>2.3.9.RELEASE</spring-boot-test.version>
   </properties>
   <dependencyManagement>
+
     <dependencies>
       <!--mybatis-->
       <dependency>

@@ -1,0 +1,19 @@
+{
+	"module":{
+		"ui":"console-ui",
+		"main":"console",
+		"type":[
+			"Account",
+			"Creeper",
+			"File",
+			"Hot",
+			"Publish",
+			"Section",
+			"SectionWork",
+			"VideoSection"
+		]
+	},
+	"name":"ChopperBot",
+	"description":"A bot for the ChopperMC server",
+	"version":"1.0.0"
+}

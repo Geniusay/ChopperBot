@@ -1,8 +1,12 @@
 
 package org.example;
 
+import org.example.init.InitWorld;
+import org.example.init.ModuleConfigSrcInit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.List;
 
 /**
  * @author Genius
@@ -13,7 +17,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ConsoleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ConsoleApplication.class, args);
+
+        if (InitWorld.getInstance()
+                .setInitMachines(List.of(new ModuleConfigSrcInit()))
+                .start()) {
+            SpringApplication.run(ConsoleApplication.class, args);
+        }
 
     }
 }

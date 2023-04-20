@@ -4,7 +4,6 @@
     <file url="file://$PROJECT_DIR$/AccountModule/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/BarrageModule/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/BarrageModule/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/Console/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CreeperModule/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CreeperModule/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/FileModule/src/main/java" charset="UTF-8" />
@@ -14,6 +13,8 @@
     <file url="file://$PROJECT_DIR$/SectionModule/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SectionWorkModule/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/VideoSectionModule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/console/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

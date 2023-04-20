@@ -22,6 +22,15 @@
 - 🎈新增: 新增 `JsonFileUtil` 工具类，用于进行json文件的读写操作
 - 🎈新增: 新增 `FileUtil` 工具类，用于进行文件复制文件删除等操作
 - 🎈新增: 新增 `FileCondition` 方法，用于对文件递归删除进行条件过滤
+- 🎈新增: 新增 `ModuleConfigSrcInit` 初始化模块，用于初始化各个模块的配置文件夹，以及模块配置文件路径管理
+- 🎈新增: 新增 `ModuleConfigSrc` 模块配置类
 - 🧪测试: 测试 `FileUtil` 工具类, 测试 `JsonFileUtil` 工具类
+
+### console
+- 🎈新增: 新增 `InitWord` 用于整个项目的初始化启动
+
+### 🎈新增 common 模块
+- 🎈新增: 新增 `InitMachine` 初始化机器接口，为所有模块初始化类提供统一接口
+
 
 

@@ -1,0 +1,23 @@
+{
+	"account":{
+		"src":"./config/account"
+	},
+	"section":{
+		"src":"./config/section"
+	},
+	"hot":{
+		"src":"./config/hot"
+	},
+	"publish":{
+		"src":"./config/publish"
+	},
+	"creeper":{
+		"src":"./config/creeper"
+	},
+	"barrage":{
+		"src":"./config/barrage"
+	},
+	"videowork":{
+		"src":"./config/videowork"
+	}
+}

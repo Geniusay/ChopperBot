@@ -9,6 +9,7 @@
         <module name="console" />
         <module name="CreeperModule" />
         <module name="FileModule" />
+        <module name="common" />
         <module name="AccountModule" />
         <module name="SectionWorkModule" />
         <module name="PublishModule" />
@@ -34,6 +35,7 @@
       <module name="SectionModule" options="-parameters" />
       <module name="SectionWorkModule" options="-parameters" />
       <module name="VideoSectionModule" options="-parameters" />
+      <module name="common" options="-parameters" />
       <module name="console" options="-parameters" />
     </option>
   </component>
