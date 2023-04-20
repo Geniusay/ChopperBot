@@ -2,7 +2,7 @@
 package org.example;
 
 import org.example.init.InitWorld;
-import org.example.init.ModuleConfigSrcInit;
+import org.example.init.ModuleSrcConfigFileInit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,7 +19,7 @@ public class ConsoleApplication {
     public static void main(String[] args) {
 
         if (InitWorld.getInstance()
-                .setInitMachines(List.of(new ModuleConfigSrcInit()))
+                .setInitMachines(List.of(new ModuleSrcConfigFileInit()))
                 .start()) {
             SpringApplication.run(ConsoleApplication.class, args);
         }
