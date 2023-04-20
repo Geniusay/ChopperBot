@@ -1,5 +1,7 @@
 # ChopperBot项目框架
 
+👉[更新日志](https://gitee.com/sbg-genius/ChopperBot/blob/master/CHANGELOG.md)👈
+
 ## 项目介绍
 
 
