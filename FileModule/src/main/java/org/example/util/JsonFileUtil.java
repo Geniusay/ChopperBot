@@ -71,7 +71,7 @@ public class JsonFileUtil {
         try{
             if (FileUtil.isFileExist(dir.toString())) {
                 String res = Files.readString(dir, StandardCharsets.UTF_8);
-                logger.info("读取json文件成功, 文件内容为: {}", res);
+                logger.debug("读取json文件成功, 文件内容为: {}", res);
 
                 t = JSON.parseObject(res, clazz);
             }
@@ -158,11 +158,11 @@ public class JsonFileUtil {
         try{
             if(!FileUtil.isFileExist(dir.toString())&&autoCreate){
                 Files.createFile(dir);
-                logger.info("新建文件{}",dir);
+                logger.debug("新建文件{}",dir);
             }
             if (FileUtil.isFileExist(dir.toString())) {
                 Files.writeString(dir, json, StandardCharsets.UTF_8);
-                logger.info("写入json文件成功, 文件内容为: {}", json);
+                logger.debug("写入json文件成功, 文件内容为: {}", json);
             }else {
                 logger.error("写入json文件失败, 文件不存在");
                 return null;

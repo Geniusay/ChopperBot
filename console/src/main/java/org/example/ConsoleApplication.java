@@ -1,6 +1,9 @@
 
 package org.example;
 
+import org.example.bean.ModuleSrcConfigFile;
+import org.example.cache.FileCache;
+import org.example.exception.FileCacheException;
 import org.example.init.InitWorld;
 import org.example.init.ModuleSrcConfigFileInit;
 import org.springframework.boot.SpringApplication;
@@ -16,11 +19,12 @@ import java.util.List;
 @SpringBootApplication
 public class ConsoleApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileCacheException {
 
         if (InitWorld.getInstance()
                 .setInitMachines(List.of(new ModuleSrcConfigFileInit()))
                 .start()) {
+
             SpringApplication.run(ConsoleApplication.class, args);
         }
 

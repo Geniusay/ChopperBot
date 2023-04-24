@@ -1,5 +1,4 @@
 {
-	"hello":"11234",
 	"Student":{
 		"age":18,
 		"hobby":[
@@ -14,5 +13,6 @@
 		"major":"CS",
 		"name":"Genius",
 		"school":"HUST"
-	}
+	},
+	"hello":"11234"
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigFile.SRC>> {
 
-    private static final Map<String, SRC> config;
+    private static Map<String, SRC> config;
 
     public static class SRC{
         private String src;
@@ -24,6 +24,8 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigF
         public String getSrc() {
             return src;
         }
+
+        public void setSrc(String src){this.src =src;}
     }
 
     static{
@@ -40,7 +42,7 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigF
 
 
     public ModuleSrcConfigFile() {
-        super("./config"
+        super("E:\\Project\\ChopperBot\\config\\"
                 , "moduleConfig.json"
                 , config);
     }
@@ -48,4 +50,5 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigF
     public Map<String,Object> packageConfig() {
         return super.packageConfig();
     }
+
 }
