@@ -75,6 +75,10 @@ public class FileCacheManager {
         return false;
     }
 
+    public List<FileCache> getRunnableFileCaches(){
+        return this.fileCaches;
+    }
+
     class Watcher implements Runnable{
 
         @Override
@@ -85,7 +89,7 @@ public class FileCacheManager {
                     BlockingQueue fileChannel = cache.getFileChannel();
                     if(fileChannel.isEmpty()){
                         if(cache.needAutoSync()){
-                            logger.debug("检测到需要强制刷新的文件 {}",cache.getFileName());
+                            logger.info("检测到需要强制刷新的文件 {}",cache.getFileName());
                             autoSyncer.submit(new AutoSyncer(cache));
                         }
                     }

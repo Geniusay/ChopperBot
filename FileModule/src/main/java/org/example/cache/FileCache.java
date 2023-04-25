@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.common.ConfigFile;
+import org.example.common.FileType;
 import org.example.exception.FileCacheException;
 import org.example.util.JsonFileUtil;
 import org.example.util.TimeUtil;
@@ -71,7 +72,7 @@ public class FileCache <T extends ConfigFile>{
         this.logger = LoggerFactory.getLogger("FileCache:"+this.configFile.getFileName());
 
         this.autoSyncTime = autoSyncTime;
-        if(!load(getFileName())){
+        if(!load(getFullFilePath())){
             throw new FileCacheException("FileCache Init Error,please Check if your path is correct");
         }
 
@@ -240,7 +241,7 @@ public class FileCache <T extends ConfigFile>{
      */
     public void forceSync(){
         if(writeByte.get()==0){
-            logger.debug("未发生版本变化");
+            logger.info("未发生版本变化");
             return;
         }
         clearWriteBytes();
@@ -248,7 +249,7 @@ public class FileCache <T extends ConfigFile>{
         try {
             syncChannel.put(temp);
         } catch (InterruptedException e) {
-            logger.debug("自动刷入失败");
+            logger.error("自动刷入失败");
         }
     }
 
@@ -258,23 +259,38 @@ public class FileCache <T extends ConfigFile>{
      */
     private boolean sync(ConcurrentHashMap<String,Object> take){
         configFile.updateConfigTime(); //刷新配置文件刷入时间
-        String dir = getFileName();
+        String dir = getFullFilePath();
         configFile.onlyUpdateTime(take);
         File file = JsonFileUtil.writeJsonFile(dir, take);
         logger.debug("正在写入{}新版本",dir);
         return Objects.isNull(file);
     }
 
+
+
+
     public BlockingQueue getFileChannel(){
         return this.syncChannel;
     }
 
-    public String getFileName(){
+    public String getFullFilePath(){
         return Paths.get(this.configFile.getFilePath(), this.configFile.getFileName()).toString();
+    }
+
+    public String getFilePath(){
+        return this.configFile.getFilePath();
+    }
+
+    public String getFileName(){
+        return this.configFile.getFileName();
     }
 
     public long getSyncTime(){
         return this.autoSyncTime;
+    }
+
+    public FileType getFileType(){
+        return this.configFile.getFileType();
     }
 
     class SyncMan implements Runnable{
@@ -300,7 +316,7 @@ public class FileCache <T extends ConfigFile>{
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof FileCache){
-            if(((FileCache) obj).getFileName().equals(this.getFileName())){
+            if(((FileCache) obj).getFullFilePath().equals(this.getFullFilePath())){
                 return true;
             }else if(obj.hashCode() == this.hashCode()){
                 return true;

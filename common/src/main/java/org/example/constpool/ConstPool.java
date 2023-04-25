@@ -16,5 +16,4 @@ public class ConstPool {
     public static final String HOT = "hot";
     public static final String PUBLISH = "publish";
 
-
 }

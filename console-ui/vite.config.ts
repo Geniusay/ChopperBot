@@ -37,6 +37,13 @@ export default defineConfig({
   },
   server: {
     port: 4399,
+    proxy: {
+      "/appApi": {
+        target: "http://localhost:8888",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/appApi/, ""),
+      },
+    },
   },
   css: {
     preprocessorOptions: {

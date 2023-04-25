@@ -1,6 +1,7 @@
 package org.example.pojo.configfile;
 
 import org.example.common.ConfigFile;
+import org.example.common.FileType;
 import org.example.constpool.ConstPool;
 
 import java.util.Map;
@@ -44,7 +45,7 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigF
     public ModuleSrcConfigFile() {
         super("E:\\Project\\ChopperBot\\config\\"
                 , "moduleConfig.json"
-                , config);
+                , config, FileType.CHOPPER_BOT);
     }
 
     public Map<String,Object> packageConfig() {

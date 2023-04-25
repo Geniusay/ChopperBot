@@ -12,6 +12,7 @@ import java.util.Map;
 //配置文件的抽象类，只负责构建配置文件最基础的架构，一般不用来存放配置文件本身的内容
 public abstract class ConfigFile<T> {
 
+    private FileType fileType;
     private String filePath;
     private String fileName;
 
@@ -69,21 +70,34 @@ public abstract class ConfigFile<T> {
         this.fileName = fileName;
         this.data = data;
         this.updateTime = LocalDateTime.now();
+        this.fileType = FileType.COMMON;
+    }
+
+    public ConfigFile(String filePath,String fileName,T data,FileType fileType){
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.data = data;
+        this.updateTime = LocalDateTime.now();
+        this.fileType = fileType;
     }
 
     public String getFilePath() {
-        return filePath;
+        return this.filePath;
     }
 
     public String getFileName() {
-        return fileName;
+        return this.fileName;
     }
 
-    public LocalDateTime getUpdateTime() {return updateTime;}
+    public LocalDateTime getUpdateTime() {return this.updateTime;}
+
+    public FileType getFileType(){
+        return this.fileType;
+    }
 
     //不推荐直接使用
     public T getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(T data){this.data = data;}

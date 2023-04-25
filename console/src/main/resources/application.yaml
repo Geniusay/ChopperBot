@@ -1,2 +1,8 @@
 server:
   port: 8888
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/illuminator?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver

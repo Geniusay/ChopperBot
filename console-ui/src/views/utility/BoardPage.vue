@@ -1,6 +1,6 @@
 <template>
   <!-- board column -->
-  <v-row style="min-width: 800px">
+  <v-row style="min-width: 1000px">
     <v-col
       cols="3"
       v-for="column in columns"
@@ -138,6 +138,7 @@
 <script setup lang="ts">
 import VueDraggable from "vuedraggable";
 import BoardCard from "@/components/BoardCard.vue";
+import {getAllConfigModule,getAllConfigFiles} from "@/api/FileController";
 
 const list1 = ref([
   { title: "John", id: 1, description: "des" },
@@ -163,6 +164,7 @@ const dragOptions = computed(() => {
 
 // board states
 const states = ref(["TODO", "INPROGRESS", "TESTING", "DONE"]);
+const configFiles = ref([{}]);
 const cards = ref([
   {
     id: 1,
@@ -217,12 +219,39 @@ const cards = ref([
 
 const columns = ref([]);
 
-onMounted(() => {
+onMounted(async () => {
+  await initModule();
+  await initFiles();
   initColumns();
   parseCards(cards.value);
 });
+// Init 模块类型
+const initModule = async () =>{
+  await getAllConfigModule().then(res=>{
+    states.value = res.data
 
-// Init
+  })
+}
+
+// Init 配置文件
+const initFiles = async ()=>{
+  await getAllConfigFiles().then(res=>{
+    let files: number[] = res.data
+    for(let i=0;i<files.length;i++){
+       let item: any = files[i];
+       configFiles.value.push({
+         id: i,
+         title: item.fileName,
+         description: item.filePath,
+         order: i,
+         state: item.moduleType,
+       })
+    }
+    cards.value = configFiles.value
+  })
+}
+
+
 const initColumns = () => {
   states.value.forEach((state, index) => {
     columns.value.push({

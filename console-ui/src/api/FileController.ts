@@ -1,0 +1,1 @@
+import request from '@/utils/request';export function getAllConfigModule() { return request({   url: '/config/allConfigModule/',   method: 'get',   params: {   } });}export function getAllConfigFiles() {  return request({    url: '/config/allConfigFiles/',    method: 'get',    params: {    }  });}

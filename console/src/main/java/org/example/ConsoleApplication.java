@@ -2,6 +2,7 @@
 package org.example;
 
 import org.example.exception.FileCacheException;
+import org.example.init.FileCacheManagerInit;
 import org.example.init.InitWorld;
 import org.example.init.ModuleSrcConfigFileInit;
 import org.springframework.boot.SpringApplication;
@@ -19,12 +20,19 @@ public class ConsoleApplication {
 
     public static void main(String[] args) throws FileCacheException {
 
-        if (InitWorld.getInstance()
-                .setInitMachines(List.of(new ModuleSrcConfigFileInit()))
-                .start()) {
-
+        if (Init()) {
             SpringApplication.run(ConsoleApplication.class, args);
         }
 
+    }
+
+    public static boolean Init(){
+        return InitWorld.getInstance()
+                .setInitMachines(
+                        List.of(
+                        new ModuleSrcConfigFileInit(),
+                        new FileCacheManagerInit()
+                        )
+                ).start();
     }
 }

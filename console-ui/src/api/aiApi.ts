@@ -12,7 +12,7 @@ gptInstance.interceptors.response.use(
   (error) => {
     const snackbarStore = useSnackbarStore();
     if (error.response) {
-      const status = error.response.status;
+      //const status = error.response.status;
       const data = error.response.data;
       snackbarStore.showErrorMessage(data.error);
     } else {
