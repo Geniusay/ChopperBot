@@ -1,15 +1,9 @@
 package org.example.util;
 
-import com.alibaba.fastjson.JSONReader;
-import com.alibaba.fastjson.JSONWriter;
-import org.example.bean.Student;
+import org.example.pojo.Student;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.PackageUtils;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;

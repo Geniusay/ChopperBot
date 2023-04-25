@@ -8,6 +8,12 @@ package org.example.constpool;
 public class ConstPool {
 
     /**
+     * 文件路径
+     */
+    //弹幕保存文件的根目录
+    public static final String BARRAGE_ROOT = (String)GlobalFileCache.ModuleSrcConfigFile.get("barrage","src");
+
+    /**
      * 下载的方式
      */
     // 直播

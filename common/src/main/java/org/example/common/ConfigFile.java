@@ -87,4 +87,12 @@ public abstract class ConfigFile<T> {
     }
 
     public void setData(T data){this.data = data;}
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setFilePath(String filePath){
+        this.filePath = filePath;
+    }
 }

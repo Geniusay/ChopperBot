@@ -1,10 +1,4 @@
 {
-  "name": "ChopperBot",
-  "description": "A bot for the ChopperMC server",
-  "version": "1.0.0",
-  "module": {
-    "type": ["Account","Creeper","File","Hot","Publish","Section","SectionWork","VideoSection"],
-    "main": "console",
-    "ui": "console-ui"
-  }
+  "data":[],
+  "updateTime":"2023-04-25 23:46:35"
 }

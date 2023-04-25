@@ -1,4 +1,4 @@
-package org.example.bean;
+package org.example.pojo.configfile;
 
 import org.example.common.ConfigFile;
 import org.example.constpool.ConstPool;

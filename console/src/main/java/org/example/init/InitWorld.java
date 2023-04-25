@@ -41,7 +41,6 @@ public class InitWorld {
                 return false;
             }
         }
-
         return true;
     }
 }

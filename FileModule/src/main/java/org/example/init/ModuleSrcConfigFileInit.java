@@ -1,6 +1,6 @@
 package org.example.init;
 
-import org.example.bean.ModuleSrcConfigFile;
+import org.example.pojo.configfile.ModuleSrcConfigFile;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
 import org.slf4j.Logger;

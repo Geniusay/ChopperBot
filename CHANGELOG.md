@@ -18,7 +18,14 @@
     ------
 
 ```
+------
+# 目录
+* [V 1.0.3]()
+* [V 1.0.2]()
+* [V 1.0.1]()
+* [V 1.0.0]()
 
+------
 ## [V 1.0.3] - 2023.4.25
 ### CreeperModule
 - 🎈新增: 新增 `LoadTaskManager` 任务管理器(类),对用户开放的顶层api,用户需要的所有操作都通过此管理器
@@ -31,13 +38,23 @@
 - 🎈新增: 新增 `LoadTask_R_Douyu` 斗鱼录播下载任务(类)
 - 🎈新增: 新增 `Process_R_Douyu` 斗鱼录播处理器(类)
 - 🎈新增: 新增 `AbstractProcessor` 处理器抽象类(类)
+- 🎈新增: 新增 `ConstPool` BARRAGE_ROOT常量
+- 🎈新增: 新增 `BarrageSaveFile` 弹幕存储文件，负责存储当天直播弹幕
+- 🧹重构: 重构 `PipelineWriteJson` 弹幕缓存 与 弹幕文件缓存建立联系
+  HelloWorld:
+  <img src=https://twj666.oss-cn-hangzhou.aliyuncs.com/img1/QQ%E6%88%AA%E5%9B%BE20230425201236.png style="zoom:40%;">
 
 ### FileModule
-- ❌移除: 新增 `FileCache的oldJsonFile变量`,不在用map来进行版本更替判断，取而代之的是判断写入字节是否为0的高效率方法
-- 🎈新增: 新增 `FileCache` 方法 `get,writekeys,append` 更加方便的缓存获取，更加方便的写入与内容追加
 - 🧪测试: 测试 `FileCache` 方法 `get,writekeys,append`,功能正常，可以使用
-HelloWorld:
-![QQ截图20230425201236](https://twj666.oss-cn-hangzhou.aliyuncs.com/img1/QQ%E6%88%AA%E5%9B%BE20230425201236.png)
+- ❌移除: 移除 `FileCache-oldJsonFile变量`,不在用map来进行版本更替判断，取而代之的是判断写入字节是否为0的高效率方法
+- 🎈新增: 新增 `FileCache` 方法 `get,writekeys,append` 更加方便的缓存获取，更加方便的写入与内容追加
+- 🎈新增: 新增 `FileCacheManagerInstance` 将整个FileCacheManager转变为全局单例，防止重复使用调用
+- 🎈新增: 新增 `GlobalFileCache` 全局文件缓存，也负责为`FileCacheManagerInstance`提供初始化的文件缓存队列
+- 🎈新增: 新增 `FileCacheManager` 新增方法 `addFileCache` 负责在之后动态的添加新的文件缓存
+- 🐞Bug: **#00001** `FileCache append()` 在进行数组追加时产生溢出
+- ⛏修复: 修复 **#00001**, 在进行数组追加时不会再溢出
+
+
 
 ------
 

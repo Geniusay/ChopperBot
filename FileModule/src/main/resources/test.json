@@ -1,10 +1,65 @@
 {
-  "name": "ChopperBot",
-  "description": "A bot for the ChopperMC server",
-  "version": "1.0.0",
-  "module": {
-    "type": ["Account","Creeper","File","Hot","Publish","Section","SectionWork","VideoSection"],
-    "main": "console",
-    "ui": "console-ui"
-  }
+	"data":[
+		{
+			"age":0,
+			"major":"major0",
+			"name":"0",
+			"school":"jsu0"
+		},
+		{
+			"age":1,
+			"major":"major1",
+			"name":"1",
+			"school":"jsu1"
+		},
+		{
+			"age":2,
+			"major":"major2",
+			"name":"2",
+			"school":"jsu2"
+		},
+		{
+			"age":3,
+			"major":"major3",
+			"name":"3",
+			"school":"jsu3"
+		},
+		{
+			"age":4,
+			"major":"major4",
+			"name":"4",
+			"school":"jsu4"
+		},
+		{
+			"age":5,
+			"major":"major5",
+			"name":"5",
+			"school":"jsu5"
+		},
+		{
+			"age":6,
+			"major":"major6",
+			"name":"6",
+			"school":"jsu6"
+		},
+		{
+			"age":7,
+			"major":"major7",
+			"name":"7",
+			"school":"jsu7"
+		},
+		{
+			"age":8,
+			"major":"major8",
+			"name":"8",
+			"school":"jsu8"
+		},
+		{
+			"age":9,
+			"major":"major9",
+			"name":"9",
+			"school":"jsu9"
+		}
+	],
+	"updateTime":"2023-04-26 00:24:47"
 }

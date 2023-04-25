@@ -31,7 +31,7 @@ public class FileCache <T extends ConfigFile>{
 
     private ConcurrentHashMap<String,Object> jsonFile;          //文件内容缓存
 
-    private static final int MAX_WRITE_BUFFER_LIMIT = 4096;    //最大写入缓存上线
+    private static int MAX_WRITE_BUFFER_LIMIT = 4096;    //最大写入缓存上线
 
     private AtomicInteger writeByte;        //当前写入的字节数
 
@@ -46,7 +46,15 @@ public class FileCache <T extends ConfigFile>{
         init(configFile,10);
     }
 
-    public FileCache(T configFile,long autoSyncTime)throws FileCacheException {
+    /**
+     * 构造方法
+     * @param configFile        指定的配置文件
+     * @param autoSyncTime      自动刷新时间
+     * @param maxWriteBufferLimit   写入上限
+     * @throws FileCacheException
+     */
+    public FileCache(T configFile,long autoSyncTime,int maxWriteBufferLimit)throws FileCacheException {
+        MAX_WRITE_BUFFER_LIMIT = maxWriteBufferLimit;
         init(configFile,autoSyncTime);
     }
 
@@ -143,7 +151,7 @@ public class FileCache <T extends ConfigFile>{
                 //元素添加
                 int index = Integer.parseInt(keys[keys.length-1]);
                 if(index==-1){
-                    ((JSONArray) temp).add(index,value);
+                    ((JSONArray) temp).add(value);
                 }else{
                     String oldValue = ((JSONArray) temp).get(index).toString();
                     value = isAppend?oldValue+value.toString():value;
@@ -210,7 +218,6 @@ public class FileCache <T extends ConfigFile>{
     public Object get(String key){
         return jsonFile.get(key);
     }
-
 
     /**
      * 清除已写入的字节数记录
@@ -285,4 +292,20 @@ public class FileCache <T extends ConfigFile>{
         }
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(configFile);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof FileCache){
+            if(((FileCache) obj).getFileName().equals(this.getFileName())){
+                return true;
+            }else if(obj.hashCode() == this.hashCode()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,14 +28,16 @@ public class FileCacheManager {
     private Logger logger = LoggerFactory.getLogger(FileCacheManager.class);
     private final List<FileCache> fileCaches;
 
-    private long sleepTime; //睡眠时间
+    private AtomicLong sleepTime; //睡眠时间
 
     private ExecutorService watchPool;  //巡逻线程
 
     private ExecutorService autoSyncer; //生产者线程
 
-    public FileCacheManager(List<FileCache> fileCaches){
-        this.fileCaches = fileCaches;
+    private volatile Watcher watcher;
+
+    protected FileCacheManager(List<FileCache> fileCaches){
+        this.fileCaches = new CopyOnWriteArrayList<>(fileCaches);
         initSleepTime();
         this.watchPool = Executors.newSingleThreadExecutor();
         this.autoSyncer = Executors.newFixedThreadPool(fileCaches.size());
@@ -48,11 +51,28 @@ public class FileCacheManager {
         fileCaches.forEach(item->{
             minSleepTime.set(Long.min(minSleepTime.get(), item.getSyncTime()));
         });
-        this.sleepTime = minSleepTime.get();
+        this.sleepTime = minSleepTime;
     }
 
     public void start(){
-        this.watchPool.submit(new Watcher());
+        if(!fileCaches.isEmpty()){
+            if(watcher==null){
+                synchronized (FileCacheManager.class){
+                    if(watcher==null){
+                        watcher = new Watcher();
+                        this.watchPool.submit(watcher);
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean addFileCache(FileCache fileCache){
+        if (this.fileCaches.indexOf(fileCache)==-1) {
+            fileCaches.add(fileCache);
+            initSleepTime();
+        }
+        return false;
     }
 
     class Watcher implements Runnable{
@@ -71,9 +91,9 @@ public class FileCacheManager {
                     }
                 }
                 now -= TimeUtil.getCurrentSecond();
-                if(now<sleepTime){
+                if(now<sleepTime.get()){
                     try {
-                        Thread.sleep((sleepTime-now)*1000);
+                        Thread.sleep((sleepTime.get()-now)*1000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

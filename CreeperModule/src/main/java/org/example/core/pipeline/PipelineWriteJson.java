@@ -1,6 +1,10 @@
 package org.example.core.pipeline;
 
+import org.example.cache.FileCache;
+import org.example.cache.FileCacheManagerInstance;
+import org.example.exception.FileCacheException;
 import org.example.pojo.Barrage;
+import org.example.pojo.configfile.BarrageSaveFile;
 import org.example.pojo.download.LoadConfig;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
@@ -19,45 +23,47 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 */
 public class PipelineWriteJson implements Pipeline {
 
-    // Barrage缓存
-    private final ConcurrentLinkedQueue<Barrage> cache;
+        private FileCache filecache;
+        private final ConcurrentLinkedQueue<Barrage> cache;
+        LoadConfig loadConfig;
 
-    LoadConfig loadConfig;
+        private BarrageSaveFile barrageSaveFile;
 
-    public PipelineWriteJson(LoadConfig loadConfig) {
-        this.loadConfig = loadConfig;
-        this.cache = new ConcurrentLinkedQueue<>();
-    }
-
-    @Override
-    public void process(ResultItems resultItems, Task task) {
-        List<Barrage> barrageList = resultItems.get("barrageList");
-        if (barrageList != null) {
-            cache.addAll(barrageList);
+        public PipelineWriteJson(LoadConfig loadConfig) throws FileCacheException {
+            this.loadConfig = loadConfig;
+            this.cache = new ConcurrentLinkedQueue<>();
+            this.barrageSaveFile = new BarrageSaveFile(loadConfig,cache);
+            this.filecache = new FileCache(barrageSaveFile);
+            FileCacheManagerInstance.getInstance().addFileCache(filecache);
         }
-    }
 
-    public int getCacheSize() {
-        return cache.size();
-    }
+        @Override
+        public void process(ResultItems resultItems, Task task) {
+            List<Barrage> barrageList = resultItems.get("barrageList");
+            if (barrageList != null) {
+                cache.addAll(barrageList);
+            }
+        }
 
-    // 将缓存写入到别处并且清空缓存
-    public int writeDataToFileAndFlushCache(String key) {
-        int successCount = 0;
+        public int getCacheSize() {
+            return cache.size();
+        }
 
-        String filePath = "F:\\" + key + ".txt";
+        // 将缓存写入到别处并且清空缓存
+        public int writeDataToFileAndFlushCache(String key) {
+            int successCount = 0;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             Barrage barrage;
             while ((barrage = cache.poll()) != null) {
-                writer.write(barrage.toString());
-                writer.newLine();
+                try {
+                    filecache.append(barrage,"-1");
+                } catch (InterruptedException |FileCacheException  e) {
+                    throw new RuntimeException(e);
+                }
                 successCount++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            return successCount;
         }
-        return successCount;
-    }
 
 }
