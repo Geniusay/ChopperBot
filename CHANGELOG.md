@@ -32,10 +32,11 @@
 - 🎈新增: 新增 `FileType`枚举类 用于`ConfigFile`的配置文件分类
 - 🎈新增: 新增 `ConfigVO`Config文件的前端渲染类
 - 🎈新增: 新增 `FileService,FileServiceImpl` 文件服务接口,目前拥有获取文件模块与获取配置文件
+- 🎈新增: 新增 `FileCacheManagerInit` 用于启动初始化FileCacheManager
 
 ### console
 - 🎈新增: 新增 `FileController` 文件接口
-
+- 🎈新增: `InitMachines`中新增了`FileCacheManagerInit`
 ### console-ui
 - 🎈新增: 新增文件管理页面
 
