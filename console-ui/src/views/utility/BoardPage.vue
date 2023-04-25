@@ -155,7 +155,7 @@ const list2 = ref([
 const dragOptions = computed(() => {
   return {
     animation: 200,
-    group: "task",
+    group: "loadTask",
     disabled: false,
     ghostClass: "ghost",
   };

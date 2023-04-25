@@ -18,6 +18,23 @@
     ------
 
 ```
+
+## [V 1.0.3] - 2023.4.25
+### CreeperModule
+- 🎈新增: 新增 `LoadTaskManager` 任务管理器(类),对用户开放的顶层api,用户需要的所有操作都通过此管理器
+- 🎈新增: 新增 `TaskFactory` 任务工厂(类),通过LoadConfig来创建一个弹幕爬取任务
+- 🎈新增: 新增 `ProcessorFactory` 处理器工厂(类),通过LoadConfig来创建一个针对与直播平台和种类的处理器
+- 🎈新增: 新增 `PipelineWriteJson` 数据处理(类),对处理器传过来的数据进行善后
+- 🎈新增: 新增 `Barrage` 弹幕基类(类),所有直播平台的通用弹幕格式
+- 🎈新增: 新增 `LoadConfig` 任务配置(类),保存一个任务的基本信息
+- 🎈新增: 新增 `PachongConfig` 配置文件读取工具类(类),读取配置信息
+- 🎈新增: 新增 `LoadTask_R_Douyu` 斗鱼录播下载任务(类)
+- 🎈新增: 新增 `Process_R_Douyu` 斗鱼录播处理器(类)
+- 🎈新增: 新增 `AbstractProcessor` 处理器抽象类(类)
+
+HelloWorld:
+![QQ截图20230425201236](https://twj666.oss-cn-hangzhou.aliyuncs.com/img1/QQ%E6%88%AA%E5%9B%BE20230425201236.png)
+
 ------
 
 ## [V 1.0.2] - 2023.4.24

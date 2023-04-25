@@ -54,7 +54,7 @@ import TaskCard from "@/components/dashboard/ChartCard.vue";
       <v-col cols="12" xl="6">
         <!-- Task Card-->
         <v-card class="card-shadow" height="420">
-          <task-card></task-card>
+          <loadTask-card></loadTask-card>
         </v-card>
       </v-col>
     </v-row>

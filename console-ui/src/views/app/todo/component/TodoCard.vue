@@ -1,32 +1,32 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import { Todo } from "../todoTypes";
 import { useTodoStore } from "../todoStore";
 const todoStore = useTodoStore();
 const dialog = ref(false);
-const task = ref<Todo>({
+const loadTask = ref<Todo>({
   id: "",
   title: "",
   detail: "",
   tags: [],
   completed: false,
 });
-const isEdit = computed(() => task.value && !!task.value.id);
+const isEdit = computed(() => loadTask.value && !!loadTask.value.id);
 
 const close = () => {
   dialog.value = false;
 };
 
 const save = () => {
-  if (task.value) {
+  if (loadTask.value) {
     if (isEdit.value) {
-      todoStore.updateTodo(task.value);
+      todoStore.updateTodo(loadTask.value);
     } else {
-      todoStore.addNewTodo(task.value);
+      todoStore.addNewTodo(loadTask.value);
     }
   }
   close();
@@ -46,10 +46,10 @@ const save = () => {
 
       <v-divider></v-divider>
 
-      <!-- task form -->
+      <!-- loadTask form -->
       <div>
         <v-text-field
-          v-model="task.title"
+          v-model="loadTask.title"
           class="px-2 py-1"
           solo
           flat
@@ -62,7 +62,7 @@ const save = () => {
         <v-divider></v-divider>
 
         <v-textarea
-          v-model="task.detail"
+          v-model="loadTask.detail"
           class="px-2 py-1"
           variant="solo"
           placeholder="Description"
@@ -70,7 +70,7 @@ const save = () => {
         ></v-textarea>
 
         <v-select
-          v-model="task.tags"
+          v-model="loadTask.tags"
           class="px-2 my-3"
           :items="todoStore.labels"
           placeholder="Labels"
