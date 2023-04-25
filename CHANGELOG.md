@@ -32,6 +32,10 @@
 - 🎈新增: 新增 `Process_R_Douyu` 斗鱼录播处理器(类)
 - 🎈新增: 新增 `AbstractProcessor` 处理器抽象类(类)
 
+### FileModule
+- ❌移除: 新增 `FileCache的oldJsonFile变量`,不在用map来进行版本更替判断，取而代之的是判断写入字节是否为0的高效率方法
+- 🎈新增: 新增 `FileCache` 方法 `get,writekeys,append` 更加方便的缓存获取，更加方便的写入与内容追加
+- 🧪测试: 测试 `FileCache` 方法 `get,writekeys,append`,功能正常，可以使用
 HelloWorld:
 ![QQ截图20230425201236](https://twj666.oss-cn-hangzhou.aliyuncs.com/img1/QQ%E6%88%AA%E5%9B%BE20230425201236.png)
 

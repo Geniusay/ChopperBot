@@ -31,7 +31,6 @@ public class FileCache <T extends ConfigFile>{
 
     private ConcurrentHashMap<String,Object> jsonFile;          //文件内容缓存
 
-    private ConcurrentHashMap<String,Object> oldJsonFileTemp;   //保存上一个版本的文件内容，用于优化自动刷入
     private static final int MAX_WRITE_BUFFER_LIMIT = 4096;    //最大写入缓存上线
 
     private AtomicInteger writeByte;        //当前写入的字节数
@@ -86,7 +85,6 @@ public class FileCache <T extends ConfigFile>{
         }
 
         this.jsonFile = new ConcurrentHashMap<>(stringObjectMap);
-        this.oldJsonFileTemp = new ConcurrentHashMap<>(stringObjectMap);
         return true;
     }
 
@@ -106,11 +104,19 @@ public class FileCache <T extends ConfigFile>{
      * @throws InterruptedException
      */
     public int writeKeys(Object data,String...keys) throws InterruptedException, FileCacheException {
+       return writeKeys(false,data,keys);
+    }
+
+    private int writeKeys(boolean isAppend,Object data,String...keys) throws FileCacheException, InterruptedException {
+
+        if(Objects.isNull(data)){return 0;}
+
         String jsonDataStr = JSON.toJSONString(data);
         int writeBytes = jsonDataStr.getBytes().length;
+        if(writeBytes==0){return 0;}
 
-        JSONObject jsonData = writeInData(data,keys);
-        jsonFile.put("data",jsonData);
+        Object jsonData = writeInData(isAppend,data,keys);
+        if(Objects.isNull(jsonData)){return 0;}
 
         ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(jsonFile);
         int newBytes = writeByte.updateAndGet(x -> x + writeBytes >= MAX_WRITE_BUFFER_LIMIT ? 0 : x + writeBytes);
@@ -128,18 +134,36 @@ public class FileCache <T extends ConfigFile>{
        return this.writeKeys(data,key);
     }
 
-
-    private JSONObject writeInData(Object value,String...keys) throws FileCacheException {
+    private Object writeInData(boolean isAppend,Object value,String...keys) throws FileCacheException {
         String[] finds = Arrays.copyOf(keys, keys.length - 1);
-        JSONObject data = JSONObject.parseObject(this.get("data").toString());
-        Object data1 = this.jsonFile.get("data");
+        Object data = this.get("data");
         Object temp = this.get(finds);
-        String tempStr = temp.toString();
-        if(tempStr.startsWith("[")&&tempStr.endsWith("]")){
-            (JSONArray.parseArray(tempStr)).add(Integer.parseInt(keys[keys.length-1]),value);
+        if(temp instanceof JSONArray){
+            try{
+                //元素添加
+                int index = Integer.parseInt(keys[keys.length-1]);
+                if(index==-1){
+                    ((JSONArray) temp).add(index,value);
+                }else{
+                    String oldValue = ((JSONArray) temp).get(index).toString();
+                    value = isAppend?oldValue+value.toString():value;
+                    if(oldValue.equals(value)){
+                        return null;
+                    }
+                    ((JSONArray) temp).add(index,value);
+                }
+            }catch (Exception e){
+                return null;
+            }
         }
         else if(temp instanceof JSONObject){
-            ((JSONObject) temp).put(keys[keys.length-1],value);
+            String key = keys[keys.length-1];
+            String oldValue = ((JSONObject) temp).get(key).toString();
+            value = isAppend?oldValue+value:value;
+            if(oldValue.equals(value)){
+                return null;
+            }
+            ((JSONObject) temp).put(key,value);
         }
         else{
             throw new FileCacheException("the keys is error!");
@@ -148,17 +172,14 @@ public class FileCache <T extends ConfigFile>{
     }
 
     /**
-     * 追加内容
+     * 追加内容，支持数组添加内容，添加内容，需要将最后一个key置为-1
      * @param keys  要查找的key
      * @param append 追加内容
      * @return
      * @throws InterruptedException
      */
     public int append(Object append,String...keys) throws InterruptedException, FileCacheException {
-        Object data = get(keys);
-        StringBuffer buffer = new StringBuffer(JSON.toJSONString(data));
-        String jsonStr = buffer.append(JSON.toJSONString(append)).toString();
-        return writeKeys(jsonStr,keys);
+        return writeKeys(true,append,keys);
     }
 
     /**
@@ -167,14 +188,13 @@ public class FileCache <T extends ConfigFile>{
      * @return
      */
     public Object get(String...keys){
-        Object jsonObject = JSONObject.parse(this.get("data").toString());
+        Object jsonObject = this.get("data");
         for (String key : keys) {
-            String jsonStr = jsonObject.toString();
-            if(jsonStr.startsWith("{")&&jsonStr.endsWith("}")){
+            if(jsonObject instanceof JSONObject){
                 jsonObject = ((JSONObject) jsonObject).get(key);
             }
-            else if(jsonStr.startsWith("[")&&jsonStr.endsWith("]")){
-                jsonObject = (JSONArray.parseArray(jsonObject.toString())).get(Integer.parseInt(key));
+            else if(jsonObject instanceof JSONArray){
+                jsonObject = ((JSONArray) jsonObject).get(Integer.parseInt(key));
             }else{
                 return jsonObject;
             }
@@ -205,13 +225,17 @@ public class FileCache <T extends ConfigFile>{
      */
     public boolean needAutoSync(){
         long now = TimeUtil.getCurrentSecond();
-        return now- TimeUtil.getSecond(configFile.getUpdateTime())>autoSyncTime;
+        return now - TimeUtil.getSecond(configFile.getUpdateTime())>autoSyncTime;
     }
 
     /**
      * 强制刷入磁盘
      */
     public void forceSync(){
+        if(writeByte.get()==0){
+            logger.debug("未发生版本变化");
+            return;
+        }
         clearWriteBytes();
         ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(jsonFile);
         try {
@@ -228,13 +252,7 @@ public class FileCache <T extends ConfigFile>{
     private boolean sync(ConcurrentHashMap<String,Object> take){
         configFile.updateConfigTime(); //刷新配置文件刷入时间
         String dir = getFileName();
-        if(oldJsonFileTemp.get("data").toString().equals(take.get("data").toString())){
-            logger.debug("未发生版本变化");
-            return true;
-        }
-
         configFile.onlyUpdateTime(take);
-        oldJsonFileTemp = new ConcurrentHashMap<>(take);
         File file = JsonFileUtil.writeJsonFile(dir, take);
         logger.debug("正在写入{}新版本",dir);
         return Objects.isNull(file);
