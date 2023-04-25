@@ -1,6 +1,7 @@
 package org.example.cache;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.common.ConfigFile;
 import org.example.exception.FileCacheException;
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.*;
@@ -95,12 +98,18 @@ public class FileCache <T extends ConfigFile>{
         return load(Paths.get(this.configFile.getFilePath(),this.configFile.getFileName()).toString());
     }
 
-    //写入
-    public int write(String key,Object data) throws InterruptedException {
+    /**
+     * 递进寻找JsonObject中的对象，并改写
+     * @param data
+     * @param keys
+     * @return
+     * @throws InterruptedException
+     */
+    public int writeKeys(Object data,String...keys) throws InterruptedException, FileCacheException {
         String jsonDataStr = JSON.toJSONString(data);
-        int writeBytes = key.getBytes().length + jsonDataStr.getBytes().length;
+        int writeBytes = jsonDataStr.getBytes().length;
 
-        JSONObject jsonData = writeInData(key, data);
+        JSONObject jsonData = writeInData(data,keys);
         jsonFile.put("data",jsonData);
 
         ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(jsonFile);
@@ -114,24 +123,63 @@ public class FileCache <T extends ConfigFile>{
         return writeBytes;
     }
 
+    //写入
+    public int write(Object data,String key) throws InterruptedException, FileCacheException {
+       return this.writeKeys(data,key);
+    }
+
+
+    private JSONObject writeInData(Object value,String...keys) throws FileCacheException {
+        String[] finds = Arrays.copyOf(keys, keys.length - 1);
+        JSONObject data = JSONObject.parseObject(this.get("data").toString());
+        Object data1 = this.jsonFile.get("data");
+        Object temp = this.get(finds);
+        String tempStr = temp.toString();
+        if(tempStr.startsWith("[")&&tempStr.endsWith("]")){
+            (JSONArray.parseArray(tempStr)).add(Integer.parseInt(keys[keys.length-1]),value);
+        }
+        else if(temp instanceof JSONObject){
+            ((JSONObject) temp).put(keys[keys.length-1],value);
+        }
+        else{
+            throw new FileCacheException("the keys is error!");
+        }
+        return data;
+    }
+
     /**
      * 追加内容
-     * @param key   key
+     * @param keys  要查找的key
      * @param append 追加内容
      * @return
      * @throws InterruptedException
      */
-    public int append(String key,Object append) throws InterruptedException {
-        Object data = getData(key);
+    public int append(Object append,String...keys) throws InterruptedException, FileCacheException {
+        Object data = get(keys);
         StringBuffer buffer = new StringBuffer(JSON.toJSONString(data));
         String jsonStr = buffer.append(JSON.toJSONString(append)).toString();
-        return write(key, jsonStr);
+        return writeKeys(jsonStr,keys);
     }
 
-    private JSONObject writeInData(String key,Object value){
-        JSONObject data = JSONObject.parseObject(jsonFile.get("data").toString()); //此处必须返回一个新的JsonObject，否则会导致旧版本同步更新
-        data.put(key,value);
-        return data;
+    /**
+     * 根据key数组，不断向下获取内容
+     * @param keys
+     * @return
+     */
+    public Object get(String...keys){
+        Object jsonObject = JSONObject.parse(this.get("data").toString());
+        for (String key : keys) {
+            String jsonStr = jsonObject.toString();
+            if(jsonStr.startsWith("{")&&jsonStr.endsWith("}")){
+                jsonObject = ((JSONObject) jsonObject).get(key);
+            }
+            else if(jsonStr.startsWith("[")&&jsonStr.endsWith("]")){
+                jsonObject = (JSONArray.parseArray(jsonObject.toString())).get(Integer.parseInt(key));
+            }else{
+                return jsonObject;
+            }
+        }
+        return jsonObject;
     }
 
     /**
@@ -143,16 +191,6 @@ public class FileCache <T extends ConfigFile>{
         return jsonFile.get(key);
     }
 
-    /**
-     * 获取文件数据内容
-     * @param key
-     * @return
-     */
-    public Object getData(String key){
-        Object data = this.get("data");
-        JSONObject jsonObject = JSONObject.parseObject(data.toString());
-        return jsonObject.get(key);
-    }
 
     /**
      * 清除已写入的字节数记录
@@ -184,7 +222,7 @@ public class FileCache <T extends ConfigFile>{
     }
 
     /**
-     * 超过缓冲区刷入
+     * 缓冲区刷入
      * @return
      */
     private boolean sync(ConcurrentHashMap<String,Object> take){
