@@ -18,6 +18,8 @@
   </properties>
 
   <dependencies>
+
+
     <dependency>
       <groupId>org.example</groupId>
       <artifactId>common</artifactId>

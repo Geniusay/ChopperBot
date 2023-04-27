@@ -1,5 +1,7 @@
 package org.example.constpool;
 
+import java.util.List;
+
 /**
  * @author Genius
  * @date 2023/04/21 03:03
@@ -16,4 +18,6 @@ public class ConstPool {
     public static final String HOT = "hot";
     public static final String PUBLISH = "publish";
 
+    /**图片格式**/
+    public static final List<String> PIC_TYPES = List.of("jpg","jpeg","png","svg");
 }
