@@ -3,6 +3,7 @@ package org.example.coreTest;
 import org.example.core.control.LoadTask;
 import org.example.core.factory.TaskFactory;
 import org.example.core.manager.LoadTaskManager;
+import org.example.exception.FileCacheException;
 import org.example.pojo.download.assign.LoadConfig_R_Douyu;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ import org.junit.jupiter.api.Test;
 public class CoreTest {
 
     @Test
-    public void HelloWorld() throws InterruptedException {
+    public void HelloWorld() throws InterruptedException, FileCacheException {
         // 创建一个任务管理器
         LoadTaskManager manager = new LoadTaskManager();
         // 创建一个斗鱼录播的配置类
@@ -50,7 +51,7 @@ public class CoreTest {
     }
 
     @Test
-    public void testTask() throws InterruptedException {
+    public void testTask() throws InterruptedException, FileCacheException {
         LoadConfig_R_Douyu dsm = new LoadConfig_R_Douyu("大司马", "Kp1QM8gb4ow7k4bj");
         TaskFactory taskFactory = new TaskFactory();
         LoadTask loadTask = taskFactory.getLoadTask(dsm);
@@ -73,7 +74,7 @@ public class CoreTest {
     }
 
     @Test
-    public void testTaskManage() throws InterruptedException {
+    public void testTaskManage() throws InterruptedException, FileCacheException {
         LoadConfig_R_Douyu dsm = new LoadConfig_R_Douyu("大司马", "Kp1QM8gb4ow7k4bj");
         LoadConfig_R_Douyu swk = new LoadConfig_R_Douyu("孙悟空", "X3JzMaObqDYvPQro");
         LoadTaskManager manager = new LoadTaskManager();

@@ -2,6 +2,7 @@ package org.example.core.manager;
 
 import org.example.core.control.LoadTask;
 import org.example.core.factory.TaskFactory;
+import org.example.exception.FileCacheException;
 import org.example.pojo.download.LoadConfig;
 
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class LoadTaskManager {
     }
 
     // 创建一个任务并返回唯一的 key
-    public String addTask(LoadConfig loadConfig) {
+    public String addTask(LoadConfig loadConfig) throws FileCacheException {
         // 根据主播名和时间戳生成唯一的 key
         String key = generateKey(loadConfig);
 

@@ -5,6 +5,7 @@ import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
 import org.example.core.processor.Process_L_Bilibili;
+import org.example.exception.FileCacheException;
 import org.example.pojo.download.LoadConfig;
 import org.example.utils.PachongConfig;
 import us.codecraft.webmagic.Request;
@@ -25,7 +26,7 @@ public class LoadTask_L_Bilibili implements LoadTask {
 
     private final PipelineWriteJson pipelineWriteJson;
 
-    public LoadTask_L_Bilibili(LoadConfig loadConfig) {
+    public LoadTask_L_Bilibili(LoadConfig loadConfig) throws FileCacheException {
         process_l_bilibili = (Process_L_Bilibili) new ProcessorFactory().getProcessor(loadConfig);
         pipelineWriteJson = new PipelineWriteJson(loadConfig);
     }

@@ -3,6 +3,7 @@ package org.example.core.factory;
 import org.example.core.control.LoadTask;
 import org.example.core.control.impl.LoadTask_L_Bilibili;
 import org.example.core.control.impl.LoadTask_R_Douyu;
+import org.example.exception.FileCacheException;
 import org.example.pojo.download.LoadConfig;
 import org.example.pojo.download.assign.LoadConfig_L_Bilibili;
 import org.example.pojo.download.assign.LoadConfig_R_Douyu;
@@ -19,7 +20,7 @@ public class TaskFactory {
      * @param loadConfig
      * @return LoadTask
      */
-    public LoadTask getLoadTask(LoadConfig loadConfig) {
+    public LoadTask getLoadTask(LoadConfig loadConfig) throws FileCacheException {
 
         if (loadConfig == null) {
             return null;

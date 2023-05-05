@@ -5,6 +5,7 @@ import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
 import org.example.core.processor.Process_R_Douyu;
+import org.example.exception.FileCacheException;
 import org.example.pojo.download.LoadConfig;
 import org.example.utils.PachongConfig;
 import us.codecraft.webmagic.Request;
@@ -25,7 +26,7 @@ public class LoadTask_R_Douyu implements LoadTask {
 
     private final PipelineWriteJson pipelineWriteJson;
 
-    public LoadTask_R_Douyu(LoadConfig loadConfig) {
+    public LoadTask_R_Douyu(LoadConfig loadConfig) throws FileCacheException {
         process_r_douyu = (Process_R_Douyu) new ProcessorFactory().getProcessor(loadConfig);
         pipelineWriteJson = new PipelineWriteJson(loadConfig);
     }

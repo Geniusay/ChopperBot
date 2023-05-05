@@ -43,7 +43,7 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigF
 
 
     public ModuleSrcConfigFile() {
-        super("E:\\Project\\ChopperBot\\config\\"
+        super("./config/"
                 , "moduleConfig.json"
                 , config, FileType.CHOPPER_BOT);
     }

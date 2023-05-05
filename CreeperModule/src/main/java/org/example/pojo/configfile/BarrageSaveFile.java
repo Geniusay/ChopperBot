@@ -48,7 +48,7 @@ public class BarrageSaveFile extends ConfigFile<ConcurrentLinkedQueue<Barrage>> 
 
         //TODO 待移除 建立主播文件夹
         try {
-            Files.createFile(Path.of(rootPath));
+            Files.createDirectory(Path.of(rootPath));
         } catch (IOException e) {
             return false;
         }

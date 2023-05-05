@@ -20,6 +20,11 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>CreeperModule</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>FileModule</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
