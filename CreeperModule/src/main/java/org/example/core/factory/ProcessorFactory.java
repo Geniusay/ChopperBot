@@ -10,6 +10,7 @@ import org.example.utils.PachongConfig;
 
 /**
  * 处理器工厂
+ *
  * @author 燧枫
  * @date 2023/4/23 21:28
  */
@@ -18,10 +19,12 @@ public class ProcessorFactory {
     private final String bi_userAgent = PachongConfig.getProperty("dy.userAgent");
     private final int bi_retryTimes = PachongConfig.getIntProperty("dy.retryTimes");
     private final int bi_retrySleepTime = PachongConfig.getIntProperty("dy.retrySleepTime");
+    private final int bi_sleepTime = PachongConfig.getIntProperty("dy.sleepTime");
 
     private final String dy_userAgent = PachongConfig.getProperty("bi.userAgent");
     private final int dy_retryTimes = PachongConfig.getIntProperty("bi.retryTimes");
     private final int dy_retrySleepTime = PachongConfig.getIntProperty("bi.retrySleepTime");
+    private final int dy_sleepTime = PachongConfig.getIntProperty("bi.sleepTime");
 
     /**
      * 通过配置信息来获取一个处理器
@@ -38,12 +41,12 @@ public class ProcessorFactory {
         // 斗鱼录播
         if (loadConfig instanceof LoadConfig_R_Douyu) {
             return new Process_R_Douyu((LoadConfig_R_Douyu) loadConfig, dy_retryTimes,
-                    dy_retrySleepTime, dy_userAgent);
+                    dy_retrySleepTime, dy_userAgent, dy_sleepTime);
         }
         // B站直播
         else if (loadConfig instanceof LoadConfig_L_Bilibili) {
             return new Process_L_Bilibili((LoadConfig_L_Bilibili) loadConfig, bi_retryTimes,
-                    bi_retrySleepTime,bi_userAgent);
+                    bi_retrySleepTime, bi_userAgent, bi_sleepTime);
         }
 
         return null;

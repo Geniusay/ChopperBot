@@ -24,7 +24,7 @@ public class CoreTest {
         // 开启此次下载任务
         manager.startTask(dsmTask);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
             System.out.println(dsmTask + "(运行状态):" + manager.isTaskRunning(dsmTask));
             System.out.println(dsmTask + "(缓存中弹幕条数):" + manager.getCacheSize(dsmTask));
@@ -32,7 +32,7 @@ public class CoreTest {
         // 刷入数据到其他地方去
         System.out.println(dsmTask + "(刷入数据):" + manager.flushTaskCacheAndSave(dsmTask));
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             Thread.sleep(1000);
             System.out.println(dsmTask + "(运行状态):" + manager.isTaskRunning(dsmTask));
             System.out.println(dsmTask + "(缓存中弹幕条数):" + manager.getCacheSize(dsmTask));

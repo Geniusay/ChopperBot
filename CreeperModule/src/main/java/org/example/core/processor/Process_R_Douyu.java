@@ -22,13 +22,11 @@ public class Process_R_Douyu extends AbstractProcessor {
 
     LoadConfig_R_Douyu loadConfig;
 
-    private final HttpClient client = HttpClient.newHttpClient();
-
     // 前缀url
     private String urlPrefix = "https://v.douyu.com/wgapi/vod/center/getBarrageListByPage?vid=";
 
-    public Process_R_Douyu(LoadConfig_R_Douyu loadConfig, int retryTimes, int retrySleepTime, String userAgent) {
-        super(retryTimes, retrySleepTime, userAgent);
+    public Process_R_Douyu(LoadConfig_R_Douyu loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
+        super(retryTimes, retrySleepTime, userAgent, sleepTime);
         this.loadConfig = loadConfig;
     }
 

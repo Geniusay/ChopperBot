@@ -12,8 +12,8 @@ public class Process_L_Bilibili extends AbstractProcessor {
 
     LoadConfig_L_Bilibili loadConfig;
 
-    public Process_L_Bilibili(LoadConfig_L_Bilibili loadConfig, int retryTimes, int retrySleepTime, String userAgent) {
-        super(retryTimes, retrySleepTime, userAgent);
+    public Process_L_Bilibili(LoadConfig_L_Bilibili loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
+        super(retryTimes, retrySleepTime, userAgent, sleepTime);
         this.loadConfig = loadConfig;
     }
 

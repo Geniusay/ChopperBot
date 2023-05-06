@@ -27,11 +27,11 @@ public abstract class AbstractProcessor implements PageProcessor {
 
     protected final Site site;
 
-    public AbstractProcessor(int retryTimes, int retrySleepTime, String userAgent) {
+    public AbstractProcessor(int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
         this.retryTimes = retryTimes;
         this.retrySleepTime = retrySleepTime;
         this.userAgent = userAgent;
-        this.site = Site.me().setUserAgent(userAgent);
+        this.site = Site.me().setUserAgent(userAgent).setSleepTime(sleepTime);
     }
 
     @Override
