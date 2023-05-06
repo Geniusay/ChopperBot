@@ -45,10 +45,13 @@ public class BarrageSaveFile extends ConfigFile<ConcurrentLinkedQueue<Barrage>> 
         setFileName(fileName);
         String rootPath = Paths.get(BARRAGE_ROOT, loadConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
         setFilePath(rootPath);
-
+        Path path = Path.of(rootPath);
         //TODO 待移除 建立主播文件夹
         try {
-            Files.createDirectory(Path.of(rootPath));
+            if(!Files.exists(path)){
+                Files.createDirectory(path);
+            }
+
         } catch (IOException e) {
             return false;
         }

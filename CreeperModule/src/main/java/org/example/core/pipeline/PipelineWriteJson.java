@@ -32,8 +32,7 @@ public class PipelineWriteJson implements Pipeline {
             this.loadConfig = loadConfig;
             this.cache = new ConcurrentLinkedQueue<>();
             this.barrageSaveFile = new BarrageSaveFile(loadConfig, cache);
-            this.filecache = new FileCache(barrageSaveFile);
-            FileCacheManagerInstance.getInstance().addFileCache(filecache);
+            this.filecache = new FileCache(barrageSaveFile,0,10*1024);
         } catch (FileCacheException e) {
             throw new RuntimeException(e);
         }
@@ -57,7 +56,9 @@ public class PipelineWriteJson implements Pipeline {
 
         Barrage barrage;
         while ((barrage = cache.poll()) != null) {
-            System.out.print("写入：" + successCount);
+            if(successCount%1000==0){
+                System.out.print("写入：" + successCount);
+            }
             try {
                 filecache.append(barrage, "-1");
             } catch (InterruptedException | FileCacheException e) {
@@ -65,7 +66,7 @@ public class PipelineWriteJson implements Pipeline {
             }
             successCount++;
         }
-
+        filecache.forceSync();
         return successCount;
     }
 

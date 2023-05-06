@@ -127,7 +127,7 @@ public class FileCache <T extends ConfigFile>{
         Object jsonData = writeInData(isAppend,data,keys);
         if(Objects.isNull(jsonData)){return 0;}
 
-        ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(jsonFile);
+        ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(JSONObject.parseObject(JSON.toJSONString(jsonFile),Map.class));
         int newBytes = writeByte.updateAndGet(x -> x + writeBytes >= MAX_WRITE_BUFFER_LIMIT ? 0 : x + writeBytes);
 
         //TODO 此处会发生脏读问题，即put进入的Map版本不是当前版本，但是目前没有发现该问题是否会影响到文件写入
@@ -245,7 +245,7 @@ public class FileCache <T extends ConfigFile>{
             return;
         }
         clearWriteBytes();
-        ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(jsonFile);
+        ConcurrentHashMap<String,Object> temp = new ConcurrentHashMap<>(JSONObject.parseObject(JSON.toJSONString(jsonFile),Map.class));
         try {
             syncChannel.put(temp);
         } catch (InterruptedException e) {

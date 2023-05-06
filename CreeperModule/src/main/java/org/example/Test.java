@@ -39,5 +39,9 @@ public class Test {
             System.out.println(dsmTask + "(运行状态):" + manager.isTaskRunning(dsmTask));
             System.out.println(dsmTask + "(缓存中弹幕条数):" + manager.getCacheSize(dsmTask));
         }
+
+        while(true){
+
+        }
     }
 }

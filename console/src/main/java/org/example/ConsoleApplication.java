@@ -5,10 +5,13 @@ import org.example.exception.FileCacheException;
 import org.example.init.FileCacheManagerInit;
 import org.example.init.InitWorld;
 import org.example.init.ModuleSrcConfigFileInit;
+import org.example.pojo.configfile.BarrageSaveFile;
+import org.example.pojo.download.LoadConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * @author Genius
@@ -20,6 +23,8 @@ public class ConsoleApplication {
 
     public static void main(String[] args) throws FileCacheException {
 
+        LoadConfig loadConfig = new LoadConfig("斗鱼","Post","大司马");
+        BarrageSaveFile barrageSaveFile = new BarrageSaveFile(loadConfig,new ConcurrentLinkedQueue<>());
         if (Init()) {
             SpringApplication.run(ConsoleApplication.class, args);
         }
