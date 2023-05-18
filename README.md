@@ -1,15 +1,23 @@
-# ChopperBot项目框架
+
+<p align="center">
+  <a href="https://github.com/969025903/ChopperBot">
+   <img alt="ChopperBot" src="https://github.com/twj666/ChopperBot-Doc/blob/master/img/logo.png?raw=true">
+  </a>
+</p>
+
+
+
+## 什么是ChopperBot
+
+
+>一款全自动的主播切片机器人,支持模块热度分析, 主播热度分析,智能爬取,弹幕视频爬取,弹幕分析, 自动切片,切片分类,自动标题,自动封面,账号打造,账号管理, 多平台上传等功能
+
+## 相关链接
 👉[项目文档](https://twj666.github.io/ChopperBot-Doc/)👈
 
 👉[项目文档更新指南](https://github.com/969025903/ChopperBot/tree/master/doc/ReadMe.md)👈
 
 👉[更新日志](https://gitee.com/sbg-genius/ChopperBot/blob/master/CHANGELOG.md)👈
-
-
-## 项目介绍
-
-
->一款全自动的主播切片机器人,支持模块热度分析, 主播热度分析,智能爬取,弹幕视频爬取,弹幕分析, 自动切片,切片分类,自动标题,自动封面,账号打造,账号管理, 多平台上传等功能
 
 ## 模块介绍
 ![image](https://mynoteimages.oss-cn-hangzhou.aliyuncs.com/20230419223557838.png)
