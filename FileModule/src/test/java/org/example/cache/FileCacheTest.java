@@ -117,6 +117,7 @@ public class FileCacheTest {
     @Test
     public void TestAddCache() throws FileCacheException, InterruptedException {
         FileCacheManagerInstance.getInstance().start();
+
         for(int i=0;i<10;i++){
             Student student = new Student(Integer.toString(i),i,"jsu"+i,"major"+i,null,null);
             cache.writeKeys(student,"-1");

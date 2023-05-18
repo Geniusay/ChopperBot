@@ -15,6 +15,7 @@
         <module name="SectionWorkModule" />
         <module name="PublishModule" />
         <module name="VideoSectionModule" />
+        <module name="doc" />
         <module name="SectionModule" />
         <module name="BarrageModule" />
         <module name="HotModule" />
@@ -38,6 +39,7 @@
       <module name="VideoSectionModule" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="console" options="-parameters" />
+      <module name="doc" options="-parameters" />
     </option>
   </component>
 </project>

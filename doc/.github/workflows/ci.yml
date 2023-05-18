@@ -1,0 +1,35 @@
+name: CI
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Build project
+        env:
+          CODING_USER: ${{ secrets.CODING_USER }}
+          CODING_TOKEN: ${{ secrets.CODING_TOKEN }}
+        run: yarn --frozen-lockfile && yarn run deploy
+      - name: Upload COS
+        uses: zkqiang/tencent-cos-action@v0.1.0
+        with:
+          args: list / -ar && delete -r -f / && upload -r ./docs/.vuepress/dist/ /
+          secret_id: ${{ secrets.TENCENT_CLOUD_SECRET_ID }}
+          secret_key: ${{ secrets.TENCENT_CLOUD_SECRET_KEY }}
+          bucket: ${{ secrets.TENCENT_CLOUD_BUCKET }}
+          region: ap-beijing

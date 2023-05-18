@@ -1,0 +1,30 @@
+# IntelliJ project files
+.idea/
+*.iml
+*.ipr
+*.iws
+out
+gem
+
+# Fleet project files
+.fleet/
+
+# VS Code project files
+.vscode/
+
+# MacOS files
+.DS_Store
+Thumbs.db
+
+# NPM
+package-lock.json
+node_modules
+
+# YARN
+# yarn.lock
+
+# VuePress
+docs/.vuepress/dist
+
+# Baidu Push
+urls.txt

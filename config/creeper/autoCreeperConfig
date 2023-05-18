@@ -1,0 +1,16 @@
+{
+    platForm:[
+    {
+        name:douyu,
+        moduleFilter:['跳舞','唱歌'],
+        AnchorFilter:[
+        {
+            name:'大司马',
+            autoVideo:false,
+            autoBarrage:false
+        }
+        ]
+        FollowTheTrendMode:false
+    }
+    ]
+}

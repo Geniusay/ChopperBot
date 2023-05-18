@@ -58,7 +58,7 @@ public class JsonFileUtilTest {
 
     @Test
     public void readJsonFile() {
-        Map maps = JsonFileUtil.readJsonFile("E:\\Project\\ChopperBot\\FileModule\\src\\main\\resources\\", "test.json");
+        Map maps = JsonFileUtil.readJsonFile("../config/", "moduleConfig.json");
         Object test = maps.get("module");
         System.out.println(test);
         System.out.println(maps);
