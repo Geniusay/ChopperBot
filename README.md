@@ -17,7 +17,7 @@
 
 👉[项目文档更新指南](https://github.com/969025903/ChopperBot/tree/master/doc/ReadMe.md)👈
 
-👉[更新日志](https://gitee.com/sbg-genius/ChopperBot/blob/master/CHANGELOG.md)👈
+👉[更新日志](https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md)👈
 
 ## 模块介绍
 ![image](https://mynoteimages.oss-cn-hangzhou.aliyuncs.com/20230419223557838.png)
