@@ -8,7 +8,7 @@ import org.example.pojo.download.assign.LoadConfig_R_Douyu;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.utils.HttpConstant;
-import java.net.http.HttpClient;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +36,11 @@ public class Process_R_Douyu extends AbstractProcessor {
         if (isFirst) {
             init(page);
             isFirst = false;
+            Request request = new Request();
+            request.putExtra("type", "singer");
             return;
         }
+
         processOnePage(page);
     }
 

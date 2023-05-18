@@ -1,6 +1,12 @@
-package org.example.pojo;
+package org.example.entity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
+import netscape.javascript.JSObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 弹幕通用类
@@ -22,10 +28,21 @@ public class Barrage {
     // 弹幕内容
     private String content;
 
+    public Barrage(){
+
+    }
+
     public Barrage(String mid, Long timeReal, Long timeIndex, String content) {
         this.mid = mid;
         this.timeReal = timeReal;
         this.timeIndex = timeIndex;
         this.content = content;
+    }
+
+    /**
+     * @description: use to set BarrageProperty
+     */
+    public static List<Barrage> copyProperty(JSONArray BarrageList){
+        return JSON.parseArray(BarrageList.toJSONString(), Barrage.class);
     }
 }

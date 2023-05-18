@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="json-jena-1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BarrageModule/lib/json-jena-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/BarrageModule/lib/Msc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

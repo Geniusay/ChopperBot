@@ -21,14 +21,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @SpringBootApplication
 public class ConsoleApplication {
 
-    public static void main(String[] args) throws FileCacheException {
-
-        LoadConfig loadConfig = new LoadConfig("斗鱼","Post","大司马");
-        BarrageSaveFile barrageSaveFile = new BarrageSaveFile(loadConfig,new ConcurrentLinkedQueue<>());
+    public static void main(String[] args) {
         if (Init()) {
             SpringApplication.run(ConsoleApplication.class, args);
         }
-
     }
 
     public static boolean Init(){
