@@ -15,14 +15,15 @@
         <module name="SectionWorkModule" />
         <module name="PublishModule" />
         <module name="VideoSectionModule" />
-        <module name="doc" />
         <module name="SectionModule" />
+        <module name="LiveRecordModule" />
         <module name="BarrageModule" />
         <module name="HotModule" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Console" target="11" />
+      <module name="doc" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -33,6 +34,7 @@
       <module name="CreeperModule" options="-parameters" />
       <module name="FileModule" options="-parameters" />
       <module name="HotModule" options="-parameters" />
+      <module name="LiveRecordModule" options="-parameters" />
       <module name="PublishModule" options="-parameters" />
       <module name="SectionModule" options="-parameters" />
       <module name="SectionWorkModule" options="-parameters" />
