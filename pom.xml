@@ -17,6 +17,7 @@
     <module>PublishModule</module>
     <module>console</module>
       <module>common</module>
+    <module>LiveRecordModule</module>
   </modules>
   <packaging>pom</packaging>
 
