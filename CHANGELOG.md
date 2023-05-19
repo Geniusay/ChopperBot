@@ -31,6 +31,16 @@
 * [V 1.0.0]()
 
 ------
+## [V 1.0.7] - 2023.5.19
+### 🎈 CreeperModule
+- 🛑更名: 弹幕爬取统一移至CreeperModule的danmuku包下,并重命名了大部分类名
+- 🎈新增: 直播流下载功能(很多功能待优化),位于CreeperModule的video包下,之后考虑移至新模块LiveRecord下
+- 🎈新增: 新增 `FlvHandle` Flv流下载类,一个简易的单线程下载器,新能待优化
+- 🎈新增: 新增 `StatusMonitor` 流下载监控类,可以监控下载过程中的下载速度,下载状态的基本下载信息
+- 🎈新增: 新增 `BilibiliFlvUrlParse` B站Flv流首地址解析器,通过b站主播房间号来解析出一场直播的首地址,可以选择画质
+- 🎈新增: 新增 `HttpClientPool` HttpClient请求的链接池
+- 🎈新增: 新增 `HttpClientUtil` 简单的get,post请求工具类,可以携带请求头等参数
+------
 ## [V 1.0.6] - 2023.5.6
 ### 🎈 doc 
 - ChopperBot技术文档
