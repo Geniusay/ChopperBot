@@ -7,12 +7,9 @@ package org.example.config;
 
 import com.alibaba.fastjson.JSON;
 import org.example.entity.Anchor;
+import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,27 +21,17 @@ import java.util.List;
 public class BarrageScoreConfig {
 
     private static List<Anchor> anchorList = new ArrayList<>();
-    private static HashMap<String,Integer> anchorMap = new HashMap<>();
+    private static final HashMap<String,Integer> anchorScoreMap = new HashMap<>();
 
     /**
-     * @description: 解析配置文件，获取主播自定义关键词得分配置
+     * @description: 解析主播得分配置文件存入map
      */
     public static void getConfigFile() throws Exception {
-        String jsonStr = "";
-        try (InputStream inputStream = BarrageScoreConfig.class.getResourceAsStream("/anchor/score.json");
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                jsonStr += line;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        anchorList = JSON.parseArray(jsonStr, Anchor.class);
+        anchorList = JSON.parseArray(FileUtil.JSONFileToString("/anchor/score.json"), Anchor.class);
         for (Anchor anchor : anchorList) {
-            anchorMap.put(anchor.getName(),anchorList.indexOf(anchor));
+            anchorScoreMap.put(anchor.getName(),anchorList.indexOf(anchor));
         }
-        System.out.println(anchorList);
+        System.out.println("anchor count ::"+anchorList.size());
     }
 
     /**
@@ -52,7 +39,8 @@ public class BarrageScoreConfig {
      */
     public static void setAnchorConfig(List<Anchor> list){
         for (Anchor anchor : list) {
-            int idx = anchorMap.get(anchor.getName())==null?0:anchorMap.get(anchor.getName());
+            //判断追加还是写入
+            int idx = anchorScoreMap.get(anchor.getName())==null?0:anchorScoreMap.get(anchor.getName());
             if(idx!=0){
                 List<Anchor.property> property = anchorList.get(idx).getProperty();
                 property.addAll(anchor.getProperty());
@@ -63,9 +51,13 @@ public class BarrageScoreConfig {
         JsonFileUtil.writeJsonFile("D:\\idea_Project\\Springboot\\ChopperBot\\BarrageModule\\src\\main\\resources\\anchor\\","score.json",anchorList);
     }
 
-    public static void main(String[] args) throws Exception {
-        getConfigFile();
+    public static List<Anchor> getAnchorScoreList(){
+        return anchorList;
+    }
 
+    public static void main(String[] args) throws Exception {
+
+        getConfigFile();
         ArrayList<Anchor> list = new ArrayList<>();
         Anchor anchor = new Anchor();
         anchor.setName("水晶哥");

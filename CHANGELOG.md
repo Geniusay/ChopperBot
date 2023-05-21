@@ -40,11 +40,14 @@
 - 🎈新增: 新增 `BilibiliFlvUrlParse` B站Flv流首地址解析器,通过b站主播房间号来解析出一场直播的首地址,可以选择画质
 - 🎈新增: 新增 `HttpClientPool` HttpClient请求的链接池
 - 🎈新增: 新增 `HttpClientUtil` 简单的get,post请求工具类,可以携带请求头等参数
-------
-## [V 1.0.6] - 2023.5.6
+
 ### 🎈 doc 
 - ChopperBot技术文档
+
+### 🎈 LiveRecordModule
+- 录播模块
 ------
+
 ## [V 1.0.6] - 2023.5.6
 ### FileModule
 - 🚧施工: 所有的`OSS`方法类，正在施工，不建议使用

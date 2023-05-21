@@ -7,7 +7,15 @@
 				"weight":10
 			},
 			{
-				"content":"素材局",
+				"content":"素材",
+				"weight":10
+			},
+			{
+				"content":"gg",
+				"weight":10
+			},
+			{
+				"content":"???",
 				"weight":10
 			}
 		]
@@ -26,18 +34,6 @@
 			{
 				"content":"666",
 				"weight":5
-			},
-			{
-				"content":"下播",
-				"weight":7
-			},
-			{
-				"content":"666",
-				"weight":5
-			},
-			{
-				"content":"下播",
-				"weight":7
 			}
 		]
 	},

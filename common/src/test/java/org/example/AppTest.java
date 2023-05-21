@@ -3,6 +3,8 @@ package org.example;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.example.exception.BaseException;
+import org.example.exception.Impl.ResultCode;
 
 /**
  * Unit test for simple App.
@@ -34,5 +36,9 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    public void testException(){
+        throw new BaseException(ResultCode.ERROR);
     }
 }

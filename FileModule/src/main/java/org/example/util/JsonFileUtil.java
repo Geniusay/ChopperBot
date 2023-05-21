@@ -1,17 +1,19 @@
 package org.example.util;
 
-import com.alibaba.fastjson.*;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Genius
@@ -69,9 +71,10 @@ public class JsonFileUtil {
         T t = null;
         Path dir = Paths.get(fullPath);
         try{
+            System.out.println(dir);
             if (FileUtil.isFileExist(dir.toString())) {
                 String res = Files.readString(dir, StandardCharsets.UTF_8);
-                logger.debug("读取json文件成功, 文件内容为: {}", res);
+//                logger.debug("读取json文件成功, 文件内容为: {}", res);
 
                 t = JSON.parseObject(res, clazz);
             }
@@ -153,7 +156,7 @@ public class JsonFileUtil {
      * @param autoCreate  是否自动创建文件
      * @return  File
      */
-    public static File writeJsonFile0(String fullPath, String json,boolean autoCreate) {
+    public static File writeJsonFile0(String fullPath, String json, boolean autoCreate) {
         Path dir = Paths.get(fullPath);
         try{
             if(!FileUtil.isFileExist(dir.toString())&&autoCreate){
