@@ -1,8 +1,8 @@
 package org.example;
 
 import org.example.exception.FileCacheException;
-import org.example.danmaku.pojo.configfile.BarrageSaveFile;
-import org.example.danmaku.pojo.download.LoadConfig;
+import org.example.pojo.configfile.BarrageSaveFile;
+import org.example.pojo.download.LoadConfig;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ConcurrentLinkedQueue;

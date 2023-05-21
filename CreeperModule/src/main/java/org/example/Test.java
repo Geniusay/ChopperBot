@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.danmaku.core.manager.LoadTaskManager;
-import org.example.danmaku.pojo.download.assign.BilibiliLiveLoadConfig;
+import org.example.core.manager.LoadTaskManager;
+import org.example.pojo.download.assign.BilibiliLiveLoadConfig;
 
 public class Test {
 
