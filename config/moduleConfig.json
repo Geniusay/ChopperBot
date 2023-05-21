@@ -1,0 +1,26 @@
+{
+	"data":{
+		"section_work":{
+			"src":"./config/section_work"
+		},
+		"account":{
+			"src":"./config/account"
+		},
+		"barrage":{
+			"src":"./config/barrage"
+		},
+		"creeper":{
+			"src":"./config/creeper"
+		},
+		"publish":{
+			"src":"./config/publish"
+		},
+		"hot":{
+			"src":"./config/hot"
+		},
+		"section":{
+			"src":"./config/section"
+		}
+	},
+	"updateTime":"2023-05-07 14:57:35"
+}
