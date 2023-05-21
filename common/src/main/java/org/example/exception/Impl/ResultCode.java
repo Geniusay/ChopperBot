@@ -4,8 +4,6 @@ package org.example.exception.Impl;/**
  * @createTime : [2023/5/19 20:03]
  */
 
-import org.example.exception.BaseResultCode;
-
 /**
  * @author welsir
  * @date 2023/5/19 20:03

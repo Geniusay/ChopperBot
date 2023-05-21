@@ -5,7 +5,6 @@ package org.example.util;
  * @createTime : [2023/5/19 20:17]
  */
 
-import org.example.exception.BaseResultCode;
 import org.example.exception.Impl.ResultCode;
 
 import java.io.Serializable;
