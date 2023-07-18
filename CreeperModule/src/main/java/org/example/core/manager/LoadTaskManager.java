@@ -3,7 +3,7 @@ package org.example.core.manager;
 import org.example.core.control.LoadTask;
 import org.example.core.factory.LoadTaskFactory;
 import org.example.exception.FileCacheException;
-import org.example.pojo.download.LoadConfig;
+import org.example.pojo.download.LoadBarrageConfig;
 
 import java.util.Collections;
 import java.util.Map;
@@ -34,12 +34,12 @@ public class LoadTaskManager {
     }
 
     // 创建一个任务并返回唯一的 key
-    public String creatTask(LoadConfig loadConfig) throws FileCacheException {
+    public String creatTask(LoadBarrageConfig loadBarrageConfig) throws FileCacheException {
         // 根据主播名和时间戳生成唯一的 key
-        String key = generateKey(loadConfig);
+        String key = generateKey(loadBarrageConfig);
 
         // 创建任务并将其添加到任务映射中
-        LoadTask loadTask = loadTaskFactory.getLoadTask(loadConfig);
+        LoadTask loadTask = loadTaskFactory.getLoadTask(loadBarrageConfig);
         taskMap.put(key, loadTask);
 
         // 返回生成的 key
@@ -47,9 +47,9 @@ public class LoadTaskManager {
     }
 
     // 生成唯一的key
-    private String generateKey(LoadConfig loadConfig) {
+    private String generateKey(LoadBarrageConfig loadBarrageConfig) {
         // 以主播名和当前时间戳作为 key 的基础
-        String baseKey = loadConfig.getAnchorName() + "_" + loadConfig.getStartTime();
+        String baseKey = loadBarrageConfig.getAnchorName() + "_" + loadBarrageConfig.getStartTime();
 
         // 确保 key 是唯一的，如果已存在，则添加一个数字后缀
         String uniqueKey = baseKey;

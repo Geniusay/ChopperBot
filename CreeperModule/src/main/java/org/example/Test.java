@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.core.manager.LoadTaskManager;
-import org.example.pojo.download.assign.BilibiliLiveLoadConfig;
+import org.example.pojo.download.assign.BilibiliLiveLoadBarrageConfig;
 
 public class Test {
 
@@ -9,7 +9,7 @@ public class Test {
         // 创建一个任务管理器
         LoadTaskManager manager = new LoadTaskManager();
         // 创建一个B站直播的配置类
-        BilibiliLiveLoadConfig zzgz = new BilibiliLiveLoadConfig("猪猪公主", "6154037");
+        BilibiliLiveLoadBarrageConfig zzgz = new BilibiliLiveLoadBarrageConfig("猪猪公主", "6154037");
         // 创建一个任务,返回一个唯一的key
         String task = manager.creatTask(zzgz);
         // 开启此次下载任务

@@ -9,7 +9,7 @@ import org.example.utils.FormatUtil;
  * @date 2023/4/23 16:03
 */
 @Data
-public class LoadConfig {
+public class LoadBarrageConfig {
 
     // 爬取的平台
     protected String platform;
@@ -23,7 +23,7 @@ public class LoadConfig {
     // 开始时间
     protected String startTime;
 
-    public LoadConfig(String platform, String action, String anchorName) {
+    public LoadBarrageConfig(String platform, String action, String anchorName) {
         this.platform = platform;
         this.action = action;
         this.anchorName = anchorName;

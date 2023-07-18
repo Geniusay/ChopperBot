@@ -1,7 +1,7 @@
 package org.example.pojo.configfile;
 
-import org.example.common.ConfigFile;
-import org.example.pojo.download.LoadConfig;
+import org.example.bean.ConfigFile;
+import org.example.pojo.download.LoadBarrageConfig;
 import org.example.exception.FileCacheException;
 import org.example.pojo.Barrage;
 import org.example.util.FileUtil;
@@ -25,11 +25,11 @@ import static org.example.constpool.ConstPool.BARRAGE_ROOT;
  */
 public class BarrageSaveFile extends ConfigFile<ConcurrentLinkedQueue<Barrage>> {
 
-    private LoadConfig loadConfig;
+    private LoadBarrageConfig loadBarrageConfig;
 
-    public BarrageSaveFile(LoadConfig loadConfig, ConcurrentLinkedQueue<Barrage> data) throws FileCacheException {
+    public BarrageSaveFile(LoadBarrageConfig loadBarrageConfig, ConcurrentLinkedQueue<Barrage> data) throws FileCacheException {
         super();
-        this.loadConfig = loadConfig;
+        this.loadBarrageConfig = loadBarrageConfig;
         if (!init(data)) {
             throw new FileCacheException("File init Error");
         }
@@ -44,7 +44,7 @@ public class BarrageSaveFile extends ConfigFile<ConcurrentLinkedQueue<Barrage>> 
     private boolean init(ConcurrentLinkedQueue<Barrage> data) {
         String fileName = this.filaName();
         setFileName(fileName);
-        String rootPath = Paths.get(BARRAGE_ROOT, loadConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
+        String rootPath = Paths.get(BARRAGE_ROOT, loadBarrageConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
         setFilePath(rootPath);
         Path path = Path.of(rootPath);
         //TODO 待移除 建立主播文件夹
@@ -67,7 +67,7 @@ public class BarrageSaveFile extends ConfigFile<ConcurrentLinkedQueue<Barrage>> 
 
     private String filaName() {
         String format = "%s_%s_%s.json";
-        return String.format(format, loadConfig.getPlatform(), loadConfig.getAnchorName(), loadConfig.getStartTime());
+        return String.format(format, loadBarrageConfig.getPlatform(), loadBarrageConfig.getAnchorName(), loadBarrageConfig.getStartTime());
     }
 
 }

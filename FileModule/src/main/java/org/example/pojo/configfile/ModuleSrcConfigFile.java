@@ -1,7 +1,7 @@
 package org.example.pojo.configfile;
 
-import org.example.common.ConfigFile;
-import org.example.common.FileType;
+import org.example.bean.ConfigFile;
+import org.example.bean.FileType;
 import org.example.constpool.ConstPool;
 
 import java.util.Map;

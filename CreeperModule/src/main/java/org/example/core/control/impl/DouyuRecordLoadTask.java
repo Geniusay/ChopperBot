@@ -5,7 +5,7 @@ import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
 import org.example.core.processor.DouyuRecordProcessor;
-import org.example.pojo.download.LoadConfig;
+import org.example.pojo.download.LoadBarrageConfig;
 import org.example.utils.CreeperConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -25,9 +25,9 @@ public class DouyuRecordLoadTask implements LoadTask {
 
     private final PipelineWriteJson pipelineWriteJson;
 
-    public DouyuRecordLoadTask(LoadConfig loadConfig) {
-        douyuRecordProcessor = (DouyuRecordProcessor) new ProcessorFactory().getProcessor(loadConfig);
-        pipelineWriteJson = new PipelineWriteJson(loadConfig);
+    public DouyuRecordLoadTask(LoadBarrageConfig loadBarrageConfig) {
+        douyuRecordProcessor = (DouyuRecordProcessor) new ProcessorFactory().getProcessor(loadBarrageConfig);
+        pipelineWriteJson = new PipelineWriteJson(loadBarrageConfig);
     }
 
     @Override

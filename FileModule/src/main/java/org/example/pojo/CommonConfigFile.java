@@ -1,6 +1,6 @@
 package org.example.pojo;
 
-import org.example.common.ConfigFile;
+import org.example.bean.ConfigFile;
 
 /**
  * @author Genius

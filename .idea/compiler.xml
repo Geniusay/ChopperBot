@@ -21,16 +21,11 @@
         <module name="HotModule" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Console" target="11" />
-      <module name="doc" target="11" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AccountModule" options="-parameters" />
       <module name="BarrageModule" options="-parameters" />
-      <module name="Console" options="-parameters" />
       <module name="CreeperModule" options="-parameters" />
       <module name="FileModule" options="-parameters" />
       <module name="HotModule" options="-parameters" />
@@ -41,7 +36,6 @@
       <module name="VideoSectionModule" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="console" options="-parameters" />
-      <module name="doc" options="-parameters" />
     </option>
   </component>
 </project>

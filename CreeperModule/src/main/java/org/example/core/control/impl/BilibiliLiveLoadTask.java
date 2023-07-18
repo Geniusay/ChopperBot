@@ -5,7 +5,7 @@ import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
 import org.example.core.processor.BilibiliLiveProcessor;
-import org.example.pojo.download.LoadConfig;
+import org.example.pojo.download.LoadBarrageConfig;
 import org.example.utils.CreeperConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -25,9 +25,9 @@ public class BilibiliLiveLoadTask implements LoadTask {
 
     private final PipelineWriteJson pipelineWriteJson;
 
-    public BilibiliLiveLoadTask(LoadConfig loadConfig) {
-        bilibiliLiveProcessor = (BilibiliLiveProcessor) new ProcessorFactory().getProcessor(loadConfig);
-        pipelineWriteJson = new PipelineWriteJson(loadConfig);
+    public BilibiliLiveLoadTask(LoadBarrageConfig loadBarrageConfig) {
+        bilibiliLiveProcessor = (BilibiliLiveProcessor) new ProcessorFactory().getProcessor(loadBarrageConfig);
+        pipelineWriteJson = new PipelineWriteJson(loadBarrageConfig);
     }
 
     @Override

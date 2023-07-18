@@ -2,7 +2,7 @@ package org.example;
 
 import org.example.exception.FileCacheException;
 import org.example.pojo.configfile.BarrageSaveFile;
-import org.example.pojo.download.LoadConfig;
+import org.example.pojo.download.LoadBarrageConfig;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -15,7 +15,7 @@ public class BarrageSaveFileAutoCreateTest {
 
     @Test
     public void test() throws FileCacheException {
-        LoadConfig loadConfig = new LoadConfig("斗鱼","Post","大司马");
-        BarrageSaveFile barrageSaveFile = new BarrageSaveFile(loadConfig,new ConcurrentLinkedQueue<>());
+        LoadBarrageConfig loadBarrageConfig = new LoadBarrageConfig("斗鱼","Post","大司马");
+        BarrageSaveFile barrageSaveFile = new BarrageSaveFile(loadBarrageConfig,new ConcurrentLinkedQueue<>());
     }
 }

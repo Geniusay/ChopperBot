@@ -38,4 +38,6 @@ public class ConstPool {
      */
     // 爬虫启动占位url
     public static final String OCCUURL = "https://v.douyu.com/";
+
+    public static final String DOUYU_URL = "www.douyu.com";
 }

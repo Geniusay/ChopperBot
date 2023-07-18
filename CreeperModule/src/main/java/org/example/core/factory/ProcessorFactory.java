@@ -3,9 +3,9 @@ package org.example.core.factory;
 import org.example.core.processor.AbstractProcessor;
 import org.example.core.processor.BilibiliLiveProcessor;
 import org.example.core.processor.DouyuRecordProcessor;
-import org.example.pojo.download.LoadConfig;
-import org.example.pojo.download.assign.BilibiliLiveLoadConfig;
-import org.example.pojo.download.assign.DouyuRecordLoadConfig;
+import org.example.pojo.download.LoadBarrageConfig;
+import org.example.pojo.download.assign.BilibiliLiveLoadBarrageConfig;
+import org.example.pojo.download.assign.DouyuRecordLoadBarrageConfig;
 import org.example.utils.CreeperConfig;
 
 /**
@@ -29,23 +29,23 @@ public class ProcessorFactory {
     /**
      * 通过配置信息来获取一个处理器
      *
-     * @param loadConfig
+     * @param loadBarrageConfig
      * @return AbstractProcessor
      */
-    public AbstractProcessor getProcessor(LoadConfig loadConfig) {
+    public AbstractProcessor getProcessor(LoadBarrageConfig loadBarrageConfig) {
 
-        if (loadConfig == null) {
+        if (loadBarrageConfig == null) {
             return null;
         }
 
         // 斗鱼录播
-        if (loadConfig instanceof DouyuRecordLoadConfig) {
-            return new DouyuRecordProcessor((DouyuRecordLoadConfig) loadConfig, dy_retryTimes,
+        if (loadBarrageConfig instanceof DouyuRecordLoadBarrageConfig) {
+            return new DouyuRecordProcessor((DouyuRecordLoadBarrageConfig) loadBarrageConfig, dy_retryTimes,
                     dy_retrySleepTime, dy_userAgent, dy_sleepTime);
         }
         // B站直播
-        else if (loadConfig instanceof BilibiliLiveLoadConfig) {
-            return new BilibiliLiveProcessor((BilibiliLiveLoadConfig) loadConfig, bi_retryTimes,
+        else if (loadBarrageConfig instanceof BilibiliLiveLoadBarrageConfig) {
+            return new BilibiliLiveProcessor((BilibiliLiveLoadBarrageConfig) loadBarrageConfig, bi_retryTimes,
                     bi_retrySleepTime, bi_userAgent, bi_sleepTime);
         }
 

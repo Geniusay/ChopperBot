@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.pojo.Barrage;
-import org.example.pojo.download.assign.BilibiliLiveLoadConfig;
+import org.example.pojo.download.assign.BilibiliLiveLoadBarrageConfig;
 import us.codecraft.webmagic.Page;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.Set;
  */
 public class BilibiliLiveProcessor extends AbstractProcessor {
 
-    BilibiliLiveLoadConfig loadConfig;
+    BilibiliLiveLoadBarrageConfig loadConfig;
 
     // 前缀url
     private String urlPrefix = "https://api.live.bilibili.com/ajax/msg?roomid=";
@@ -32,7 +32,7 @@ public class BilibiliLiveProcessor extends AbstractProcessor {
     // 开始时间戳
     private Long startTime;
 
-    public BilibiliLiveProcessor(BilibiliLiveLoadConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
+    public BilibiliLiveProcessor(BilibiliLiveLoadBarrageConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
         super(retryTimes, retrySleepTime, userAgent, sleepTime);
         this.loadConfig = loadConfig;
         this.processedMids = new HashSet<>();

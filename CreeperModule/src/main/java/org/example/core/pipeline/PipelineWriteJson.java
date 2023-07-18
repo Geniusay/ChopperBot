@@ -4,7 +4,7 @@ import org.example.cache.FileCache;
 import org.example.exception.FileCacheException;
 import org.example.pojo.Barrage;
 import org.example.pojo.configfile.BarrageSaveFile;
-import org.example.pojo.download.LoadConfig;
+import org.example.pojo.download.LoadBarrageConfig;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -22,15 +22,15 @@ public class PipelineWriteJson implements Pipeline {
 
     private FileCache filecache;
     private final ConcurrentLinkedQueue<Barrage> cache;
-    LoadConfig loadConfig;
+    LoadBarrageConfig loadBarrageConfig;
 
     private BarrageSaveFile barrageSaveFile;
 
-    public PipelineWriteJson(LoadConfig loadConfig) {
+    public PipelineWriteJson(LoadBarrageConfig loadBarrageConfig) {
         try {
-            this.loadConfig = loadConfig;
+            this.loadBarrageConfig = loadBarrageConfig;
             this.cache = new ConcurrentLinkedQueue<>();
-            this.barrageSaveFile = new BarrageSaveFile(loadConfig, cache);
+            this.barrageSaveFile = new BarrageSaveFile(loadBarrageConfig, cache);
             this.filecache = new FileCache(barrageSaveFile, 0, 10 * 1024);
         } catch (FileCacheException e) {
             throw new RuntimeException(e);
