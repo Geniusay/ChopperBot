@@ -20,4 +20,14 @@ public class ConstPool {
 
     /**图片格式**/
     public static final List<String> PIC_TYPES = List.of("jpg","jpeg","png","svg");
+
+    /**直播平台**/
+    public static final String DOUYU = "douyu";
+
+    public static final String HUYA = "huya";
+    public static final String BILIBILI = "bilibili";
+
+    public static final String TIKTOK = "douyin";
+
+    public static final String TWITCH = "twitch";
 }

@@ -12,13 +12,12 @@ import us.codecraft.webmagic.Spider;
  **/
 public class DouyuHotModuleLoadTask implements LoadTask {
 
-    private String url = "https://www.douyu.com/japi/weblist/apinc/header/cate";
+    private final String url = "https://www.douyu.com/japi/weblist/apinc/header/cate";
     @Override
     public void start() {
         DouyuHotModuleProcessor douyuHotModuleProcessor = new DouyuHotModuleProcessor();
         Spider.create(douyuHotModuleProcessor)
                 .addRequest(new Request(url))
-                .setEmptySleepTime(10)
                 .thread(1)
                 .run();
     }

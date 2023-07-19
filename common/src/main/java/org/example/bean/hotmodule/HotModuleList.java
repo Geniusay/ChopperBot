@@ -19,4 +19,22 @@ public class HotModuleList {
         hotModuleList = new ArrayList<>();
     }
 
+    public HotModule findHotModule(String hotModuleName){
+        for (HotModule hotModule : hotModuleList) {
+            if(hotModule.getTagName().equals(hotModuleName)){
+                return hotModule;
+            }
+        }
+        return null;
+    }
+
+    public HotModule findHotModule(int hotModuleId){
+        for (HotModule hotModule : hotModuleList) {
+            if(hotModule.getTagId().equals(String.valueOf(hotModuleId))){
+                return hotModule;
+            }
+        }
+        return null;
+    }
+
 }

@@ -8,38 +8,60 @@ import org.example.bean.HotLive;
  **/
 public class DouyuHotLive extends HotLive {
 
-    private int hotTag;
+    private String liveModule;  //直播板块
 
-    private int isAd;
+    private String url;         //直播间地址
+
+    private String roomCoverPic;     //直播间封面地址
 
 
     private int type;
 
-    private String url;
+    private int uid;
 
-    public DouyuHotLive(int watcherNum, int liveId, String liveName, String description,
-                        int hotTag, int isAd,  int type, String url) {
-        super(watcherNum, liveId, liveName, description);
-        this.hotTag = hotTag;
-        this.isAd = isAd;
+    private int moduleId; //直播板块Id
+
+    public DouyuHotLive(int watcherNum, int liveId, String liveName, String liver, String description,
+                        String liveModule, String url, String roomCoverPic, int type, int uid,int moduleId) {
+        super(watcherNum, liveId, liveName, liver, description);
+        this.liveModule = liveModule;
+        this.url = url;
+        this.roomCoverPic = roomCoverPic;
         this.type = type;
+        this.uid = uid;
+        this.moduleId = moduleId;
+    }
+
+    public int getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(int moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public String getLiveModule() {
+        return liveModule;
+    }
+
+    public void setLiveModule(String liveModule) {
+        this.liveModule = liveModule;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
         this.url = url;
     }
 
-    public int getHotTag() {
-        return hotTag;
+    public String getRoomCoverPic() {
+        return roomCoverPic;
     }
 
-    public void setHotTag(int hotTag) {
-        this.hotTag = hotTag;
-    }
-
-    public int getIsAd() {
-        return isAd;
-    }
-
-    public void setIsAd(int isAd) {
-        this.isAd = isAd;
+    public void setRoomCoverPic(String roomCoverPic) {
+        this.roomCoverPic = roomCoverPic;
     }
 
 
@@ -51,11 +73,11 @@ public class DouyuHotLive extends HotLive {
         this.type = type;
     }
 
-    public String getUrl() {
-        return url;
+    public int getUid() {
+        return uid;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }

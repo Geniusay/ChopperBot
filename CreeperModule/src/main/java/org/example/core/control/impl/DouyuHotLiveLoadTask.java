@@ -12,20 +12,41 @@ import us.codecraft.webmagic.Spider;
  **/
 public class DouyuHotLiveLoadTask implements LoadTask {
 
-    private String url = "https://www.douyu.com/japi/search/api/getHotList";
+    private final String HOT_LIVES_API = "https://www.douyu.com/japi/weblist/apinc/allpage/6/1";             //全部热门直播api
+    private final String HOT_MODULE_LIVES_API = "https://www.douyu.com/gapi/rkc/directory/mixList/2_%s/1"; //某个模块热门直播api
+
+    private final DouyuHotLiveProcessor douyuHotLiveProcessor;
+
+    public DouyuHotLiveLoadTask(){
+        douyuHotLiveProcessor = new DouyuHotLiveProcessor();
+    }
+
+    /**
+     * 获取Douyu某个模块下的热门直播
+     * @param moduleId
+     */
+    public void start(int moduleId){
+        douyuHotLiveProcessor.setModuleId(moduleId);
+        this.start(String.format(HOT_MODULE_LIVES_API,moduleId));
+    }
+
+    /**
+     * 获取Douyu当前最热直播
+     */
     @Override
     public void start() {
+       this.start(HOT_LIVES_API);
+    }
+
+    private void start(String url){
         try {
-            DouyuHotLiveProcessor douyuHotLiveProcessor = new DouyuHotLiveProcessor();
             Spider.create(douyuHotLiveProcessor)
                     .addRequest(new Request(url))
-                    .setEmptySleepTime(10)
                     .thread(1)
                     .run();
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -49,7 +70,8 @@ public class DouyuHotLiveLoadTask implements LoadTask {
     }
 
     public static void main(String[] args) {
-        new DouyuHotLiveLoadTask().start();
-        System.out.println(HotModulePool.hotLiveListPool);
+        new DouyuHotModuleLoadTask().start();
+        new DouyuHotLiveLoadTask().start(1);
+        System.out.println(HotModulePool.hotModuleListPool);
     }
 }

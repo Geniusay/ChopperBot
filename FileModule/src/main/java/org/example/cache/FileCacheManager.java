@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -28,6 +25,8 @@ public class FileCacheManager {
     private Logger logger = LoggerFactory.getLogger(FileCacheManager.class);
     private final List<FileCache> fileCaches;
 
+    private final ConcurrentHashMap<String,FileCache> fileCacheMap;
+
     private AtomicLong sleepTime; //睡眠时间
 
     private ExecutorService watchPool;  //巡逻线程
@@ -38,6 +37,10 @@ public class FileCacheManager {
 
     protected FileCacheManager(List<FileCache> fileCaches){
         this.fileCaches = new CopyOnWriteArrayList<>(fileCaches);
+        fileCacheMap = new ConcurrentHashMap<>();
+        for (FileCache fileCache : fileCaches) {
+            fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
+        }
         initSleepTime();
         this.watchPool = Executors.newSingleThreadExecutor();
         this.autoSyncer = Executors.newFixedThreadPool(fileCaches.size());
@@ -70,9 +73,14 @@ public class FileCacheManager {
     public boolean addFileCache(FileCache fileCache){
         if (this.fileCaches.indexOf(fileCache)==-1) {
             fileCaches.add(fileCache);
+            fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
             initSleepTime();
         }
         return false;
+    }
+
+    public FileCache getFileCache(String filePath){
+        return fileCacheMap.get(filePath);
     }
 
     public List<FileCache> getRunnableFileCaches(){
