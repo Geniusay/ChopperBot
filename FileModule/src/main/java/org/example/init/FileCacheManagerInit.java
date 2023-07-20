@@ -6,7 +6,7 @@ import org.example.cache.FileCacheManagerInstance;
  * @author Genius
  * @date 2023/04/26 02:09
  **/
-public class FileCacheManagerInit implements InitMachine{
+public class FileCacheManagerInit extends CommonInitMachine{
 
     @Override
     public boolean init() {

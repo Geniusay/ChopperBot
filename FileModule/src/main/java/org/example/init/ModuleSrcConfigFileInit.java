@@ -15,7 +15,7 @@ import java.util.Map;
  * @date 2023/04/20 18:34
  **/
 
-public class ModuleSrcConfigFileInit implements InitMachine {
+public class ModuleSrcConfigFileInit extends CommonInitMachine {
 
     private Logger logger = LoggerFactory.getLogger(ModuleSrcConfigFileInit.class);
 

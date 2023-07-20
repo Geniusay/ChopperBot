@@ -19,4 +19,12 @@ public class FollowDog {
     private int top; //前几个
     private List<String> banLiver; //去除的主播，可以是正则
 
+    @Override
+    public String toString() {
+        return "FollowDog{" +
+                "moduleName='" + moduleName + '\'' +
+                ", top=" + top +
+                ", banLiver=" + banLiver +
+                '}';
+    }
 }

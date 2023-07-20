@@ -61,7 +61,6 @@ public class FileCacheTest {
         FileCacheManager manager = new FileCacheManager(List.of(fileCache));
         manager.start();
 
-        System.out.println(fileCache.get("barrage","src"));
         fileCache.append(1,"barrage","src");
     }
 
@@ -109,7 +108,6 @@ public class FileCacheTest {
         FileCacheManager manager = new FileCacheManager(List.of(fileCache));
         manager.start();
 
-        System.out.println(manager.addFileCache(fileCache));
     }
 
     @Test

@@ -3,6 +3,7 @@ package org.example;
 
 import org.example.exception.FileCacheException;
 import org.example.init.FileCacheManagerInit;
+import org.example.init.HotModuleInitMachine;
 import org.example.init.InitWorld;
 import org.example.init.ModuleSrcConfigFileInit;
 import org.springframework.boot.SpringApplication;
@@ -30,7 +31,8 @@ public class ConsoleApplication {
                 .setInitMachines(
                         List.of(
                         new ModuleSrcConfigFileInit(),
-                        new FileCacheManagerInit()
+                        new FileCacheManagerInit(),
+                        new HotModuleInitMachine()
                         )
                 ).start();
     }

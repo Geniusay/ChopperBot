@@ -1,5 +1,6 @@
 package org.example.cache;
 
+import org.example.log.FileModuleLogger;
 import org.example.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +76,7 @@ public class FileCacheManager {
             fileCaches.add(fileCache);
             fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
             initSleepTime();
+            FileModuleLogger.logger.info("FileCacheManager add a new FileCache:{}",fileCache.getFullFilePath());
         }
         return false;
     }
