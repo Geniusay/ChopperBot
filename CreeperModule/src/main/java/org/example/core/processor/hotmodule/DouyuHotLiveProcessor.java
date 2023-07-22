@@ -4,20 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.HotLive;
-import org.example.bean.HotModule;
 import org.example.bean.hotmodule.DouyuHotLive;
-import org.example.bean.hotmodule.HotModuleList;
-import org.example.constpool.HotModulePool;
-import org.example.log.HotModuleLogger;
-import org.example.util.ChineseConvertUtil;
-import org.springframework.util.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.selector.Json;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Genius
@@ -60,25 +52,9 @@ public class DouyuHotLiveProcessor implements PageProcessor {
                 }
             }
         }catch (Exception e){
-            HotModuleLogger.logger.error("Douyu Hot Live List require fail! Exception:{}",e.getMessage());
+            throw e;
         }
-        HotModuleLogger.logger.info(hotLiveList.toString());
-        updateHotLiveList(hotLiveList);
+        page.putField("data",hotLiveList);
 
-    }
-    private void updateHotLiveList(List<HotLive> hotLiveList){
-        if(moduleId!=-1){
-            if(HotModulePool.hotModuleListPool.containsKey(HotModulePool.DouYuAllHotModules)){
-                HotModuleList hotModuleList = HotModulePool.hotModuleListPool.get(HotModulePool.DouYuAllHotModules);
-                HotModule hotModule = hotModuleList.findHotModule(this.moduleId);
-                if(hotModule!=null){
-                    hotModule.setHotLives(hotLiveList);
-                    HotModuleLogger.logger.info("Douyu module {} hotLiveListPool successfully updated",hotModule.getTagName());
-                }
-            }
-        }else{
-            HotModuleLogger.logger.info("Douyu hotLiveListPool successfully updated");
-            HotModulePool.hotLiveListPool.put(HotModulePool.DouYuAllHotLives,hotLiveList);
-        }
     }
 }

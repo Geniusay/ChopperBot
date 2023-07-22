@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import static org.example.constpool.ConstPool.BARRAGE_ROOT;
+import static org.example.constpool.CreeperModuleConstPool.BARRAGE_ROOT;
 
 /**
  * @author Genius

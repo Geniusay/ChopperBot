@@ -11,9 +11,15 @@ import java.util.List;
  **/
 @Data
 @AllArgsConstructor
-public class ModuleSetting {
+public class HotModuleSetting {
 
     private String platform;         //平台
+
+    private int failRetryTimes;      //失败重试次数
+
+    private boolean enableHotModule; //是否开启热门模块爬取
+
+    private boolean enableHotLive;   //是否开启热门直播爬取
 
     private boolean autoWork;        //是否自动进行主播直播下载任务推送
 

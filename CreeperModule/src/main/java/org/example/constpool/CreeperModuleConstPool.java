@@ -5,7 +5,7 @@ package org.example.constpool;
  * @author 燧枫
  * @date 2023/4/23 16:12
 */
-public class ConstPool {
+public class CreeperModuleConstPool {
 
     /**
      * 文件路径

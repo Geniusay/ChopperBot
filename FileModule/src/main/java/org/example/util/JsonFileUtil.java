@@ -71,7 +71,6 @@ public class JsonFileUtil {
         T t = null;
         Path dir = Paths.get(fullPath);
         try{
-            System.out.println(dir);
             if (FileUtil.isFileExist(dir.toString())) {
                 String res = Files.readString(dir, StandardCharsets.UTF_8);
 //                logger.debug("读取json文件成功, 文件内容为: {}", res);

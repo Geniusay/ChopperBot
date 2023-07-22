@@ -1,6 +1,6 @@
 package org.example.core.control.impl;
 
-import org.example.constpool.ConstPool;
+import org.example.constpool.CreeperModuleConstPool;
 import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
@@ -34,7 +34,7 @@ public class BilibiliLiveLoadTask implements LoadTask {
     public void start() {
         Spider.create(bilibiliLiveProcessor)
                 // 设置起始Request
-                .addRequest(new Request(ConstPool.OCCUURL))
+                .addRequest(new Request(CreeperModuleConstPool.OCCUURL))
                 // 设置结果处理类
                 .addPipeline(pipelineWriteJson)
                 // 设置抓取线程数（可根据需要调整）

@@ -5,12 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.hotmodule.DouyuHotModule;
 import org.example.bean.hotmodule.HotModuleList;
-import org.example.constpool.HotModulePool;
-import org.example.log.HotModuleLogger;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-import java.util.concurrent.ExecutorService;
 
 /**
  * @author Genius
@@ -38,9 +35,9 @@ public class DouyuHotModuleProcessor implements PageProcessor {
                 }
             }
         }catch (Exception e){
-            HotModuleLogger.logger.error("Douyu Hot module list require fail! Exception:{}",e.getMessage());
+            throw e;
         }
-        HotModulePool.hotModuleListPool.put(HotModulePool.DouYuAllHotModules,douyuHotModuleList);
+        page.putField("data",douyuHotModuleList);
     }
 
 }

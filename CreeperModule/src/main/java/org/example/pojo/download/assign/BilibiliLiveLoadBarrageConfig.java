@@ -1,7 +1,7 @@
 package org.example.pojo.download.assign;
 
 import lombok.Data;
-import org.example.constpool.ConstPool;
+import org.example.constpool.CreeperModuleConstPool;
 import org.example.pojo.download.LoadBarrageConfig;
 
 /**
@@ -16,7 +16,7 @@ public class BilibiliLiveLoadBarrageConfig extends LoadBarrageConfig {
     private String roomId;
 
     public BilibiliLiveLoadBarrageConfig(String anchorName, String roomId) {
-        super(ConstPool.BILIBILI, ConstPool.ACTION_LIVE, anchorName);
+        super(CreeperModuleConstPool.BILIBILI, CreeperModuleConstPool.ACTION_LIVE, anchorName);
         this.roomId = roomId;
     }
 }

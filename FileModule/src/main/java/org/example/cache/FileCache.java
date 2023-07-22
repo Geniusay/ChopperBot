@@ -213,7 +213,7 @@ public class FileCache <T extends ConfigFile>{
      * @param key
      * @return
      */
-    public Object get(String key){
+    private Object get(String key){
         return jsonFile.get(key);
     }
 
@@ -238,7 +238,7 @@ public class FileCache <T extends ConfigFile>{
      */
     public void forceSync(){
         if(writeByte.get()==0){
-            logger.info("未发生版本变化");
+            logger.debug("未发生版本变化");
             return;
         }
         clearWriteBytes();

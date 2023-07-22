@@ -1,7 +1,7 @@
 package org.example.config;
 
 import org.example.bean.ConfigFile;
-import org.example.constpool.ConstPool;
+import org.example.constpool.CreeperModuleConstPool;
 import org.example.constpool.HotModuleConstPool;
 
 import java.nio.file.Paths;
@@ -15,22 +15,20 @@ import java.util.Map;
  **/
 public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
     private static final int FiveMinute = 0x493E0;
-
-
+    private static final long OneDay = 0x5265C00;
     private static final String fileName = "hotModuleConfig.json";
 
     public HotModuleConfig(){
         super(HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName,
-                Map.of("Enable", 1,
-                        "Module", List.of(
-                        new ModuleSetting(ConstPool.DOUYU, true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), FiveMinute, FiveMinute),
-                        new ModuleSetting(ConstPool.BILIBILI, true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), FiveMinute, FiveMinute),
-                        new ModuleSetting(ConstPool.HUYA, true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), FiveMinute, FiveMinute),
-                        new ModuleSetting(ConstPool.DOUYING, true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), FiveMinute, FiveMinute)
+                Map.of("Module", List.of(
+                        new HotModuleSetting(CreeperModuleConstPool.DOUYU,2,true, true,true, new ArrayList<>(), false,
+                                List.of(allLiveDog()), OneDay, FiveMinute),
+                        new HotModuleSetting(CreeperModuleConstPool.BILIBILI, 2,true,true,true, new ArrayList<>(), false,
+                                List.of(allLiveDog()), OneDay, FiveMinute),
+                        new HotModuleSetting(CreeperModuleConstPool.HUYA,2, true,true,true, new ArrayList<>(), false,
+                                List.of(allLiveDog()), OneDay, FiveMinute),
+                        new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, new ArrayList<>(), false,
+                                List.of(allLiveDog()), OneDay, FiveMinute)
                         ),
                         "GuardNum",10
                 )

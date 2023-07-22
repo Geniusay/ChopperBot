@@ -46,7 +46,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
 
     @Override
     public boolean fail(String failCause) {
-        failLog(String.format("[❌] {%s} init error! Execption:{}",this.getClass().toString(),failCause));
+        failLog(String.format("[❌] {%s} init error! Execption:{%s}",this.getClass().toString(),failCause));
         return false;
     }
 

@@ -18,7 +18,7 @@ public class HotModuleInitMachine extends ModuleInitMachine{
 
     public HotModuleInitMachine() {
         super(
-                List.of(new HotModuleConfigInitMachine()),
+                List.of(new HotModuleConfigInitMachine(),new HotModuleGuardInitMachine()),
                 "HotModule",
                 HotModuleLogger.logger
         );

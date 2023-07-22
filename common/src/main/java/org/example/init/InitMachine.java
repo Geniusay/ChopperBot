@@ -1,7 +1,7 @@
 package org.example.init;
 
 
-import org.example.log.InitMachineLogger;
+import org.example.log.ResultLogger;
 
 /**
  * @author Genius
@@ -9,7 +9,7 @@ import org.example.log.InitMachineLogger;
  **/
 
 //模块初始化接口
-public interface InitMachine extends InitMachineLogger {
+public interface InitMachine extends ResultLogger {
 
     boolean init();
 }

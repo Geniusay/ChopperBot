@@ -76,7 +76,7 @@ public class FileCacheManager {
             fileCaches.add(fileCache);
             fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
             initSleepTime();
-            FileModuleLogger.logger.info("FileCacheManager add a new FileCache:{}",fileCache.getFullFilePath());
+            FileModuleLogger.logger.debug("FileCacheManager add a new FileCache:{}",fileCache.getFullFilePath());
         }
         return false;
     }
@@ -99,7 +99,7 @@ public class FileCacheManager {
                     BlockingQueue fileChannel = cache.getFileChannel();
                     if(fileChannel.isEmpty()){
                         if(cache.needAutoSync()){
-                            logger.info("检测到需要强制刷新的文件 {}",cache.getFileName());
+                            FileModuleLogger.logger.debug("检测到需要强制刷新的文件 {}",cache.getFileName());
                             autoSyncer.submit(new AutoSyncer(cache));
                         }
                     }

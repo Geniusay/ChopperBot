@@ -4,7 +4,7 @@ package org.example.log;
 /**
  * 启动日志接口
  */
-public interface InitMachineLogger {
+public interface ResultLogger {
 
     void successLog();
 

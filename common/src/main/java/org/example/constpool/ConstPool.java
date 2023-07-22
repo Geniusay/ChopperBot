@@ -22,6 +22,24 @@ public class ConstPool {
     public static final List<String> PIC_TYPES = List.of("jpg","jpeg","png","svg");
 
     /**直播平台**/
+
+    public enum PLATFORM{
+        DOUYU("douyu"),
+        HUYA("huya"),
+        BILIBILI("bilibili"),
+        DOUYING("douyin"),
+        TIKTOK("tiktok"),
+        TWITCH("twitch");
+        private final String name;
+        PLATFORM(String name){
+            this.name = name;
+        }
+
+        public String getName(){
+            return name;
+        }
+
+    }
     public static final String DOUYU = "douyu";
 
     public static final String HUYA = "huya";

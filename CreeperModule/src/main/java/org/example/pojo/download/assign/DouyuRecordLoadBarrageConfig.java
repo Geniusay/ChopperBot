@@ -1,7 +1,7 @@
 package org.example.pojo.download.assign;
 
 import lombok.Data;
-import org.example.constpool.ConstPool;
+import org.example.constpool.CreeperModuleConstPool;
 import org.example.pojo.download.LoadBarrageConfig;
 
 /**
@@ -16,7 +16,7 @@ public class DouyuRecordLoadBarrageConfig extends LoadBarrageConfig {
     private String vid;
 
     public DouyuRecordLoadBarrageConfig(String anchorName, String vid) {
-        super(ConstPool.DOUYU, ConstPool.ACTION_RECORD, anchorName);
+        super(CreeperModuleConstPool.DOUYU, CreeperModuleConstPool.ACTION_RECORD, anchorName);
         this.vid = vid;
     }
 }
