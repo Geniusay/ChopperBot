@@ -23,7 +23,19 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     private String moduleName;
 
 
-    public ModuleInitMachine(List<InitMachine> initMachines,String moduleName) {
+    @Override
+    public boolean init() {
+        return initLogger(()->{
+            for (InitMachine initMachine : this.getInitMachines()) {
+                if(!initMachine.init()){
+                    return fail();
+                }
+            }
+            return success();
+        });
+    }
+
+    public ModuleInitMachine(List<InitMachine> initMachines, String moduleName) {
         this.initMachines = initMachines;
         this.moduleName = moduleName;
     }
@@ -86,5 +98,14 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     public boolean success() {
         successLog();
         return true;
+    }
+
+    @Override
+    public void shutdown() {
+        logger.info("👇 <{}> is shutting down , {} plugins need to shut down...",moduleName,initMachines.size());
+        initMachines.forEach(
+                InitMachine::shutdown
+        );
+        logger.info("👆 <{}> Completing the shutdown of all plugins!",moduleName);
     }
 }

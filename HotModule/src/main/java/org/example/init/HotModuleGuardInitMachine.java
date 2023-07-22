@@ -7,6 +7,7 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
 import org.example.core.control.HotModuleLoadTask;
+import org.example.guard.HotModuleGuard;
 import org.example.guard.HotModuleGuardInstance;
 import org.example.guard.Guard;
 import org.example.log.HotModuleLogger;
@@ -77,4 +78,9 @@ public class HotModuleGuardInitMachine extends CommonInitMachine{
         return success();
     }
 
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        HotModuleGuardInstance.getInstance().close();
+    }
 }

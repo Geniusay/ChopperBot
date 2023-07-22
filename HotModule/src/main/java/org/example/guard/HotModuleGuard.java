@@ -52,9 +52,10 @@ public class HotModuleGuard {
         }
     }
 
-    public void end(){
+    public boolean close(){
         hotModuleGuardPool.shutdown();
         runningGuards.clear();
+        return hotModuleGuardPool.isShutdown();
     }
 
     public boolean addGuard(String platform,boolean isHotModule){

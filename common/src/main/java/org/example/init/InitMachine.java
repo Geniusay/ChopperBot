@@ -12,4 +12,6 @@ import org.example.log.ResultLogger;
 public interface InitMachine extends ResultLogger {
 
     boolean init();
+
+    void shutdown();
 }

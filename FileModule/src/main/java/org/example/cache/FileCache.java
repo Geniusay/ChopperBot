@@ -321,4 +321,9 @@ public class FileCache <T extends ConfigFile>{
         }
         return false;
     }
+
+    public boolean close(){
+        pool.shutdown();
+        return pool.isShutdown();
+    }
 }

@@ -2,7 +2,11 @@ package org.example.init;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,36 +15,30 @@ import java.util.List;
  * @date 2023/04/20 19:36
  **/
 
+@Component
 //初始化整个项目，各个模块配置文件
 public class InitWorld {
 
-    private Logger logger = LoggerFactory.getLogger(InitWorld.class);
-    private static volatile InitWorld initWorld = new InitWorld();
-    private List<InitMachine> initMachines;
+    private ConfigurableApplicationContext ctx;
 
-    private InitWorld(){
+    private SystemInitMachine world;
+
+    private InitWorld(ConfigurableApplicationContext ctx) {
+        this.ctx = ctx;
+        this.world = new SystemInitMachine();
     }
 
-    public InitWorld setInitMachines(List<InitMachine> initMachines){
-        this.initMachines = initMachines;
-        return this;
-    }
-
-    public static InitWorld getInstance(){
-        return initWorld;
-    }
-
-    public boolean start(){
-        if(initWorld == null){
-            logger.error("已经初始化过了");
-            return true;
+    @PostConstruct
+    private void init(){
+        boolean isInit = world.init();
+        if(!isInit){
+            close();
         }
-        for(InitMachine initMachine : initMachines){
-            if(!initMachine.init()){
-                logger.error("{}初始化失败!!", initMachine.getClass().getName());
-                return false;
-            }
-        }
-        return true;
+    }
+
+    private void close(){
+        world.shutdown();
+        int exit = SpringApplication.exit(ctx, () -> 0);
+        System.exit(exit);
     }
 }

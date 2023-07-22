@@ -6,8 +6,10 @@ import org.example.init.FileCacheManagerInit;
 import org.example.init.HotModuleInitMachine;
 import org.example.init.InitWorld;
 import org.example.init.ModuleSrcConfigFileInit;
+import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -21,19 +23,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ConsoleApplication {
 
     public static void main(String[] args) {
-        if (Init()) {
-            SpringApplication.run(ConsoleApplication.class, args);
-        }
+        SpringApplication.run(ConsoleApplication.class, args);
     }
 
-    public static boolean Init(){
-        return InitWorld.getInstance()
-                .setInitMachines(
-                        List.of(
-                        new ModuleSrcConfigFileInit(),
-                        new FileCacheManagerInit(),
-                        new HotModuleInitMachine()
-                        )
-                ).start();
-    }
 }

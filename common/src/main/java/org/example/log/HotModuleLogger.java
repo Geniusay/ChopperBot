@@ -10,5 +10,5 @@ import org.slf4j.LoggerFactory;
  * @date 2023/07/19 02:55
  **/
 public class HotModuleLogger {
-    public static final Logger logger = LoggerFactory.getLogger("HotModuleLogger");
+    public static final Logger logger = LoggerFactory.getLogger("HotModuleLogger ");
 }

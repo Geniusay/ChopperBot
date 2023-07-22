@@ -23,7 +23,6 @@ import static java.lang.Thread.sleep;
  */
 public class FileCacheManager {
 
-    private Logger logger = LoggerFactory.getLogger(FileCacheManager.class);
     private final List<FileCache> fileCaches;
 
     private final ConcurrentHashMap<String,FileCache> fileCacheMap;
@@ -132,6 +131,13 @@ public class FileCacheManager {
                 }
             }
         }
+    }
+
+    public boolean close(){
+        watchPool.shutdown();
+        autoSyncer.shutdown();
+        fileCaches.forEach(FileCache::close);
+        return watchPool.isShutdown()&&autoSyncer.isShutdown();
     }
 
 }

@@ -1,5 +1,6 @@
 package org.example.init;
 
+import org.example.log.FileModuleLogger;
 import org.example.pojo.configfile.ModuleSrcConfigFile;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
@@ -17,35 +18,34 @@ import java.util.Map;
 
 public class ModuleSrcConfigFileInit extends CommonInitMachine {
 
-    private Logger logger = LoggerFactory.getLogger(ModuleSrcConfigFileInit.class);
-
     ModuleSrcConfigFile moduleSrcConfigFile;
+
     public ModuleSrcConfigFileInit() {
-         moduleSrcConfigFile = new ModuleSrcConfigFile();
+        super(FileModuleLogger.logger);
+        moduleSrcConfigFile = new ModuleSrcConfigFile();
     }
+
     @Override
     public boolean init() {
         Path dir = Paths.get(moduleSrcConfigFile.getFilePath());
         if (!createConfigDirectory(dir)) {
-            return false;
+            return fail("创建Config目录失败");
         }
         if (!createConfigFile(dir)) {
-            return false;
+            return fail("创建Config文件失败");
         }
         if (!createModuleDirectory()) {
-            return false;
+            return fail("创建模块文件夹失败");
         }
-        return true;
+        return success();
     }
 
     private boolean createConfigDirectory(Path dir) {
         try {
             if (!Files.exists(dir)) {
                 Files.createDirectory(dir);
-                logger.info("创建 config 文件夹成功 √ ");
             }
         }catch (Exception e) {
-            logger.error("创建配置文件夹失败");
             return false;
         }
         return true;
@@ -56,10 +56,8 @@ public class ModuleSrcConfigFileInit extends CommonInitMachine {
         try {
             if (!Files.exists(path)) {
                 JsonFileUtil.writeJsonFile(path.toString(),moduleSrcConfigFile.packageConfig());
-                logger.info("创建 {} 配置文件成功 √",moduleSrcConfigFile.getFileName());
             }
         }catch (Exception e) {
-            logger.error("创建配置文件失败");
             return false;
         }
         return true;
@@ -76,10 +74,8 @@ public class ModuleSrcConfigFileInit extends CommonInitMachine {
             try {
                 if (!FileUtil.isFileExist(src.getSrc())) {
                     Files.createDirectory(Path.of(src.getSrc()));
-                    logger.info("创建 {} 模块文件夹成功 √ ",src.getSrc());
                 }
             }catch (Exception e) {
-                logger.error("创建 {} 模块文件夹失败 ×",src.getSrc());
                 return false;
             }
         }

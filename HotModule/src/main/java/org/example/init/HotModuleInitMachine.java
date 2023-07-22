@@ -14,25 +14,11 @@ import java.util.List;
  */
 public class HotModuleInitMachine extends ModuleInitMachine{
 
-
-
     public HotModuleInitMachine() {
         super(
                 List.of(new HotModuleConfigInitMachine(),new HotModuleGuardInitMachine()),
                 "HotModule",
                 HotModuleLogger.logger
         );
-    }
-
-    @Override
-    public boolean init() {
-        return initLogger(()->{
-            for (InitMachine initMachine : this.getInitMachines()) {
-                if(!initMachine.init()){
-                    return fail();
-                }
-            }
-            return success();
-        });
     }
 }

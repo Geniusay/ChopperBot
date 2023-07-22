@@ -1,6 +1,8 @@
 package org.example.init;
 
 import org.example.cache.FileCacheManagerInstance;
+import org.example.log.FileModuleLogger;
+import org.slf4j.Logger;
 
 /**
  * @author Genius
@@ -8,9 +10,23 @@ import org.example.cache.FileCacheManagerInstance;
  **/
 public class FileCacheManagerInit extends CommonInitMachine{
 
+    public FileCacheManagerInit() {
+        super(FileModuleLogger.logger);
+    }
+
     @Override
     public boolean init() {
-        FileCacheManagerInstance.getInstance().start();
-        return true;
+        try {
+            FileCacheManagerInstance.getInstance().start();
+            return success();
+        }catch (Exception e){
+            return fail(e.getMessage());
+        }
+    }
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+        FileCacheManagerInstance.getInstance().close();
     }
 }

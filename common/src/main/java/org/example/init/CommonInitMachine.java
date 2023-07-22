@@ -8,6 +8,8 @@ package org.example.init;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.function.Supplier;
+
 /**
  * 模块中的小模块初始化抽象类
  */
@@ -59,5 +61,14 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
     public boolean success(String str){
         successLog(str);
         return true;
+    }
+
+    @Override
+    public void shutdown(){
+        shutdownLog();
+    }
+
+    private void shutdownLog(){
+        logger.info("[🆖] {} close success.",this.getClass().getName());
     }
 }
