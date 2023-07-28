@@ -1,11 +1,11 @@
 package org.example.init;
 
-import org.example.log.FileModuleLogger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.pojo.configfile.ModuleSrcConfigFile;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +21,7 @@ public class ModuleSrcConfigFileInit extends CommonInitMachine {
     ModuleSrcConfigFile moduleSrcConfigFile;
 
     public ModuleSrcConfigFileInit() {
-        super(FileModuleLogger.logger);
+        super( ChopperLogFactory.getLogger(LoggerType.File));
         moduleSrcConfigFile = new ModuleSrcConfigFile();
     }
 

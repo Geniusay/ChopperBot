@@ -8,7 +8,7 @@ package org.example.bean;
 /**
  * 热门直播抽象类
  */
-public abstract class HotLive {
+public abstract class Live {
     private int watcherNum;  //直播间观众数目
     private int liveId;      //直播间ID
     private String liveName; //直播间名字
@@ -16,19 +16,30 @@ public abstract class HotLive {
     private String liver;   //主播
     private String description; //直播间简介
 
-    public HotLive(int watcherNum, int liveId, String liveName, String description) {
+    private String platform;
+
+    public Live(int watcherNum, int liveId, String liveName, String description) {
         this.watcherNum = watcherNum;
         this.liveId = liveId;
         this.liveName = liveName;
         this.description = description;
     }
 
-    public HotLive(int watcherNum, int liveId, String liveName, String liver, String description) {
+    public Live(int watcherNum, int liveId, String liveName, String liver, String description) {
         this.watcherNum = watcherNum;
         this.liveId = liveId;
         this.liveName = liveName;
         this.liver = liver;
         this.description = description;
+    }
+
+    public Live(int watcherNum, int liveId, String liveName, String liver, String description, String platform) {
+        this.watcherNum = watcherNum;
+        this.liveId = liveId;
+        this.liveName = liveName;
+        this.liver = liver;
+        this.description = description;
+        this.platform = platform;
     }
 
     public int getWatcherNum() {
@@ -69,5 +80,13 @@ public abstract class HotLive {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 }

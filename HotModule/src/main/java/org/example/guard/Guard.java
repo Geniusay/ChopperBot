@@ -2,19 +2,14 @@ package org.example.guard;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.example.bean.HotLive;
+import org.example.bean.Live;
 import org.example.bean.hotmodule.HotModuleList;
-import org.example.constpool.ConstPool;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.control.HotModuleLoadTask;
-import org.example.core.control.LoadTask;
-import org.example.guard.HotModuleGuardInstance;
-import org.example.log.HotModuleLogger;
 import org.example.log.ResultLogger;
+import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.*;
 
 /**
  * @author Genius
@@ -28,6 +23,7 @@ import java.util.concurrent.*;
 @AllArgsConstructor
 public class Guard implements Runnable, ResultLogger {
 
+    private Logger logger;
     private String guardName;
     private HotModuleLoadTask task;
 
@@ -63,13 +59,13 @@ public class Guard implements Runnable, ResultLogger {
         if(clazzName.contains("module")){
             HotModuleDataCenter.DataCenter().addModuleList(platform,(HotModuleList) data);
         }else if(clazzName.contains("live")){
-            HotModuleDataCenter.DataCenter().addLiveList(platform,(List<HotLive>) data);
+            HotModuleDataCenter.DataCenter().addLiveList(platform,(List<Live>) data);
         }
     }
 
     @Override
     public void successLog() {
-        HotModuleLogger.logger.info("{} successfully finish!",guardName);
+        logger.info("{} successfully finish!",guardName);
     }
 
     @Override
@@ -79,12 +75,12 @@ public class Guard implements Runnable, ResultLogger {
 
     @Override
     public void failLog() {
-        HotModuleLogger.logger.error("{} finish error,cancel this task!",guardName);
+        logger.error("{} finish error,cancel this task!",guardName);
     }
 
     @Override
     public void failLog(String str) {
-        HotModuleLogger.logger.error("{} fail try to redo,retry times:{}!",guardName,str);
+        logger.error("{} fail try to redo,retry times:{}!",guardName,str);
     }
 
 }

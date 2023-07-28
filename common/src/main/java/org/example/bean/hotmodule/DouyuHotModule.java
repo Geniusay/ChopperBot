@@ -7,7 +7,7 @@ import org.example.bean.HotModule;
  * @author Genius
  * @date 2023/07/18 20:46
  **/
-public class DouyuHotModule extends HotModule {
+public class DouyuHotModule extends HotModule<DouyuLive> {
     private String url;
 
     public DouyuHotModule(String tagId, String tagName, String url) {

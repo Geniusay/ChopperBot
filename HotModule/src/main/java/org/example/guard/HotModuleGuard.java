@@ -1,13 +1,12 @@
 package org.example.guard;
 
-import org.example.bean.HotLive;
-import org.example.bean.hotmodule.HotModuleList;
 import org.example.cache.FileCache;
-import org.example.cache.FileCacheManager;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.constpool.HotModuleConstPool;
 import org.example.core.control.HotModuleLoadTask;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.thread.NamedThreadFactory;
 
 import java.util.List;
@@ -23,8 +22,6 @@ public class HotModuleGuard {
     private List<Guard> guards; //热度监控守卫列表，用于初始化一开始的热度监控列表
     private ScheduledExecutorService hotModuleGuardPool;    //热度监控守卫 定时线程池
     private Map<String,ScheduledFuture> runningGuards;      // 运行的热度监控守卫
-
-
 
 
     protected HotModuleGuard(List<Guard> guards,int guardNum){
@@ -66,6 +63,7 @@ public class HotModuleGuard {
         String timeName = isHotModule?"updateHotModuleTimes":"updateHotLivesTimes";
         try {
             addGuard(new Guard(
+                    ChopperLogFactory.getLogger(LoggerType.Hot),
                     clazzName.toLowerCase(),
                     (HotModuleLoadTask)Class.forName(clazz).getDeclaredConstructor().newInstance(),
                     (long)fileCache.get(timeName),

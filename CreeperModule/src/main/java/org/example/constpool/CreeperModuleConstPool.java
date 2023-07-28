@@ -13,6 +13,8 @@ public class CreeperModuleConstPool {
     //弹幕保存文件的根目录
     public static final String BARRAGE_ROOT = (String)GlobalFileCache.ModuleSrcConfigFile.get("barrage","src");
 
+    public static final String CREEPER_ROOT = (String)GlobalFileCache.ModuleSrcConfigFile.get("creeper","src");
+
     /**
      * 下载的方式
      */

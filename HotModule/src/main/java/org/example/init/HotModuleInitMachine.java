@@ -1,6 +1,7 @@
 package org.example.init;
 
-import org.example.log.HotModuleLogger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class HotModuleInitMachine extends ModuleInitMachine{
         super(
                 List.of(new HotModuleConfigInitMachine(),new HotModuleGuardInitMachine()),
                 "HotModule",
-                HotModuleLogger.logger
+                ChopperLogFactory.getLogger(LoggerType.Hot)
         );
     }
 }

@@ -1,7 +1,7 @@
 package org.example.init;
 
-import org.example.log.FileModuleLogger;
-import org.slf4j.Logger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class FileModuleInitMachine extends ModuleInitMachine{
         super(List.of(
                 new ModuleSrcConfigFileInit(),
                 new FileCacheManagerInit()
-        ), "FileModule", FileModuleLogger.logger);
+        ), "FileModule",  ChopperLogFactory.getLogger(LoggerType.File));
     }
 
 }

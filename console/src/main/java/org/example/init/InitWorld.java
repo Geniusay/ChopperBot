@@ -1,5 +1,6 @@
 package org.example.init;
 
+import org.example.guard.HotModuleGuardInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -33,6 +34,8 @@ public class InitWorld {
         boolean isInit = world.init();
         if(!isInit){
             close();
+        }else{
+            world.afterInit();
         }
     }
 

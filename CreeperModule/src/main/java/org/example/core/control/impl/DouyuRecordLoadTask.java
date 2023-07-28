@@ -31,7 +31,7 @@ public class DouyuRecordLoadTask implements LoadTask {
     }
 
     @Override
-    public void start() {
+    public Object start() {
         Spider.create(douyuRecordProcessor)
                 // 设置起始Request
                 .addRequest(new Request(CreeperModuleConstPool.OCCUURL))
@@ -42,6 +42,7 @@ public class DouyuRecordLoadTask implements LoadTask {
                 .setEmptySleepTime(emptySleepTime)
                 // 开始抓取
                 .start();
+        return null;
     }
 
     @Override

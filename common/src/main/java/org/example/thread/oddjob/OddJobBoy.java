@@ -1,9 +1,8 @@
 package org.example.thread.oddjob;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import org.example.thread.NamedThreadFactory;
+
+import java.util.concurrent.*;
 
 /**
  * @author Genius
@@ -22,7 +21,7 @@ public class OddJobBoy {
     private ExecutorService home;
 
     private OddJobBoy(){
-        home = Executors.newSingleThreadExecutor();
+        home = Executors.newSingleThreadExecutor(new NamedThreadFactory("OddJobBoy"));
         oddjobs = new ArrayBlockingQueue<>(1024);
     }
 

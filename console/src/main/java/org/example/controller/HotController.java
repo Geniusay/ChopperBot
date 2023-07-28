@@ -2,7 +2,7 @@ package org.example.controller;
 
 import com.genius.assistant.common.Result;
 import org.example.api.HotModuleApi;
-import org.example.bean.HotLive;
+import org.example.bean.Live;
 import org.example.bean.HotModule;
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.constpool.ConstPool;
@@ -29,13 +29,13 @@ public class HotController {
 
     @GetMapping("/douyu/allHotLive")
     public Result getDouyuAllHotLive(@RequestParam(defaultValue = "0") int latest){
-        List<HotLive> hotLives;
+        List<? extends Live> lives;
         if(latest==1){
-            hotLives = HotModuleApi.getDouyuHotLive();
+            lives = HotModuleApi.getDouyuHotLive();
         }else{
-            hotLives = HotModuleDataCenter.DataCenter().getLiveList(ConstPool.PLATFORM.DOUYU.getName());
+            lives = HotModuleDataCenter.DataCenter().getLiveList(ConstPool.PLATFORM.DOUYU.getName());
         }
-        return Result.success(hotLives);
+        return Result.success(lives);
     }
 
     @GetMapping("/douyu/allHotModule")

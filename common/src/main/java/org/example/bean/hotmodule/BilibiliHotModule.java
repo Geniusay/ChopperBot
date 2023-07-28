@@ -2,13 +2,14 @@ package org.example.bean.hotmodule;
 
 import lombok.Data;
 import org.example.bean.HotModule;
+import org.example.bean.Live;
 
 /**
  * @author Genius
  * @date 2023/07/18 20:49
  **/
 
-public class BilibiliHotModule extends HotModule {
+public class BilibiliHotModule extends HotModule<Live> {
 
     private BilibiliParentHotModule parentHotModule;
 

@@ -19,18 +19,15 @@ import java.util.stream.Collectors;
 public class LoadTaskManager {
 
     private final ConcurrentHashMap<String, LoadTask> taskMap;
-    private final LoadTaskFactory loadTaskFactory;
 
     public LoadTaskManager() {
         this.taskMap = new ConcurrentHashMap<>();
         // 默认任务工场
-        this.loadTaskFactory = new LoadTaskFactory();
     }
 
     public LoadTaskManager(LoadTaskFactory customLoadTaskFactory) {
         this.taskMap = new ConcurrentHashMap<>();
         // 自定义任务工场
-        this.loadTaskFactory = customLoadTaskFactory;
     }
 
     // 创建一个任务并返回唯一的 key
@@ -39,7 +36,7 @@ public class LoadTaskManager {
         String key = generateKey(loadBarrageConfig);
 
         // 创建任务并将其添加到任务映射中
-        LoadTask loadTask = loadTaskFactory.getLoadTask(loadBarrageConfig);
+        LoadTask loadTask = LoadTaskFactory.getLoadTask(loadBarrageConfig);
         taskMap.put(key, loadTask);
 
         // 返回生成的 key

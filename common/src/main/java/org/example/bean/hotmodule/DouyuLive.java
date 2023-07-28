@@ -1,12 +1,13 @@
 package org.example.bean.hotmodule;
 
-import org.example.bean.HotLive;
+import org.example.bean.Live;
+import org.example.constpool.ConstPool;
 
 /**
  * @author Genius
  * @date 2023/07/19 01:16
  **/
-public class DouyuHotLive extends HotLive {
+public class DouyuLive extends Live {
 
     private String liveModule;  //直播板块
 
@@ -21,9 +22,9 @@ public class DouyuHotLive extends HotLive {
 
     private int moduleId; //直播板块Id
 
-    public DouyuHotLive(int watcherNum, int liveId, String liveName, String liver, String description,
-                        String liveModule, String url, String roomCoverPic, int type, int uid,int moduleId) {
-        super(watcherNum, liveId, liveName, liver, description);
+    public DouyuLive(int watcherNum, int liveId, String liveName, String liver, String description,
+                     String liveModule, String url, String roomCoverPic, int type, int uid, int moduleId) {
+        super(watcherNum, liveId, liveName, liver, description, ConstPool.PLATFORM.DOUYU.getName());
         this.liveModule = liveModule;
         this.url = url;
         this.roomCoverPic = roomCoverPic;

@@ -13,5 +13,7 @@ public interface InitMachine extends ResultLogger {
 
     boolean init();
 
+    void afterInit();
+
     void shutdown();
 }

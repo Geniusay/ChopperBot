@@ -35,6 +35,13 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
         });
     }
 
+    @Override
+    public void afterInit() {
+        for(InitMachine initMachine:this.getInitMachines()){
+            initMachine.afterInit();
+        }
+    }
+
     public ModuleInitMachine(List<InitMachine> initMachines, String moduleName) {
         this.initMachines = initMachines;
         this.moduleName = moduleName;

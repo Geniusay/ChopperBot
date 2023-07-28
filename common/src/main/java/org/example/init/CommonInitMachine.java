@@ -71,4 +71,9 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
     private void shutdownLog(){
         logger.info("[🆖] {} close success.",this.getClass().getName());
     }
+
+    @Override
+    public void afterInit() {
+
+    }
 }

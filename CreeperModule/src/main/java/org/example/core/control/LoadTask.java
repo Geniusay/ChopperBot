@@ -5,10 +5,10 @@ package org.example.core.control;
  * @author 燧枫
  * @date 2023/4/23 18:14
 */
-public interface LoadTask {
+public interface LoadTask<T> {
 
     // 开始爬虫
-    void start();
+    T start();
 
     // 结束爬虫
     void end();

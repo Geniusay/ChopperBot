@@ -10,7 +10,7 @@ import java.util.Map;
  **/
 
 //配置文件的抽象类，只负责构建配置文件最基础的架构，一般不用来存放配置文件本身的内容
-public abstract class ConfigFile<T> {
+public abstract class ConfigFile<T>{
 
     private FileType fileType;
     private String filePath;
@@ -109,4 +109,7 @@ public abstract class ConfigFile<T> {
     public void setFilePath(String filePath){
         this.filePath = filePath;
     }
+
+
+
 }

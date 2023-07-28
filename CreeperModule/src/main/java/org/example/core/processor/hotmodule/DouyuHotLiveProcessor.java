@@ -3,8 +3,8 @@ package org.example.core.processor.hotmodule;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.example.bean.HotLive;
-import org.example.bean.hotmodule.DouyuHotLive;
+import org.example.bean.Live;
+import org.example.bean.hotmodule.DouyuLive;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.processor.PageProcessor;
 
@@ -29,14 +29,14 @@ public class DouyuHotLiveProcessor implements PageProcessor {
     @Override
     public void process(Page page) {
 
-        List<HotLive> hotLiveList = new ArrayList<>();
+        List<Live> liveList = new ArrayList<>();
         try{
             JSONArray Lives = JSON.parseObject(page.getRawText()).getJSONObject("data").getJSONArray("rl");
 
             for (Object live : Lives) {
                 if(live instanceof JSONObject){
                     JSONObject jsonLive = (JSONObject) live;
-                    hotLiveList.add(new DouyuHotLive(
+                    liveList.add(new DouyuLive(
                             jsonLive.getInteger("ol"),
                             jsonLive.getInteger("rid"),
                             jsonLive.getString("rn"),
@@ -54,7 +54,7 @@ public class DouyuHotLiveProcessor implements PageProcessor {
         }catch (Exception e){
             throw e;
         }
-        page.putField("data",hotLiveList);
+        page.putField("data", liveList);
 
     }
 }

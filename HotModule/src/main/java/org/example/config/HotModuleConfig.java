@@ -1,6 +1,7 @@
 package org.example.config;
 
 import org.example.bean.ConfigFile;
+import org.example.bean.FileType;
 import org.example.constpool.CreeperModuleConstPool;
 import org.example.constpool.HotModuleConstPool;
 
@@ -31,7 +32,7 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
                                 List.of(allLiveDog()), OneDay, FiveMinute)
                         ),
                         "GuardNum",10
-                )
+                ), FileType.HOT
         );
     }
 

@@ -18,6 +18,9 @@ public class ConstPool {
     public static final String HOT = "hot";
     public static final String PUBLISH = "publish";
 
+    /**其他**/
+    public static final String NULL_TIME = "nil";
+
     /**图片格式**/
     public static final List<String> PIC_TYPES = List.of("jpg","jpeg","png","svg");
 

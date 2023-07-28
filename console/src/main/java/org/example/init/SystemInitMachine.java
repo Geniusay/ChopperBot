@@ -1,7 +1,8 @@
 package org.example.init;
 
-import org.example.log.SystemLogger;
-import org.slf4j.Logger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
+import org.example.thread.oddjob.OddJobBoy;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -16,10 +17,26 @@ public class SystemInitMachine extends ModuleInitMachine{
     public SystemInitMachine() {
         super(List.of(
                 new FileModuleInitMachine(),
+                new CreeperModuleInitMachine(),
                 new HotModuleInitMachine()
-        ), "ChopperBot", SystemLogger.logger);
+        ), "ChopperBot", ChopperLogFactory.getLogger(LoggerType.System));
     }
 
+    @Override
+    public void afterInit() {
+        try {
+            OddJobBoy.Boy().addWork(
+                    ()->{
+                        getInitMachines().forEach(
+                                InitMachine::afterInit
+                        );
+                    }
+            );
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     protected boolean initLogger(Supplier<Boolean> init) {

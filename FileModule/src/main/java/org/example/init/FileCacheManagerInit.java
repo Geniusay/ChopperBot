@@ -1,8 +1,8 @@
 package org.example.init;
 
 import org.example.cache.FileCacheManagerInstance;
-import org.example.log.FileModuleLogger;
-import org.slf4j.Logger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 
 /**
  * @author Genius
@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 public class FileCacheManagerInit extends CommonInitMachine{
 
     public FileCacheManagerInit() {
-        super(FileModuleLogger.logger);
+        super( ChopperLogFactory.getLogger(LoggerType.File));
     }
 
     @Override

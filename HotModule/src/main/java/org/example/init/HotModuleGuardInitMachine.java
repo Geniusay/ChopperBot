@@ -7,10 +7,10 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
 import org.example.core.control.HotModuleLoadTask;
-import org.example.guard.HotModuleGuard;
 import org.example.guard.HotModuleGuardInstance;
 import org.example.guard.Guard;
-import org.example.log.HotModuleLogger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.util.ClassUtil;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class HotModuleGuardInitMachine extends CommonInitMachine{
 
 
     public HotModuleGuardInitMachine() {
-        super(HotModuleLogger.logger);
+        super(ChopperLogFactory.getLogger(LoggerType.Hot));
     }
 
     private void envInit() throws Exception {
@@ -54,11 +54,11 @@ public class HotModuleGuardInitMachine extends CommonInitMachine{
                     Class<?> loadClazz = Class.forName(clazz);
                     if(isHotModule&&hotModuleSetting.isEnableHotModule()){
                         HotModuleLoadTask task = (HotModuleLoadTask)loadClazz.getDeclaredConstructor().newInstance();
-                        guards.add(new Guard(clazzName,task,
+                        guards.add(new Guard(logger,clazzName,task,
                                 hotModuleSetting.getUpdateHotModuleTimes(),hotModuleSetting.getFailRetryTimes()));
                     }else if(hotModuleSetting.isEnableHotLive()){
                         HotModuleLoadTask task = (HotModuleLoadTask)loadClazz.getDeclaredConstructor().newInstance();
-                        guards.add(new Guard(clazzName,task,
+                        guards.add(new Guard(logger,clazzName,task,
                                 hotModuleSetting.getUpdateHotLivesTimes(),hotModuleSetting.getFailRetryTimes()));
                     }
                 }

@@ -1,4 +1,4 @@
-package org.example.core.control.hotmodule;
+package org.example.core.control.impl;
 
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.core.control.HotModuleLoadTask;

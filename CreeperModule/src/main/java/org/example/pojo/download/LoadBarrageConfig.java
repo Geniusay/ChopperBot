@@ -8,8 +8,7 @@ import org.example.utils.FormatUtil;
  * @author 燧枫
  * @date 2023/4/23 16:03
 */
-@Data
-public class LoadBarrageConfig {
+public class LoadBarrageConfig extends LoadConfig{
 
     // 爬取的平台
     protected String platform;
@@ -21,12 +20,34 @@ public class LoadBarrageConfig {
     protected String anchorName;
 
     // 开始时间
-    protected String startTime;
 
     public LoadBarrageConfig(String platform, String action, String anchorName) {
         this.platform = platform;
         this.action = action;
         this.anchorName = anchorName;
-        this.startTime = FormatUtil.getNowDate();
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getAnchorName() {
+        return anchorName;
+    }
+
+    public void setAnchorName(String anchorName) {
+        this.anchorName = anchorName;
     }
 }

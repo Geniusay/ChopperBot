@@ -1,7 +1,5 @@
 package org.example.bean;
 
-import lombok.Data;
-
 import java.util.List;
 
 /**
@@ -10,11 +8,11 @@ import java.util.List;
  **/
 
 
-public abstract class HotModule {
+public abstract class HotModule<T> {
     private String tagId;
     private String tagName;
 
-    private List<HotLive> hotLives;
+    private List<T> lives;
 
     public String getTagId() {
         return tagId;
@@ -32,12 +30,12 @@ public abstract class HotModule {
         this.tagName = tagName;
     }
 
-    public List<HotLive> getHotLives() {
-        return hotLives;
+    public List<T> getHotLives() {
+        return lives;
     }
 
-    public void setHotLives(List<HotLive> hotLives) {
-        this.hotLives = hotLives;
+    public void setHotLives(List<T> lives) {
+        this.lives = lives;
     }
 
     public HotModule(String tagId, String tagName){

@@ -1,9 +1,8 @@
 package org.example.service.impl;
 
-import org.example.bean.HotLive;
+import org.example.bean.Live;
 import org.example.bean.HotModule;
 import org.example.bean.hotmodule.HotModuleList;
-import org.example.constpool.HotModuleConstPool;
 import org.example.core.HotModuleDataCenter;
 import org.example.service.HotModuleService;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class HotModuleServiceImpl implements HotModuleService {
         HotModule hotModule = moduleList.findHotModule(moduleId);
         if(hotModule!=null){
             try {
-                List<HotLive> moduleLiveList = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, hotModule);
+                List<? extends Live> moduleLiveList = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, hotModule);
                 hotModule.setHotLives(moduleLiveList);
                 return hotModule;
             }catch (Exception e){

@@ -1,14 +1,11 @@
 package org.example.cache;
 
-import org.example.log.FileModuleLogger;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.util.TimeUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.lang.Thread.sleep;
@@ -75,13 +72,17 @@ public class FileCacheManager {
             fileCaches.add(fileCache);
             fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
             initSleepTime();
-            FileModuleLogger.logger.debug("FileCacheManager add a new FileCache:{}",fileCache.getFullFilePath());
+            ChopperLogFactory.getLogger(LoggerType.File).debug("FileCacheManager add a new FileCache:{}",fileCache.getFullFilePath());
         }
         return false;
     }
 
     public FileCache getFileCache(String filePath){
         return fileCacheMap.get(filePath);
+    }
+
+    public boolean deleteFileCache(String filePath){
+        return fileCaches.remove(fileCacheMap.get(filePath)) && fileCacheMap.remove(filePath)!=null;
     }
 
     public List<FileCache> getRunnableFileCaches(){
@@ -98,7 +99,7 @@ public class FileCacheManager {
                     BlockingQueue fileChannel = cache.getFileChannel();
                     if(fileChannel.isEmpty()){
                         if(cache.needAutoSync()){
-                            FileModuleLogger.logger.debug("检测到需要强制刷新的文件 {}",cache.getFileName());
+                            ChopperLogFactory.getLogger(LoggerType.File).debug("检测到需要强制刷新的文件 {}",cache.getFileName());
                             autoSyncer.submit(new AutoSyncer(cache));
                         }
                     }
