@@ -1,5 +1,8 @@
 package org.example.thread.oddjob;
 
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
+import org.example.thread.ChopperBotGuardianTask;
 import org.example.thread.NamedThreadFactory;
 
 import java.util.concurrent.*;
@@ -12,16 +15,13 @@ import java.util.concurrent.*;
 /**
  * ChopperBot系统中专门用来处理异步事件的类
  */
-public class OddJobBoy {
+public class OddJobBoy implements ChopperBotGuardianTask {
 
     private static volatile OddJobBoy Instance;
 
     private BlockingQueue<OddJob> oddjobs;
 
-    private ExecutorService home;
-
     private OddJobBoy(){
-        home = Executors.newSingleThreadExecutor(new NamedThreadFactory("OddJobBoy"));
         oddjobs = new ArrayBlockingQueue<>(1024);
     }
 
@@ -30,7 +30,6 @@ public class OddJobBoy {
             synchronized (OddJobBoy.class){
                 if(Instance==null){
                     Instance = new OddJobBoy();
-                    Instance.work();
                 }
             }
         }
@@ -41,26 +40,16 @@ public class OddJobBoy {
         oddjobs.put(job);
     }
 
-    private void work(){
-        home.submit(new Boy());
-    }
 
-    public boolean relax(){
-        home.shutdown();
-        return home.isShutdown();
-    }
+    @Override
+    public void threadTask() {
+        while(true){
+            try {
+                OddJob job = oddjobs.take();
+                ChopperLogFactory.getLogger(LoggerType.System).info("<OddJobBoy> boy get a odd job:{},Processing...",job);
+                job.doJob();
+            }catch (InterruptedException e){
 
-    class Boy implements Runnable{
-
-        @Override
-        public void run() {
-            while(true){
-                try {
-                    OddJob job = oddjobs.take();
-                    job.doJob();
-                }catch (InterruptedException e){
-
-                }
             }
         }
     }

@@ -1,8 +1,13 @@
 package org.example.init;
 
+import org.example.constpool.PluginName;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.taskcenter.TaskCenter;
 import org.example.thread.oddjob.OddJobBoy;
+import org.slf4j.Logger;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,20 +16,28 @@ import java.util.Objects;
  **/
 public class TaskCenterInitMachine extends CommonInitMachine{
 
+    public TaskCenterInitMachine() {
+        super(List.of(PluginName.FILE_CACHE_PLUGIN),
+                ChopperLogFactory.getLogger(LoggerType.Creeper),
+                PluginName.TASK_CENTER_PLUGIN);
+    }
+
     @Override
     public boolean init() {
-        try {
-            TaskCenter center = TaskCenter.center();
-            if(center==null){
-                return false;
+        if(checkNeedPlugin()){
+            try {
+                TaskCenter center = TaskCenter.center();
+                if(center==null){
+                    return fail();
+                }
+                center.guardian();
+            }catch (Exception e){
+                return fail();
             }
-            OddJobBoy.Boy().addWork(
-                    center::work
-            );
-        }catch (InterruptedException e){
-            return false;
+            registerPlugin();
+            return success();
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -38,6 +51,6 @@ public class TaskCenterInitMachine extends CommonInitMachine{
     @Override
     public void afterInit() {
         //爬虫任务恢复
-        Objects.requireNonNull(TaskCenter.center()).restoreTaskCenter();
+        TaskCenter.center().restoreTaskCenter();
     }
 }

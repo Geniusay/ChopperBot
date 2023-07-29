@@ -2,6 +2,7 @@ package org.example.init;
 
 import org.example.config.CreeperConfigFile;
 import org.example.constpool.CreeperModuleConstPool;
+import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.util.FileUtil;
@@ -19,7 +20,10 @@ import java.nio.file.Paths;
 public class CreeperConfigInitMachine extends ConfigInitMachine<CreeperConfigFile> {
 
     public CreeperConfigInitMachine() {
-        super(new CreeperConfigFile(), ChopperLogFactory.getLogger(LoggerType.Creeper));
+        super(PluginName.CREEPER_CONFIG_PLUGIN,
+                new CreeperConfigFile(),
+                ChopperLogFactory.getLogger(LoggerType.Creeper)
+                );
     }
 
     @Override

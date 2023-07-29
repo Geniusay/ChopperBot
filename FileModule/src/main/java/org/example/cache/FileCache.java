@@ -259,7 +259,6 @@ public class FileCache <T extends ConfigFile>{
         String dir = getFullFilePath();
         configFile.onlyUpdateTime(take);
         File file = JsonFileUtil.writeJsonFile(dir, take);
-        logger.debug("正在写入{}新版本",dir);
         return Objects.isNull(file);
     }
 

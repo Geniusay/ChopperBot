@@ -8,12 +8,14 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperConfigFile;
 import org.example.config.CreeperLogConfigFile;
 import org.example.config.TaskCenterConfig;
+import org.example.constpool.PluginName;
 import org.example.exception.FileCacheException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.taskcenter.handler.BootStrapTaskHandler;
 import org.example.taskcenter.request.ReptileRequest;
 import org.example.taskcenter.task.ReptileTask;
+import org.example.thread.ChopperBotGuardianTask;
 import org.example.util.ConfigFileUtil;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
@@ -34,7 +36,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 2，记录正在运行的爬虫任务
  * 3，未完成的爬虫任务修复
  */
-public class TaskCenter {
+public class TaskCenter implements ChopperBotGuardianTask {
 
     private long waitingQueueTime;  //等待队列时间
 
@@ -149,13 +151,15 @@ public class TaskCenter {
         CreeperLogConfigFile configFile = new CreeperLogConfigFile(new ArrayList<>());
         String oldFilePath = creeperLogFileCache.getFullFilePath();
         if (newLogFile(configFile)) {
-            FileCacheManagerInstance.getInstance().deleteFileCache(oldFilePath);
+            if(!oldFilePath.equals(creeperLogFileCache.getFullFilePath())){
+                FileCacheManagerInstance.getInstance().deleteFileCache(oldFilePath);
+            }
         }
     }
 
     public boolean newLogFile(CreeperLogConfigFile configFile){
         if (ConfigFileUtil.createConfigFile(CreeperLogConfigFile.getFullFilePath(),configFile)) {
-            creeperLogFileCache = FileCacheManagerInstance.getInstance().getFileCache(CreeperConfigFile.getFullFilePath());
+            creeperLogFileCache = FileCacheManagerInstance.getInstance().getFileCache(CreeperLogConfigFile.getFullFilePath());
             return true;
         }
         return false;
@@ -165,6 +169,8 @@ public class TaskCenter {
      * 恢复当日因异常关闭而没有完成的任务
      */
     public void restoreTaskCenter(){
+        ChopperLogFactory.getLogger(LoggerType.Creeper).
+                info("<{}> start to restore...", PluginName.TASK_CENTER_PLUGIN);
         JSONArray tasks = (JSONArray)creeperLogFileCache.get("task");
         int restoreNum = 0;
         if(tasks.size()>0){
@@ -182,7 +188,8 @@ public class TaskCenter {
                 }
             }
         }
-        ChopperLogFactory.getLogger(LoggerType.Creeper).info("<TaskCenter> Find {} reptile task need restore,already insert waiting queue",restoreNum);
+        ChopperLogFactory.getLogger(LoggerType.Creeper).info("<{}> Find {} reptile task need restore,already insert waiting queue",
+                PluginName.TASK_CENTER_PLUGIN,restoreNum);
     }
 
     public boolean shutdown(){
@@ -197,4 +204,8 @@ public class TaskCenter {
         }
     }
 
+    @Override
+    public void threadTask() {
+        this.work();
+    }
 }

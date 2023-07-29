@@ -1,7 +1,9 @@
 package org.example.init;
 
+import com.genius.assistant.util.path.PathUtils;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.thread.ChopperBotGuardPool;
 import org.example.thread.oddjob.OddJobBoy;
 
 import java.util.List;
@@ -22,6 +24,15 @@ public class SystemInitMachine extends ModuleInitMachine{
         ), "ChopperBot", ChopperLogFactory.getLogger(LoggerType.System));
     }
 
+
+
+    @Override
+    public boolean init() {
+        ChopperBotGuardPool.init();
+        OddJobBoy.Boy().guardian();
+        return super.init();
+    }
+
     @Override
     public void afterInit() {
         try {
@@ -38,6 +49,8 @@ public class SystemInitMachine extends ModuleInitMachine{
 
     }
 
+
+
     @Override
     protected boolean initLogger(Supplier<Boolean> init) {
         logger.info("🌏 <{}> Wake up,Find {} module need to init,please wait.....","ChopperBot",getInitMachines().size());
@@ -47,9 +60,12 @@ public class SystemInitMachine extends ModuleInitMachine{
     @Override
     public void shutdown() {
         logger.info("🌏 <{}> is shutting down,{} modules need to be closed,please wait.....","ChopperBot",getInitMachines().size());
+
+        ChopperBotGuardPool.GuardPool().shutdown();
         this.getInitMachines().forEach(
                 InitMachine::shutdown
         );
+
         logger.info("🌏 <{}> all modules have been closed. Good Bye~🤗","ChopperBot");
     }
 

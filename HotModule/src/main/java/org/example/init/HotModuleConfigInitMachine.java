@@ -9,6 +9,7 @@ import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperLogConfigFile;
 import org.example.config.HotModuleConfig;
+import org.example.constpool.PluginName;
 import org.example.exception.FileCacheException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
@@ -24,7 +25,9 @@ import java.util.Map;
 public class HotModuleConfigInitMachine extends ConfigInitMachine<HotModuleConfig> {
 
     public HotModuleConfigInitMachine() {
-        super(new HotModuleConfig(), ChopperLogFactory.getLogger(LoggerType.Hot));
+        super(PluginName.HOT_CONFIG_PLUGIN
+                ,new HotModuleConfig()
+                ,ChopperLogFactory.getLogger(LoggerType.Hot));
     }
 
 }

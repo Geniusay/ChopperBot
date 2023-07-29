@@ -1,11 +1,14 @@
-package org.example.guard;
+package org.example.core.guard;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.bean.Live;
 import org.example.bean.hotmodule.HotModuleList;
+import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.control.HotModuleLoadTask;
+import org.example.init.HeatRecommendationInitMachine;
+import org.example.init.InitPluginRegister;
 import org.example.log.ResultLogger;
 import org.slf4j.Logger;
 
@@ -60,7 +63,12 @@ public class Guard implements Runnable, ResultLogger {
             HotModuleDataCenter.DataCenter().addModuleList(platform,(HotModuleList) data);
         }else if(clazzName.contains("live")){
             HotModuleDataCenter.DataCenter().addLiveList(platform,(List<Live>) data);
+            //查看热度推送插件是否装载，如果装载则进行热度推送
+            if(InitPluginRegister.isRegister(PluginName.HOT_RECOMMENDATION_PLUGIN)){
+                HeatRecommendationInitMachine.heatRecommendation.sendHotEvent(platform);
+            }
         }
+
     }
 
     @Override

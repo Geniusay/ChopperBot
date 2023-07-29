@@ -6,9 +6,10 @@ import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
+import org.example.constpool.PluginName;
 import org.example.core.control.HotModuleLoadTask;
-import org.example.guard.HotModuleGuardInstance;
-import org.example.guard.Guard;
+import org.example.core.guard.HotModuleGuardInstance;
+import org.example.core.guard.Guard;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.util.ClassUtil;
@@ -28,9 +29,20 @@ public class HotModuleGuardInitMachine extends CommonInitMachine{
 
 
     public HotModuleGuardInitMachine() {
-        super(ChopperLogFactory.getLogger(LoggerType.Hot));
+        super(  List.of(PluginName.HOT_CONFIG_PLUGIN,
+                        PluginName.FILE_CACHE_PLUGIN),
+
+                ChopperLogFactory.getLogger(LoggerType.Hot),
+                PluginName.HOT_GUARD_PLUGIN);
     }
 
+    /**
+     * 初始化整个热度监控的环境
+     * 1，获取热度监控的所有配置，并进行读取和初始化
+     * 2，获得所有守卫并进行初始化
+     * 3，初始化热度监控插件
+     * @throws Exception
+     */
     private void envInit() throws Exception {
         FileCache HotModuleFileCache = FileCacheManagerInstance.getInstance().getFileCache(HotModuleConfig.getFullFilePath());
 
@@ -70,12 +82,16 @@ public class HotModuleGuardInitMachine extends CommonInitMachine{
 
     @Override
     public boolean init() {
-        try {
-            envInit();
-        } catch (Exception e) {
-            return fail(e.getMessage());
+        if(checkNeedPlugin()){
+            try {
+                envInit();
+            } catch (Exception e) {
+                return fail(e.getMessage());
+            }
+            registerPlugin();
+            return success();
         }
-        return success();
+        return false;
     }
 
     @Override

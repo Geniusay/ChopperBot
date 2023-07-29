@@ -10,13 +10,14 @@ import java.util.List;
 public class ConstPool {
 
     /**模块名**/
-    public static final String ACCOUNT = "account";
-    public static final String SECTION = "section";
-    public static final String BARRAGE = "barrage";
-    public static final String CREEPER = "creeper";
-    public static final String SECTION_WORK = "section_work";
-    public static final String HOT = "hot";
-    public static final String PUBLISH = "publish";
+    public static final String FILE = "File";
+    public static final String ACCOUNT = "Account";
+    public static final String SECTION = "Section";
+    public static final String BARRAGE = "Barrage";
+    public static final String CREEPER = "Creeper";
+    public static final String SECTION_WORK = "SectionWork";
+    public static final String HOT = "HotModule";
+    public static final String PUBLISH = "Publish";
 
     /**其他**/
     public static final String NULL_TIME = "nil";

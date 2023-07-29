@@ -8,6 +8,8 @@ package org.example.init;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -15,20 +17,59 @@ import java.util.function.Supplier;
  */
 public abstract class CommonInitMachine implements ComponentInitMachine{
 
+    protected List<String> needPlugins; //初始化时需要的插件
+
+    protected String pluginName;
+
     protected Logger logger;
 
-    public CommonInitMachine(Logger logger){
-        this.logger = logger;
+
+
+    /**
+     * 注册插件
+     */
+    public void registerPlugin(){
+        InitPluginRegister.registerPluginTable.put(pluginName,this.getClass());
     }
 
-    public CommonInitMachine(){
-        this.logger = LoggerFactory.getLogger(this.getClass().getName());
+    /**
+     * 检查该插件需要的其他插件
+     * @return
+     */
+    @Override
+    public boolean checkNeedPlugin() {
+        for (String needPlugin : needPlugins) {
+            if(!InitPluginRegister.registerPluginTable.containsKey(needPlugin)){
+                fail(String.format("Missing {%s} plugin,please check your plugin init!",needPlugin));
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public CommonInitMachine(List<String> needPlugins, Logger logger, String pluginName) {
+        this.needPlugins = needPlugins;
+        this.logger = logger;
+        this.pluginName = pluginName;
+    }
+
+    public CommonInitMachine(Logger logger,String pluginName){
+        needPlugins = new ArrayList<>();
+        this.logger = logger;
+        this.pluginName = pluginName;
+    }
+
+    public CommonInitMachine(String pluginName){
+        this.pluginName = pluginName;
+        needPlugins = new ArrayList<>();
+        this.logger = LoggerFactory.getLogger(pluginName);
     }
 
 
     @Override
     public void successLog() {
-        successLog(String.format("[✔] {%s} init success!",this.getClass().toString()));
+        successLog(String.format("[✔] {%s} init success!",pluginName));
     }
 
     @Override
@@ -38,7 +79,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
 
     @Override
     public void failLog() {
-        failLog(String.format("[❌] {%s} init error!",this.getClass().toString()));
+        failLog(String.format("[❌] {%s} init error!",pluginName));
     }
 
     @Override
@@ -48,7 +89,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
 
     @Override
     public boolean fail(String failCause) {
-        failLog(String.format("[❌] {%s} init error! Execption:{%s}",this.getClass().toString(),failCause));
+        failLog(String.format("[❌] {%s} init error! Execption:{%s}",pluginName,failCause));
         return false;
     }
 
@@ -69,7 +110,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
     }
 
     private void shutdownLog(){
-        logger.info("[🆖] {} close success.",this.getClass().getName());
+        logger.info("[🆖] {} close success.",pluginName);
     }
 
     @Override

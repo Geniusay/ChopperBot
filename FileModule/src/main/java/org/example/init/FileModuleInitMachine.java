@@ -1,5 +1,6 @@
 package org.example.init;
 
+import org.example.constpool.ConstPool;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 
@@ -15,7 +16,7 @@ public class FileModuleInitMachine extends ModuleInitMachine{
         super(List.of(
                 new ModuleSrcConfigFileInit(),
                 new FileCacheManagerInit()
-        ), "FileModule",  ChopperLogFactory.getLogger(LoggerType.File));
+        ), ConstPool.FILE,  ChopperLogFactory.getLogger(LoggerType.File));
     }
 
 }

@@ -1,5 +1,6 @@
 package org.example.init;
 
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,16 +25,34 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
 
 
     @Override
+    public boolean checkNeedPlugin() {
+        for (String needPlugin : needPlugins) {
+            if(!InitPluginRegister.registerPluginTable.containsKey(needPlugin)){
+                fail(String.format("Missing {%s} module,please check your module init!",needPlugin));
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public boolean init() {
         return initLogger(()->{
-            for (InitMachine initMachine : this.getInitMachines()) {
-                if(!initMachine.init()){
-                    return fail();
+            if(checkNeedPlugin()){
+                for (InitMachine initMachine : this.getInitMachines()) {
+                    if(!initMachine.init()){
+                        return fail();
+                    }
                 }
+                registerPlugin();
+                return success();
             }
-            return success();
+            return false;
+
         });
     }
+
+
 
     @Override
     public void afterInit() {
@@ -43,16 +62,22 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     }
 
     public ModuleInitMachine(List<InitMachine> initMachines, String moduleName) {
+        super(moduleName);
         this.initMachines = initMachines;
         this.moduleName = moduleName;
     }
 
     public ModuleInitMachine(List<InitMachine> initMachines,String moduleName,Logger logger){
-        super(logger);
+        super(logger,moduleName);
         this.initMachines = initMachines;
         this.moduleName = moduleName;
     }
 
+    public ModuleInitMachine(List<String> needPlugins, Logger logger, List<InitMachine> initMachines, String moduleName) {
+        super(needPlugins, logger, moduleName);
+        this.initMachines = initMachines;
+        this.moduleName = moduleName;
+    }
 
     public List<InitMachine> getInitMachines() {
         return initMachines;

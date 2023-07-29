@@ -1,6 +1,7 @@
 package org.example.init;
 
 import org.example.cache.FileCacheManagerInstance;
+import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 
@@ -11,13 +12,14 @@ import org.example.log.LoggerType;
 public class FileCacheManagerInit extends CommonInitMachine{
 
     public FileCacheManagerInit() {
-        super( ChopperLogFactory.getLogger(LoggerType.File));
+        super(ChopperLogFactory.getLogger(LoggerType.File), PluginName.FILE_CACHE_PLUGIN);
     }
 
     @Override
     public boolean init() {
         try {
             FileCacheManagerInstance.getInstance().start();
+            registerPlugin();
             return success();
         }catch (Exception e){
             return fail(e.getMessage());

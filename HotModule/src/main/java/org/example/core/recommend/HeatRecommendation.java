@@ -12,16 +12,16 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.config.FollowDog;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
+import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
+import org.example.exception.InitException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.taskcenter.TaskCenter;
 import org.example.taskcenter.request.LiveReptileRequest;
+import org.example.thread.ChopperBotGuardianTask;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,25 +30,23 @@ import java.util.regex.Pattern;
 /**
  * 根据热门的直播以及看门狗设置来推荐热门直播间到系统
  */
-public class HeatRecommendation {
-
-    private Map<String, Live> recommendationLog;        //推送日志
+public class HeatRecommendation implements ChopperBotGuardianTask {
 
     private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
     private BlockingQueue<String> hotEventList; //用于接收每一次的热榜更新信息，并进行跟风狗推送
 
-    private Reference reference;
 
     public HeatRecommendation(){
-        recommendationLog = new ConcurrentHashMap<>();
         platformFollowDogMap = new ConcurrentHashMap<>();
         hotEventList = new ArrayBlockingQueue<>(1024);
         List<HotModuleSetting> modules = new ArrayList<>();
+
         JSONArray jsonModules = (JSONArray) FileCacheManagerInstance
                 .getInstance()
                 .getFileCache(HotModuleConfig.getFullFilePath())
                 .get("Module");
+
         jsonModules.forEach(jsonModule->{
             modules.add(JSONObject.parseObject(jsonModule.toString(),HotModuleSetting.class));
         });
@@ -58,14 +56,18 @@ public class HeatRecommendation {
                 platformFollowDogMap.put(module.getPlatform(),module.getFollowDogs());
             }
         }
-
-        this.reference = new Reference();
     }
 
+
+    /**
+     * 处理阻塞队列中的热门推送提醒，并且从热点数据中心获取热门直播，进行推送
+     * @throws InterruptedException
+     */
     private void handlerHotEvent() throws InterruptedException {
         while(true){
             String platform = hotEventList.take();
             List<FollowDog> followDogList;
+            ChopperLogFactory.getLogger(LoggerType.Hot).info("<{}> Hotspot event detected.", PluginName.HOT_RECOMMENDATION_PLUGIN);
             if(platformFollowDogMap.containsKey(platform)
                     &&(followDogList=platformFollowDogMap.get(platform)).size()>0){
                  //发送给爬虫队列
@@ -91,22 +93,28 @@ public class HeatRecommendation {
         }
     }
 
+    /**
+     * 查看热门直播，对比banliver名单，选取前top个名额进行推送推荐名单
+     * @param lives
+     * @param banLivers
+     * @param top
+     * @return
+     */
     private List<Live> needRecommend(List<? extends Live> lives,List<String> banLivers,int top){
         List<Live> recommendLive = new ArrayList<>();
+        List<String> livers = new ArrayList<>();
         int num = 0;
 
         for (Live live : lives) {
-            if(recommendationLog.containsKey(live.getLiver())){
-                if(top<num){
-                    String liver = live.getLiver();
-                    if (!isBan(liver,banLivers)) {
-                        recommendLive.add(live);
-                        num++;
-                    }
-                }
+            String liver = live.getLiver();
+            if (!isBan(liver,banLivers)) {
+                recommendLive.add(live);
+                livers.add(liver);
+                num++;
             }
+            if(num>=top)break;
         }
-        ChopperLogFactory.getLogger(LoggerType.Hot).info("<HeatRecommend> recommend {} lives,lives info:",recommendLive);
+        ChopperLogFactory.getLogger(LoggerType.Hot).info("<HeatRecommend> recommend {} lives,liver info:",livers);
         return recommendLive;
     }
 
@@ -119,21 +127,15 @@ public class HeatRecommendation {
         return false;
     }
 
-    public Reference getReference(){
-        return reference;
+    public void sendHotEvent(String platform){
+        hotEventList.offer(platform);
     }
-
-
-
-    class Reference implements Runnable{
-
-        @Override
-        public void run() {
-            try {
-                handlerHotEvent();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+    @Override
+    public void threadTask() {
+        try {
+            handlerHotEvent();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

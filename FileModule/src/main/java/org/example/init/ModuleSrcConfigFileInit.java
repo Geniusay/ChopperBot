@@ -1,5 +1,6 @@
 package org.example.init;
 
+import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.pojo.configfile.ModuleSrcConfigFile;
@@ -21,7 +22,8 @@ public class ModuleSrcConfigFileInit extends CommonInitMachine {
     ModuleSrcConfigFile moduleSrcConfigFile;
 
     public ModuleSrcConfigFileInit() {
-        super( ChopperLogFactory.getLogger(LoggerType.File));
+        super( ChopperLogFactory.getLogger(LoggerType.File),
+                PluginName.MODULE_CONFIG_PLUGIN);
         moduleSrcConfigFile = new ModuleSrcConfigFile();
     }
 

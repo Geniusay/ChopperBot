@@ -7,6 +7,7 @@ package org.example.init;
 
 public interface ComponentInitMachine extends InitMachine{
 
+    boolean checkNeedPlugin();
     default boolean fail(){
         return fail("");
     }

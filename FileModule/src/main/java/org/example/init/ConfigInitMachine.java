@@ -22,8 +22,8 @@ public abstract class ConfigInitMachine<T extends ConfigFile> extends CommonInit
 
     private String filePath;
 
-    public ConfigInitMachine(T configFile, Logger logger) {
-        super(logger);
+    public ConfigInitMachine(String pluginName,T configFile, Logger logger) {
+        super(logger,pluginName);
         this.configFile = configFile;
         filePath = Paths.get(configFile.getFilePath(), configFile.getFileName()).toString();
     }
@@ -32,7 +32,11 @@ public abstract class ConfigInitMachine<T extends ConfigFile> extends CommonInit
 
     @Override
     public boolean init() {
-        return ConfigFileUtil.createConfigFile(filePath,configFile,logger,this.getClass().getName());
+        if (ConfigFileUtil.createConfigFile(filePath,configFile,logger,pluginName)) {
+            registerPlugin();
+            return true;
+        }
+        return false;
     }
 
 
