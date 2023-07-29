@@ -9,9 +9,9 @@ import org.example.log.LoggerType;
  * @author Genius
  * @date 2023/04/26 02:09
  **/
-public class FileCacheManagerInit extends CommonInitMachine{
+public class FileCacheManagerInitMachine extends CommonInitMachine{
 
-    public FileCacheManagerInit() {
+    public FileCacheManagerInitMachine() {
         super(ChopperLogFactory.getLogger(LoggerType.File), PluginName.FILE_CACHE_PLUGIN);
     }
 

@@ -17,11 +17,11 @@ public class InitWorld {
 
     private ConfigurableApplicationContext ctx;
 
-    private SystemInitMachine world;
+    private WorldInitMachine world;
 
     private InitWorld(ConfigurableApplicationContext ctx) {
         this.ctx = ctx;
-        this.world = new SystemInitMachine();
+        this.world = new WorldInitMachine();
     }
 
     @PostConstruct

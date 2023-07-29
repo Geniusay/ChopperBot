@@ -15,12 +15,16 @@
     - 🛑更名: {旧名} ➡ {新名}
     - ❌移除: {模块|方法}
     - 🚧施工
+    - 💪增强: {类}
+    
 
     ------
 
 ```
 ------
 # 目录
+* [V 1.0.9]()
+* [V 1.0.8]()
 * [V 1.0.7]()
 * [V 1.0.6]()
 * [V 1.0.5]()
@@ -30,6 +34,89 @@
 * [V 1.0.1]()
 * [V 1.0.0]()
 
+------
+## [V 1.0.9] - 2023.7.30
+**💥GREAT CHANGE：**
+- 热门监控功能，负责监控并获取平台热度
+- 热门信息数据中心，负责缓存当前的热门爬取数据
+- 热门模块的后端api实现
+- 热门推荐模块，推送当前热门的直播，并生成对应的爬虫任务
+- 爬虫模块的任务中心，负责将各个模块发送的爬虫请求分发封装成爬虫任务，并处理，保存，记录，恢复爬虫任务
+- 模块化插件框架完善，新增 初始化后执行操作，插件依赖，插件注册表功能
+- 新增系统线程池，一些插件的运行交给系统线程池处理，例如：HeatRecommendation,OddJobBoy等
+
+### common
+- 💪增强:`InitMachine` 增加了`afterInit`方法，用于项目初始化启动后的一些操作
+- 💪增强:`ComponetInitMachine`增加了`checkNeedPlugin`方法，用于检查该插件启动时依赖的插件是否注册
+- 🎈新增:`InitPluginRegister`负责注册当前启动的所有插件
+- 🎈新增:`ChopperBotGuardPool`该类是系统线程池，负责运行系统的一些伴随系统生命周期运行的插件，例如：OddJobBoy，实现`ChopperBotGuardTask`即可将插件放入池中运行
+- 🎈新增:`PluginName`该类是插件名称常量池，存储插件名称
+
+### FileModule
+- 🎈新增:`ConfigInitMachine`该类是模块配置文件插件初始化抽象类
+- 🧹重构:更改了大部分的模块配置文件初始化类的继承
+
+### CreeperModule
+- 🎈新增:`CreeperConfigFile`爬虫模块配置文件
+- 🎈新增:`CreeperLogConfigFile`爬虫日志模块配置文件
+- 🎈新增:`TaskCenterConfig`任务中心配置类
+- 🎈新增:`ReptileRequest`爬虫请求`抽象类`，其他模块需要申请爬虫操作时需要发送的类
+- 🎈新增:`ReptileTask`爬虫任务类，包含`LoadTask`方法，包含具体的爬虫任务
+- 🎈新增:`TaskCenter`该类`爬虫任务中心插件`,是`ReptileRequest`的接收中心，是`ReptileTask`的处理，执行，记录，保存，恢复中心
+- 🎈新增:`TaskHandler`该类负责`ReptileRequest`的分发和包装，根据其内容来包装成对应的`ReptileTask`
+- 🎈新增:`BootStrapTaskHandler`该类是最原始的`ReptileRequest`接收和分发中心，负责分发到其他的`TaskHandler`类进行分发包装
+- 🎈新增:`LiveTaskHandler`直播请求分发包装中心
+- 🎈新增:`CreeperModuleInitMachine,CreeperConfigInitMachine,TaskCenterInitMachine`分别为:爬虫模块，爬虫模块配置文件，任务中心初始化类
+
+### HotModule
+- 🎈新增:`Guard` 热度监控类，监控具体平台的具体任务的监控类
+- 🎈新增:`HotModuleGuard` `热度监控中心插件`，监控具体平台的具体任务的监控中心
+- 🎈新增:`HotModuleGuardInstance` `HotModuleGuard`的单例类
+- 🎈新增:`HeatRecommendation` `热门直播推荐插件`，负责热门直播的推荐
+- 🎈新增:`HotModuleDataCenter` 热门模块数据中心，缓存热门模块的热门信息
+- 🎈新增:`HotModuleConfigInitMachine,HotModuleGuardInitMachine,HeatRecommendationInitMachine`分别为:热门模块配置文件，热度监控中心插件，热门直播推荐插件初始化类
+
+### console
+- 🎈新增:`HotController` 热门模块的一些后端功能接口
+------
+## [V 1.0.8] - 2023.7.26
+**💥GREAT CHANGE：**
+- 项目模块化启动，以及插件启动框架完成
+- 项目启动日志，结束日志
+- 热门模块的搭建以及相关热门信息爬取类
+
+### common
+- 💪增强:`InitMachine` 增加了一些方法，包含`init,shutdown`，用于模块化启动
+- 💪增强:`TimeUtil`新增一些时间方法
+- 🎈新增:`ComponentInitMachine,CommonInitMachine,ModuleInitMachine` 1个接口2个类，分别对应组件初始化接口，常规插件初始化类，模块初始化类
+- 🎈新增:`ChopperLogFactory` 其作为整个ChopperBot的日志工厂，用于获取模块日志类，提供`LoggerType`枚举变量中的类型即可返回相应的模块日志
+- 🎈新增:`ResultLogger` 是一个结果日志`接口`，该接口包含一些成功和失败日志方法
+- 🎈新增:`OddJobBoy` 这是一个`单线程任务队列`，负责**处理项目中需要异步执行且不紧急的任务**，对应的任务类是`OddJob`
+- 🎈新增:`ClassUtil`对Java对象的一些操作工具
+- 🎈新增:`Live,HotModule`等一些子类，这个是直播类，和热门模块类其子类是具体平台的直播和模块类，子类的前缀一般表示直播平台
+- 🎈新增:`NamedThreadFactory`用于更改线程池名字
+- 🎈新增&🚧施工:`ChineseConvertUtil` 将中文进行一些操作的工具,需要完善
+
+
+### CreeperModule
+- 🎈新增:`HotModuleLoadTask` 这是一个热门模块任务的抽象类,平台热门模块和热门直播的爬取任务需要继承该类
+- 🎈新增:`DouyuHotModuleLoadTask,DouyuHotLiveLoadTask` 以及对应的`Processor` 主要负责热门模块和热门直播的爬取
+- 🧹重构:`LoadConfig` 该类不再作为一个弹幕日志配置爬取类，而是作为一个爬取任务配置的抽象类，其他的内容爬取配置类需要继承该类
+- 🎈新增:`LoadBarrageConfig,LoadHotModuleConfig,LoadLiveConfig` 弹幕任务配置类，热门模块任务配置类，直播配置类
+- 💪增强:`LoadFactory`新增`Douyu热门直播，热门模块 LoadTask`
+
+### HotModule
+- 🎈新增:`HotModuleApi`，热门模块的爬虫方法api包装实现
+- 🎈新增:`HotModuleConfig`,该类作为整个热门模块的配置类,包含了各个平台的热门模块设置，热门监控设置，以及自动推荐功能
+- 🎈新增:`HotModuleConfigInitMachine`,热门配置文件的创建初始化类
+- 🎈新增:`HotModuleInitMachine`,热门模块初始化类
+
+### FileModule
+- 💪增强:`ModuleSrcConfigFileInitMachine,FileCacheManagerInitMachine`实现ComponentInitMachine,其将作为FileModule的插件启动
+
+### console
+- 🎈新增:`WorldInitMachine` 整个ChopperBot的项目启动，负责启动所有模块和一些系统类
+- 🧹重构:`InitWorld`不再执行原本的职能，其只负责执行`WorldInitMachine`，并判断启动是否成功来决定是否shutdown项目
 ------
 ## [V 1.0.7] - 2023.5.19
 ### 🎈 CreeperModule

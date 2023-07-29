@@ -17,11 +17,11 @@ import java.util.Map;
  * @date 2023/04/20 18:34
  **/
 
-public class ModuleSrcConfigFileInit extends CommonInitMachine {
+public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
 
     ModuleSrcConfigFile moduleSrcConfigFile;
 
-    public ModuleSrcConfigFileInit() {
+    public ModuleSrcConfigFileInitMachine() {
         super( ChopperLogFactory.getLogger(LoggerType.File),
                 PluginName.MODULE_CONFIG_PLUGIN);
         moduleSrcConfigFile = new ModuleSrcConfigFile();

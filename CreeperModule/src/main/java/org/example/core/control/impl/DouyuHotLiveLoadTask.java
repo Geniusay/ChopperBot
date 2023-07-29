@@ -14,6 +14,12 @@ import static org.example.constpool.ApiPool.*;
  * @author Genius
  * @date 2023/07/19 02:42
  **/
+
+/**
+ * 斗鱼的热门直播爬取任务
+ * 1,全部的热门直播爬取
+ * 2,指定对应模块下的热门直播爬取
+ */
 public class DouyuHotLiveLoadTask extends HotModuleLoadTask<List<DouyuLive>> {
 
 

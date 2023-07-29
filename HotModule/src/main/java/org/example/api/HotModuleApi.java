@@ -12,6 +12,7 @@ import org.example.pojo.download.assign.DouyuHotModuleConfig;
 import java.util.List;
 
 /**
+ * 热门模块的一些爬虫方法api实现
  * @author Genius
  * @date 2023/07/21 17:53
  **/

@@ -6,11 +6,12 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * config中的跟风狗设置，用于筛选和推荐某个模块的前几个主播
  * @author Genius
  * @date 2023/07/20 00:40
  **/
 
-//config中的跟风狗设置
+//
 @Data
 @AllArgsConstructor
 public class FollowDog {

@@ -9,6 +9,11 @@ import us.codecraft.webmagic.Spider;
  * @author Genius
  * @date 2023/07/21 10:22
  **/
+
+/**
+ * 热门模块的抽象类，它包含了任务完成状态以及失败成功日志，以及后续数据的获取和返回
+ * @param <T>
+ */
 public abstract class HotModuleLoadTask<T> implements LoadTask<T>{
     public enum FinishFlag{
         FINISH,NOT_FINISH,FAIL

@@ -7,6 +7,7 @@ import org.example.taskcenter.request.ReptileRequest;
 import org.example.taskcenter.task.ReptileTask;
 
 /**
+ * 最原始的ReptileRequest接收和分发中心，负责分发到其他的TaskHandler类进行分发包装
  * @author Genius
  * @date 2023/07/28 17:37
  **/

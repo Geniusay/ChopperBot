@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 热门模块的整个配置类
+ * 1，包含每个平台的热门爬取设置
+ * 2，每个模块的热门推荐和自动推荐爬取设置
  * @author Genius
  * @date 2023/07/20 00:20
  **/

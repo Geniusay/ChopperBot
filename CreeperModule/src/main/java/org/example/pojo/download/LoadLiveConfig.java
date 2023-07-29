@@ -4,6 +4,7 @@ import org.example.bean.Live;
 import org.example.pojo.download.LoadConfig;
 
 /**
+ * 直播爬取的配置类最底层
  * @author Genius
  * @date 2023/07/28 23:16
  **/

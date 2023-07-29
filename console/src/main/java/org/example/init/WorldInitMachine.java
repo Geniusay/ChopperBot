@@ -1,6 +1,5 @@
 package org.example.init;
 
-import com.genius.assistant.util.path.PathUtils;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.ChopperBotGuardPool;
@@ -13,10 +12,10 @@ import java.util.function.Supplier;
  * @author Genius
  * @date 2023/07/22 17:52
  **/
-public class SystemInitMachine extends ModuleInitMachine{
+public class WorldInitMachine extends ModuleInitMachine{
 
     private static final String githubUrl = "https://github.com/969025903/ChopperBot";
-    public SystemInitMachine() {
+    public WorldInitMachine() {
         super(List.of(
                 new FileModuleInitMachine(),
                 new CreeperModuleInitMachine(),

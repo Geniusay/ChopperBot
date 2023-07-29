@@ -10,6 +10,13 @@ import java.util.List;
  * @date 2023/07/21 09:56
  **/
 public class ClassUtil {
+
+    /**
+     * 获得某一个包下的所有类
+     * @param packageName   //包名
+     * @return
+     * @throws IOException
+     */
     public static List<String> getClassesInPackage(String packageName)throws IOException {
         List<String> classNames = new ArrayList<>();
 
@@ -28,6 +35,7 @@ public class ClassUtil {
         return classNames;
     }
 
+    //对包名进行分割
     private static void scanClassesInDirectory(String packageName, File directory, List<String> classNames) {
         for (File file : directory.listFiles()) {
             if (file.isFile()) {

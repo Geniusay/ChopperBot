@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 热门模块的设置类
  * @author Genius
  * @date 2023/07/20 00:25
  **/
