@@ -23,7 +23,6 @@ public class InitWorld {
 
     private InitWorld(ConfigurableApplicationContext ctx) {
         this.ctx = ctx;
-
     }
 
     @PostConstruct
