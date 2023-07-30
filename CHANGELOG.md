@@ -23,6 +23,7 @@
 ```
 ------
 # 目录
+* [V 1.0.10]()
 * [V 1.0.9]()
 * [V 1.0.8]()
 * [V 1.0.7]()
@@ -34,6 +35,10 @@
 * [V 1.0.1]()
 * [V 1.0.0]()
 
+------
+## [V 1.0.10] - 2023.7.31
+- 🐞Bug:**#00005** 删除config文件无法修复
+- ⛏修复:**#00005** 将ModuleSrcConfigInitMachine移除插件范围，不作为File模块的插件启动，将ModuleSrcConfigInitMachine提前到WorldInit前启动。详情请看 https://github.com/969025903/ChopperBot/issues/5
 ------
 ## [V 1.0.9] - 2023.7.30
 **💥GREAT CHANGE：**

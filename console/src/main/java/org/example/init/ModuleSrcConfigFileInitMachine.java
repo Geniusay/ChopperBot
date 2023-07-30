@@ -1,45 +1,61 @@
 package org.example.init;
 
+import com.alibaba.fastjson.JSONObject;
+import org.example.cache.FileCache;
+import org.example.constpool.GlobalFileCache;
 import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.pojo.configfile.ModuleSrcConfigFile;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Genius
  * @date 2023/04/20 18:34
  **/
 
+@Component
 public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
 
     ModuleSrcConfigFile moduleSrcConfigFile;
 
+    private boolean initFlag;
+
     public ModuleSrcConfigFileInitMachine() {
-        super( ChopperLogFactory.getLogger(LoggerType.File),
+        super( ChopperLogFactory.getLogger(LoggerType.System),
                 PluginName.MODULE_CONFIG_PLUGIN);
         moduleSrcConfigFile = new ModuleSrcConfigFile();
+        initFlag = true;
     }
 
+
+
+    @PostConstruct
     @Override
     public boolean init() {
         Path dir = Paths.get(moduleSrcConfigFile.getFilePath());
         if (!createConfigDirectory(dir)) {
-            return fail("创建Config目录失败");
+            initFlag = fail("./config directory");
+            return initFlag;
         }
         if (!createConfigFile(dir)) {
-            return fail("创建Config文件失败");
+            initFlag = fail(ModuleSrcConfigFile.getFullPath());
+            return initFlag;
         }
         if (!createModuleDirectory()) {
-            return fail("创建模块文件夹失败");
+            initFlag =  fail("module directory");
+            return initFlag;
         }
-        return success();
+        return initFlag;
     }
 
     private boolean createConfigDirectory(Path dir) {
@@ -58,6 +74,11 @@ public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
         try {
             if (!Files.exists(path)) {
                 JsonFileUtil.writeJsonFile(path.toString(),moduleSrcConfigFile.packageConfig());
+                GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
+            }else{
+                Map<String, Object> data = JsonFileUtil.readJsonFile(Paths.get(dir.toString(), moduleSrcConfigFile.getFileName()).toString());
+                moduleSrcConfigFile.setData(data);
+                GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
             }
         }catch (Exception e) {
             return false;
@@ -67,20 +88,34 @@ public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
 
     private boolean createModuleDirectory() {
 
-        Map<String, ModuleSrcConfigFile.SRC> moduleSrcConfigFileMap
-                = (Map<String, ModuleSrcConfigFile.SRC>) moduleSrcConfigFile.packageConfig().get("data");
+        Map<String, Object> moduleSrcConfigFileMap = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("src").toString());
 
-        for (Map.Entry<String, ModuleSrcConfigFile.SRC> stringModuleConfigSrcEntry : moduleSrcConfigFileMap.entrySet()) {
+        for (Map.Entry<String, Object> stringModuleConfigSrcEntry : moduleSrcConfigFileMap.entrySet()) {
 
-            ModuleSrcConfigFile.SRC src =  stringModuleConfigSrcEntry.getValue();
+            String src = stringModuleConfigSrcEntry.getValue().toString();
             try {
-                if (!FileUtil.isFileExist(src.getSrc())) {
-                    Files.createDirectory(Path.of(src.getSrc()));
+                if (!FileUtil.isFileExist(src)) {
+                    Files.createDirectory(Path.of(src));
                 }
             }catch (Exception e) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean fail(String failCause) {
+        failLog(failCause);
+        return false;
+    }
+
+    @Override
+    public void failLog(String str) {
+        logger.error("[Wilderness] Create {} fail!",str);
+    }
+
+    public boolean isInitFlag() {
+        return initFlag;
     }
 }

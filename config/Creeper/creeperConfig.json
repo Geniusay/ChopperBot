@@ -1,0 +1,10 @@
+{
+	"data":{
+		"taskCenter":{
+			"queueCapacity":50,
+			"threads":10,
+			"waitingTime":1000
+		}
+	},
+	"updateTime":"2023-07-31 01:13:20"
+}

@@ -16,7 +16,7 @@ public class ConstPool {
     public static final String BARRAGE = "Barrage";
     public static final String CREEPER = "Creeper";
     public static final String SECTION_WORK = "SectionWork";
-    public static final String HOT = "HotModule";
+    public static final String HOT = "Hot";
     public static final String PUBLISH = "Publish";
 
     /**其他**/

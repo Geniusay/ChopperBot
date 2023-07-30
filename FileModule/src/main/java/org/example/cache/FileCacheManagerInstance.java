@@ -14,7 +14,7 @@ import java.util.List;
 public class FileCacheManagerInstance {
 
     //获取全局的一个fileCaches
-    private static List<FileCache> fileCaches = GlobalFileCache.fileCaches;
+    private static List<FileCache> fileCaches = List.of(GlobalFileCache.ModuleSrcConfigFile);
     private static volatile FileCacheManager Instance;
 
     public static FileCacheManager getInstance(){

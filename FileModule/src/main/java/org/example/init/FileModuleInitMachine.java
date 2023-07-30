@@ -14,7 +14,6 @@ public class FileModuleInitMachine extends ModuleInitMachine{
 
     public FileModuleInitMachine() {
         super(List.of(
-                new ModuleSrcConfigFileInitMachine(),
                 new FileCacheManagerInitMachine()
         ), ConstPool.FILE,  ChopperLogFactory.getLogger(LoggerType.File));
     }

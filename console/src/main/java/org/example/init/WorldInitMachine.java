@@ -70,7 +70,7 @@ public class WorldInitMachine extends ModuleInitMachine{
 
     @Override
     public void successLog() {
-        successLog(String.format("🤖 <%s> Already Start,Enjoy it.You can goto the %s to support us,THX 😘! ","ChopperBot",githubUrl));
+        successLog(String.format("🤖 <%s> Already Start,Click here http://localhost:8888/ to Enjoy it .You can goto the %s to support us,THX 😘! ","ChopperBot",githubUrl));
     }
 
     @Override

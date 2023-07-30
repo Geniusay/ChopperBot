@@ -4,6 +4,7 @@ import org.example.bean.ConfigFile;
 import org.example.bean.FileType;
 import org.example.constpool.ConstPool;
 
+import java.nio.file.Paths;
 import java.util.Map;
 
 /**
@@ -12,44 +13,29 @@ import java.util.Map;
  **/
 
 
-public class ModuleSrcConfigFile extends ConfigFile<Map<String, ModuleSrcConfigFile.SRC>> {
+public class ModuleSrcConfigFile extends ConfigFile<Map<String, Object>> {
 
-    private static Map<String, SRC> config;
+    private static final String filePath = "./config/";
 
-    public static class SRC{
-        private String src;
-        public SRC(String src) {
-            this.src = src;
-        }
-
-        public String getSrc() {
-            return src;
-        }
-
-        public void setSrc(String src){this.src =src;}
-    }
-
-    static{
-        config = Map.of(
-                ConstPool.ACCOUNT, new SRC("./config/"+ConstPool.ACCOUNT),
-                ConstPool.SECTION, new SRC("./config/"+ConstPool.SECTION),
-                ConstPool.BARRAGE, new SRC("./config/"+ConstPool.BARRAGE),
-                ConstPool.CREEPER, new SRC("./config/"+ConstPool.CREEPER),
-                ConstPool.SECTION_WORK, new SRC("./config/"+ConstPool.SECTION_WORK),
-                ConstPool.HOT, new SRC("./config/"+ConstPool.HOT),
-                ConstPool.PUBLISH, new SRC("./config/"+ConstPool.PUBLISH)
-        );
-    }
-
-
+    private static final String fileName =  "chopperBotConfig.json";
     public ModuleSrcConfigFile() {
-        super("./config/"
-                , "moduleConfig.json"
-                , config, FileType.CHOPPER_BOT);
+        super( filePath, fileName,
+                Map.of("src",Map.of( ConstPool.ACCOUNT, "./config/"+ConstPool.ACCOUNT,
+                        ConstPool.SECTION, "./config/"+ConstPool.SECTION,
+                        ConstPool.BARRAGE, "./config/"+ConstPool.BARRAGE,
+                        ConstPool.CREEPER, "./config/"+ConstPool.CREEPER,
+                        ConstPool.SECTION_WORK, "./config/"+ConstPool.SECTION_WORK,
+                        ConstPool.HOT, "./config/"+ConstPool.HOT,
+                        ConstPool.PUBLISH, "./config/"+ConstPool.PUBLISH)),
+                 FileType.CHOPPER_BOT);
     }
 
     public Map<String,Object> packageConfig() {
         return super.packageConfig();
+    }
+
+    public static final String getFullPath(){
+        return Paths.get(filePath,fileName).toString();
     }
 
 }

@@ -16,16 +16,10 @@ import java.util.List;
  */
 public class GlobalFileCache {
 
-    public static FileCache ModuleSrcConfigFile;
-
-    static {
-        try {
-            ModuleSrcConfigFile = new FileCache(new ModuleSrcConfigFile());
-        } catch (FileCacheException e) {
-            throw new RuntimeException(e);
-        }
+    public GlobalFileCache() {
     }
 
-    public static List<FileCache> fileCaches
-            = List.of(ModuleSrcConfigFile);
+    public static FileCache ModuleSrcConfigFile;
+
+
 }
