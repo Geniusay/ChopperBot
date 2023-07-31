@@ -1,11 +1,13 @@
 package org.example.init;
 
+import org.example.util.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 
 /**
  * @author Genius
@@ -17,7 +19,7 @@ import javax.annotation.PostConstruct;
 public class InitWorld {
 
     @Autowired
-    ModuleSrcConfigFileInitMachine moduleSrcConfigFileInitMachine;
+    ChopperBotConfigFileInitMachine moduleSrcConfigFileInitMachine;
     private ConfigurableApplicationContext ctx;
 
 
@@ -29,7 +31,13 @@ public class InitWorld {
     @PostConstruct
     private void init(){
         if(moduleSrcConfigFileInitMachine.isInitFlag()){
-            WorldInitMachine world = new WorldInitMachine();
+            WorldInitMachine world = null;
+            try {
+                world = new WorldInitMachine();
+            } catch (Exception e) {
+                close();
+                return;
+            }
             if (world.init()) {
                 world.afterInit();
                 return;
@@ -37,8 +45,11 @@ public class InitWorld {
                 world.shutdown();
             }
         }
+       close();
+    }
+
+    private void close(){
         int exit = SpringApplication.exit(ctx, () -> 0);
         System.exit(exit);
     }
-
 }

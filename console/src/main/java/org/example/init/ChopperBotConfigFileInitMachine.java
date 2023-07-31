@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Genius
@@ -24,13 +23,13 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 
 @Component
-public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
+public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
 
     ModuleSrcConfigFile moduleSrcConfigFile;
 
     private boolean initFlag;
 
-    public ModuleSrcConfigFileInitMachine() {
+    public ChopperBotConfigFileInitMachine() {
         super( ChopperLogFactory.getLogger(LoggerType.System),
                 PluginName.MODULE_CONFIG_PLUGIN);
         moduleSrcConfigFile = new ModuleSrcConfigFile();

@@ -25,10 +25,10 @@ import static org.example.constpool.HotModuleConstPool.LOAD_TASK_CLASS_ROOT;
  * @author Genius
  * @date 2023/07/21 09:58
  **/
-public class HotModuleGuardInitMachine extends CommonInitMachine{
+public class HotGuardInitMachine extends CommonInitMachine{
 
 
-    public HotModuleGuardInitMachine() {
+    public HotGuardInitMachine() {
         super(  List.of(PluginName.HOT_CONFIG_PLUGIN,
                         PluginName.FILE_CACHE_PLUGIN),
 

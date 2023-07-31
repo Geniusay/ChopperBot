@@ -1,11 +1,16 @@
 package org.example.init;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.example.exception.InitException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.thread.oddjob.OddJobBoy;
+import org.example.util.ClassUtil;
+import org.example.util.PluginUtil;
 
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 /**
@@ -14,13 +19,13 @@ import java.util.function.Supplier;
  **/
 public class WorldInitMachine extends ModuleInitMachine{
 
+
+
+
     private static final String githubUrl = "https://github.com/969025903/ChopperBot";
-    public WorldInitMachine() {
-        super(List.of(
-                new FileModuleInitMachine(),
-                new CreeperModuleInitMachine(),
-                new HotModuleInitMachine()
-        ), "ChopperBot", ChopperLogFactory.getLogger(LoggerType.System));
+
+    public WorldInitMachine() throws Exception {
+        super(PluginUtil.getAllModuleInit(), "ChopperBot", ChopperLogFactory.getLogger(LoggerType.System));
     }
 
 

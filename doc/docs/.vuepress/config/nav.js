@@ -2,10 +2,11 @@ module.exports = [
   { text: "首页", link: "/" },
   {
     text: "指南",
-    link: "/pages/24112f/",
+    link: "/pages/779a67/",
     items: [
-      { text: "快速入门", link: "/pages/24112f/" },
-      { text: "技术文档", link: "/pages/779a6e/" },
+      { text: "快速开始", link: "/pages/24112f/" },
+      { text: "开发指南", link: "/pages/779a67/" },
+      { text: "技术文档", link: "/pages/e3a691/" },
     ]
   },
   {

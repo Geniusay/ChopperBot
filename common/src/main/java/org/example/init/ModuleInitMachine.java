@@ -88,6 +88,11 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     }
 
 
+    public String getModuleName() {
+        return moduleName;
+    }
+
+
     @Override
     public void successLog() {
         successLog(String.format("✅ <%s> init success! init %s plugins ! ",moduleName,initMachines.size()));

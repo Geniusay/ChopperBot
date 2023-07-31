@@ -25,6 +25,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
 
 
 
+
     /**
      * 注册插件
      */
@@ -116,5 +117,9 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
     @Override
     public void afterInit() {
 
+    }
+
+    public List<String> getNeedPlugins() {
+        return needPlugins;
     }
 }
