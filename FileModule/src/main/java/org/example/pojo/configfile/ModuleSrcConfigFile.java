@@ -26,7 +26,8 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, Object>> {
                         ConstPool.CREEPER, "./config/"+ConstPool.CREEPER,
                         ConstPool.SECTION_WORK, "./config/"+ConstPool.SECTION_WORK,
                         ConstPool.HOT, "./config/"+ConstPool.HOT,
-                        ConstPool.PUBLISH, "./config/"+ConstPool.PUBLISH)),
+                        ConstPool.PUBLISH, "./config/"+ConstPool.PUBLISH),
+                        "plugin",Map.of()),
                  FileType.CHOPPER_BOT);
     }
 

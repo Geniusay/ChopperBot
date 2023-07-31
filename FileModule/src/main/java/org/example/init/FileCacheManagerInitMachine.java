@@ -19,7 +19,6 @@ public class FileCacheManagerInitMachine extends CommonInitMachine{
     public boolean init() {
         try {
             FileCacheManagerInstance.getInstance().start();
-            registerPlugin();
             return success();
         }catch (Exception e){
             return fail(e.getMessage());

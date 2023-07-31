@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 public class ChopperLogFactory {
 
     public static Logger getLogger(LoggerType loggerType){
-        return LoggerFactory.getLogger(loggerType.getLoggerName());
+        return getLogger(loggerType.getLoggerName());
+    }
+
+    public static Logger getLogger(String name){
+        return LoggerFactory.getLogger(name);
     }
 }

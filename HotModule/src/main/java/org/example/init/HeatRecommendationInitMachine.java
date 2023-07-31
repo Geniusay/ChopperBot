@@ -4,7 +4,6 @@ import org.example.constpool.PluginName;
 import org.example.core.recommend.HeatRecommendation;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
-import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -25,16 +24,14 @@ public class HeatRecommendationInitMachine extends CommonInitMachine{
 
     @Override
     public boolean init() {
-        if(checkNeedPlugin()){
-            try {
-                heatRecommendation = new HeatRecommendation();
-            }catch (Exception e){
-                return fail();
-            }
-            registerPlugin();
-            return success();
+
+        try {
+            heatRecommendation = new HeatRecommendation();
+        }catch (Exception e){
+            return fail();
         }
-        return false;
+
+        return success();
     }
 
     @Override

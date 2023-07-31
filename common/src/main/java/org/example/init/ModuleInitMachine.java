@@ -1,12 +1,8 @@
 package org.example.init;
 
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -40,8 +36,13 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
         return initLogger(()->{
             if(checkNeedPlugin()){
                 for (InitMachine initMachine : this.getInitMachines()) {
-                    if(!initMachine.init()){
-                        return fail();
+                    if (((CommonInitMachine)initMachine).checkNeedPlugin()) {
+                        if(!initMachine.init()){
+                            return fail();
+                        }
+                        ((CommonInitMachine) initMachine).registerPlugin();
+                    }else{
+                        return false;
                     }
                 }
                 registerPlugin();

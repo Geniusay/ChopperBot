@@ -8,7 +8,6 @@ import org.example.init.ModuleInitMachine;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * plugin工具，用来排序module初始化顺序以及检测是否存在相互依赖

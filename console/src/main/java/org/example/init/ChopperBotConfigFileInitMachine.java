@@ -79,6 +79,7 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
                 moduleSrcConfigFile.setData(data);
                 GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
             }
+            InitWorld.pluginSetting = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("plugin").toString(),Map.class);
         }catch (Exception e) {
             return false;
         }

@@ -2,7 +2,6 @@ package org.example.taskcenter;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import lombok.Data;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperConfigFile;
@@ -17,8 +16,6 @@ import org.example.taskcenter.request.ReptileRequest;
 import org.example.taskcenter.task.ReptileTask;
 import org.example.thread.ChopperBotGuardianTask;
 import org.example.util.ConfigFileUtil;
-import org.example.util.FileUtil;
-import org.example.util.JsonFileUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -36,7 +33,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 2，记录正在运行的爬虫任务
  * 3，未完成的爬虫任务修复
  */
-public class TaskCenter implements ChopperBotGuardianTask {
+public class TaskCenter implements ChopperBotGuardianTask{
 
     private long waitingQueueTime;  //等待队列时间
 
@@ -208,4 +205,5 @@ public class TaskCenter implements ChopperBotGuardianTask {
     public void threadTask() {
         this.work();
     }
+
 }

@@ -82,16 +82,13 @@ public class HotGuardInitMachine extends CommonInitMachine{
 
     @Override
     public boolean init() {
-        if(checkNeedPlugin()){
-            try {
-                envInit();
-            } catch (Exception e) {
-                return fail(e.getMessage());
-            }
-            registerPlugin();
-            return success();
+        try {
+            envInit();
+        } catch (Exception e) {
+            return fail(e.getMessage());
         }
-        return false;
+
+        return success();
     }
 
     @Override

@@ -1,16 +1,10 @@
 package org.example.init;
 
 import org.example.bean.ConfigFile;
-import org.example.cache.FileCache;
-import org.example.cache.FileCacheManagerInstance;
-import org.example.exception.FileCacheException;
 import org.example.util.ConfigFileUtil;
-import org.example.util.FileUtil;
-import org.example.util.JsonFileUtil;
 import org.slf4j.Logger;
 
 import java.nio.file.Paths;
-import java.util.Map;
 
 /**
  * @author Genius
@@ -33,7 +27,6 @@ public abstract class ConfigInitMachine<T extends ConfigFile> extends CommonInit
     @Override
     public boolean init() {
         if (ConfigFileUtil.createConfigFile(filePath,configFile,logger,pluginName)) {
-            registerPlugin();
             return true;
         }
         return false;

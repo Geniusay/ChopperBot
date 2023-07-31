@@ -1,16 +1,11 @@
 package org.example.init;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.example.exception.InitException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.thread.oddjob.OddJobBoy;
-import org.example.util.ClassUtil;
 import org.example.util.PluginUtil;
 
-import java.util.*;
 import java.util.function.Supplier;
 
 /**

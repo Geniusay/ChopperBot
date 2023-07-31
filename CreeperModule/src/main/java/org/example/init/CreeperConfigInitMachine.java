@@ -6,7 +6,6 @@ import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.util.FileUtil;
-import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;

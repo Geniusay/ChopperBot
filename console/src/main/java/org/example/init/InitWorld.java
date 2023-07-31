@@ -1,5 +1,6 @@
 package org.example.init;
 
+import org.example.plugin.Plugin;
 import org.example.util.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -7,7 +8,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
+
+import java.util.Map;
+import java.util.Set;
+
+import static org.example.constpool.ConstPool.PROJECT_PATH;
 
 /**
  * @author Genius
@@ -20,6 +25,8 @@ public class InitWorld {
 
     @Autowired
     ChopperBotConfigFileInitMachine moduleSrcConfigFileInitMachine;
+
+    public static Map<String,Boolean> pluginSetting;
     private ConfigurableApplicationContext ctx;
 
 
@@ -46,6 +53,11 @@ public class InitWorld {
             }
         }
        close();
+    }
+
+    private void getAllPlugin(){
+        Set<Class<?>> annotationClass = ClassUtil.getAnnotationClass(PROJECT_PATH + ".init", Plugin.class);
+        System.out.println(annotationClass);
     }
 
     private void close(){
