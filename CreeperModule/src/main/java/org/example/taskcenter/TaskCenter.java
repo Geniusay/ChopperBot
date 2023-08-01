@@ -2,7 +2,6 @@ package org.example.taskcenter;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import lombok.Data;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperConfigFile;
@@ -12,15 +11,15 @@ import org.example.constpool.PluginName;
 import org.example.exception.FileCacheException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.plugin.GuardPlugin;
 import org.example.taskcenter.handler.BootStrapTaskHandler;
 import org.example.taskcenter.request.ReptileRequest;
 import org.example.taskcenter.task.ReptileTask;
 import org.example.thread.ChopperBotGuardianTask;
 import org.example.util.ConfigFileUtil;
-import org.example.util.FileUtil;
-import org.example.util.JsonFileUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -36,13 +35,11 @@ import java.util.concurrent.locks.ReentrantLock;
  * 2，记录正在运行的爬虫任务
  * 3，未完成的爬虫任务修复
  */
-public class TaskCenter implements ChopperBotGuardianTask {
+public class TaskCenter extends GuardPlugin {
 
     private long waitingQueueTime;  //等待队列时间
 
     private int threads;            //处理任务的线程数量
-
-    private volatile static TaskCenter taskCenter;
 
     private Map<String, ReptileTask> runningTask;   //正在运行的任务
 
@@ -57,42 +54,38 @@ public class TaskCenter implements ChopperBotGuardianTask {
     private ReentrantLock lock = new ReentrantLock();
 
 
-    public TaskCenter() {
+    public TaskCenter(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
+        super(module, pluginName, needPlugins, isAutoStart);
+        afterDo = false;
     }
 
-    private TaskCenter(int waitingQueueTime, int threads, int capacity){
-        this.runningTask = new ConcurrentHashMap<>();
-        this.waitingTask = new ArrayBlockingQueue<>(capacity);
-        this.bootStrapTaskHandler = new BootStrapTaskHandler();
-        this.taskPool = Executors.newFixedThreadPool(threads);
-        this.waitingQueueTime = waitingQueueTime;
-        this.threads = threads;
-    }
 
-    public static TaskCenter center(){
-        if(taskCenter==null){
-            synchronized (TaskCenter.class){
-                if(taskCenter==null){
-                    if (!init()) {
-                        return null;
-                    }
-                }
+    @Override
+    public void start() {
+        try {
+            ReptileTask task = waitingTask.poll(waitingQueueTime,TimeUnit.MILLISECONDS);
+            if(task!=null){
+                runningTask.put(task.getTaskId(),task);
+                taskPool.submit(task::reptile);
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        return taskCenter;
     }
 
-    private static boolean init(){
+    public boolean init(){
         FileCache configFileCache = FileCacheManagerInstance.getInstance().getFileCache(CreeperConfigFile.getFullFilePath());
         Object obj = configFileCache.get("taskCenter");
         if (obj!=null) {
             TaskCenterConfig taskCenterConfig = JSONObject.parseObject(obj.toString(), TaskCenterConfig.class);
-            taskCenter = new TaskCenter(
-                    taskCenterConfig.getWaitingTime(),
-                    taskCenterConfig.getThreads(),
-                    taskCenterConfig.getQueueCapacity()
-            );
-            return taskCenter.newLogFile(new CreeperLogConfigFile(new ArrayList<>()));
+            this.threads =  taskCenterConfig.getThreads();
+            this.runningTask = new ConcurrentHashMap<>();
+            this.waitingTask = new ArrayBlockingQueue<>(taskCenterConfig.getQueueCapacity());
+            this.bootStrapTaskHandler = new BootStrapTaskHandler();
+            this.taskPool = Executors.newFixedThreadPool(threads);
+            this.waitingQueueTime =  taskCenterConfig.getWaitingTime();
+            super.init();
+            return newLogFile(new CreeperLogConfigFile(new ArrayList<>()));
         }
         return false;
     }
@@ -106,20 +99,6 @@ public class TaskCenter implements ChopperBotGuardianTask {
         }catch (InterruptedException e){
             //TODO 待完善错误处理
             return false;
-        }
-    }
-
-    public void work(){
-        ChopperLogFactory.getLogger(LoggerType.Creeper)
-                .info("TaskCenter start to work.threads:{},waitingTime:{}s",threads,waitingQueueTime/1000);
-        while(true){
-            try {
-                ReptileTask task = waitingTask.take();
-                runningTask.put(task.getTaskId(),task);
-                taskPool.submit(task::reptile);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -192,20 +171,18 @@ public class TaskCenter implements ChopperBotGuardianTask {
                 PluginName.TASK_CENTER_PLUGIN,restoreNum);
     }
 
-    public boolean shutdown(){
-        taskPool.shutdown();
-        return taskPool.isShutdown();
-    }
-
     public void request(ReptileRequest request){
         ReptileTask task = bootStrapTaskHandler.distribute(request);
         if(task!=null){
             addTask(task);
         }
     }
-
     @Override
-    public void threadTask() {
-        this.work();
+    public void shutdown(){
+        super.shutdown();
+        taskPool.shutdown();
     }
+
+
+
 }

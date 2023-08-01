@@ -1,7 +1,10 @@
 package org.example.bean;
 
+import org.example.plugin.CommonPlugin;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +13,7 @@ import java.util.Map;
  **/
 
 //配置文件的抽象类，只负责构建配置文件最基础的架构，一般不用来存放配置文件本身的内容
-public abstract class ConfigFile<T>{
+public abstract class ConfigFile<T> extends CommonPlugin {
 
     private FileType fileType;
     private String filePath;
@@ -20,6 +23,19 @@ public abstract class ConfigFile<T>{
 
     //上一次更新时间
     private LocalDateTime updateTime;
+
+    public ConfigFile() {
+        super(null, null, null, true);
+    }
+
+    public ConfigFile(String filePath, String fileName, T data,FileType fileType) {
+        super(null, null, null, true);
+        this.fileType = fileType;
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.data = data;
+        this.updateTime = LocalDateTime.now();
+    }
 
     /**
     * 用于最开始创建配置文件结构的打包
@@ -62,24 +78,16 @@ public abstract class ConfigFile<T>{
     }
 
 
-    public ConfigFile() {
-    }
-
-    public ConfigFile(String filePath, String fileName, T data) {
-        this.filePath = filePath;
-        this.fileName = fileName;
-        this.data = data;
-        this.updateTime = LocalDateTime.now();
-        this.fileType = FileType.COMMON;
-    }
-
-    public ConfigFile(String filePath,String fileName,T data,FileType fileType){
-        this.filePath = filePath;
-        this.fileName = fileName;
-        this.data = data;
-        this.updateTime = LocalDateTime.now();
+    public ConfigFile(String module, String pluginName, List<String> needPlugins, boolean isAutoStart,
+                      String filePath, String fileName, T data,FileType fileType) {
+        super(module, pluginName, needPlugins, isAutoStart);
         this.fileType = fileType;
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.data = data;
+        this.updateTime = LocalDateTime.now();
     }
+
 
     public String getFilePath() {
         return this.filePath;

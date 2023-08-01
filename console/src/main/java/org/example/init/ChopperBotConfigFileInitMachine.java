@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Genius
@@ -24,15 +23,14 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 
 @Component
-public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
+public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
 
     ModuleSrcConfigFile moduleSrcConfigFile;
 
     private boolean initFlag;
 
-    public ModuleSrcConfigFileInitMachine() {
-        super( ChopperLogFactory.getLogger(LoggerType.System),
-                PluginName.MODULE_CONFIG_PLUGIN);
+    public ChopperBotConfigFileInitMachine() {
+        super( PluginName.MODULE_CONFIG_PLUGIN,ChopperLogFactory.getLogger(LoggerType.System));
         moduleSrcConfigFile = new ModuleSrcConfigFile();
         initFlag = true;
     }
@@ -80,6 +78,8 @@ public class ModuleSrcConfigFileInitMachine extends CommonInitMachine {
                 moduleSrcConfigFile.setData(data);
                 GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
             }
+            InitPluginRegister.pluginSetting = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("plugin").toString(),Map.class);
+            InitPluginRegister.allPlugins.put(PluginName.MODULE_CONFIG_PLUGIN,this);
         }catch (Exception e) {
             return false;
         }

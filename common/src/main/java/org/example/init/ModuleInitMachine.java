@@ -1,12 +1,10 @@
 package org.example.init;
 
-import lombok.extern.java.Log;
+import org.example.util.PluginUtil;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -19,7 +17,7 @@ import java.util.function.Supplier;
  */
 public abstract class ModuleInitMachine extends CommonInitMachine{
 
-    private List<InitMachine> initMachines;
+    protected List<CommonInitMachine> initMachines = new ArrayList<>();
 
     private String moduleName;
 
@@ -36,16 +34,32 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     }
 
     @Override
+    public void registerPlugin() {
+        InitPluginRegister.registerPluginTable.put(moduleName,this);
+    }
+
+    @Override
     public boolean init() {
+        try {
+        initMachines = PluginUtil.getModuleAllPluginInit(moduleName);
+        } catch (Exception e) {
+            return fail(e.getMessage());
+        }
+
         return initLogger(()->{
             if(checkNeedPlugin()){
-                for (InitMachine initMachine : this.getInitMachines()) {
-                    if(!initMachine.init()){
-                        return fail();
+                    for (CommonInitMachine initMachine : initMachines) {
+                        if (initMachine.checkNeedPlugin()) {
+                            initMachine.setLogger(logger);
+                            if(!initMachine.init()){
+                                return fail();
+                            }
+                            initMachine.registerPlugin();
+                        }else{
+                            return false;
+                        }
                     }
-                }
-                registerPlugin();
-                return success();
+                    return success();
             }
             return false;
 
@@ -61,30 +75,24 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
         }
     }
 
-    public ModuleInitMachine(List<InitMachine> initMachines, String moduleName) {
-        super(moduleName);
-        this.initMachines = initMachines;
+
+    public ModuleInitMachine(String moduleName,Logger logger){
+        super(moduleName,logger);
         this.moduleName = moduleName;
     }
 
-    public ModuleInitMachine(List<InitMachine> initMachines,String moduleName,Logger logger){
-        super(logger,moduleName);
-        this.initMachines = initMachines;
+    public ModuleInitMachine(List<String> needPlugins, Logger logger, String moduleName) {
+        super(moduleName,needPlugins,logger);
         this.moduleName = moduleName;
     }
 
-    public ModuleInitMachine(List<String> needPlugins, Logger logger, List<InitMachine> initMachines, String moduleName) {
-        super(needPlugins, logger, moduleName);
-        this.initMachines = initMachines;
-        this.moduleName = moduleName;
-    }
 
-    public List<InitMachine> getInitMachines() {
+    public List<CommonInitMachine> getInitMachines() {
         return initMachines;
     }
 
-    public void setInitMachines(List<InitMachine> initMachines) {
-        this.initMachines = initMachines;
+    public String getModuleName() {
+        return moduleName;
     }
 
 

@@ -1,42 +1,44 @@
 package org.example.init;
 
 import org.example.bean.ConfigFile;
-import org.example.cache.FileCache;
-import org.example.cache.FileCacheManagerInstance;
-import org.example.exception.FileCacheException;
+import org.example.plugin.CommonPlugin;
+import org.example.plugin.Plugin;
 import org.example.util.ConfigFileUtil;
-import org.example.util.FileUtil;
-import org.example.util.JsonFileUtil;
 import org.slf4j.Logger;
 
 import java.nio.file.Paths;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author Genius
  * @date 2023/07/29 00:08
  **/
-public abstract class ConfigInitMachine<T extends ConfigFile> extends CommonInitMachine{
+public abstract class ConfigInitMachine extends CommonInitMachine{
 
-    private T configFile;
+    private ConfigFile configFile;
 
-    private String filePath;
 
-    public ConfigInitMachine(String pluginName,T configFile, Logger logger) {
-        super(logger,pluginName);
-        this.configFile = configFile;
-        filePath = Paths.get(configFile.getFilePath(), configFile.getFileName()).toString();
+
+    public ConfigInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
+        super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
-
-
 
     @Override
     public boolean init() {
-        if (ConfigFileUtil.createConfigFile(filePath,configFile,logger,pluginName)) {
-            registerPlugin();
-            return true;
+        Plugin ano = this.getClass().getAnnotation(Plugin.class);
+        try {
+            configFile = (ConfigFile) ano.pluginClass()
+                    .getDeclaredConstructor(String.class,String.class,List.class,boolean.class)
+                    .newInstance(moduleName,pluginName,needPlugins,isAutoStart);
+            if (ConfigFileUtil.createConfigFile(Paths.get(configFile.getFilePath(), configFile.getFileName()).toString(),configFile,logger,pluginName)) {
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
+            return fail(e.getMessage());
         }
-        return false;
+
     }
 
 

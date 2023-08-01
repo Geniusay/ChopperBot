@@ -1,29 +1,36 @@
 package org.example.init;
 
 import org.example.config.CreeperConfigFile;
+import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
 import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.plugin.CommonPlugin;
+import org.example.plugin.Plugin;
+import org.example.taskcenter.TaskCenter;
 import org.example.util.FileUtil;
-import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * @author Genius
  * @date 2023/07/29 01:56
  **/
-public class CreeperConfigInitMachine extends ConfigInitMachine<CreeperConfigFile> {
 
-    public CreeperConfigInitMachine() {
-        super(PluginName.CREEPER_CONFIG_PLUGIN,
-                new CreeperConfigFile(),
-                ChopperLogFactory.getLogger(LoggerType.Creeper)
-                );
+@Plugin(moduleName = ConstPool.CREEPER,
+        pluginName = PluginName.CREEPER_CONFIG_PLUGIN,
+        needPlugin = {PluginName.FILE_CACHE_PLUGIN},
+        pluginClass= CreeperConfigFile.class )
+public class CreeperConfigInitMachine extends ConfigInitMachine {
+
+
+    public CreeperConfigInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
+        super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
 
     @Override

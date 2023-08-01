@@ -56,7 +56,7 @@ postList: none
 
 ### 参与贡献
 
-欢迎各路好汉一起来参与完善 Assistant，我们期待你的 PR！
+欢迎各路好汉一起来参与完善 ChopperBot，我们期待你的 PR！
 
 - 贡献代码：代码地址 [ChopperBot](https://github.com/969025903/ChopperBot) ，欢迎提交 Issue 或者 Pull Requests
 - 维护文档：文档地址 [ChopperBot-Doc](https://github.com/twj666/Chopper-Doc) ，欢迎参与翻译和修订

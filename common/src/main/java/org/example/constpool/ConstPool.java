@@ -9,6 +9,8 @@ import java.util.List;
 //常量池
 public class ConstPool {
 
+    public static final String PROJECT_PATH = "org.example";
+
     /**模块名**/
     public static final String FILE = "File";
     public static final String ACCOUNT = "Account";

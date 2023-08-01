@@ -1,9 +1,12 @@
 package org.example.util;
 
+import org.reflections.Reflections;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Genius
@@ -45,5 +48,27 @@ public class ClassUtil {
                 scanClassesInDirectory(packageName + "." + file.getName(), file, classNames);
             }
         }
+    }
+
+    /**
+     * 扫描某个注解
+     */
+    public static Set<Class<?>> getAnnotationClass(String packageName,Class annotationClass){
+        //反射
+        Reflections ref = new Reflections(packageName);
+        // 获取扫描到的标记注解的集合
+        Set<Class<?>> set = ref.getTypesAnnotatedWith(annotationClass);
+//        for (Class<?> c : set) {
+//            // 循环获取标记的注解
+//            Plugin annotation = c.getAnnotation(Plugin.class);
+//            if(annotation!=null){
+//                // 打印注解中的内容
+//                System.out.println("表名："+annotation.pluginName());
+//            }
+//
+//        }
+//        Class[] objects = (Class[]) set.toArray();
+//        return List.of(objects);
+        return set;
     }
 }

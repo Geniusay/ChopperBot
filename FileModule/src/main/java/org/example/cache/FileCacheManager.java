@@ -2,6 +2,7 @@ package org.example.cache;
 
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.plugin.CommonPlugin;
 import org.example.util.TimeUtil;
 
 import java.util.List;
@@ -18,11 +19,11 @@ import static java.lang.Thread.sleep;
 /**
  * 文件自动刷入管理类，不断监听文件是否需要自动写入
  */
-public class FileCacheManager {
+public class FileCacheManager extends CommonPlugin {
 
-    private final List<FileCache> fileCaches;
+    private List<FileCache> fileCaches;
 
-    private final ConcurrentHashMap<String,FileCache> fileCacheMap;
+    private ConcurrentHashMap<String,FileCache> fileCacheMap;
 
     private AtomicLong sleepTime; //睡眠时间
 
@@ -32,15 +33,25 @@ public class FileCacheManager {
 
     private volatile Watcher watcher;
 
-    protected FileCacheManager(List<FileCache> fileCaches){
-        this.fileCaches = new CopyOnWriteArrayList<>(fileCaches);
-        fileCacheMap = new ConcurrentHashMap<>();
-        for (FileCache fileCache : fileCaches) {
-            fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
+    public FileCacheManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
+        super(module, pluginName, needPlugins, isAutoStart);
+    }
+
+    @Override
+    public boolean init() {
+        try {
+            this.fileCaches = new CopyOnWriteArrayList<>();
+            fileCacheMap = new ConcurrentHashMap<>();
+            for (FileCache fileCache : fileCaches) {
+                fileCacheMap.put(fileCache.getFullFilePath(),fileCache);
+            }
+            initSleepTime();
+            this.watchPool = Executors.newSingleThreadExecutor();
+            this.autoSyncer = Executors.newFixedThreadPool(fileCaches.size()+20);
+        }catch (Exception e){
+            return false;
         }
-        initSleepTime();
-        this.watchPool = Executors.newSingleThreadExecutor();
-        this.autoSyncer = Executors.newFixedThreadPool(fileCaches.size());
+       return true;
     }
 
     /**
@@ -141,4 +152,12 @@ public class FileCacheManager {
         return watchPool.isShutdown()&&autoSyncer.isShutdown();
     }
 
+    @Override
+    public void shutdown() {
+        close();
+    }
+
+    public void setFileCaches(List<FileCache> fileCaches) {
+        this.fileCaches = fileCaches;
+    }
 }

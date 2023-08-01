@@ -4,7 +4,9 @@ import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.thread.oddjob.OddJobBoy;
+import org.example.util.PluginUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -14,13 +16,13 @@ import java.util.function.Supplier;
  **/
 public class WorldInitMachine extends ModuleInitMachine{
 
+
+
+
     private static final String githubUrl = "https://github.com/969025903/ChopperBot";
-    public WorldInitMachine() {
-        super(List.of(
-                new FileModuleInitMachine(),
-                new CreeperModuleInitMachine(),
-                new HotModuleInitMachine()
-        ), "ChopperBot", ChopperLogFactory.getLogger(LoggerType.System));
+
+    public WorldInitMachine() throws Exception {
+        super("ChopperBot",ChopperLogFactory.getLogger(LoggerType.System));
     }
 
 
@@ -29,7 +31,30 @@ public class WorldInitMachine extends ModuleInitMachine{
     public boolean init() {
         ChopperBotGuardPool.init();
         OddJobBoy.Boy().guardian();
-        return super.init();
+        try {
+            initMachines = PluginUtil.getAllModuleInit();
+            return initLogger(()->{
+                if(checkNeedPlugin()){
+                    for (CommonInitMachine initMachine : initMachines) {
+                        if ((initMachine).checkNeedPlugin()) {
+                            if(!initMachine.init()){
+                                return fail();
+                            }
+                            (initMachine).registerPlugin();
+                        }else{
+                            return false;
+                        }
+                    }
+                    registerPlugin();
+                    return success();
+
+                }
+                return false;
+
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -52,7 +77,7 @@ public class WorldInitMachine extends ModuleInitMachine{
 
     @Override
     protected boolean initLogger(Supplier<Boolean> init) {
-        logger.info("🌏 <{}> Wake up,Find {} module need to init,please wait.....","ChopperBot",getInitMachines().size());
+        logger.info("🌏 <{}> Wake up,Find {} module need to init,please wait.....","ChopperBot",initMachines);
         return init.get();
     }
 
