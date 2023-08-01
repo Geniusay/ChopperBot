@@ -13,5 +13,7 @@ public @interface Plugin {
     String pluginName();
     String[] needPlugin() default {};
 
+    Class<? extends CommonPlugin> pluginClass();
+
     boolean autoStart() default true;
 }

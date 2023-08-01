@@ -11,7 +11,7 @@ package org.example.constpool;
 public class PluginName {
 
     //File
-    public static String MODULE_CONFIG_PLUGIN = "ModuleConfig";
+    public static final String MODULE_CONFIG_PLUGIN = "ModuleConfig";
     public static final String FILE_CACHE_PLUGIN = "FileCache";
 
     //Creeper
@@ -19,7 +19,7 @@ public class PluginName {
     public static final String TASK_CENTER_PLUGIN = "TaskCenter";
 
     //Hot
-    public static String HOT_CONFIG_PLUGIN = "HotConfig";
-    public static String HOT_GUARD_PLUGIN = "HotGuard";
-    public static String HOT_RECOMMENDATION_PLUGIN = "HotRecommendation";
+    public static final String HOT_CONFIG_PLUGIN = "HotConfig";
+    public static final String HOT_GUARD_PLUGIN = "HotGuard";
+    public static final String HOT_RECOMMENDATION_PLUGIN = "HotRecommendation";
 }

@@ -14,40 +14,20 @@ import java.util.List;
  * @date 2023/07/28 23:49
  **/
 
-@Plugin(moduleName = ConstPool.CREEPER,pluginName = PluginName.TASK_CENTER_PLUGIN,needPlugin = {PluginName.FILE_CACHE_PLUGIN})
+@Plugin(moduleName = ConstPool.CREEPER,
+        pluginName = PluginName.TASK_CENTER_PLUGIN,
+        needPlugin = {PluginName.FILE_CACHE_PLUGIN,PluginName.CREEPER_CONFIG_PLUGIN},
+        pluginClass= TaskCenter.class )
 public class TaskCenterInitMachine extends CommonInitMachine{
 
-    public TaskCenterInitMachine() {
-        super(List.of(PluginName.FILE_CACHE_PLUGIN),
-                ChopperLogFactory.getLogger(LoggerType.Creeper),
-                PluginName.TASK_CENTER_PLUGIN);
-    }
 
-    @Override
-    public boolean init() {
-        try {
-            TaskCenter center = TaskCenter.center();
-            if(center==null){
-                return fail();
-            }
-            center.guardian();
-        }catch (Exception e){
-            return fail();
-        }
-        return success();
+    public TaskCenterInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class clazz) {
+        super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
 
     @Override
     public void shutdown() {
-        TaskCenter center = TaskCenter.center();
-        if(center!=null){
-            center.shutdown();
-        }
+        this.getPlugin().shutdown();
     }
 
-    @Override
-    public void afterInit() {
-        //爬虫任务恢复
-        TaskCenter.center().restoreTaskCenter();
-    }
 }

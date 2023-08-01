@@ -3,7 +3,9 @@ package org.example.util;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.exception.InitException;
+import org.example.init.CommonInitMachine;
 import org.example.init.InitMachine;
+import org.example.init.InitPluginRegister;
 import org.example.init.ModuleInitMachine;
 
 import java.util.*;
@@ -30,20 +32,77 @@ public class PluginUtil {
         }
     }
 
-    public static List<InitMachine> getAllModuleInit() throws Exception {
+    public static List<CommonInitMachine> getAllModuleInit() throws Exception {
         List<String> classes = ClassUtil.getClassesInPackage("org.example.init.module");
-        List<InitMachine> list = new ArrayList<>();
+        List<CommonInitMachine> list = new ArrayList<>();
         for (String aClass : classes) {
-            list.add((InitMachine) Class.forName(aClass).getDeclaredConstructor().newInstance());
+            list.add((CommonInitMachine) Class.forName(aClass).getDeclaredConstructor().newInstance());
         }
         return sortModuleInit(list);
-
     }
 
-    private static List<InitMachine> sortModuleInit(List<InitMachine> list){
-        Map<InitMachine,Integer> needPlugins = new HashMap<>();
-        Map<String,InitMachine> NameToInitMachine = new HashMap<>();
-        for (InitMachine initMachine : list) {
+    public static List<CommonInitMachine> getModuleAllPluginInit(String moduleName) throws Exception{
+        List<String> list = InitPluginRegister.modulePlugin.get(moduleName);
+        List<CommonInitMachine> commonInitMachines = new ArrayList<>();
+        for (String name : list) {
+            commonInitMachines.add(InitPluginRegister.allPlugins.get(name));
+        }
+        return sortModuleAllPluginInit(commonInitMachines);
+    }
+
+    private static List<CommonInitMachine> sortModuleAllPluginInit(List<CommonInitMachine> list){
+        Map<CommonInitMachine,Integer> needPlugins = new HashMap<>();
+        Map<String,CommonInitMachine> NameToInitMachine = new HashMap<>();
+        for (CommonInitMachine initMachine : list) {
+            String moduleName = initMachine.getPluginName();
+            if(!NameToInitMachine.containsKey(moduleName)){
+                needPlugins.put(initMachine,0);
+                NameToInitMachine.put(moduleName,initMachine);
+            }else{
+                throw new InitException("Found same module name!");
+            }
+        }
+
+        for(CommonInitMachine initMachine:list){
+            List<String> needPluginsList = InitPluginRegister.moduleFatherAndSonPlugin.get(initMachine.getPluginName());
+            needPluginsList.forEach(
+                    plugin->{
+                        CommonInitMachine obj = NameToInitMachine.get(plugin);
+                        needPlugins.put(obj,needPlugins.get(obj)+1);
+                    }
+            );
+        }
+        List<CommonInitMachine> machines = new ArrayList<>();
+        int n = needPlugins.size();
+
+        while(machines.size()<n){
+            AtomicBoolean isLoop = new AtomicBoolean(true);
+            needPlugins.forEach(
+                    (k,v)->{
+                        if(v==0){
+                            machines.add(k);
+                            InitPluginRegister.moduleFatherAndSonPlugin.get(k.getPluginName()).forEach(
+                                    h->{
+                                        CommonInitMachine machine = NameToInitMachine.get(h);
+                                        needPlugins.put(machine,needPlugins.get(machine)-1);
+                                    }
+                            );
+                            needPlugins.put(k,v-1);
+                            isLoop.set(false);
+                        }
+                    }
+            );
+            if(isLoop.get()){
+                throw new InitException("Found loop depend on");
+            }
+        }
+        return machines;
+    }
+
+    private static List<CommonInitMachine> sortModuleInit(List<CommonInitMachine> list){
+        Map<CommonInitMachine,Integer> needPlugins = new HashMap<>();
+        Map<String,CommonInitMachine> NameToInitMachine = new HashMap<>();
+        for (CommonInitMachine initMachine : list) {
             String moduleName = ((ModuleInitMachine) initMachine).getModuleName();
             if(!NameToInitMachine.containsKey(moduleName)){
                 needPlugins.put(initMachine,0);
@@ -53,16 +112,16 @@ public class PluginUtil {
             }
         }
 
-        for(InitMachine initMachine:list){
+        for(CommonInitMachine initMachine:list){
             List<String> needPluginsList = ((ModuleInitMachine) initMachine).getNeedPlugins();
             needPluginsList.forEach(
                     plugin->{
-                        InitMachine obj = NameToInitMachine.get(plugin);
+                        CommonInitMachine obj = NameToInitMachine.get(plugin);
                         needPlugins.put(obj,needPlugins.get(obj)+1);
                     }
             );
         }
-        List<InitMachine> machines = new ArrayList<>();
+        List<CommonInitMachine> machines = new ArrayList<>();
         int n = needPlugins.size();
 
         while(machines.size()<n){
@@ -73,7 +132,7 @@ public class PluginUtil {
                             machines.add(k);
                             ((ModuleInitMachine)k).getNeedPlugins().forEach(
                                     h->{
-                                        InitMachine machine = NameToInitMachine.get(h);
+                                        CommonInitMachine machine = NameToInitMachine.get(h);
                                         needPlugins.put(machine,needPlugins.get(machine)-1);
                                     }
                             );

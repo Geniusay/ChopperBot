@@ -16,15 +16,8 @@ import static org.example.constpool.ConstPool.FILE;
  * @date 2023/07/29 01:58
  **/
 public class CreeperModuleInitMachine extends ModuleInitMachine {
-
     public CreeperModuleInitMachine() {
-        super(List.of(FILE),
-                ChopperLogFactory.getLogger(LoggerType.Creeper),
-                List.of(
-                new CreeperConfigInitMachine(),
-                new TaskCenterInitMachine()),
-                CREEPER);
+        super(List.of(FILE), ChopperLogFactory.getLogger(LoggerType.Creeper), CREEPER);
     }
-
 
 }

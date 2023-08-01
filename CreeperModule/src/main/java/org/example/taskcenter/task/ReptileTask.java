@@ -1,10 +1,15 @@
 package org.example.taskcenter.task;
 
 import lombok.Data;
+import org.example.constpool.PluginName;
 import org.example.core.control.LoadTask;
+import org.example.init.InitPluginRegister;
+import org.example.init.TaskCenterInitMachine;
+import org.example.plugin.CommonPlugin;
 import org.example.taskcenter.TaskCenter;
 import org.example.taskcenter.request.ReptileRequest;
 import org.example.util.TimeUtil;
+import us.codecraft.webmagic.Task;
 
 import java.time.LocalDateTime;
 
@@ -48,7 +53,8 @@ public class ReptileTask {
 
         //完成任务
         request.response(res); //让请求响应结果
-        TaskCenter.center().finishTask(taskId);
+        TaskCenter plugin = (TaskCenter) InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN);
+        plugin.finishTask(taskId);
         this.type = TaskStatus.Finish;
         this.endTime = TimeUtil.getNowTime_YMDHMS();
     }

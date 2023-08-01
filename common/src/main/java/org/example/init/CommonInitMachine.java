@@ -5,31 +5,59 @@ package org.example.init;
  * @date 2023/07/21 00:57
  **/
 
+import org.example.log.ResultLogger;
+import org.example.plugin.CommonPlugin;
+import org.example.plugin.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 模块中的小模块初始化抽象类
  */
-public abstract class CommonInitMachine implements ComponentInitMachine{
+public abstract class CommonInitMachine implements ComponentInitMachine, ResultLogger {
 
-    protected List<String> needPlugins; //初始化时需要的插件
+    protected String moduleName;        //模块名称
 
-    protected String pluginName;
+    protected String pluginName; //插件名称
+    protected List<String> needPlugins = new ArrayList<>(); //初始化时需要的插件
+    protected boolean isAutoStart;      //是否自动启动
 
-    protected Logger logger;
+    protected Class<? extends CommonPlugin> pluginClass; //插件类型
+
+    protected Logger logger;            //日志
+
+    protected CommonPlugin plugin;      //插件类
 
 
+    public CommonInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name,Class<? extends CommonPlugin> clazz) {
+        this.needPlugins = needPlugins;
+        this.isAutoStart = isAutoStart;
+        this.moduleName = moduleName;
+        pluginName = name;
+        pluginClass =clazz;
+    }
 
+    public CommonInitMachine(String moduleName, Logger logger) {
+        this.moduleName = moduleName;
+        this.logger = logger;
+        this.needPlugins = new ArrayList<>();
+    }
+
+    public CommonInitMachine(String moduleName, List<String> needPlugins, Logger logger) {
+        this.moduleName = moduleName;
+        this.needPlugins = needPlugins;
+        this.logger = logger;
+    }
 
     /**
      * 注册插件
      */
     public void registerPlugin(){
-        InitPluginRegister.registerPluginTable.put(pluginName,this.getClass());
+        InitPluginRegister.registerPluginTable.put(pluginName,this);
     }
 
     /**
@@ -47,58 +75,49 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
         return true;
     }
 
-
-    public CommonInitMachine(List<String> needPlugins, Logger logger, String pluginName) {
-        this.needPlugins = needPlugins;
-        this.logger = logger;
-        this.pluginName = pluginName;
+    @Override
+    public boolean init() {
+        Plugin ano = this.getClass().getAnnotation(Plugin.class);
+        try {
+            plugin =  ano.pluginClass()
+                    .getDeclaredConstructor(String.class,String.class,List.class,boolean.class)
+                    .newInstance(moduleName,pluginName,needPlugins,isAutoStart);
+            if (plugin.init()) {
+                return success();
+            }else{
+                return fail();
+            }
+        }catch (Exception e){
+            return fail(e.getMessage());
+        }
     }
-
-    public CommonInitMachine(Logger logger,String pluginName){
-        needPlugins = new ArrayList<>();
-        this.logger = logger;
-        this.pluginName = pluginName;
-    }
-
-    public CommonInitMachine(String pluginName){
-        this.pluginName = pluginName;
-        needPlugins = new ArrayList<>();
-        this.logger = LoggerFactory.getLogger(pluginName);
-    }
-
 
     @Override
     public void successLog() {
         successLog(String.format("[✔] {%s} init success!",pluginName));
     }
-
     @Override
     public void successLog(String str) {
         logger.info(str);
     }
-
     @Override
     public void failLog() {
         failLog(String.format("[❌] {%s} init error!",pluginName));
     }
-
     @Override
     public void failLog(String str) {
         logger.error(str);
     }
-
     @Override
     public boolean fail(String failCause) {
         failLog(String.format("[❌] {%s} init error! Execption:{%s}",pluginName,failCause));
         return false;
     }
-
     @Override
     public boolean success() {
         successLog();
         return true;
     }
-
     public boolean success(String str){
         successLog(str);
         return true;
@@ -106,6 +125,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
 
     @Override
     public void shutdown(){
+        plugin.shutdown();
         shutdownLog();
     }
 
@@ -115,10 +135,32 @@ public abstract class CommonInitMachine implements ComponentInitMachine{
 
     @Override
     public void afterInit() {
+        if(plugin!=null){
+            plugin.afterInit();
+        }
 
     }
 
     public List<String> getNeedPlugins() {
         return needPlugins;
+    }
+    public CommonPlugin getPlugin() {
+        return plugin;
+    }
+    public boolean isAutoStart() {
+        return isAutoStart;
+    }
+    public String getModuleName() {
+        return moduleName;
+    }
+    public String getPluginName() {
+        return pluginName;
+    }
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public Class<? extends CommonPlugin> getPluginClass() {
+        return pluginClass;
     }
 }

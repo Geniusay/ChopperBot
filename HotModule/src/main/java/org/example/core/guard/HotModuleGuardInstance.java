@@ -1,6 +1,9 @@
 package org.example.core.guard;
 
 
+import org.example.constpool.PluginName;
+import org.example.init.InitPluginRegister;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,25 +13,18 @@ import java.util.List;
  **/
 public class HotModuleGuardInstance {
 
-    private static List<Guard> guardList = new ArrayList<>();
-
-    private static int guardNum;
     private static volatile HotModuleGuard Instance;
 
     public static HotModuleGuard getInstance(){
         if(Instance==null){
             synchronized (HotModuleGuardInstance.class){
                 if(Instance==null){
-                    Instance = new HotModuleGuard(guardList,guardNum);
+                    Instance = InitPluginRegister.getPlugin(PluginName.HOT_GUARD_PLUGIN,HotModuleGuard.class);
                 }
             }
         }
         return Instance;
     }
 
-    public static void InitInstance(List<Guard> guards,int num){
-        guardList = guards;
-        guardNum = num;
-    }
 
 }

@@ -30,8 +30,7 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
     private boolean initFlag;
 
     public ChopperBotConfigFileInitMachine() {
-        super( ChopperLogFactory.getLogger(LoggerType.System),
-                PluginName.MODULE_CONFIG_PLUGIN);
+        super( PluginName.MODULE_CONFIG_PLUGIN,ChopperLogFactory.getLogger(LoggerType.System));
         moduleSrcConfigFile = new ModuleSrcConfigFile();
         initFlag = true;
     }
@@ -79,7 +78,8 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
                 moduleSrcConfigFile.setData(data);
                 GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
             }
-            InitWorld.pluginSetting = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("plugin").toString(),Map.class);
+            InitPluginRegister.pluginSetting = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("plugin").toString(),Map.class);
+            InitPluginRegister.allPlugins.put(PluginName.MODULE_CONFIG_PLUGIN,this);
         }catch (Exception e) {
             return false;
         }

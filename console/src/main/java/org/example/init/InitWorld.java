@@ -26,7 +26,7 @@ public class InitWorld {
     @Autowired
     ChopperBotConfigFileInitMachine moduleSrcConfigFileInitMachine;
 
-    public static Map<String,Boolean> pluginSetting;
+
     private ConfigurableApplicationContext ctx;
 
 
@@ -37,6 +37,9 @@ public class InitWorld {
 
     @PostConstruct
     private void init(){
+
+        InitPluginRegister.initPluginRegister();
+
         if(moduleSrcConfigFileInitMachine.isInitFlag()){
             WorldInitMachine world = null;
             try {

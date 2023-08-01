@@ -19,16 +19,10 @@ import java.util.List;
  * 整个热门模块的模块初始化类
  */
 public class HotModuleInitMachine extends ModuleInitMachine {
-
     public HotModuleInitMachine() {
         super(
                 List.of(ConstPool.FILE,ConstPool.CREEPER),
                 ChopperLogFactory.getLogger(LoggerType.Hot),
-                List.of(
-                        new HotConfigInitMachine(),   //热门模块配置文件插件
-                        new HotGuardInitMachine(),    //平台热门直播，热门模块监控插件
-                        new HeatRecommendationInitMachine() //平台热门直播推送插件
-                ),
                 ConstPool.HOT
         );
     }

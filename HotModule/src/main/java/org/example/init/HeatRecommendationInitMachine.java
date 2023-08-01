@@ -1,9 +1,13 @@
 package org.example.init;
 
+import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
 import org.example.core.recommend.HeatRecommendation;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.plugin.CommonPlugin;
+import org.example.plugin.Plugin;
+import org.example.taskcenter.TaskCenter;
 
 import java.util.List;
 
@@ -11,32 +15,17 @@ import java.util.List;
  * @author Genius
  * @date 2023/07/29 14:48
  **/
+
+@Plugin(moduleName = ConstPool.HOT,
+        pluginName = PluginName.HOT_RECOMMENDATION_PLUGIN,
+        needPlugin = {PluginName.HOT_CONFIG_PLUGIN,PluginName.HOT_GUARD_PLUGIN},
+        pluginClass= HeatRecommendation.class )
 public class HeatRecommendationInitMachine extends CommonInitMachine{
 
-    public static HeatRecommendation heatRecommendation;
 
-    public HeatRecommendationInitMachine() {
-        super(  List.of(PluginName.HOT_CONFIG_PLUGIN,PluginName.HOT_GUARD_PLUGIN),
-                ChopperLogFactory.getLogger(LoggerType.Hot),
-                PluginName.HOT_RECOMMENDATION_PLUGIN
-        );
+    public HeatRecommendationInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
+        super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
 
-    @Override
-    public boolean init() {
 
-        try {
-            heatRecommendation = new HeatRecommendation();
-        }catch (Exception e){
-            return fail();
-        }
-
-        return success();
-    }
-
-    @Override
-    public void afterInit() {
-
-        heatRecommendation.guardian();
-    }
 }

@@ -22,6 +22,23 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
     private static final long OneDay = 0x5265C00;
     private static final String fileName = "hotModuleConfig.json";
 
+    public HotModuleConfig(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
+        super(module, pluginName, needPlugins, isAutoStart
+                ,HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName,
+                Map.of("Module", List.of(
+                                new HotModuleSetting(CreeperModuleConstPool.DOUYU,2,true, true,true, new ArrayList<>(), false,
+                                        List.of(allLiveDog()), OneDay, FiveMinute),
+                                new HotModuleSetting(CreeperModuleConstPool.BILIBILI, 2,true,true,true, new ArrayList<>(), false,
+                                        List.of(allLiveDog()), OneDay, FiveMinute),
+                                new HotModuleSetting(CreeperModuleConstPool.HUYA,2, true,true,true, new ArrayList<>(), false,
+                                        List.of(allLiveDog()), OneDay, FiveMinute),
+                                new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, new ArrayList<>(), false,
+                                        List.of(allLiveDog()), OneDay, FiveMinute)
+                        ),
+                        "GuardNum",10
+                ), FileType.HOT);
+    }
+
     public HotModuleConfig(){
         super(HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName,
                 Map.of("Module", List.of(
