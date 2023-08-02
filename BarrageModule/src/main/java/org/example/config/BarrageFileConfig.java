@@ -8,7 +8,7 @@ package org.example.config;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.example.entity.Barrage;
+import org.example.pojo.Barrage;
 import org.example.util.JsonFileUtil;
 
 import java.io.File;
@@ -37,6 +37,10 @@ public class BarrageFileConfig {
             classifyAndProcessFolders(rootFile);
         }
         return anchorMap;
+    }
+
+    public static void setMap(Map map) {
+        anchorMap = (HashMap<String, List<Barrage>>)map;
     }
 
     private static void classifyAndProcessFolders(File folder) {
@@ -68,9 +72,9 @@ public class BarrageFileConfig {
     }
 
     public static void main(String[] args) {
-//        getBarrageFile();
-        String encode = URLEncoder.encode("config\\barrage\\大司马\\douyu_大司马_05-07-14_58_17.json", StandardCharsets.UTF_8);
-        Map<String, Object> map = JsonFileUtil.readJsonFile(encode);
-        System.out.println(map.size());
+        getBarrageFile();
+//        String encode = URLEncoder.encode("config\\barrage\\大司马\\douyu_大司马_05-07-14_58_17.json", StandardCharsets.UTF_8);
+//        Map<String, Object> map = JsonFileUtil.readJsonFile(encode);
+//        System.out.println(map.size());
     }
 }

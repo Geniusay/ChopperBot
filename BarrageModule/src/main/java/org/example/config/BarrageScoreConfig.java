@@ -6,73 +6,59 @@ package org.example.config;
  */
 
 import com.alibaba.fastjson.JSON;
-import org.example.entity.Anchor;
+import org.example.constpool.BarrageModuleConstPool;
+import org.example.core.listen.BarrageFileMonitor;
+import org.example.pojo.Anchor;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author welsir
  * @date 2023/5/15 22:14
  */
 public class BarrageScoreConfig {
-
-    private static List<Anchor> anchorList = new ArrayList<>();
     private static final HashMap<String,Integer> anchorScoreMap = new HashMap<>();
 
     /**
-     * @description: 解析主播得分配置文件存入map
+     * @description: Set the anchor keyword and write to the file
      */
-    public static void getConfigFile() throws Exception {
-        anchorList = JSON.parseArray(FileUtil.JSONFileToString("/anchor/score.json"), Anchor.class);
-        for (Anchor anchor : anchorList) {
-            anchorScoreMap.put(anchor.getName(),anchorList.indexOf(anchor));
-        }
-        System.out.println("anchor count ::"+anchorList.size());
-    }
-
-    /**
-     * @description: 设置主播关键词并写入文件
-     */
-    public static void setAnchorConfig(List<Anchor> list){
-        for (Anchor anchor : list) {
-            //判断追加还是写入
-            int idx = anchorScoreMap.get(anchor.getName())==null?0:anchorScoreMap.get(anchor.getName());
-            if(idx!=0){
-                List<Anchor.property> property = anchorList.get(idx).getProperty();
-                property.addAll(anchor.getProperty());
-            }else {
-                anchorList.add(anchor);
-            }
-        }
-        JsonFileUtil.writeJsonFile("D:\\idea_Project\\Springboot\\ChopperBot\\BarrageModule\\src\\main\\resources\\anchor\\","score.json",anchorList);
-    }
-
-    public static List<Anchor> getAnchorScoreList(){
-        return anchorList;
-    }
 
     public static void main(String[] args) throws Exception {
 
-        getConfigFile();
-        ArrayList<Anchor> list = new ArrayList<>();
-        Anchor anchor = new Anchor();
-        anchor.setName("水晶哥");
-        ArrayList<Anchor.property> properties = new ArrayList<>();
-        properties.add(new Anchor.property("666",5));
-        properties.add(new Anchor.property("下播",7));
-        anchor.setProperty(properties);
-        Anchor anchor1 = new Anchor();
-        anchor1.setName("小团团");
-        ArrayList<Anchor.property> properties1 = new ArrayList<>();
-        properties1.add(new Anchor.property("666",5));
-        properties1.add(new Anchor.property("下播",7));
-        anchor1.setProperty(properties1);
-        list.add(anchor);
-        list.add(anchor1);
-        setAnchorConfig(list);
+//        getConfigFile();
+//        ArrayList<Anchor> list = new ArrayList<>();
+//        Anchor anchor = new Anchor();
+//        anchor.setName("水晶哥");
+//        ArrayList<Anchor.property> properties = new ArrayList<>();
+//        properties.add(new Anchor.property("666",5));
+//        properties.add(new Anchor.property("下播",7));
+//        anchor.setProperty(properties);
+//        Anchor anchor1 = new Anchor();
+//        anchor1.setName("小团团");
+//        ArrayList<Anchor.property> properties1 = new ArrayList<>();
+//        properties1.add(new Anchor.property("666",5));
+//        properties1.add(new Anchor.property("下播",7));
+//        anchor1.setProperty(properties1);
+//        list.add(anchor);
+//        list.add(anchor1);
+//        setAnchorConfig(list);
+        List<Integer> list1 = new ArrayList<>(Arrays.asList(1, 2, 3));
+        List<Integer> list2 = new ArrayList<>(Arrays.asList(3, 4, 5));
+
+        // 合并两个List，并去重
+        list1 = Stream.concat(list1.stream(), list2.stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+        // 输出去重并合并后的结果
+        System.out.println("去重并合并后的结果：");
+        for (Integer num : list1) {
+            System.out.print(num + " ");
+        }
     }
 }

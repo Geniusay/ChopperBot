@@ -1,0 +1,17 @@
+[
+  {
+    "roomId": "123456",
+    "plathForm":"斗鱼",
+    "nickName":"小团团",
+    "property":[
+      {
+        "content":"666",
+        "weight":5
+      },
+      {
+        "content":"下播",
+        "weight":7
+      }
+    ]
+  }
+]

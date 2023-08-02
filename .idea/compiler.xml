@@ -12,11 +12,11 @@
         <module name="FileModule" />
         <module name="common" />
         <module name="AccountModule" />
-        <module name="SectionWorkModule" />
         <module name="PublishModule" />
+        <module name="SectionWorkModule" />
         <module name="VideoSectionModule" />
-        <module name="SectionModule" />
         <module name="LiveRecordModule" />
+        <module name="SectionModule" />
         <module name="BarrageModule" />
         <module name="HotModule" />
       </profile>

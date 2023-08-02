@@ -13,5 +13,4 @@ public class ModuleName {
     public static final String CREEPER = ConstPool.CREEPER;
 
     public static final String FILE = ConstPool.FILE;
-
 }

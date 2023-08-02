@@ -8,7 +8,8 @@ public enum LoggerType {
     System("ChopperBot🤖"),
     Creeper("Creeper    "),
     File("FileModule "),
-    Hot("HotModule  ");
+    Hot("HotModule  "),
+    Barrage("Barrage  ");
     private String loggerName;
 
     LoggerType(String name){
