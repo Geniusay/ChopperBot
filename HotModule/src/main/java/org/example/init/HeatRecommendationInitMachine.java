@@ -20,10 +20,8 @@ import java.util.List;
         pluginClass= HeatRecommendation.class )
 public class HeatRecommendationInitMachine extends CommonInitMachine{
 
-
     public HeatRecommendationInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
         super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
-
 
 }

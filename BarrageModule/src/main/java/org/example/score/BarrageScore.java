@@ -8,8 +8,8 @@ package org.example.score;
 import com.alibaba.fastjson.JSON;
 import org.example.config.BarrageFileConfig;
 import org.example.config.BarrageScoreConfig;
-import org.example.entity.Anchor;
-import org.example.entity.Barrage;
+import org.example.pojo.Anchor;
+import org.example.pojo.Barrage;
 import org.example.util.FileUtil;
 
 import java.util.*;
@@ -28,28 +28,28 @@ public class BarrageScore {
      * @Param [filePath(相对或全路径均可), anchorName(主播名称)]
      * @return void
     **/
-    public static void analysisBarrageScore(String filePath,String anchorName){
-        //parse score file to get weight
-        String result = FileUtil.JSONFileToString("/anchor/score.json");
-        List<Anchor> objects = JSON.parseArray(result,Anchor.class);
-        anchorPropertMap = objects.stream().collect(Collectors.toMap(Anchor::getName, Anchor::getProperty, (existing, replacement) -> existing));
-        //call the barrageScoreConfig to get barrage file
-        HashMap map = BarrageFileConfig.getBarrageFile();
-        System.out.println("map size::"+map.size());
-        //Traverse the map set to sort timeIdx
-        map.forEach((k,v)->{
-            System.out.println(k);
-            String anchor = splitFileName((String) k);
-            ((List<Barrage>) v).sort(new BarrageComparator());
-            List<Anchor> anchorScoreList = BarrageScoreConfig.getAnchorScoreList();
-            for (Anchor anchor1 : anchorScoreList) {
-                if (anchor1.getName().equals(anchor)) {
-                    
-                }
-            }
-        });
-        System.out.println(anchorPropertMap);
-    }
+//    public static void analysisBarrageScore(String filePath,String anchorName){
+//        //parse score file to get weight
+////        String result = FileUtil.JSONFileToString("/anchor/score.json");
+//        List<Anchor> objects = JSON.parseArray(result,Anchor.class);
+//        anchorPropertMap = objects.stream().collect(Collectors.toMap(Anchor::getName, Anchor::getProperty, (existing, replacement) -> existing));
+//        //call the barrageScoreConfig to get barrage file
+//        HashMap map = BarrageFileConfig.getBarrageFile();
+//        System.out.println("map size::"+map.size());
+//        //Traverse the map set to sort timeIdx
+//        map.forEach((k,v)->{
+//            System.out.println(k);
+//            String anchor = splitFileName((String) k);
+//            ((List<Barrage>) v).sort(new BarrageComparator());
+//            List<Anchor> anchorScoreList = BarrageScoreConfig.getAnchorScoreList();
+//            for (Anchor anchor1 : anchorScoreList) {
+//                if (anchor1.getName().equals(anchor)) {
+//
+//                }
+//            }
+//        });
+//        System.out.println(anchorPropertMap);
+//    }
 
     private static String splitFileName(String fileName){
         int index = fileName.indexOf("-");
@@ -69,8 +69,8 @@ public class BarrageScore {
             return b1.getTimeIndex().compareTo(b2.getTimeIndex());
         }
     }
-    
+
     public static void main(String[] args) {
-        analysisBarrageScore("D:\\idea_Project\\Springboot\\ChopperBot\\BarrageModule\\src\\main\\resources\\anchor\\score.json","");
+//        analysisBarrageScore("D:\\idea_Project\\Springboot\\ChopperBot\\BarrageModule\\src\\main\\resources\\anchor\\score.json","");
     }
 }

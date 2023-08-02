@@ -1,11 +1,9 @@
-package org.example.entity;
+package org.example.pojo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import lombok.Data;
-import netscape.javascript.JSObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

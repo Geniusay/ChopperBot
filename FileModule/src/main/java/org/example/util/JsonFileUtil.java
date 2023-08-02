@@ -83,6 +83,27 @@ public class JsonFileUtil {
         return t;
     }
 
+    /** 读取json文件转为数组
+     * @param fullPath 文件路径,包含文件名
+     * @param clazz 类
+     * @return List<T>
+     */
+    public static <T> List<T> readJsonFileToArray(String fullPath, Class<T> clazz){
+        List<T> t = null;
+        Path dir = Paths.get(fullPath);
+        try{
+            if (FileUtil.isFileExist(dir.toString())) {
+                String res = Files.readString(dir, StandardCharsets.UTF_8);
+//                logger.debug("读取json文件成功, 文件内容为: {}", res);
+
+                t = JSON.parseArray(res, clazz);
+            }
+        }catch (Exception e){
+            logger.error("读取json文件失败", e);
+        }
+        return t;
+    }
+
     /* ------------------write json file------------------ */
 
     /**
