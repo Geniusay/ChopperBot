@@ -120,7 +120,7 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
 
     @Override
     public void failLog(String str) {
-        logger.error("[Wilderness] Create {} fail!",str);
+        logger.error("[Wilderness] Create {} fail!Please delete your config directory.",str);
     }
 
     public boolean isInitFlag() {

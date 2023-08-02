@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import org.example.bean.Plugin;
+import org.example.constpool.GlobalFileCache;
+import org.example.constpool.ModuleName;
 import org.example.init.InitPluginRegister;
 import org.example.service.PluginService;
 import org.example.util.Result;
