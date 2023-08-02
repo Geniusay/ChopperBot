@@ -34,7 +34,6 @@ public class InitWorld {
 
     private InitWorld(ConfigurableApplicationContext ctx) {
         this.ctx = ctx;
-
     }
 
     private void initPluginStartSetting() throws FileCacheException, InterruptedException {

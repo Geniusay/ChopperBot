@@ -12,6 +12,18 @@ export default [
     },
   },
   {
+    path: "/landing/test",
+    name: "landing-test",
+    component: () =>
+      import(
+        /* webpackChunkName: "landing-hero" */ "@/views/landing/test/TestPage.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      layout: "landing",
+    },
+  },
+  {
     path: "/landing/hero",
     name: "landing-hero",
     component: () =>
