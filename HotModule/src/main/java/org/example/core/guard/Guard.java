@@ -8,10 +8,8 @@ import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.control.HotModuleLoadTask;
 import org.example.core.recommend.HeatRecommendation;
-import org.example.init.HeatRecommendationInitMachine;
 import org.example.init.InitPluginRegister;
 import org.example.log.ResultLogger;
-import org.example.plugin.CommonPlugin;
 import org.slf4j.Logger;
 
 import java.util.List;
