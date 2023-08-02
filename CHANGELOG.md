@@ -23,6 +23,7 @@
 ```
 ------
 # 目录
+* [V 1.0.11]()
 * [V 1.0.10]()
 * [V 1.0.9]()
 * [V 1.0.8]()
@@ -35,6 +36,31 @@
 * [V 1.0.1]()
 * [V 1.0.0]()
 
+------
+## [V 1.0.11] - 2023.8.3
+**💥GREAT CHANGE：**
+- 插件框架完善，新增`Plugin`注解,进行插件扫描，所有模块和插件的初始化都变为非侵入式代码，增加里自动识别插件注册顺序以及插件循环依赖，支持插件热插拔
+- 更新三大插件:`CommonPlugin,GuardPlugin,ConfigFile`
+- 插件进行细分，分为插件和启动器
+- 完善并加强了插件注册表
+- 更改了项目的启动顺序，详情请看官方文档中的开发指南
+- 完善异常类，添加AOP `CheckPlugin` 在调用api时会检查插件是否注册
+### common
+- 🧹重构:`CommonInitMacine`重构，包含了插件的信息，以及一些方法进行改写
+- 🧹重构:`ModuleInitMachine`重构，init()方法重写
+- 💪增强:`InitPluginRegister` 增加了更多插件方法以及插件信息存储map
+- 💪增强:`GlobalExecption` 增加了`PluginException`异常类的拦截方法
+- 💪增强:`ResultCode` 增加了`Plugin`异常的状态码
+- 🎈新增:`Plugin`注解，用于表示启动需要启动的插件信息，并且注入到插件中
+- 🎈新增:`PluginUtil`新增插件模块依赖环路检测方法与拓扑启动路径寻找方法
+- 🎈新增:`ChopperBotPlugin`系统插件接口，所有插件类需要实现该类
+- 🎈新增:`CommonPlugin,GuardPlugin,ConfigFile`分别为普通插件，守卫插件，文件插件
+- 🎈新增:`ModuleName`存放模块的名称
+- 🎈新增:`PluginException`插件异常类,其子异常类包括`PluginDependOnException`,`PluginNotRegisterException`
+- 🎈新增:`CheckPlugin``注解`,用于检测api中使用的插件是否注册
+### console
+- 🎈新增:`PluginController`插件模块的Controller
+- 🎈新增:`Plugin`实体类
 ------
 ## [V 1.0.10] - 2023.7.31
 - 🐞Bug:**#00005** 删除config文件无法修复
