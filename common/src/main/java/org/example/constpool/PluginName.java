@@ -11,8 +11,8 @@ package org.example.constpool;
 public class PluginName {
 
     //File
-    public static final String MODULE_CONFIG_PLUGIN = "ModuleConfig";
-    public static final String FILE_CACHE_PLUGIN = "FileCache";
+    public static final String CHOPPER_BOT_CONFIG_PLUGIN = "ChopperBotConfig";
+    public static final String FILE_CACHE_PLUGIN = "FileCacheManager";
 
     //Creeper
     public static final String CREEPER_CONFIG_PLUGIN = "CreeperConfig";

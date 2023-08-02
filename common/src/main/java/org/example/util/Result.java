@@ -8,6 +8,7 @@ package org.example.util;
 import org.example.exception.Impl.ResultCode;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author welsir
@@ -59,6 +60,18 @@ public class Result implements Serializable {
         return result;
     }
 
+    public static Result error(ResultCode resultCode)
+    {
+        return error(resultCode, Map.of());
+    }
+
+    public static Result error(ResultCode resultCode,Object data){
+        Result result = new Result();
+        result.setCode(resultCode.getCode());
+        result.setMsg(resultCode.getMsg());
+        result.setData(data);
+        return result;
+    }
 
     public Object getData() {
         return data;

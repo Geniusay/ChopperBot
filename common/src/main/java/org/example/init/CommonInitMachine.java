@@ -7,11 +7,9 @@ package org.example.init;
 
 import org.example.log.ResultLogger;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
+import org.example.plugin.annotation.Plugin;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +66,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
     public boolean checkNeedPlugin() {
         for (String needPlugin : needPlugins) {
             if(!InitPluginRegister.registerPluginTable.containsKey(needPlugin)){
-                fail(String.format("Missing {%s} plugin,please check your plugin init!",needPlugin));
+                fail(String.format("Missing [%s] plugin,please check your plugin init!",needPlugin));
                 return false;
             }
         }
@@ -94,7 +92,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
 
     @Override
     public void successLog() {
-        successLog(String.format("[✔] {%s} init success!",pluginName));
+        successLog(String.format("[✔] [%s] init success!",pluginName));
     }
     @Override
     public void successLog(String str) {
@@ -102,7 +100,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
     }
     @Override
     public void failLog() {
-        failLog(String.format("[❌] {%s} init error!",pluginName));
+        failLog(String.format("[❌] [%s] init error!",pluginName));
     }
     @Override
     public void failLog(String str) {
@@ -130,7 +128,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
     }
 
     private void shutdownLog(){
-        logger.info("[🆖] {} close success.",pluginName);
+        logger.info("[🆖] [{}] close success.",pluginName);
     }
 
     @Override

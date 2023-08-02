@@ -2,9 +2,8 @@ package org.example.init;
 
 import org.example.bean.ConfigFile;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
+import org.example.plugin.annotation.Plugin;
 import org.example.util.ConfigFileUtil;
-import org.slf4j.Logger;
 
 import java.nio.file.Paths;
 import java.util.List;

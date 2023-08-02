@@ -1,6 +1,7 @@
 package org.example.init.module;
 
 import org.example.constpool.ConstPool;
+import org.example.constpool.ModuleName;
 import org.example.init.HeatRecommendationInitMachine;
 import org.example.init.HotConfigInitMachine;
 import org.example.init.HotGuardInitMachine;
@@ -23,7 +24,7 @@ public class HotModuleInitMachine extends ModuleInitMachine {
         super(
                 List.of(ConstPool.FILE,ConstPool.CREEPER),
                 ChopperLogFactory.getLogger(LoggerType.Hot),
-                ConstPool.HOT
+                ModuleName.HOT
         );
     }
 }

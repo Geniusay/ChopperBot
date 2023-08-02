@@ -19,13 +19,15 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
 
     protected List<CommonInitMachine> initMachines = new ArrayList<>();
 
+    protected List<CommonInitMachine> allInitMachines;
+
     private String moduleName;
 
 
     @Override
     public boolean checkNeedPlugin() {
         for (String needPlugin : needPlugins) {
-            if(!InitPluginRegister.registerPluginTable.containsKey(needPlugin)){
+            if(!InitPluginRegister.isRegister(needPlugin)){
                 fail(String.format("Missing {%s} module,please check your module init!",needPlugin));
                 return false;
             }
@@ -41,7 +43,12 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     @Override
     public boolean init() {
         try {
-        initMachines = PluginUtil.getModuleAllPluginInit(moduleName);
+            allInitMachines =  PluginUtil.getModuleAllPluginInit(moduleName);
+            for (CommonInitMachine initMachine : allInitMachines) {
+                if(InitPluginRegister.needStart(initMachine.pluginName)){
+                    initMachines.add(initMachine);
+                }
+            }
         } catch (Exception e) {
             return fail(e.getMessage());
         }
@@ -49,16 +56,17 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
         return initLogger(()->{
             if(checkNeedPlugin()){
                     for (CommonInitMachine initMachine : initMachines) {
-                        if (initMachine.checkNeedPlugin()) {
-                            initMachine.setLogger(logger);
-                            if(!initMachine.init()){
-                                return fail();
+
+                            if (initMachine.checkNeedPlugin()) {
+                                initMachine.setLogger(logger);
+                                if(!initMachine.init()){
+                                    return fail();
+                                }
+                                initMachine.registerPlugin();
+                            }else{
+                                return false;
                             }
-                            initMachine.registerPlugin();
-                        }else{
-                            return false;
                         }
-                    }
                     return success();
             }
             return false;

@@ -22,6 +22,7 @@ public abstract class GuardPlugin extends CommonPlugin implements ChopperBotGuar
 
     @Override
     public boolean init() {
+        isStop = false;
         if(!afterDo) this.guardian();
         return true;
     }

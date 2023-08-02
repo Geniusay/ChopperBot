@@ -2,6 +2,11 @@ package org.example.exception;
 
 
 import org.example.exception.Impl.ResultCode;
+import org.example.exception.plugin.PluginDependOnException;
+import org.example.exception.plugin.PluginException;
+import org.example.exception.plugin.PluginNotRegisterException;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author : [Welsir]
@@ -21,9 +27,26 @@ import javax.servlet.http.HttpServletRequest;
 @ResponseBody
 public class GlobalExceptionHandler {
 
-    public static Logger logger = LoggerFactory.getLogger(BaseException.class);
+    public static Logger logger = ChopperLogFactory.getLogger(LoggerType.System);
 
-    @ExceptionHandler(Exception.class)
+
+    @ExceptionHandler(PluginException.class)
+    public Result handlerPluginException(HttpServletRequest request,PluginException ex){
+        logger.error("Handle Exception Request Url:{},Exception:{}", request.getRequestURL(), ex);
+        if(ex instanceof PluginNotRegisterException){
+            PluginNotRegisterException exception = (PluginNotRegisterException) ex;
+            return Result.error(exception.getResultCode());
+        }else if(ex instanceof PluginDependOnException){
+            PluginDependOnException exception = (PluginDependOnException) ex;
+            return Result.error(exception.getResultCode(), Map.of(
+                    "fatherName",exception.getFatherName(),
+                    "sonName",exception.getSonName()
+            ));
+        }
+        return Result.error("error");
+    }
+
+    @ExceptionHandler(BaseException.class)
     public Result handleException(HttpServletRequest request,
                                   Exception ex) {
         logger.error("Handle Exception Request Url:{},Exception:{}", request.getRequestURL(), ex);

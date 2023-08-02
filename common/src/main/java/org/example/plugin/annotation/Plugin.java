@@ -1,4 +1,6 @@
-package org.example.plugin;
+package org.example.plugin.annotation;
+
+import org.example.plugin.CommonPlugin;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

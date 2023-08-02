@@ -3,11 +3,10 @@ package org.example.init;
 import org.example.cache.FileCacheManager;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.constpool.ConstPool;
+import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
+import org.example.plugin.annotation.Plugin;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * @date 2023/04/26 02:09
  **/
 
-@Plugin(moduleName = ConstPool.FILE,
+@Plugin(moduleName = ModuleName.FILE,
         pluginName = PluginName.FILE_CACHE_PLUGIN,
         needPlugin = {},
         pluginClass= FileCacheManager.class )
