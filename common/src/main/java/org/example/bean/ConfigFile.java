@@ -1,5 +1,6 @@
 package org.example.bean;
 
+import org.example.constpool.PluginName;
 import org.example.plugin.CommonPlugin;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public abstract class ConfigFile<T> extends CommonPlugin {
     private LocalDateTime updateTime;
 
     public ConfigFile() {
-        super(null, null, null, true);
+        super(null, null, List.of(PluginName.FILE_CACHE_PLUGIN), true);
     }
 
     public ConfigFile(String filePath, String fileName, T data,FileType fileType) {

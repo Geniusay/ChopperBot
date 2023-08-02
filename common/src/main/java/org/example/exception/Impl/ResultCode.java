@@ -12,8 +12,12 @@ public enum ResultCode {
 
     OK(200, "成功"),
     ERROR(300,"系统异常"),
-    PARAMETER_ERROR(301, "参数错误");
 
+    PARAMETER_ERROR(301, "参数错误"),
+
+    PLUGIN_NOT_REGISTER(114514,"插件没有注册"),
+
+    PLUGIN_DEPEND_ERROR(114515,"");
     private int code;
 
     private String msg;

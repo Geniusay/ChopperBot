@@ -11,13 +11,13 @@ import org.example.exception.Impl.ResultCode;
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 5225171867523879342L;
 
-    private int code;
+    protected int code;
 
-    private String msg;
+    protected String msg;
 
-    private Object[] params;
+    protected Object[] params;
 
-    ResultCode resultCode;
+    protected ResultCode resultCode;
 
     public ResultCode getResultCode() {
         return resultCode;

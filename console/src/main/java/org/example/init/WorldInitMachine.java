@@ -42,18 +42,18 @@ public class WorldInitMachine extends ModuleInitMachine{
                             }
                             (initMachine).registerPlugin();
                         }else{
-                            return false;
+                            return fail();
                         }
                     }
                     registerPlugin();
                     return success();
 
                 }
-                return false;
+                return fail();
 
             });
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return fail(e.getMessage());
         }
     }
 

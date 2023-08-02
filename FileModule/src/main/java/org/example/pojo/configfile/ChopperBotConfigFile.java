@@ -15,14 +15,14 @@ import java.util.Map;
  **/
 
 
-public class ModuleSrcConfigFile extends ConfigFile<Map<String, Object>> {
+public class ChopperBotConfigFile extends ConfigFile<Map<String, Object>> {
 
     private static final String filePath = "./config/";
 
     private static final String fileName =  "chopperBotConfig.json";
 
-    public ModuleSrcConfigFile() {
-            super( "ChopperBot", PluginName.MODULE_CONFIG_PLUGIN,List.of(),true,filePath, fileName,
+    public ChopperBotConfigFile() {
+            super( "ChopperBot", PluginName.CHOPPER_BOT_CONFIG_PLUGIN,List.of(),true,filePath, fileName,
                     Map.of("src",Map.of( ConstPool.ACCOUNT, "./config/"+ConstPool.ACCOUNT,
                                     ConstPool.SECTION, "./config/"+ConstPool.SECTION,
                                     ConstPool.BARRAGE, "./config/"+ConstPool.BARRAGE,
@@ -30,7 +30,7 @@ public class ModuleSrcConfigFile extends ConfigFile<Map<String, Object>> {
                                     ConstPool.SECTION_WORK, "./config/"+ConstPool.SECTION_WORK,
                                     ConstPool.HOT, "./config/"+ConstPool.HOT,
                                     ConstPool.PUBLISH, "./config/"+ConstPool.PUBLISH),
-                            "plugin",Map.of()), FileType.CHOPPER_BOT);
+                            "pluginStart",Map.of()), FileType.CHOPPER_BOT);
     }
 
 

@@ -2,11 +2,13 @@ package org.example.init;
 
 import com.alibaba.fastjson.JSONObject;
 import org.example.cache.FileCache;
+import org.example.constpool.ConstPool;
 import org.example.constpool.GlobalFileCache;
+import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
-import org.example.pojo.configfile.ModuleSrcConfigFile;
+import org.example.pojo.configfile.ChopperBotConfigFile;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
 import org.springframework.stereotype.Component;
@@ -25,14 +27,18 @@ import java.util.Map;
 @Component
 public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
 
-    ModuleSrcConfigFile moduleSrcConfigFile;
+    ChopperBotConfigFile chopperBotConfigFile;
 
     private boolean initFlag;
 
     public ChopperBotConfigFileInitMachine() {
-        super( PluginName.MODULE_CONFIG_PLUGIN,ChopperLogFactory.getLogger(LoggerType.System));
-        moduleSrcConfigFile = new ModuleSrcConfigFile();
+        super(ModuleName.CHOPPER_BOT,ChopperLogFactory.getLogger(LoggerType.System));
+        chopperBotConfigFile = new ChopperBotConfigFile();
         initFlag = true;
+        isAutoStart = true;
+        pluginName = PluginName.CHOPPER_BOT_CONFIG_PLUGIN;
+        pluginClass = ChopperBotConfigFile.class;
+        plugin = chopperBotConfigFile;
     }
 
 
@@ -40,13 +46,13 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
     @PostConstruct
     @Override
     public boolean init() {
-        Path dir = Paths.get(moduleSrcConfigFile.getFilePath());
+        Path dir = Paths.get(chopperBotConfigFile.getFilePath());
         if (!createConfigDirectory(dir)) {
             initFlag = fail("./config directory");
             return initFlag;
         }
         if (!createConfigFile(dir)) {
-            initFlag = fail(ModuleSrcConfigFile.getFullPath());
+            initFlag = fail(ChopperBotConfigFile.getFullPath());
             return initFlag;
         }
         if (!createModuleDirectory()) {
@@ -68,18 +74,20 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
     }
 
     private boolean createConfigFile(Path dir) {
-        Path path = Paths.get(dir.toString(), moduleSrcConfigFile.getFileName());
+        Path path = Paths.get(dir.toString(), chopperBotConfigFile.getFileName());
         try {
             if (!Files.exists(path)) {
-                JsonFileUtil.writeJsonFile(path.toString(),moduleSrcConfigFile.packageConfig());
-                GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
+                JsonFileUtil.writeJsonFile(path.toString(), chopperBotConfigFile.packageConfig());
+                GlobalFileCache.ModuleSrcConfigFile = new FileCache(chopperBotConfigFile);
             }else{
-                Map<String, Object> data = JsonFileUtil.readJsonFile(Paths.get(dir.toString(), moduleSrcConfigFile.getFileName()).toString());
-                moduleSrcConfigFile.setData(data);
-                GlobalFileCache.ModuleSrcConfigFile = new FileCache(moduleSrcConfigFile);
+                Map<String, Object> data = JsonFileUtil.readJsonFile(Paths.get(dir.toString(), chopperBotConfigFile.getFileName()).toString());
+                chopperBotConfigFile.setData(data);
+                GlobalFileCache.ModuleSrcConfigFile = new FileCache(chopperBotConfigFile);
             }
-            InitPluginRegister.pluginSetting = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("plugin").toString(),Map.class);
-            InitPluginRegister.allPlugins.put(PluginName.MODULE_CONFIG_PLUGIN,this);
+
+            //全局插件注册表插入
+            InitPluginRegister.pluginStartSetting = JSONObject.parseObject(GlobalFileCache.ModuleSrcConfigFile.get("pluginStart").toString(),Map.class);
+            InitPluginRegister.allPlugins.put(PluginName.CHOPPER_BOT_CONFIG_PLUGIN,this);
         }catch (Exception e) {
             return false;
         }

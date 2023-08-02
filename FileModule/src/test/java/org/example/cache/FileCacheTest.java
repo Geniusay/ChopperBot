@@ -2,7 +2,7 @@ package org.example.cache;
 
 import org.example.constpool.GlobalFileCache;
 import org.example.pojo.Student;
-import org.example.pojo.configfile.ModuleSrcConfigFile;
+import org.example.pojo.configfile.ChopperBotConfigFile;
 import org.example.exception.FileCacheException;
 import org.junit.jupiter.api.Test;
 
@@ -35,8 +35,8 @@ public class FileCacheTest {
 
     @Test
     public void TestFileCache() throws FileCacheException, InterruptedException {
-        ModuleSrcConfigFile moduleSrcConfigFile = new ModuleSrcConfigFile();
-        FileCache fileCache = new FileCache(moduleSrcConfigFile);
+        ChopperBotConfigFile chopperBotConfigFile = new ChopperBotConfigFile();
+        FileCache fileCache = new FileCache(chopperBotConfigFile);
 
         FileCacheManager manager = new FileCacheManager(List.of(fileCache));
         manager.start();
@@ -45,8 +45,8 @@ public class FileCacheTest {
 
     @Test
     public void TestFileCacheManager() throws FileCacheException, InterruptedException {
-        ModuleSrcConfigFile moduleSrcConfigFile = new ModuleSrcConfigFile();
-        FileCache fileCache = new FileCache(moduleSrcConfigFile);
+        ChopperBotConfigFile chopperBotConfigFile = new ChopperBotConfigFile();
+        FileCache fileCache = new FileCache(chopperBotConfigFile);
         FileCacheManager manager = new FileCacheManager(List.of(fileCache));
         manager.start();
         Thread.sleep(500000);
@@ -54,8 +54,8 @@ public class FileCacheTest {
 
     @Test
     public void TestGet() throws FileCacheException, InterruptedException {
-        ModuleSrcConfigFile moduleSrcConfigFile = new ModuleSrcConfigFile();
-        FileCache fileCache = new FileCache(moduleSrcConfigFile);
+        ChopperBotConfigFile chopperBotConfigFile = new ChopperBotConfigFile();
+        FileCache fileCache = new FileCache(chopperBotConfigFile);
 
         FileCacheManager manager = new FileCacheManager(List.of(fileCache));
         manager.start();
@@ -101,8 +101,8 @@ public class FileCacheTest {
 
     @Test
     public void TestArrayAdd() throws InterruptedException, FileCacheException {
-        ModuleSrcConfigFile moduleSrcConfigFile = new ModuleSrcConfigFile();
-        FileCache fileCache = new FileCache(moduleSrcConfigFile);
+        ChopperBotConfigFile chopperBotConfigFile = new ChopperBotConfigFile();
+        FileCache fileCache = new FileCache(chopperBotConfigFile);
 
         FileCacheManager manager = new FileCacheManager(List.of(fileCache));
         manager.start();

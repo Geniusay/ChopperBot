@@ -3,12 +3,10 @@ package org.example.init;
 import org.example.config.CreeperConfigFile;
 import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
+import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
-import org.example.taskcenter.TaskCenter;
+import org.example.plugin.annotation.Plugin;
 import org.example.util.FileUtil;
 
 import java.io.IOException;
@@ -22,7 +20,7 @@ import java.util.List;
  * @date 2023/07/29 01:56
  **/
 
-@Plugin(moduleName = ConstPool.CREEPER,
+@Plugin(moduleName = ModuleName.CREEPER,
         pluginName = PluginName.CREEPER_CONFIG_PLUGIN,
         needPlugin = {PluginName.FILE_CACHE_PLUGIN},
         pluginClass= CreeperConfigFile.class )

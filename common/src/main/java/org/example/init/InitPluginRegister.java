@@ -6,17 +6,19 @@ package org.example.init;
  **/
 
 import org.example.constpool.ConstPool;
+import org.example.exception.plugin.PluginDependOnException;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
+import org.example.plugin.annotation.Plugin;
 import org.example.util.ClassUtil;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 插件注册中心
@@ -32,7 +34,7 @@ public class InitPluginRegister {
     public static ConcurrentHashMap<String, CommonInitMachine> allPlugins = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<String,CommonInitMachine> registerPluginTable = new ConcurrentHashMap<>();
 
-    public static Map<String,Boolean> pluginSetting;
+    public static Map<String,Boolean> pluginStartSetting;
 
     public static boolean initPluginRegister(){
         Set<Class<?>> initMachineClasses = ClassUtil.getAnnotationClass(ConstPool.PROJECT_PATH + ".init", Plugin.class);
@@ -42,14 +44,17 @@ public class InitPluginRegister {
                 String moduleName = ano.moduleName();
                 String pluginName = ano.pluginName();
                 List<String> needPlugins = List.of(ano.needPlugin());
-                boolean autoStart = pluginSetting.containsKey(pluginName)?pluginSetting.get(pluginName):ano.autoStart();
+                boolean autoStart = pluginStartSetting.containsKey(pluginName)?pluginStartSetting.get(pluginName):ano.autoStart();
                 CommonInitMachine initMachine = (CommonInitMachine) initMachineClass
                         .getDeclaredConstructor(List.class,boolean.class,String.class,String.class,Class.class)
                         .newInstance(needPlugins,autoStart,moduleName,pluginName,ano.pluginClass());
 
+                pluginStartSetting.put(pluginName,autoStart);
+                //全部插件
                 if(allPlugins.containsKey(pluginName))return false;
                 allPlugins.put(pluginName,initMachine);
 
+                //模块下的所有插件
                 if(modulePlugin.containsKey(moduleName)){
                     modulePlugin.get(moduleName).add(pluginName);
                 }else{
@@ -57,6 +62,8 @@ public class InitPluginRegister {
                     list.add(pluginName);
                     modulePlugin.put(moduleName,list);
                 }
+
+                //所有模块的插件依赖
                 if(!fatherAndSonPlugin.containsKey(pluginName)){
                     fatherAndSonPlugin.put(pluginName,new ArrayList<>());
                 }
@@ -73,6 +80,7 @@ public class InitPluginRegister {
                 return false;
             }
         }
+        //完善 模块下插件的依赖和一次插件初始化检测
         try {
             allPlugins.forEach(
                     (k,v)->{
@@ -93,11 +101,54 @@ public class InitPluginRegister {
 
                     }
             );
+            AtomicBoolean res = new AtomicBoolean(true);
+            InitPluginRegister.allPlugins.forEach(
+                    (k,v)->{
+                        if(!InitPluginRegister.needStart(k)){
+                            List<String> list = fatherAndSonPlugin.get(k);
+                            if(list!=null){
+                                for (String sonPlugin : list) {
+                                    if(InitPluginRegister.needStart(sonPlugin)){
+                                        ChopperLogFactory.getLogger(LoggerType.System)
+                                                .error("🙃ChopperBot Plugin Error!The [{}] plugin requires the [{}] plugin, " +
+                                                        "but the [{}] plugin is not set to start automatically. " +
+                                                        "Please go to the ./config/chopperBotConfig.json to start the [{}] plugin !",sonPlugin,k,k,k);
+                                        res.set(false);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+            );
+            return res.get();
         }catch (Exception e){
-            e.printStackTrace();
+            return false;
         }
 
-        return true;
+    }
+
+    public static boolean startPlugin(String pluginName){
+        if(allPlugins.containsKey(pluginName)){
+            if(!registerPluginTable.containsKey(pluginName)){
+                CommonInitMachine initMachine = allPlugins.get(pluginName);
+                for (String needPlugin : initMachine.getNeedPlugins()) {
+                    if(!InitPluginRegister.isRegister(needPlugin)){
+                        throw PluginDependOnException.MissingFatherPlugin(needPlugin,pluginName);
+                    }
+                }
+                if (initMachine.init()) {
+                    registerPluginTable.put(pluginName,initMachine);
+                    initMachine.afterInit();
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
+        return false;
     }
 
 
@@ -110,11 +161,14 @@ public class InitPluginRegister {
             if (registerPluginTable.containsKey(pluginName)) {
                 for (String plugin : fatherAndSonPlugin.get(pluginName)) {
                     if (registerPluginTable.containsKey(plugin)) {
-                        return false;
+                        throw PluginDependOnException.DependOnPlugin(pluginName,plugin);
+
                     }
                 }
                 registerPluginTable.get(pluginName).shutdown();
                 registerPluginTable.remove(pluginName);
+            }else{
+                return false;
             }
             return true;
         }
@@ -132,6 +186,10 @@ public class InitPluginRegister {
             return registerPluginTable.get(pluginName).getPlugin();
         }
         return null;
+    }
+
+    public static boolean needStart(String pluginName){
+        return pluginStartSetting.getOrDefault(pluginName, false);
     }
 
 }

@@ -1,36 +1,21 @@
 package org.example.init;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.example.cache.FileCache;
-import org.example.cache.FileCacheManagerInstance;
-import org.example.config.HotModuleConfig;
-import org.example.config.HotModuleSetting;
 import org.example.constpool.ConstPool;
+import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
-import org.example.core.control.HotModuleLoadTask;
 import org.example.core.guard.HotModuleGuard;
 import org.example.core.guard.HotModuleGuardInstance;
-import org.example.core.guard.Guard;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
-import org.example.util.ClassUtil;
+import org.example.plugin.annotation.Plugin;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static org.example.constpool.HotModuleConstPool.LOAD_TASK_CLASS_ROOT;
 
 /**
  * @author Genius
  * @date 2023/07/21 09:58
  **/
 
-@Plugin(moduleName = ConstPool.HOT,
+@Plugin(moduleName = ModuleName.HOT,
         pluginName = PluginName.HOT_GUARD_PLUGIN,
         needPlugin = {PluginName.FILE_CACHE_PLUGIN,PluginName.HOT_CONFIG_PLUGIN},
         pluginClass= HotModuleGuard.class )

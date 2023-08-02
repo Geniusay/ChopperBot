@@ -7,19 +7,17 @@ package org.example.init;
 
 import org.example.config.HotModuleConfig;
 import org.example.constpool.ConstPool;
+import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
-import org.example.core.recommend.HeatRecommendation;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.Plugin;
+import org.example.plugin.annotation.Plugin;
 
 import java.util.List;
 
 /**
  * 热门模块配置文件初始化机器
  */
-@Plugin(moduleName = ConstPool.HOT,
+@Plugin(moduleName = ModuleName.HOT,
         pluginName = PluginName.HOT_CONFIG_PLUGIN,
         needPlugin = {PluginName.FILE_CACHE_PLUGIN},
         pluginClass= HotModuleConfig.class )

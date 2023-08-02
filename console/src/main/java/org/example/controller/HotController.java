@@ -6,7 +6,9 @@ import org.example.bean.Live;
 import org.example.bean.HotModule;
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.constpool.ConstPool;
+import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
+import org.example.plugin.annotation.CheckPlugin;
 import org.example.service.HotModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +29,7 @@ public class HotController {
     @Autowired
     HotModuleService hotModuleService;
 
+    @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/douyu/allHotLive")
     public Result getDouyuAllHotLive(@RequestParam(defaultValue = "0") int latest){
         List<? extends Live> lives;
@@ -38,6 +41,7 @@ public class HotController {
         return Result.success(lives);
     }
 
+    @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/douyu/allHotModule")
     public Result getDouyuAllHotModule(@RequestParam(defaultValue = "0") int latest){
         HotModuleList hotModuleList;
@@ -49,6 +53,7 @@ public class HotController {
         return Result.success(hotModuleList.getHotModuleList());
     }
 
+    @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/douyu/getHotModuleLives")
     public Result getDouyuHotModuleLives(@RequestParam int moduleId){
         HotModule moduleHotLives = hotModuleService.getModuleHotLives(ConstPool.PLATFORM.DOUYU.getName(), moduleId);
