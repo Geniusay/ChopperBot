@@ -1,8 +1,10 @@
 package org.example.init.module;
 
 import org.example.constpool.ConstPool;
+import org.example.constpool.ModuleName;
 import org.example.init.ModuleInitMachine;
 import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class BarrageModuleInitMachine extends ModuleInitMachine {
 
     public BarrageModuleInitMachine() {
         super(List.of(ConstPool.CREEPER),
-                ChopperLogFactory.getLogger("BarrageModule"),
-                "Barrage");
+                ChopperLogFactory.getLogger(LoggerType.Barrage),
+                ModuleName.BARRAGE);
     }
 }
