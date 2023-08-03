@@ -3,7 +3,6 @@ package org.example.init;
 import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
 import org.example.core.listen.BarrageFileMonitor;
-import org.example.init.CommonInitMachine;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
 

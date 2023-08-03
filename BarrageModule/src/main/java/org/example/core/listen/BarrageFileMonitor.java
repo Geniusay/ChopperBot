@@ -21,6 +21,8 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,13 +39,10 @@ import java.util.concurrent.TimeUnit;
 public class BarrageFileMonitor extends GuardPlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(BarrageFileMonitor.class);
-
-
-    private static BlockingQueue<String> listenChangeEvent;
-
+    private BlockingQueue<Object> listenChangeEvent;
     private File rootFile;
 
-    private static Map<String,List<Anchor.property>> anchorMap;
+    private  Map<String,List<Anchor.property>> anchorMap;
     public BarrageFileMonitor(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
     }
@@ -54,6 +53,18 @@ public class BarrageFileMonitor extends GuardPlugin {
         rootFile = new File(BarrageModuleConstPool.BARRAGE_FILE_PATH);
         listenChangeEvent = new ArrayBlockingQueue<>(1024);
         anchorMap = new HashMap<>();
+        //Initialize folder
+        Path path = Paths.get(BarrageModuleConstPool.ANCHOR_FILE_PATH);
+        // Determine whether the folder exists, and create it if it does not exist
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectory(path);
+                logger.info("init folder success！");
+            } catch (IOException e) {
+                logger.info("init folder fail！");
+                e.printStackTrace();
+            }
+        }
         //Read the host configuration file and save it in the map
         //Process streamer configuration files
         processAnchorConfig();
@@ -61,55 +72,21 @@ public class BarrageFileMonitor extends GuardPlugin {
     }
     @Override
     public void start() {
-        try {
-            //file type    --config
-            //               --barrage
-            //                 --anchorA
-            //                   --fileA
-            //                   --fileB
-            //                 --anchorB
-            //                   --fileA
-            //                   --fileB
-            if("creepSuccess".equals(listenChangeEvent.poll(5, TimeUnit.SECONDS))){
-                //get barrage file
-                Map map = BarrageFileConfig.getBarrageFile();
-                File[] files = rootFile.listFiles();
-                for (File anchorFile : files) {
-                    if (anchorFile.isDirectory()&&anchorFile.length()>0) {
-                        for (File barrageFile : Objects.requireNonNull(anchorFile.listFiles())) {
-                            Object obj = map.get(anchorFile.getName() + "-" + barrageFile.getName());
-                            //If the map key cannot be obtained,then write to map
-                            if (obj == null) {
-                                try {
-                                    String fileJson = Files.readString(barrageFile.toPath());
-                                    JSONObject jsonObject = JSON.parseObject(fileJson);
-                                    JSONArray data = jsonObject.getJSONArray("data");
-                                    map.put(anchorFile.getName() + "-" + barrageFile.getName(), Barrage.copyProperty(data));
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        }
-                    }
-                    //update map
-                    BarrageFileConfig.setMap(map);
-                }
-            }
-            if("updateAnchor".equals(listenChangeEvent.poll(5,TimeUnit.SECONDS))){
-                processAnchorConfig();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        //file type    --config
+        //               --barrage
+        //                 --anchorA
+        //                   --fileA
+        //                   --fileB
+        //                 --anchorB
+        //                   --fileA
+        //                   --fileB
 
-    public static void sendHotEvent(String msg){
-        listenChangeEvent.offer(msg);
     }
-
+    public void sendHotEvent(Object obj){
+        listenChangeEvent.offer(obj);
+    }
     //Obtain the barrage keyword score corresponding to the anchor
-    private static void processAnchorConfig(){
-        anchorMap = new HashMap<>();
+    private void processAnchorConfig(){
         File anchorFile;
         anchorFile = new File(BarrageModuleConstPool.ANCHOR_FILE_PATH);
         File[] anchors = anchorFile.listFiles();
@@ -117,6 +94,7 @@ public class BarrageFileMonitor extends GuardPlugin {
             for (File anchor : anchors) {
                 List<Anchor> anchorConfig = JsonFileUtil.readJsonFileToArray(anchor.getAbsolutePath(), Anchor.class);
                 anchorMap.put(anchor.getName(), anchorConfig.get(0).getProperty());
+                logger.info("AnchorBarrage::"+anchorMap.toString());
             }
         }
     }
@@ -135,14 +113,9 @@ public class BarrageFileMonitor extends GuardPlugin {
         return fileString;
     }
 
-    public static Map getAnchorBarrageMap(){
+    public Map getAnchorBarrageMap(){
         return anchorMap;
-    }
-    public static void main(String[] args) throws InterruptedException {
-        while (true){
-            processAnchorConfig();
-            Thread.sleep(5000);
-        }
     }
 
 }
+

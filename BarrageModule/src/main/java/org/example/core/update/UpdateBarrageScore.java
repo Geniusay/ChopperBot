@@ -1,7 +1,10 @@
 package org.example.core.update;
 
+import com.alibaba.fastjson.JSON;
 import org.example.constpool.BarrageModuleConstPool;
+import org.example.constpool.PluginName;
 import org.example.core.listen.BarrageFileMonitor;
+import org.example.init.InitPluginRegister;
 import org.example.pojo.Anchor;
 import org.example.util.JsonFileUtil;
 
@@ -29,16 +32,20 @@ public class UpdateBarrageScore {
             for(File anchorFile : Objects.requireNonNull(anchorFiles.listFiles())){
                 //Whether to add
                 if(fileName.equals(anchorFile.getName())){
-                    Map anchorBarrageMap = BarrageFileMonitor.getAnchorBarrageMap();
+                    BarrageFileMonitor plugin= (BarrageFileMonitor)InitPluginRegister.getPlugin(PluginName.BARRAGE_FILE_PLUGIN);
+                    Map anchorBarrageMap = plugin.getAnchorBarrageMap();
                     List<Anchor.property> originList = (List<Anchor.property>) anchorBarrageMap.get(fileName);
                     List<Anchor.property> newList = oneAnchor.getProperty();
                     newList = Stream.concat(originList.stream(),oneAnchor.getProperty().stream())
                             .distinct().collect(Collectors.toList());
-                    JsonFileUtil.writeJsonFileIsExist(BarrageModuleConstPool.ANCHOR_FILE_PATH+fileName+BarrageModuleConstPool.AnchorFileType,oneAnchor);
+                    System.out.println(List.of(oneAnchor));
+                    ArrayList<Anchor> anchors = new ArrayList<>();
+                    anchors.add(oneAnchor);
+                    JsonFileUtil.writeJsonFileIsExist(BarrageModuleConstPool.ANCHOR_FILE_PATH+fileName+BarrageModuleConstPool.AnchorFileType,List.of(oneAnchor));
                     break;
                 }
             }
-            JsonFileUtil.writeJsonFile(BarrageModuleConstPool.ANCHOR_FILE_PATH,fileName+BarrageModuleConstPool.AnchorFileType,oneAnchor);
+            JsonFileUtil.writeJsonFile(BarrageModuleConstPool.ANCHOR_FILE_PATH,fileName+BarrageModuleConstPool.AnchorFileType,List.of(oneAnchor));
         }
 //        BarrageFileMonitor.sendHotEvent("updateAnchor");
     }
@@ -48,7 +55,7 @@ public class UpdateBarrageScore {
         anchor.setPlathForm("虎牙");
         anchor.setRoomId("123456");
         ArrayList<Anchor.property> arrayList = new ArrayList<>();
-        Anchor.property property = new Anchor.property("hahaha",10);
+        Anchor.property property = new Anchor.property("人直吃",10);
         arrayList.add(property);
         anchor.setProperty(arrayList);
         updateBarrageScore(List.of(anchor));

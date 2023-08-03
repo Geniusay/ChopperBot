@@ -26,6 +26,8 @@ public class Barrage {
     // 弹幕内容
     private String content;
 
+
+
     public Barrage(){
 
     }
