@@ -43,6 +43,17 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/appApi/, ""),
       },
+      "/douyu": {
+        target: "https://www.douyu.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/douyu/, "/"),
+
+      },
+      "/topic": {
+        target: "https://www.douyu.com",
+        changeOrigin: true,
+
+      }
     },
   },
   css: {

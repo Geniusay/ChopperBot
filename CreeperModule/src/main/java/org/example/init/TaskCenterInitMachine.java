@@ -24,9 +24,4 @@ public class TaskCenterInitMachine extends CommonInitMachine{
         super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
 
-    @Override
-    public void shutdown() {
-        this.getPlugin().shutdown();
-    }
-
 }

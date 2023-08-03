@@ -1,6 +1,12 @@
 export default [
   {
     icon: "mdi-dots-hexagon",
+    key: "menu.testPage",
+    text: "Douyu Page",
+    link: "/landing/test",
+  },
+  {
+    icon: "mdi-dots-hexagon",
     key: "menu.heroPage",
     text: "Hero Page",
     link: "/landing/hero",

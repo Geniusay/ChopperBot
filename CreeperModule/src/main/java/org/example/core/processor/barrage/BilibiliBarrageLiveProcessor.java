@@ -1,9 +1,10 @@
-package org.example.core.processor;
+package org.example.core.processor.barrage;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.example.pojo.Barrage;
+import org.example.bean.Barrage;
+import org.example.core.processor.AbstractProcessor;
 import org.example.pojo.download.assign.BilibiliLiveLoadBarrageConfig;
 import us.codecraft.webmagic.Page;
 
@@ -17,7 +18,7 @@ import java.util.Set;
  * @author 燧枫
  * @date 2023/4/23 18:53
  */
-public class BilibiliLiveProcessor extends AbstractProcessor {
+public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
 
     BilibiliLiveLoadBarrageConfig loadConfig;
 
@@ -32,7 +33,7 @@ public class BilibiliLiveProcessor extends AbstractProcessor {
     // 开始时间戳
     private Long startTime;
 
-    public BilibiliLiveProcessor(BilibiliLiveLoadBarrageConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
+    public BilibiliBarrageLiveProcessor(BilibiliLiveLoadBarrageConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
         super(retryTimes, retrySleepTime, userAgent, sleepTime);
         this.loadConfig = loadConfig;
         this.processedMids = new HashSet<>();

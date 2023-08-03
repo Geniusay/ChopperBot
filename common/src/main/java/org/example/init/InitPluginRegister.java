@@ -156,6 +156,14 @@ public class InitPluginRegister {
         return registerPluginTable.containsKey(pluginName);
     }
 
+    public static boolean register(CommonInitMachine initMachine){
+        if(!registerPluginTable.containsKey(initMachine.getPluginName())){
+            registerPluginTable.put(initMachine.getPluginName(),initMachine);
+            return true;
+        }
+        return false;
+    }
+
     public static boolean closePlugin(String pluginName){
         synchronized (pluginName) {
             if (registerPluginTable.containsKey(pluginName)) {

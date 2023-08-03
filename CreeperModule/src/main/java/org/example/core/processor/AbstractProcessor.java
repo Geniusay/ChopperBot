@@ -15,10 +15,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class AbstractProcessor implements PageProcessor {
 
     // 运行状态
-    AtomicBoolean isRunning = new AtomicBoolean(true);
+    protected AtomicBoolean isRunning = new AtomicBoolean(true);
 
     // 首次进入
-    boolean isFirst = true;
+    protected boolean isFirst = true;
 
     // 爬虫配置
     protected String userAgent;

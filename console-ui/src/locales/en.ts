@@ -77,6 +77,7 @@ export default {
     feedback: "Feedback",
     support: "Support",
     landingPage: "Dark Demo",
+    testPage: "Douyu Page",
     heroPage: "Hero Page",
     featurePage: "Feature Page",
     pricingPage: "Pricing Page",

@@ -1,9 +1,10 @@
-package org.example.core.processor;
+package org.example.core.processor.barrage;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.example.pojo.Barrage;
+import org.example.bean.Barrage;
+import org.example.core.processor.AbstractProcessor;
 import org.example.pojo.download.assign.DouyuRecordLoadBarrageConfig;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -17,14 +18,14 @@ import java.util.List;
  * @author 燧枫
  * @date 2023/4/23 18:54
  */
-public class DouyuRecordProcessor extends AbstractProcessor {
+public class DouyuBarrageRecordProcessor extends AbstractProcessor {
 
     DouyuRecordLoadBarrageConfig loadConfig;
 
     // 前缀url
     private String urlPrefix = "https://v.douyu.com/wgapi/vod/center/getBarrageListByPage?vid=";
 
-    public DouyuRecordProcessor(DouyuRecordLoadBarrageConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
+    public DouyuBarrageRecordProcessor(DouyuRecordLoadBarrageConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
         super(retryTimes, retrySleepTime, userAgent, sleepTime);
         this.loadConfig = loadConfig;
     }

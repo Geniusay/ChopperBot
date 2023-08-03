@@ -2,7 +2,6 @@ package org.example.core.factory;
 
 import org.example.core.control.LoadTask;
 import org.example.core.control.impl.*;
-import org.example.exception.FileCacheException;
 import org.example.pojo.download.assign.*;
 import org.example.pojo.download.LoadConfig;
 
@@ -27,11 +26,11 @@ public class LoadTaskFactory {
 
         // 斗鱼录播
         if (loadConfig instanceof DouyuRecordLoadBarrageConfig) {
-            return new DouyuRecordLoadTask((DouyuRecordLoadBarrageConfig) loadConfig);
+            return new DouyuBarrageRecordLoadTask((DouyuRecordLoadBarrageConfig) loadConfig);
         }
         // B站直播
         else if (loadConfig instanceof BilibiliLiveLoadBarrageConfig) {
-            return new BilibiliLiveLoadTask((BilibiliLiveLoadBarrageConfig) loadConfig);
+            return new BilibiliBarrageLiveLoadTask((BilibiliLiveLoadBarrageConfig) loadConfig);
         }
         //  斗鱼热门模块
         else if(loadConfig instanceof DouyuHotModuleConfig){

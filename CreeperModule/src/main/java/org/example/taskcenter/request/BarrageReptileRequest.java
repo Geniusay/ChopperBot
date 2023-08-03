@@ -1,6 +1,6 @@
 package org.example.taskcenter.request;
 
-import org.example.pojo.Barrage;
+import org.example.bean.Barrage;
 
 import java.util.function.Consumer;
 
