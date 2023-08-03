@@ -82,7 +82,7 @@ public class BarrageFileMonitor extends GuardPlugin {
         //                   --fileB
 
     }
-    public void sendHotEvent(Object obj){
+    public void send(Object obj){
         listenChangeEvent.offer(obj);
     }
     //Obtain the barrage keyword score corresponding to the anchor
