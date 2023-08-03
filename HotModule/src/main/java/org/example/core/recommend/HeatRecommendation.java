@@ -100,6 +100,7 @@ public class HeatRecommendation extends GuardPlugin {
                                 ((TaskCenter)plugin).request( new LiveReptileRequest(live, LiveReptileRequest.LiveType.Online,(t)->{
                                     ChopperLogFactory.getLogger(LoggerType.Hot).info("成功推荐主播,结果为:T");
                                 }));
+
                             }
                         }
                     }

@@ -3,7 +3,7 @@ package org.example.pojo.configfile;
 import org.example.bean.ConfigFile;
 import org.example.pojo.download.LoadBarrageConfig;
 import org.example.exception.FileCacheException;
-import org.example.pojo.Barrage;
+import org.example.bean.Barrage;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
 

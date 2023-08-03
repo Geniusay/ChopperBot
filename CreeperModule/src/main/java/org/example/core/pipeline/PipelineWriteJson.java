@@ -2,7 +2,7 @@ package org.example.core.pipeline;
 
 import org.example.cache.FileCache;
 import org.example.exception.FileCacheException;
-import org.example.pojo.Barrage;
+import org.example.bean.Barrage;
 import org.example.pojo.configfile.BarrageSaveFile;
 import org.example.pojo.download.LoadBarrageConfig;
 import us.codecraft.webmagic.ResultItems;

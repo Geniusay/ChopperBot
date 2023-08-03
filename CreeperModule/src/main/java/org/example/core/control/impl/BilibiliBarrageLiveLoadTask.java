@@ -4,35 +4,35 @@ import org.example.constpool.CreeperModuleConstPool;
 import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
-import org.example.core.processor.DouyuRecordProcessor;
+import org.example.core.processor.barrage.BilibiliBarrageLiveProcessor;
 import org.example.pojo.download.LoadBarrageConfig;
 import org.example.utils.CreeperConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 
 /**
- * (斗鱼录播)一个任务
+ * (B站直播)一个任务
  * @author 燧枫
- * @date 2023/4/23 18:12
+ * @date 2023/4/23 18:19
 */
-public class DouyuRecordLoadTask implements LoadTask {
+public class BilibiliBarrageLiveLoadTask implements LoadTask {
 
-    private final int threadCnt = CreeperConfig.getIntProperty("dy.threadCnt");
+    private final int threadCnt = CreeperConfig.getIntProperty("bi.threadCnt");
 
-    private final int emptySleepTime = CreeperConfig.getIntProperty("dy.emptySleepTime");
+    private final int emptySleepTime = CreeperConfig.getIntProperty("bi.emptySleepTime");
 
-    private final DouyuRecordProcessor douyuRecordProcessor;
+    private final BilibiliBarrageLiveProcessor bilibiliBarrageLiveProcessor;
 
     private final PipelineWriteJson pipelineWriteJson;
 
-    public DouyuRecordLoadTask(LoadBarrageConfig loadBarrageConfig) {
-        douyuRecordProcessor = (DouyuRecordProcessor) new ProcessorFactory().getProcessor(loadBarrageConfig);
+    public BilibiliBarrageLiveLoadTask(LoadBarrageConfig loadBarrageConfig) {
+        bilibiliBarrageLiveProcessor = (BilibiliBarrageLiveProcessor) new ProcessorFactory().getProcessor(loadBarrageConfig);
         pipelineWriteJson = new PipelineWriteJson(loadBarrageConfig);
     }
 
     @Override
     public Object start() {
-        Spider.create(douyuRecordProcessor)
+        Spider.create(bilibiliBarrageLiveProcessor)
                 // 设置起始Request
                 .addRequest(new Request(CreeperModuleConstPool.OCCUURL))
                 // 设置结果处理类
@@ -47,12 +47,12 @@ public class DouyuRecordLoadTask implements LoadTask {
 
     @Override
     public void end() {
-        douyuRecordProcessor.end();
+        bilibiliBarrageLiveProcessor.end();
     }
 
     @Override
     public boolean isRunning() {
-        return douyuRecordProcessor.isRunning();
+        return bilibiliBarrageLiveProcessor.isRunning();
     }
 
     @Override
