@@ -1,10 +1,10 @@
 package org.example.core.factory;
 
-import org.example.core.parser.PlatformFlvUrlParser;
+import org.example.core.parser.PlatformVideoUrlParser;
 import org.example.core.parser.impl.BilibiliFlvUrlParser;
 import org.example.core.component.LiveStreamTask;
-import org.example.pojo.liveConfig.BilibiliLiveConfig;
-import org.example.pojo.liveConfig.LiveConfig;
+import org.example.pojo.live.BilibiliLiveConfig;
+import org.example.pojo.live.LiveConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import java.util.Map;
 */
 public class LiveTaskFactory {
 
-    private final Map<Class<? extends LiveConfig>, PlatformFlvUrlParser> parserMap;
+    private final Map<Class<? extends LiveConfig>, PlatformVideoUrlParser> parserMap;
 
     public LiveTaskFactory() {
         this.parserMap = new HashMap<>();
@@ -27,12 +27,12 @@ public class LiveTaskFactory {
 
     // 根据LiveConfig去创建下载任务
     public LiveStreamTask create(LiveConfig liveConfig) {
-        PlatformFlvUrlParser parser = this.parserMap.get(liveConfig.getClass());
+        PlatformVideoUrlParser parser = this.parserMap.get(liveConfig.getClass());
         if (parser == null) {
             throw new IllegalArgumentException("Unsupported live config type: " + liveConfig.getClass());
         }
         try {
-            String flvUrl = parser.getFlvUrl(liveConfig);
+            String flvUrl = parser.getUrl(liveConfig);
             LiveStreamTask task = new LiveStreamTask();
             task.setUrl(flvUrl);
             // 为任务添加请求头

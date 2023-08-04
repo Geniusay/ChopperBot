@@ -1,4 +1,4 @@
-package org.example.pojo.liveConfig;
+package org.example.pojo.live;
 
 import lombok.Data;
 
@@ -16,12 +16,16 @@ public class LiveConfig {
     // 视频保存路径
     private String videoPath;
 
+    // 视频保存名称
+    private String videoName;
+
     // 是否自动转换为mp4格式
     private boolean convertToMp4;
 
-    public LiveConfig(String roomId, String videoPath, boolean convertToMp4) {
+    public LiveConfig(String roomId, String videoPath, String videoName, boolean convertToMp4) {
         this.roomId = roomId;
         this.videoPath = videoPath;
+        this.videoName = videoName;
         this.convertToMp4 = convertToMp4;
     }
 }

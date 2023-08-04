@@ -3,7 +3,7 @@ package org.example.core.manager;
 import org.example.core.component.LiveStreamTask;
 import org.example.core.component.StatusMonitor;
 import org.example.core.factory.LiveTaskFactory;
-import org.example.pojo.liveConfig.LiveConfig;
+import org.example.pojo.live.LiveConfig;
 import org.example.utils.VideoConverter;
 
 import java.io.FileNotFoundException;

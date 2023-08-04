@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/BarrageModule/lib/json-jena-1.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/BarrageModule/lib/Msc.jar!/" />
+      <root url="file://F:/MavenWork/repository/org/seleniumhq/selenium" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

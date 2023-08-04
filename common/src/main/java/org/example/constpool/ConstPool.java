@@ -20,6 +20,7 @@ public class ConstPool {
     public static final String SECTION_WORK = "SectionWork";
     public static final String HOT = "Hot";
     public static final String PUBLISH = "Publish";
+    public static final String LIVE_RECORD = "liveRecord";
 
     /**其他**/
     public static final String NULL_TIME = "nil";
