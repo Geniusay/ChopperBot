@@ -34,7 +34,9 @@ public class HttpClientUtil {
     public static String post(String url, String json) {
         return post(url, json, null);
     }
-
+    public static String post(String url) {
+        return post2(url, null);
+    }
     // get请求，带请求头
     public static String get(String url, Map<String, String> headers) {
         HttpGet httpGet = new HttpGet(url);
@@ -50,6 +52,16 @@ public class HttpClientUtil {
     public static String post(String url, String json, Map<String, String> headers) {
         HttpPost httpPost = new HttpPost(url);
         httpPost.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
+        addHeaders(httpPost, headers);
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+            return handleResponse(response);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String post2(String url, Map<String, String> headers) {
+        HttpPost httpPost = new HttpPost(url);
         addHeaders(httpPost, headers);
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
             return handleResponse(response);
