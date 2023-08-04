@@ -14,7 +14,7 @@ import us.codecraft.webmagic.Spider;
  * 热门模块的抽象类，它包含了任务完成状态以及失败成功日志，以及后续数据的获取和返回
  * @param <T>
  */
-public abstract class HotModuleLoadTask<T> implements LoadTask<T>{
+public abstract class HotModuleLoadTask<T> extends CommonLoadTask<T>{
     public enum FinishFlag{
         FINISH,NOT_FINISH,FAIL
     }
@@ -36,11 +36,7 @@ public abstract class HotModuleLoadTask<T> implements LoadTask<T>{
         finishFlag = FinishFlag.FINISH;
     }
 
-    protected T getData(Spider spider,String url){
-        T data = ((ResultItems) spider.get(url)).get("data");
-        spider.close();
-        return data;
-    }
+
 
     public FinishFlag isFinish(){
         return finishFlag;

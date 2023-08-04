@@ -1,5 +1,8 @@
 package org.example.init;
 
+import org.example.cache.FileCache;
+import org.example.cache.FileCacheManagerInstance;
+import org.example.config.HotModuleConfig;
 import org.example.constpool.GlobalFileCache;
 import org.example.exception.FileCacheException;
 import org.example.plugin.annotation.Plugin;
@@ -40,7 +43,7 @@ public class InitWorld {
         GlobalFileCache.ModuleSrcConfigFile.write(InitPluginRegister.pluginStartSetting,"pluginStart");
     }
     @PostConstruct
-    private void init(){
+    private void init() throws FileCacheException, InterruptedException {
 
         if (!InitPluginRegister.initPluginRegister()) {
             close();

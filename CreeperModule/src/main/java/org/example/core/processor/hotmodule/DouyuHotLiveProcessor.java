@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.Live;
-import org.example.bean.hotmodule.DouyuLive;
+import org.example.bean.live.DouyuLive;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.processor.PageProcessor;
 

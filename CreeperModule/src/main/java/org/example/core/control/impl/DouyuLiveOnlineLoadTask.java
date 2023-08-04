@@ -1,11 +1,10 @@
 package org.example.core.control.impl;
 
-import org.example.bean.hotmodule.DouyuLive;
+import org.example.bean.live.DouyuLive;
 import org.example.core.control.LoadTask;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.pojo.download.assign.DouyuLiveOnlineConfig;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Genius

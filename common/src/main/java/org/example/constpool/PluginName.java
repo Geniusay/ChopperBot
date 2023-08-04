@@ -24,5 +24,5 @@ public class PluginName {
     public static final String HOT_RECOMMENDATION_PLUGIN = "HotRecommendation";
 
     //Barrage
-    public static final String BARRAGE_FILE_PLUGIN="BarrageFileListen";
+    public static final String BARRAGE_FILE_PLUGIN= "BarrageFileListen";
 }

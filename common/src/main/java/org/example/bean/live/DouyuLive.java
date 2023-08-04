@@ -1,7 +1,11 @@
-package org.example.bean.hotmodule;
+package org.example.bean.live;
 
+import org.example.bean.Barrage;
 import org.example.bean.Live;
 import org.example.constpool.ConstPool;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Genius
@@ -21,6 +25,8 @@ public class DouyuLive extends Live {
     private int uid;
 
     private int moduleId; //直播板块Id
+
+    private List<Barrage> barrages = new ArrayList<>();
 
     public DouyuLive(int watcherNum, int liveId, String liveName, String liver, String description,
                      String liveModule, String url, String roomCoverPic, int type, int uid, int moduleId) {
@@ -80,5 +86,13 @@ public class DouyuLive extends Live {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public List<Barrage> getBarrages() {
+        return barrages;
+    }
+
+    public void setBarrages(List<Barrage> barrages) {
+        this.barrages = barrages;
     }
 }

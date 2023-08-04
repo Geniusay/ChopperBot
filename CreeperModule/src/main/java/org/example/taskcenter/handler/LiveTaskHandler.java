@@ -1,7 +1,7 @@
 package org.example.taskcenter.handler;
 
 import org.example.bean.Live;
-import org.example.bean.hotmodule.DouyuLive;
+import org.example.bean.live.DouyuLive;
 import org.example.core.factory.LoadTaskFactory;
 import org.example.pojo.download.assign.DouyuLiveOnlineConfig;
 import org.example.taskcenter.request.LiveReptileRequest;

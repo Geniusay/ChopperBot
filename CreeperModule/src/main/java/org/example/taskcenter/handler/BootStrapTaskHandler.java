@@ -1,5 +1,6 @@
 package org.example.taskcenter.handler;
 
+import org.aspectj.apache.bcel.generic.TABLESWITCH;
 import org.example.taskcenter.TaskCenter;
 import org.example.taskcenter.request.BarrageReptileRequest;
 import org.example.taskcenter.request.LiveReptileRequest;
@@ -15,8 +16,11 @@ public class BootStrapTaskHandler implements TaskHandler<ReptileRequest> {
 
     private LiveTaskHandler liveTaskHandler;
 
+    private BarrageTaskHandler barrageTaskHandler;
+
     public BootStrapTaskHandler() {
         this.liveTaskHandler = new LiveTaskHandler();
+        this.barrageTaskHandler = new BarrageTaskHandler();
     }
 
     @Override
@@ -25,7 +29,7 @@ public class BootStrapTaskHandler implements TaskHandler<ReptileRequest> {
         if(request instanceof LiveReptileRequest){
             task = liveTaskHandler.distribute((LiveReptileRequest) request);
         }else if(request instanceof BarrageReptileRequest){
-
+            task = barrageTaskHandler.distribute((BarrageReptileRequest) request);
         }
         return task;
     }

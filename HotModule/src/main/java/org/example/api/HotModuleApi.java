@@ -1,10 +1,8 @@
 package org.example.api;
 
-import org.example.bean.Live;
-import org.example.bean.hotmodule.DouyuLive;
+import org.example.bean.live.DouyuLive;
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.core.control.impl.DouyuHotLiveLoadTask;
-import org.example.core.control.impl.DouyuHotModuleLoadTask;
 import org.example.core.factory.LoadTaskFactory;
 import org.example.pojo.download.assign.DouyuHotLiveConfig;
 import org.example.pojo.download.assign.DouyuHotModuleConfig;

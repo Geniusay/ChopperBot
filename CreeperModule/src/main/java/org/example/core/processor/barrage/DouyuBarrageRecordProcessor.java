@@ -4,7 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.Barrage;
+import org.example.bean.barrage.DouyuBarrage;
+import org.example.constpool.PluginName;
 import org.example.core.processor.AbstractProcessor;
+import org.example.init.InitPluginRegister;
+import org.example.plugin.CommonPlugin;
 import org.example.pojo.download.assign.DouyuRecordLoadBarrageConfig;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -69,7 +73,7 @@ public class DouyuBarrageRecordProcessor extends AbstractProcessor {
         sendOnePage(page, preId);
         // 处理弹幕列表
         JSONArray barrageArray = data.getJSONArray("list");
-        List<Barrage> barrageList = new ArrayList<>();
+        List<DouyuBarrage> barrageList = new ArrayList<>();
         for (Object o : barrageArray) {
             JSONObject temp = (JSONObject) o;
             // 唯一id
@@ -80,9 +84,10 @@ public class DouyuBarrageRecordProcessor extends AbstractProcessor {
             Long timeIndex = temp.getLong("tl") / 1000;
             // 弹幕内容
             String content = temp.getString("ctt");
-            Barrage barrage = new Barrage(mid, timeReal, timeIndex, content);
+            DouyuBarrage barrage = new DouyuBarrage(mid, timeReal, timeIndex, content);
             barrageList.add(barrage);
         }
+        CommonPlugin plugin = InitPluginRegister.getPlugin(PluginName.BARRAGE_FILE_PLUGIN);
         // 发送给pipeline
         page.putField("barrageList", barrageList);
     }
