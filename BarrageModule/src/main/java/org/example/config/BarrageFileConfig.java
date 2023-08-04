@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author welsir
@@ -72,7 +70,8 @@ public class BarrageFileConfig {
     }
 
     public static void main(String[] args) {
-        getBarrageFile();
+
+        //getBarrageFile();
 //        String encode = URLEncoder.encode("config\\barrage\\大司马\\douyu_大司马_05-07-14_58_17.json", StandardCharsets.UTF_8);
 //        Map<String, Object> map = JsonFileUtil.readJsonFile(encode);
 //        System.out.println(map.size());

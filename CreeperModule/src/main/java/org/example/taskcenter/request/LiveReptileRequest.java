@@ -38,6 +38,6 @@ public class LiveReptileRequest extends ReptileRequest<Live>{
 
     @Override
     public String GenerateTaskId() {
-        return requestObj.getPlatform()+"-"+requestObj.getLiver();
+        return "live-"+requestObj.getPlatform()+"-"+requestObj.getLiver();
     }
 }

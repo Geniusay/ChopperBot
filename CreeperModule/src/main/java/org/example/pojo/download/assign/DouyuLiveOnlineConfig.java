@@ -1,7 +1,6 @@
 package org.example.pojo.download.assign;
 
-import org.example.bean.Live;
-import org.example.bean.hotmodule.DouyuLive;
+import org.example.bean.live.DouyuLive;
 import org.example.pojo.download.LoadLiveConfig;
 
 /**

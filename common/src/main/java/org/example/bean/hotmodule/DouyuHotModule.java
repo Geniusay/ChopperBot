@@ -1,7 +1,7 @@
 package org.example.bean.hotmodule;
 
-import lombok.Data;
 import org.example.bean.HotModule;
+import org.example.bean.live.DouyuLive;
 
 /**
  * @author Genius

@@ -1,6 +1,9 @@
 package org.example.core.control.impl;
 
+import org.example.bean.Barrage;
+import org.example.bean.barrage.DouyuBarrage;
 import org.example.constpool.CreeperModuleConstPool;
+import org.example.core.control.CommonLoadTask;
 import org.example.core.control.LoadTask;
 import org.example.core.factory.ProcessorFactory;
 import org.example.core.pipeline.PipelineWriteJson;
@@ -10,12 +13,14 @@ import org.example.utils.CreeperConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 
+import java.util.List;
+
 /**
  * (斗鱼录播)一个任务
  * @author 燧枫
  * @date 2023/4/23 18:12
 */
-public class DouyuBarrageRecordLoadTask implements LoadTask {
+public class DouyuBarrageRecordLoadTask extends CommonLoadTask<List<DouyuBarrage>> {
 
     private final int threadCnt = CreeperConfig.getIntProperty("dy.threadCnt");
 
@@ -31,18 +36,14 @@ public class DouyuBarrageRecordLoadTask implements LoadTask {
     }
 
     @Override
-    public Object start() {
-        Spider.create(douyuBarrageRecordProcessor)
-                // 设置起始Request
-                .addRequest(new Request(CreeperModuleConstPool.OCCUURL))
-                // 设置结果处理类
-                .addPipeline(pipelineWriteJson)
-                // 设置抓取线程数（可根据需要调整）
+    public List<DouyuBarrage> start() {
+        List<DouyuBarrage> data = getData(Spider
+                .create(douyuBarrageRecordProcessor)
                 .thread(threadCnt)
-                .setEmptySleepTime(emptySleepTime)
-                // 开始抓取
-                .start();
-        return null;
+                .addPipeline(pipelineWriteJson),
+                CreeperModuleConstPool.OCCUURL);
+
+        return data;
     }
 
     @Override

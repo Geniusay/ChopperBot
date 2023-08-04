@@ -1,7 +1,6 @@
 package org.example.core.control.impl;
 
-import org.example.bean.Live;
-import org.example.bean.hotmodule.DouyuLive;
+import org.example.bean.live.DouyuLive;
 import org.example.core.control.HotModuleLoadTask;
 import org.example.core.processor.hotmodule.DouyuHotLiveProcessor;
 import us.codecraft.webmagic.Spider;
