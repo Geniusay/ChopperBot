@@ -51,5 +51,10 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.akamai.edgegrid</groupId>
+            <artifactId>edgegrid-signer-core</artifactId>
+            <version>5.0.0</version>
+        </dependency>
     </dependencies>
 </project>

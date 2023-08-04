@@ -1,8 +1,8 @@
 package org.example.core.parser.impl;
 
-import org.example.core.parser.PlatformFlvUrlParser;
-import org.example.pojo.liveConfig.BilibiliLiveConfig;
-import org.example.pojo.liveConfig.LiveConfig;
+import org.example.core.parser.PlatformVideoUrlParser;
+import org.example.pojo.live.BilibiliLiveConfig;
+import org.example.pojo.live.LiveConfig;
 import org.example.utils.HttpClientUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,12 +12,12 @@ import org.json.JSONObject;
  * @author 燧枫
  * @date 2023/5/16 20:42
  */
-public class BilibiliFlvUrlParser implements PlatformFlvUrlParser {
+public class BilibiliFlvUrlParser implements PlatformVideoUrlParser {
 
     String urlFormat = "https://api.live.bilibili.com/xlive/web-room/v2/index/getRoomPlayInfo?room_id=%s&protocol=0,1&format=0,1,2&codec=0,1&qn=%d&platform=web&ptype=8";
 
     // 通过房间号roomId,clarity(画质,10000为原画画质),得到flv链接
-    public String getFlvUrl(LiveConfig liveConfig) throws Exception {
+    public String getUrl(LiveConfig liveConfig) throws Exception {
         BilibiliLiveConfig bilibiliLiveConfig = (BilibiliLiveConfig) liveConfig;
         String roomId = bilibiliLiveConfig.getRoomId();
         int clarity = bilibiliLiveConfig.getClarity();

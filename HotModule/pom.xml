@@ -34,5 +34,10 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.akamai.edgegrid</groupId>
+            <artifactId>edgegrid-signer-core</artifactId>
+            <version>5.0.0</version>
+        </dependency>
     </dependencies>
 </project>

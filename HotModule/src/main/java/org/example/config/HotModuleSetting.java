@@ -12,7 +12,7 @@ import java.util.List;
  **/
 @Data
 @AllArgsConstructor
-public class HotModuleSetting {
+public class    HotModuleSetting {
 
     private String platform;         //平台
 
