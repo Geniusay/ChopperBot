@@ -29,7 +29,8 @@ public class ChopperBotConfigFile extends ConfigFile<Map<String, Object>> {
                                     ConstPool.CREEPER, "./config/"+ConstPool.CREEPER,
                                     ConstPool.SECTION_WORK, "./config/"+ConstPool.SECTION_WORK,
                                     ConstPool.HOT, "./config/"+ConstPool.HOT,
-                                    ConstPool.PUBLISH, "./config/"+ConstPool.PUBLISH),
+                                    ConstPool.PUBLISH, "./config/"+ConstPool.PUBLISH,
+                                    ConstPool.LIVE_RECORD,"./config/"+ConstPool.LIVE_RECORD),
                             "pluginStart",Map.of()), FileType.CHOPPER_BOT);
     }
 

@@ -1,5 +1,7 @@
 package org.example.pool;
 
+import java.nio.file.Paths;
+
 /**
  * 常量池
  * @author 燧枫
@@ -7,5 +9,5 @@ package org.example.pool;
  */
 public class ConstPool {
 
-    public static String FFMEPEG_PATH = "D:\\test\\ffmpeg.exe";
+    public static String FFMEPEG_PATH = Paths.get(System.getProperty("user.dir"),"ffmpeg.exe").toString();
 }

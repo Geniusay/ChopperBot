@@ -7,8 +7,9 @@ public class LiveStreamTest {
     private static final int THREAD_NUM = 10;
 
     public static void main(String[] args) {
+
         // 创建直播配置
-        BilibiliLiveConfig liveConfig = new BilibiliLiveConfig("732", "D:\\", "猪猪公主");
+        BilibiliLiveConfig liveConfig = new BilibiliLiveConfig("732", "E:\\Project\\ChopperBot\\config\\LiveRecord\\", "猪猪公主");
 
         // 创建下载任务管理器
         TaskManager taskManager = new TaskManager(THREAD_NUM);
