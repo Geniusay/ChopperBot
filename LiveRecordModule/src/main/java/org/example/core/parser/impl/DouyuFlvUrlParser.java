@@ -65,7 +65,10 @@ public class DouyuFlvUrlParser implements PlatformVideoUrlParser {
                 String fileUrl = dataObj.getString("rtmp_live");
                 if(fileUrl!=null){
                     String name = fileUrl.substring(0,fileUrl.indexOf("."));
-                    return String.format(flvBaseUrl+"%s.flv",name);
+                    if(name.contains("_")){
+                        return String.format(flvBaseUrl+"%s_%s.xs",name.substring(0,name.indexOf("_")),clarity);
+                    }
+                    return String.format(flvBaseUrl+"%s_%s.xs",name,clarity);
                 }
             }
         }

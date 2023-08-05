@@ -9,7 +9,7 @@ public class DouyuLiveTest {
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager(5);
 
-        DouyuLiveConfig douyuLiveConfig = new DouyuLiveConfig("3637778", "C:\\Users\\admin\\Desktop\\douyu\\", "DouyuLiveOnline");
+        DouyuLiveConfig douyuLiveConfig = new DouyuLiveConfig("3637778", 4000,"C:\\Users\\admin\\Desktop\\douyu\\", "DouyuLiveOnline", true);
         try {
             // 向任务管理器中添加任务
             String taskId = taskManager.addTask(douyuLiveConfig);  // 获取任务的标识符
@@ -26,6 +26,7 @@ public class DouyuLiveTest {
                 System.out.println("已写入数据量：" + taskManager.getDownloadedBytes(taskId) + " bytes");
                 Thread.sleep(1000);
             }
+            taskManager.terminateThenSave(douyuLiveConfig,taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,10 +20,10 @@ public class LiveStreamTask {
 
     private String url;
     private Map<String, String> headers;
+    private FlvHandle f = new FlvHandle();
 
     public void start(ExecutorService executor, StatusMonitor statusMonitor, OutputStream fileIO) {
         executor.execute(() -> {
-            FlvHandle f = new FlvHandle();
             try {
                 URLConnection conn = new URL(this.url).openConnection();
                 if (this.headers != null) {
@@ -31,12 +31,17 @@ public class LiveStreamTask {
                         conn.setRequestProperty(entry.getKey(), entry.getValue());
                     }
                 }
-                InputStream in = conn.getInputStream();
-                f.parseStream(in, statusMonitor, fileIO);
+                try (InputStream in = conn.getInputStream()) {
+                    f.parseStream(in, statusMonitor, fileIO);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void terminate() {
+        f.terminateDownload();
     }
 }
 

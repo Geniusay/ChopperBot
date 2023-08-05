@@ -53,12 +53,6 @@ public class TaskManager {
 
         Future<?> future = executor.submit(() -> {
             task.start(executor, statusMonitor, fileIO);
-            // 将.flv文件转换为.mp4
-            if (liveConfig.isConvertToMp4()) {
-                String flvFilePath = liveConfig.getVideoPath() + liveConfig.getRoomId() + ".flv";
-                String mp4FilePath = liveConfig.getVideoPath() + liveConfig.getRoomId() + ".mp4";
-                VideoConverter.convertFlvToMp4(flvFilePath, mp4FilePath);
-            }
         });
         futures.put(taskId, future);
 
@@ -84,6 +78,19 @@ public class TaskManager {
         Future<?> future = futures.get(taskId);
         if (future != null) {
             future.cancel(true);
+        }
+    }
+
+    public void terminateThenSave(LiveConfig liveConfig,String taskId){
+        LiveStreamTask task = tasks.get(taskId);
+        task.terminate();
+        removeTask(taskId);
+        if (liveConfig.isConvertToMp4()) {
+            String flvFilePath = liveConfig.getVideoPath() + liveConfig.getRoomId() + ".flv";
+            String mp4FilePath = liveConfig.getVideoPath() + liveConfig.getRoomId() + ".mp4";
+            VideoConverter.convertFlvToMp4(flvFilePath, mp4FilePath);
+            System.out.println("start: flv-->mp4");
+
         }
     }
 
