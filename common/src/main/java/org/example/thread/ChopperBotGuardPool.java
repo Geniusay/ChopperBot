@@ -18,12 +18,13 @@ import java.util.concurrent.Executors;
 @Data
 public class ChopperBotGuardPool {
 
+    private static int pluginNum = 10;
     private ExecutorService threadPool;
 
     private volatile static ChopperBotGuardPool pool;
 
     private ChopperBotGuardPool() {
-        this.threadPool = Executors.newFixedThreadPool(10,new NamedThreadFactory("GuardThread"));
+        this.threadPool = Executors.newFixedThreadPool(pluginNum,new NamedThreadFactory("GuardThread"));
     }
 
     public static ChopperBotGuardPool GuardPool(){
@@ -46,6 +47,10 @@ public class ChopperBotGuardPool {
 
     public void shutdown(){
         threadPool.shutdown();
+    }
+
+    public static void setPluginNum(int num){
+        pluginNum = num + 2;//包含一些启动项线程
     }
 
 }

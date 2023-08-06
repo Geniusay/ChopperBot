@@ -11,6 +11,7 @@ import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
+import org.example.thread.ChopperBotGuardPool;
 import org.example.util.ClassUtil;
 
 import java.util.ArrayList;
@@ -53,7 +54,6 @@ public class InitPluginRegister {
                         .newInstance(needPlugins,autoStart,moduleName,pluginName,ano.pluginClass());
                 initMachine.setPluginName_CN(pluginName_CN);
                 initMachine.setPluginDescription(pluginDescription);
-
                 pluginStartSetting.put(pluginName,autoStart);
                 //全部插件
                 if(allPlugins.containsKey(pluginName))return false;
@@ -85,6 +85,7 @@ public class InitPluginRegister {
                 return false;
             }
         }
+        ChopperBotGuardPool.setPluginNum(allPlugins.size());
         //完善 模块下插件的依赖和一次插件初始化检测
         try {
             allPlugins.forEach(
