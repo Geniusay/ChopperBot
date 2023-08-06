@@ -6,6 +6,8 @@ package org.example.pojo;
  */
 
 import java.util.List;
+import java.util.Map;
+
 public class Anchor {
 
     private String plathForm;
@@ -14,39 +16,7 @@ public class Anchor {
 
     private String nickName;
 
-    private List<property> property;
-
-    public static class property{
-        int weight;
-
-        String content;
-
-        public int getWeight() {
-            return weight;
-        }
-
-        public void setWeight(int weight) {
-            this.weight = weight;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        @Override
-        public String toString() {
-            return "{weight:"+getWeight()+",content:"+getContent()+"}";
-        }
-
-        public property(String content,int weight){
-            this.content = content;
-            this.weight = weight;
-        }
-    }
+    private Map<String,Integer> keywordScore;
 
     public String getNickName() {
         return nickName;
@@ -54,14 +24,6 @@ public class Anchor {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public void setProperty(List<Anchor.property> property) {
-        this.property = property;
-    }
-
-    public List<Anchor.property> getProperty() {
-        return property;
     }
 
     public String getPlathForm() {
@@ -80,8 +42,16 @@ public class Anchor {
         this.roomId = roomId;
     }
 
+    public Map<String, Integer> getKeywordScore() {
+        return keywordScore;
+    }
+
+    public void setKeywordScore(Map<String, Integer> keywordScore) {
+        this.keywordScore = keywordScore;
+    }
+
     @Override
     public String toString() {
-        return "{name:"+getNickName()+",property:"+getProperty()+"}";
+        return "{name:"+getNickName()+",KeywordScore:"+getKeywordScore()+"}";
     }
 }

@@ -26,8 +26,8 @@ public class Barrage {
     // 弹幕内容
     private String content;
 
-
-
+    //是否过滤
+    private boolean isBan;
     public Barrage(){
 
     }

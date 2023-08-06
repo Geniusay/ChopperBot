@@ -7,7 +7,7 @@ package org.example.constpool;
  */
 public class BarrageModuleConstPool {
     public static final String BARRAGE_FILE_PATH = "config/barrage/";
-    public static final String ANCHOR_FILE_PATH = "config/barrage/anchor/";
+    public static final String BARRAGE_SCORE_CONFIG = "config/barrage/barrageScoreConfig/";
 
-    public static final String AnchorFileType = ".json";
+    public static final String FILE_TYPE = ".json";
 }

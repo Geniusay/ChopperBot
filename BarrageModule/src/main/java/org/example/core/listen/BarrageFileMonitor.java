@@ -1,32 +1,23 @@
 package org.example.core.listen;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.io.FileUtils;
-import org.example.config.BarrageFileConfig;
 import org.example.constpool.BarrageModuleConstPool;
+import org.example.core.process.BarrageScoreProcessor;
+import org.example.core.process.FileConfigProcessor;
 import org.example.plugin.GuardPlugin;
-import org.example.pojo.Anchor;
 import org.example.pojo.Barrage;
-import org.example.thread.ChopperBotGuardianTask;
-import org.example.util.FileUtil;
-import org.example.util.JsonFileUtil;
-import org.junit.jupiter.api.Test;
+import org.example.pojo.CreepBarrage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.ResourceUtils;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -40,9 +31,9 @@ public class BarrageFileMonitor extends GuardPlugin {
 
     private static final Logger logger = LoggerFactory.getLogger(BarrageFileMonitor.class);
     private BlockingQueue<Object> listenChangeEvent;
-    private File rootFile;
-
-    private  Map<String,List<Anchor.property>> anchorMap;
+    private BarrageScoreProcessor barrageScoreProcessor;
+    private Map<String,List<Barrage>> barrageMap;
+    private  Map<String,Map<String,Integer>> anchorMap;
     public BarrageFileMonitor(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
     }
@@ -50,11 +41,12 @@ public class BarrageFileMonitor extends GuardPlugin {
     @Override
     public boolean init() {
         logger.info("BarrageModule init..");
-        rootFile = new File(BarrageModuleConstPool.BARRAGE_FILE_PATH);
         listenChangeEvent = new ArrayBlockingQueue<>(1024);
         anchorMap = new HashMap<>();
+        barrageMap = new HashMap<>();
+        barrageScoreProcessor = BarrageScoreProcessor.getInstance();
         //Initialize folder
-        Path path = Paths.get(BarrageModuleConstPool.ANCHOR_FILE_PATH);
+        Path path = Paths.get(BarrageModuleConstPool.BARRAGE_SCORE_CONFIG);
         // Determine whether the folder exists, and create it if it does not exist
         if (!Files.exists(path)) {
             try {
@@ -67,12 +59,13 @@ public class BarrageFileMonitor extends GuardPlugin {
         }
         //Read the host configuration file and save it in the map
         //Process streamer configuration files
-        processAnchorConfig();
+        FileConfigProcessor.anchorScoreFileLoadingProcessor(anchorMap);
+        FileConfigProcessor.barrageFileLoadingProcessor(barrageMap);
         return super.init();
     }
     @Override
     public void start() {
-        //file type    --config
+        //File type    --config
         //               --barrage
         //                 --anchorA
         //                   --fileA
@@ -80,42 +73,42 @@ public class BarrageFileMonitor extends GuardPlugin {
         //                 --anchorB
         //                   --fileA
         //                   --fileB
+        try {
+            //Receive the barrage file from the crawler engine
+            Object res = listenChangeEvent.poll(5, TimeUnit.SECONDS);
+            if(null!=res){
+                if(res instanceof CreepBarrage){
+                    //Create and write to file
+                    CreepBarrage creepBarrage = (CreepBarrage) res;
+                    String fileName = creepBarrage.getRoomId()+creepBarrage.getAnchorName()+creepBarrage.getCreeperTime();
+                    try {
+                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(BarrageModuleConstPool.BARRAGE_FILE_PATH+fileName+BarrageModuleConstPool.FILE_TYPE));
+                        barrageMap.put(fileName,creepBarrage.getBarrageList());
+                        bufferedWriter.write(creepBarrage.getBarrageList().toString());
+                        logger.info("[BarrageModule]: file write suc!");
+                        //传入的参数都必须是唯一标识。目前anchorFileName暂定为房间号 barrageFileName由爬虫模块决定
+                        barrageScoreProcessor.calculateBarrageListScore(creepBarrage.getRoomId(),fileName);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
 
+
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
     public void send(Object obj){
         listenChangeEvent.offer(obj);
-    }
-    //Obtain the barrage keyword score corresponding to the anchor
-    private void processAnchorConfig(){
-        File anchorFile;
-        anchorFile = new File(BarrageModuleConstPool.ANCHOR_FILE_PATH);
-        File[] anchors = anchorFile.listFiles();
-        if (anchors != null) {
-            for (File anchor : anchors) {
-                List<Anchor> anchorConfig = JsonFileUtil.readJsonFileToArray(anchor.getAbsolutePath(), Anchor.class);
-                anchorMap.put(anchor.getName(), anchorConfig.get(0).getProperty());
-                logger.info("AnchorBarrage::"+anchorMap.toString());
-            }
-        }
-    }
-
-    private static String JSONFileToString(String filePath){
-        String fileString = "";
-        try (InputStream inputStream = FileUtil.class.getResourceAsStream(filePath);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                fileString += line;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return fileString;
     }
 
     public Map getAnchorBarrageMap(){
         return anchorMap;
     }
-
+    public Map getBarrageMap(){
+        return barrageMap;
+    }
 }
 

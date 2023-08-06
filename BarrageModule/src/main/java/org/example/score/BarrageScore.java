@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
  */
 public class BarrageScore {
 
-    private static Map<String,List<Anchor.property>> anchorPropertMap = new HashMap<>(20);
-
     /**
      * @Description
      * @Param [filePath(相对或全路径均可), anchorName(主播名称)]
