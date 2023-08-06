@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * @date 2023/04/26 01:13
  **/
 @SpringBootTest
-public class AutoGenerateApiJs {
+public class AutoGenerateApiJsTest {
 
     @Resource
     AutoApiJsGenerate autoApiJsGenerate;

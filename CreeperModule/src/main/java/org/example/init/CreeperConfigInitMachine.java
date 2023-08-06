@@ -22,6 +22,7 @@ import java.util.List;
 
 @Plugin(moduleName = ModuleName.CREEPER,
         pluginName = PluginName.CREEPER_CONFIG_PLUGIN,
+        pluginName_CN = "爬虫模块配置文件",
         needPlugin = {PluginName.FILE_CACHE_PLUGIN},
         pluginClass= CreeperConfigFile.class )
 public class CreeperConfigInitMachine extends ConfigInitMachine {

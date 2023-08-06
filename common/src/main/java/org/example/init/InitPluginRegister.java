@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class InitPluginRegister {
 
+
     public static ConcurrentHashMap<String,List<String>> modulePlugin = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String, List<String>> fatherAndSonPlugin = new ConcurrentHashMap<>();
@@ -43,11 +44,15 @@ public class InitPluginRegister {
                 Plugin ano = initMachineClass.getAnnotation(Plugin.class);
                 String moduleName = ano.moduleName();
                 String pluginName = ano.pluginName();
+                String pluginName_CN = ano.pluginName_CN();
+                String pluginDescription = ano.pluginDescription();
                 List<String> needPlugins = List.of(ano.needPlugin());
                 boolean autoStart = pluginStartSetting.containsKey(pluginName)?pluginStartSetting.get(pluginName):ano.autoStart();
                 CommonInitMachine initMachine = (CommonInitMachine) initMachineClass
                         .getDeclaredConstructor(List.class,boolean.class,String.class,String.class,Class.class)
                         .newInstance(needPlugins,autoStart,moduleName,pluginName,ano.pluginClass());
+                initMachine.setPluginName_CN(pluginName_CN);
+                initMachine.setPluginDescription(pluginDescription);
 
                 pluginStartSetting.put(pluginName,autoStart);
                 //全部插件

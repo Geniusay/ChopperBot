@@ -30,6 +30,8 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
 
     protected CommonPlugin plugin;      //插件类
 
+    private String pluginName_CN;
+    protected String pluginDescription;
 
     public CommonInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name,Class<? extends CommonPlugin> clazz) {
         this.needPlugins = needPlugins;
@@ -156,6 +158,18 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
     }
     public void setLogger(Logger logger) {
         this.logger = logger;
+    }
+    public String getPluginName_CN() {
+        return pluginName_CN;
+    }
+    public void setPluginName_CN(String pluginName_CN) {
+        this.pluginName_CN = pluginName_CN;
+    }
+    public String getPluginDescription() {
+        return pluginDescription;
+    }
+    public void setPluginDescription(String pluginDescription) {
+        this.pluginDescription = pluginDescription;
     }
 
     public Class<? extends CommonPlugin> getPluginClass() {

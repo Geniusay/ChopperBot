@@ -47,6 +47,8 @@ public class PluginServiceImpl implements PluginService {
         boolean autoStart = commonInitMachine.isAutoStart();
         boolean register = InitPluginRegister.isRegister(pluginName);
         List<String> needPlugins = commonInitMachine.getNeedPlugins();
-        return new Plugin(pluginName,moduleName,needPlugins,autoStart,register);
+        String pluginName_cn = commonInitMachine.getPluginName_CN();
+        String pluginDescription = commonInitMachine.getPluginDescription();
+        return new Plugin(pluginName,moduleName,pluginName_cn,pluginDescription,needPlugins,autoStart,register);
     }
 }

@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Plugin(moduleName = ModuleName.HOT,
         pluginName = PluginName.HOT_CONFIG_PLUGIN,
+        pluginName_CN = "热门模块配置文件",
         needPlugin = {PluginName.FILE_CACHE_PLUGIN},
         pluginClass= HotModuleConfig.class )
 public class HotConfigInitMachine extends ConfigInitMachine {

@@ -13,6 +13,10 @@ public @interface Plugin {
 
     String moduleName();
     String pluginName();
+
+    String pluginName_CN() default "未命名插件"; //插件中文名
+
+    String pluginDescription() default "该插件暂无介绍";       //插件介绍
     String[] needPlugin() default {};
 
     Class<? extends CommonPlugin> pluginClass();

@@ -17,6 +17,8 @@ import java.util.List;
 
 @Plugin(moduleName = ModuleName.FILE,
         pluginName = PluginName.FILE_CACHE_PLUGIN,
+        pluginName_CN = "文件缓存插件",
+        pluginDescription = "负责对项目文件进行缓存管理，实现高性能读取和写入，系统内置插件，不可关闭!",
         needPlugin = {},
         pluginClass= FileCacheManager.class )
 public class FileCacheManagerInitMachine extends CommonInitMachine{

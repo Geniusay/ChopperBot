@@ -14,6 +14,8 @@ import java.util.List;
 public class Plugin {
     private String pluginName;
     private String pluginModule;
+    private String pluginName_CN;
+    private String pluginDescription;
     private List<String> needPlugins;
     private boolean isStart;
     private boolean isRegister;
