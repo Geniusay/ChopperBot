@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <strong>多功能，智能化，个性化，可扩展，易搭建，全自动的多平台智能直播视频剪辑发布机器人</strong>
+  <strong>A multifunctional, intelligent, personalized, scalable, easy to build, and fully automated multi platform intelligent live video editing and publishing robot</strong>
 </p>
 
 <p align="center">
@@ -30,50 +30,52 @@
    </a>
 </p>
 
+<p align='center'>
+  <b>English</b> | <a href="https://github.com/969025903/ChopperBot/blob/master/README.zh-CN.md">简体中文</a> 
+</p>
 
 
 
-# 📖 什么是ChopperBot
+# 📖 What is ChopperBot
 
 
->一款多功能，智能化，个性化，可扩展，易搭建，全自动的多平台智能直播视频剪辑发布AI。发现各个平台最热直播，自动切片最有趣的片段，不要剪辑，不用文案，自动生成，自动发布，自动打造各个平台的切片视频账号。AI由多个模块组成，每个模块中包含着多种功能的插件，支持插件DIY开发以及插件热插拔功能。
+>A multifunctional, intelligent, personalized, scalable, easy to build, fully automated multi platform intelligent live video editing and publishing AI. Discover the hottest live streaming on various platforms, automatically slice the most interesting clips, do not edit or copy, automatically generate and publish, and automatically create slicing video accounts for each platform. AI is composed of multiple modules, each containing multiple functional plugins, supporting plugin DIY development and plugin hot swapping functionality.
 
 
-# 📚 特点
+# 📚 Feature
 
-- **跨平台服务**：目前支持Douyu，huya，b站，抖音，twitch等热门直播平台。
-- **万物皆插件**: 多种多样的插件，便于管理，支持热插拔，随意扩展，自由定制，打造你的专属切片Bot。
-- **热门分析**：ChopperBot为您自动分析时下流行元素，热门爆火主播，紧跟当前热点，获取最新最热直播内容。
-- **全自动工作**：直播爬取，自动切片，封面生成，标题选取，内容上传，账号管理，电脑不用动，ChopperBot全自动。
-- **个性化账号打造**：不管是搞笑内容，还是精彩操作，ChopperBot为每个账号打造不同的个性化内容生成。
-- **0基础搭建**：不需要安装任何软件，只需一键运行，搭建属于你自己的直播视频剪辑平台。
-- **可视化管理**: 提供可视化管理界面，让您的使用体验更方便。
+- **Cross Platform**：At present, it supports Douyu, huya, station b, Tiktok, twitter and other popular live broadcast platforms.
+- **Everything Plugin**: A variety of plugins are easy to manage, support hot swapping, freely expand, customize, and create your own slice bot。
+- **Hottest Live**：ChopperBot automatically analyzes current popular elements, popular anchors, and keeps up with current hotspots to obtain the latest and hottest live content。
+- **Full-Automatic**：Live crawling, automatic slicing, cover generation, title selection, content uploading, account management, computer not touching, ChopperBot fully automatic。
+- **Personalized**：Whether it's funny content or exciting operations, ChopperBot creates different personalized content generation for each account。
+- **Quick Build**：No need to install any software, just run with one click to build your own live video editing platform。
+- **Visualization**: Provide a visual management interface to make your user experience more convenient。
 
-# ⚙ 系统架构
+# ⚙ Architecture
 ![image](https://github.com/969025903/ChopperBot/assets/77137063/eeca58de-611b-41ee-973f-cd375f98e569)
 
 
-# 🕹 ChopperBot模块介绍
-| 模块名 | 模块介绍 |
+# 🕹 ChopperBot Module
+| Module | Introduction |
 | :-: | :-: |
-| ChopperBot| ChopperBot本身，没错整个系统本身也是一个模块，而众多模块则作为ChopperBot的插件进行启动，当然ChopperBot也包含了一些系统线程池，工具等等插件，在之后会详细了解到 |
-| File |文件模块， ChopperBot考虑到人人都能轻松搭建ChopperBot，没有使用数据库等工具，取而代之的是本地json文件，为了能流程高效的进行文件读写，文件模块提供了多种工具以及文件缓存池来进行高效读写|
-| Creeper | 爬虫模块，负责爬取各个平台的热门数据，直播信息等等，除了爬取数据也会协助进行账号登录和视频发布 |
-| Hot | 热门模块，负责监控每个平台的热门模块，热门直播，根据用户配置文件来进行热门直播的推荐和爬取任务发送。也会根据用户关注的主播来进行自动爬取 |
-| LiveVideo | 直播视频模块，主要对爬取的直播视频进行存储，记录，管理，并进行一些视频的基础操作 |
-| BarrageAnalysis | 弹幕分析模块，为所有弹幕进行打分并筛选出弹幕高分区间作为切片参考，同时也会对弹幕高分区间进行文本分类（游戏，搞笑，争论），为视频打上标签 |
-| VideoSection | 视频切片模块，对已有的直播视频进行切片，并做好分类 |
-| Process | 切片加工模块，对已有的切片使用AI算法获取视频标题，视频封面，视频简介以及视频剪辑创作等功能 |
-| Account | 账号模块，负责对各个视频平台的账号进行管理，打造账号的人设标签(例如:LOL搞笑，Apex操作)，来筛选切片并输入给账号进行发布|
-| DIY | 客制化模块，用户可以参考开发指南来自行开发一些插件帮助自己更好的使用ChopperBot |
+| ChopperBot| `ChopperBot System`, yes, the entire system itself is also a module, and many modules are launched as plugins for the ChopperBot. Of course, the ChopperBot also includes some system thread pools, tools, and other plugins. We will learn more about them later. |
+| File |The file module, ChopperBot, takes into account that everyone can easily build ChopperBot without using tools such as databases. Instead, local JSON files are used. In order to efficiently read and write files, the file module provides multiple tools and file cache pools for efficient reading and writing|
+| Creeper | `Sptile module` is responsible for crawling popular data, live streaming information, and more from various platforms. In addition to crawling data, it also assists in account login and video publishing |
+| Hot | `Popular module`, responsible for monitoring the popular modules of each platform, popular live streaming, and sending recommendations and crawling tasks for popular live streaming based on user configuration files. It will also automatically crawl based on the anchors that users follow |
+| LiveVideo | `Live video module` mainly stores, records, manages, and performs basic video operations on crawled live videos |
+| BarrageAnalysis | `Barrage analysis module` scores all barrages and selects high scoring intervals as slicing references. At the same time, it also classifies the high scoring intervals of barrages into text (games, jokes, debates) and labels videos |
+| VideoSection | `Video slicing module`, slicing and classifying existing live videos |
+| Process | `Slice processing module`, which uses AI algorithm to obtain video titles, video covers, video introductions, and video editing creation functions for existing slices |
+| Account | `Account module` is responsible for managing the accounts of various video platforms, creating personalized tags for accounts (such as LOL funny, Apex operation), filtering slices, and inputting them to the account for publishing|
+| DIY | `Customized module`, users can refer to the development guide to develop their own plugins to help them better use ChopperBot |
 
-# 📈 项目动态
+# 📈 Project Activity
 ![Alt](https://repobeats.axiom.co/api/embed/0ae23655bb105addf8d90a999df36f690d615af7.svg "Repobeats analytics image")
-# 🔗 相关链接
-👉 [项目文档](https://twj666.github.io/ChopperBot-Doc/)
 
-👉 [项目文档更新指南](https://github.com/969025903/ChopperBot/tree/master/doc/ReadMe.md)
+# 🔗 Links
+👉 [Document](https://twj666.github.io/ChopperBot-Doc/)
 
-👉 [项目开发指南](https://twj666.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
+👉 [Developer's Guide](https://twj666.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
 
-👉 [更新日志](https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md)
+👉 [CHANGE LOG](https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md)
