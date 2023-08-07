@@ -33,13 +33,13 @@
 
 
 
-# 什么是ChopperBot
+# 📖 什么是ChopperBot
 
 
 >一款多功能，智能化，个性化，可扩展，易搭建，全自动的多平台智能直播视频剪辑发布AI。发现各个平台最热直播，自动切片最有趣的片段，不要剪辑，不用文案，自动生成，自动发布，自动打造各个平台的切片视频账号。AI由多个模块组成，每个模块中包含着多种功能的插件，支持插件DIY开发以及插件热插拔功能。
 
 
-# 特点
+# 📚 特点
 
 - **跨平台服务**：目前支持Douyu，huya，b站，抖音，twitch等热门直播平台。
 - **万物皆插件**: 多种多样的插件，便于管理，支持热插拔，随意扩展，自由定制，打造你的专属切片Bot。
@@ -49,11 +49,11 @@
 - **0基础搭建**：不需要安装任何软件，只需一键运行，搭建属于你自己的直播视频剪辑平台。
 - **可视化管理**: 提供可视化管理界面，让您的使用体验更方便。
 
-# 系统架构
+# ⚙ 系统架构
 ![image](https://github.com/969025903/ChopperBot/assets/77137063/eeca58de-611b-41ee-973f-cd375f98e569)
 
 
-# ChopperBot模块介绍
+# 🕹 ChopperBot模块介绍
 | 模块名 | 模块介绍 |
 | :-: | :-: |
 | ChopperBot| ChopperBot本身，没错整个系统本身也是一个模块，而众多模块则作为ChopperBot的插件进行启动，当然ChopperBot也包含了一些系统线程池，工具等等插件，在之后会详细了解到 |
@@ -66,7 +66,10 @@
 | Process | 切片加工模块，对已有的切片使用AI算法获取视频标题，视频封面，视频简介以及视频剪辑创作等功能 |
 | Account | 账号模块，负责对各个视频平台的账号进行管理，打造账号的人设标签(例如:LOL搞笑，Apex操作)，来筛选切片并输入给账号进行发布|
 | DIY | 客制化模块，用户可以参考开发指南来自行开发一些插件帮助自己更好的使用ChopperBot |
-# 相关链接
+
+# 📈 项目动态
+![Alt](https://repobeats.axiom.co/api/embed/0ae23655bb105addf8d90a999df36f690d615af7.svg "Repobeats analytics image")
+# 🔗 相关链接
 👉 [项目文档](https://twj666.github.io/ChopperBot-Doc/)
 
 👉 [项目文档更新指南](https://github.com/969025903/ChopperBot/tree/master/doc/ReadMe.md)
