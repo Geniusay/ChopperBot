@@ -34,8 +34,9 @@ public class DouyuRecordApi {
     }
 
     public static void main(String[] args) {
-        String vid = "wLjGvLxr8yPvmO90";
-        String url = getM3U8ByVid(vid);
-        downloadVideoByM3U8(url, "00:00:00", "00:10:00", "D://", "test.mp4");
+//        String vid = "wLjGvLxr8yPvmO90";
+//        String url = getM3U8ByVid(vid);
+//        downloadVideoByM3U8(url, "00:00:00", "00:10:00", "D://", "test.mp4");
+        System.out.println(getRecordList("1VwKmGb5XA4l"));
     }
 }

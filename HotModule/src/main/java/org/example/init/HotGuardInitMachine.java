@@ -19,7 +19,7 @@ import java.util.List;
         pluginName = PluginName.HOT_GUARD_PLUGIN,
         pluginName_CN = "平台热门监控插件",
         pluginDescription = "实时监控各个平台的最新直播",
-        needPlugin = {PluginName.FILE_CACHE_PLUGIN,PluginName.HOT_CONFIG_PLUGIN},
+        needPlugin = {PluginName.FILE_CACHE_PLUGIN,PluginName.HOT_CONFIG_PLUGIN,PluginName.CREEPER_MANAGER_PLUGIN},
         pluginClass= HotModuleGuard.class )
 public class HotGuardInitMachine extends CommonInitMachine{
 

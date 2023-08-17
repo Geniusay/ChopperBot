@@ -9,7 +9,7 @@ public enum LoggerType {
     Creeper("Creeper    "),
     File("FileModule "),
     Hot("HotModule  "),
-    Barrage("Barrage  ");
+    Barrage("Barrage    ");
     private String loggerName;
 
     LoggerType(String name){

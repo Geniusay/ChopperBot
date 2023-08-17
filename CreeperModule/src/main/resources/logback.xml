@@ -1,16 +1,24 @@
-<configuration>
-    <property name="APP_NAME" value="ChopperBot" />
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <property name="appName" value="ChopperBot" />
     <property name="LOG_DIR" value="logs" />
     <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}  %-5level [%thread] %logger{15} - %msg%n" />
     <!-- 彩色日志格式 -->
     <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %boldYellow([%thread])  %cyan(%logger{15}) %msg%n"/>
+    <conversionRule conversionWord="customcolor" converterClass="org.example.config.LogbackColorful"/>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %boldMagenta([%logger]) %highlight(%-5level)  - %msg%n</pattern>
+            <!--如果线上log日志出现中文乱码,下面这句有关编码设置的要删除或注释掉,原因不明-->
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
     <logger name="us.codecraft.webmagic" level="error" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.reflections.Reflections" level="error" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 

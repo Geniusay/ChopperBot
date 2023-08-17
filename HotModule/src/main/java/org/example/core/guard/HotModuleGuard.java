@@ -2,13 +2,16 @@ package org.example.core.guard;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import lombok.Data;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
 import org.example.constpool.HotModuleConstPool;
-import org.example.core.control.HotModuleLoadTask;
+import org.example.constpool.PluginName;
+import org.example.core.loadtask.HotModuleLoadTask;
+import org.example.core.loadtask.LoadTask;
+import org.example.core.manager.CreeperManager;
+import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
@@ -45,32 +48,32 @@ public class HotModuleGuard extends CommonPlugin {
             int guardNum = (Integer)HotModuleFileCache.get("GuardNum");
             Map<String, HotModuleSetting> map = new HashMap<>();
             JSONArray modules = (JSONArray)HotModuleFileCache.get("Module");
+            CreeperManager plugin = (CreeperManager) InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN);
+            if(plugin==null)return false;
+
+            LoggerType type = ChopperLogFactory.nameToType.get(getModule());
             for (Object module : modules) {
                 HotModuleSetting hotModuleSetting = JSONObject.parseObject(module.toString(), HotModuleSetting.class);
                 map.put(hotModuleSetting.getPlatform(),hotModuleSetting);
-            }
-            LoggerType type = ChopperLogFactory.nameToType.get(getModule());
-            for (String clazz : ClassUtil.getClassesInPackage(LOAD_TASK_CLASS_ROOT)) {
-                String[] split = clazz.split("\\.");
-                String clazzName = split[split.length-1].toLowerCase();
-                if(clazzName.endsWith("loadtask")&& clazzName.contains("hot")){
-                    String platformName = clazzName.split("hot")[0];
-                    boolean isHotModule = clazzName.contains("module");
-                    if(map.containsKey(platformName)){
-                        HotModuleSetting hotModuleSetting = map.get(platformName);
-                        Class<?> loadClazz = Class.forName(clazz);
-                        if(isHotModule&&hotModuleSetting.isEnableHotModule()){
-                            HotModuleLoadTask task = (HotModuleLoadTask)loadClazz.getDeclaredConstructor().newInstance();
-                            guards.add(new Guard(ChopperLogFactory.getLogger(type),clazzName,task,
-                                    hotModuleSetting.getUpdateHotModuleTimes(),hotModuleSetting.getFailRetryTimes()));
-                        }else if(hotModuleSetting.isEnableHotLive()){
-                            HotModuleLoadTask task = (HotModuleLoadTask)loadClazz.getDeclaredConstructor().newInstance();
-                            guards.add(new Guard(ChopperLogFactory.getLogger(type),clazzName,task,
-                                    hotModuleSetting.getUpdateHotLivesTimes(),hotModuleSetting.getFailRetryTimes()));
-                        }
+                String platform = hotModuleSetting.getPlatform();
+                if(hotModuleSetting.isEnableHotModule()){
+                    String creeperName = platform.toLowerCase()+"_hot_module";
+                    if (plugin.hasLoadTask(creeperName)) {
+                        HotModuleLoadTask loadTask = plugin.getLoadTask(creeperName);
+                        guards.add(new Guard(ChopperLogFactory.getLogger(type),loadTask.getClass().getName(),loadTask,
+                                hotModuleSetting.getUpdateHotModuleTimes(),hotModuleSetting.getFailRetryTimes()));
+                    }
+                }
+                if(hotModuleSetting.isEnableHotLive()){
+                    String creeperName = platform.toLowerCase()+"_hot_live";
+                    if (plugin.hasLoadTask(creeperName)) {
+                        HotModuleLoadTask loadTask = plugin.getLoadTask(creeperName);
+                        guards.add(new Guard(ChopperLogFactory.getLogger(type),loadTask.getClass().getName(),loadTask,
+                                hotModuleSetting.getUpdateHotModuleTimes(),hotModuleSetting.getFailRetryTimes()));
                     }
                 }
             }
+
             this.guards = guards;
             this.hotModuleGuardPool =  Executors.newScheduledThreadPool(guardNum, new NamedThreadFactory("HotModuleGuard"));
             runningGuards = new ConcurrentHashMap<>();
@@ -116,17 +119,18 @@ public class HotModuleGuard extends CommonPlugin {
     public boolean addGuard(String platform,boolean isHotModule){
         FileCache fileCache = FileCacheManagerInstance.getInstance().getFileCache(HotModuleConfig.getFullFilePath());
         platform = platform.substring(0,1).toUpperCase() + platform.substring(1);
-        String clazzName = platform+"Hot"+(isHotModule?"Module":"Live")+"LoadTask";
-        String clazz = HotModuleConstPool.LOAD_TASK_CLASS_ROOT+"."+clazzName;
+        String creeperName = platform.toLowerCase()+"_hot_"+(isHotModule?"module":"live");
+
+
         String timeName = isHotModule?"updateHotModuleTimes":"updateHotLivesTimes";
         try {
-            addGuard(new Guard(
-                    ChopperLogFactory.getLogger(LoggerType.Hot),
-                    clazzName.toLowerCase(),
-                    (HotModuleLoadTask)Class.forName(clazz).getDeclaredConstructor().newInstance(),
-                    (long)fileCache.get(timeName),
-                    (int)fileCache.get("failRetryTimes")
-            ));
+            CreeperManager plugin = (CreeperManager) InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN);
+            if(plugin==null)return false;
+            if (plugin.hasLoadTask(creeperName)) {
+                HotModuleLoadTask loadTask = plugin.getLoadTask(creeperName);
+                addGuard(new Guard(ChopperLogFactory.getLogger(LoggerType.Hot),loadTask.getClass().getName(),loadTask,
+                        (long)fileCache.get(timeName),(int)fileCache.get("failRetryTimes")));
+            }
         }catch (Exception e){
             return false;
         }

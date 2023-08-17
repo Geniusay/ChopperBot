@@ -1,10 +1,9 @@
 package org.example.init;
 
-import org.example.constpool.ConstPool;
 import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
 import org.example.plugin.annotation.Plugin;
-import org.example.taskcenter.TaskCenter;
+import org.example.core.taskcenter.TaskCenter;
 
 import java.util.List;
 

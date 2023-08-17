@@ -1,8 +1,8 @@
 package org.example.config;
 
-import lombok.AllArgsConstructor;
 import org.example.bean.ConfigFile;
 import org.example.bean.FileType;
+import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
 
 import java.nio.file.Paths;
@@ -22,7 +22,12 @@ public class CreeperConfigFile extends ConfigFile<Map<String,Object>> {
     public CreeperConfigFile(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
 
         super(module,pluginName,needPlugins,isAutoStart,filePath, fileName,
-                Map.of("taskCenter",new TaskCenterConfig(10,50,1000)),
+                Map.of("taskCenter",new TaskCenterConfig(10,50,1000),
+                        "spiderConfig",Map.of(
+                                ConstPool.PLATFORM.DOUYU.getName(),new SpiderConfig(),
+                                ConstPool.PLATFORM.BILIBILI.getName(),new SpiderConfig()
+                        )
+                ),
                 FileType.CREEPER);
     }
 

@@ -156,7 +156,7 @@ public class FileCache <T extends ConfigFile>{
                     if(oldValue.equals(value)){
                         return null;
                     }
-                    ((JSONArray) temp).add(index,value);
+                    ((JSONArray) temp).set(index,value);
                 }
             }catch (Exception e){
                 return null;
@@ -186,6 +186,11 @@ public class FileCache <T extends ConfigFile>{
      */
     public int append(Object append,String...keys) throws InterruptedException, FileCacheException {
         return writeKeys(true,append,keys);
+    }
+
+
+    public void writeSyncFlag(){
+        writeByte.updateAndGet(x -> x + 1);
     }
 
     /**

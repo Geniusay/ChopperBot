@@ -19,8 +19,6 @@ public class LoadBarrageConfig extends LoadConfig{
     // 主播名称
     protected String anchorName;
 
-    // 开始时间
-
     public LoadBarrageConfig(String platform, String action, String anchorName) {
         this.platform = platform;
         this.action = action;
@@ -50,4 +48,5 @@ public class LoadBarrageConfig extends LoadConfig{
     public void setAnchorName(String anchorName) {
         this.anchorName = anchorName;
     }
+
 }

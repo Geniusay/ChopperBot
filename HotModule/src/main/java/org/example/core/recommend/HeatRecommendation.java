@@ -8,22 +8,23 @@ package org.example.core.recommend;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.Live;
+import org.example.bean.LiveType;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.FollowDog;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
-import org.example.exception.InitException;
+import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
+import org.example.core.listen.BarrageFileMonitor;
+import org.example.core.taskcenter.request.ReptileRequest;
+import org.example.factory.BarrageFactory;
 import org.example.init.InitPluginRegister;
-import org.example.init.TaskCenterInitMachine;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.GuardPlugin;
-import org.example.taskcenter.TaskCenter;
-import org.example.taskcenter.request.LiveReptileRequest;
-import org.example.thread.ChopperBotGuardianTask;
+import org.example.core.taskcenter.TaskCenter;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -40,6 +41,8 @@ public class HeatRecommendation extends GuardPlugin {
     private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
     private BlockingQueue<String> hotEventList; //用于接收每一次的热榜更新信息，并进行跟风狗推送
+
+    private static final String SHUTDOWN_SIGN = "shutdown";
 
     public HeatRecommendation(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
@@ -76,7 +79,7 @@ public class HeatRecommendation extends GuardPlugin {
     public void start() {
         try {
             String platform = hotEventList.poll(5,TimeUnit.MILLISECONDS);
-            if("shutdown".equals(platform)){
+            if(SHUTDOWN_SIGN.equals(platform)){
                 return;
             }
             if(platform!=null){
@@ -97,10 +100,14 @@ public class HeatRecommendation extends GuardPlugin {
                         for (Live live : needRecommend(lives, followDog.getBanLiver(), followDog.getTop())) {
                             CommonPlugin plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN);
                             if(plugin!=null){
-                                ((TaskCenter)plugin).request( new LiveReptileRequest(live, LiveReptileRequest.LiveType.Online,(t)->{
+                                //TODO 待重构
+                                ((TaskCenter)plugin).request( new ReptileRequest(new DouyuHotModuleConfig(),(t)->{
                                     ChopperLogFactory.getLogger(LoggerType.Hot).info("成功推荐主播,结果为:T");
                                 }));
-
+                                ((TaskCenter)plugin).request(new ReptileRequest(
+                                        new DouyuHotModuleConfig(),(t)->{
+                                    System.out.println(t);
+                                }));
                             }
                         }
                     }
@@ -115,7 +122,7 @@ public class HeatRecommendation extends GuardPlugin {
     public void shutdown() {
         super.shutdown();
         if(hotEventList.isEmpty()){
-            hotEventList.offer("shutdown");
+            hotEventList.offer(SHUTDOWN_SIGN);
         }
     }
 

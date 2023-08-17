@@ -10,6 +10,8 @@ import org.example.utils.FormatUtil;
 
 public abstract class LoadConfig {
 
+    protected String url;
+
     protected String startTime;
 
     public LoadConfig() {
@@ -24,5 +26,11 @@ public abstract class LoadConfig {
         this.startTime = startTime;
     }
 
+    public String getUrl() {
+        return url;
+    }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

@@ -39,6 +39,7 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
         this.processedMids = new HashSet<>();
     }
 
+
     @Override
     public void process(Page page) {
         // 首次加载
@@ -95,5 +96,7 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
 
         // 发送给pipeline
         page.putField("barrageList", barrageList);
+
+
     }
 }

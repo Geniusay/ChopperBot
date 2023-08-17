@@ -6,10 +6,11 @@ import org.example.bean.Live;
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
-import org.example.core.control.HotModuleLoadTask;
+import org.example.core.loadtask.HotModuleLoadTask;
 import org.example.core.recommend.HeatRecommendation;
 import org.example.init.InitPluginRegister;
 import org.example.log.ResultLogger;
+import org.example.plugin.PluginCheckAndDo;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -24,11 +25,11 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class Guard implements Runnable, ResultLogger {
+public class Guard<T extends HotModuleLoadTask> implements Runnable, ResultLogger {
 
     private Logger logger;
     private String guardName;
-    private HotModuleLoadTask task;
+    private T task;
 
     private long delayTime;
 
@@ -63,12 +64,16 @@ public class Guard implements Runnable, ResultLogger {
             HotModuleDataCenter.DataCenter().addModuleList(platform,(HotModuleList) data);
         }else if(clazzName.contains("live")){
             HotModuleDataCenter.DataCenter().addLiveList(platform,(List<Live>) data);
+
             //查看热度推送插件是否装载，如果装载则进行热度推送
-            if(InitPluginRegister.isRegister(PluginName.HOT_RECOMMENDATION_PLUGIN)){
-                HeatRecommendation plugin = (HeatRecommendation) InitPluginRegister.getPlugin(PluginName.HOT_RECOMMENDATION_PLUGIN);
-                assert plugin != null;
-                plugin.sendHotEvent(platform);
-            }
+            PluginCheckAndDo.CheckAndDo(
+                    ()->{
+                        HeatRecommendation plugin = (HeatRecommendation) InitPluginRegister.getPlugin(PluginName.HOT_RECOMMENDATION_PLUGIN);
+                        assert plugin != null;
+                        plugin.sendHotEvent(platform);
+                    },
+                    PluginName.HOT_RECOMMENDATION_PLUGIN
+            );
         }
 
     }

@@ -16,6 +16,8 @@ public class PluginName {
 
     //Creeper
     public static final String CREEPER_CONFIG_PLUGIN = "CreeperConfig";
+
+    public static final String CREEPER_MANAGER_PLUGIN = "CreeperManager";
     public static final String TASK_CENTER_PLUGIN = "TaskCenter";
 
     //Hot

@@ -2,10 +2,12 @@ package org.example.api;
 
 import org.example.bean.live.DouyuLive;
 import org.example.bean.hotmodule.HotModuleList;
-import org.example.core.control.impl.DouyuHotLiveLoadTask;
-import org.example.core.factory.LoadTaskFactory;
-import org.example.pojo.download.assign.DouyuHotLiveConfig;
-import org.example.pojo.download.assign.DouyuHotModuleConfig;
+
+import org.example.core.creeper.loadconfig.DouyuHotLiveConfig;
+import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
+import org.example.core.creeper.loadtask.DouyuHotLiveLoadTask;
+import org.example.core.creeper.loadtask.DouyuHotModuleLoadTask;
+
 
 import java.util.List;
 
@@ -14,18 +16,20 @@ import java.util.List;
  * @author Genius
  * @date 2023/07/21 17:53
  **/
+//TODO 待重构
 public class HotModuleApi {
 
 
+
     public static HotModuleList getDouyuAllHotModule(){
-        return (HotModuleList)LoadTaskFactory.getLoadTask(new DouyuHotModuleConfig()).start();
+        return new DouyuHotModuleLoadTask(new DouyuHotModuleConfig()).start();
     }
 
     public static List<DouyuLive> getDouyuHotLive(){
-        return  ((DouyuHotLiveLoadTask)LoadTaskFactory.getLoadTask(new DouyuHotLiveConfig())).start();
+        return new DouyuHotLiveLoadTask(new DouyuHotLiveConfig()).start();
     }
 
     public static List<DouyuLive> getDouyuHotLive(int moduleId){
-        return ((DouyuHotLiveLoadTask)LoadTaskFactory.getLoadTask(new DouyuHotLiveConfig())).start(moduleId);
+        return new DouyuHotLiveLoadTask(new DouyuHotLiveConfig(moduleId)).start();
     }
 }

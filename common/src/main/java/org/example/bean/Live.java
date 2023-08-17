@@ -5,10 +5,12 @@ package org.example.bean;
  * @date 2023/07/18 22:24
  **/
 
+import java.io.Serializable;
+
 /**
  * 热门直播抽象类
  */
-public abstract class Live {
+public abstract class Live implements Serializable {
     private int watcherNum;  //直播间观众数目
     private int liveId;      //直播间ID
     private String liveName; //直播间名字

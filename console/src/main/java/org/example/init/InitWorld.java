@@ -4,6 +4,8 @@ import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.constpool.GlobalFileCache;
+import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
+import org.example.core.manager.CreeperManager;
 import org.example.exception.FileCacheException;
 import org.example.plugin.annotation.Plugin;
 import org.example.util.ClassUtil;
@@ -77,4 +79,6 @@ public class InitWorld {
         int exit = SpringApplication.exit(ctx, () -> 0);
         System.exit(exit);
     }
+
+
 }

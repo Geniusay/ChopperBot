@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author 燧枫
  * @date 2023/4/23 22:17
 */
-public abstract class AbstractProcessor implements PageProcessor {
+public abstract class AbstractProcessor implements Processor {
 
     // 运行状态
     protected AtomicBoolean isRunning = new AtomicBoolean(true);
@@ -20,18 +20,19 @@ public abstract class AbstractProcessor implements PageProcessor {
     // 首次进入
     protected boolean isFirst = true;
 
-    // 爬虫配置
-    protected String userAgent;
-    protected int retryTimes;
-    protected int retrySleepTime;
 
     protected final Site site;
 
+
+    public AbstractProcessor(){
+        this.site = Site.me();
+    }
     public AbstractProcessor(int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
-        this.retryTimes = retryTimes;
-        this.retrySleepTime = retrySleepTime;
-        this.userAgent = userAgent;
-        this.site = Site.me().setUserAgent(userAgent).setSleepTime(sleepTime);
+        this.site = Site.me()
+                .setUserAgent(userAgent)
+                .setSleepTime(sleepTime)
+                .setRetrySleepTime(retrySleepTime)
+                .setRetryTimes(retryTimes);
     }
 
     @Override
@@ -39,16 +40,21 @@ public abstract class AbstractProcessor implements PageProcessor {
 
     @Override
     public Site getSite() {
-        return site.setRetryTimes(retryTimes).setRetrySleepTime(retrySleepTime);
+        return site;
     }
 
     // 结束掉爬虫
+    @Override
     public void end() {
         this.isRunning.set(false);
     }
 
     // 爬虫是否在运行
+    @Override
     public boolean isRunning() {
         return this.isRunning.get();
     }
+
+    //爬虫恢复
+
 }

@@ -2,7 +2,6 @@ package org.example.core.factory;
 
 import org.example.core.processor.AbstractProcessor;
 import org.example.core.processor.barrage.BilibiliBarrageLiveProcessor;
-import org.example.core.processor.barrage.DouyuBarrageRecordProcessor;
 import org.example.pojo.download.LoadBarrageConfig;
 import org.example.pojo.download.assign.BilibiliLiveLoadBarrageConfig;
 import org.example.pojo.download.assign.DouyuRecordLoadBarrageConfig;
@@ -38,11 +37,7 @@ public class ProcessorFactory {
             return null;
         }
 
-        // 斗鱼录播
-        if (loadBarrageConfig instanceof DouyuRecordLoadBarrageConfig) {
-            return new DouyuBarrageRecordProcessor((DouyuRecordLoadBarrageConfig) loadBarrageConfig, dy_retryTimes,
-                    dy_retrySleepTime, dy_userAgent, dy_sleepTime);
-        }
+
         // B站直播
         else if (loadBarrageConfig instanceof BilibiliLiveLoadBarrageConfig) {
             return new BilibiliBarrageLiveProcessor((BilibiliLiveLoadBarrageConfig) loadBarrageConfig, bi_retryTimes,

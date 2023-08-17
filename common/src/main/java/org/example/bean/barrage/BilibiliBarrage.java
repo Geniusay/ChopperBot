@@ -10,6 +10,9 @@ import org.example.constpool.ConstPool;
 public class BilibiliBarrage extends Barrage {
     private final String platform = ConstPool.PLATFORM.BILIBILI.getName();
 
+    public BilibiliBarrage() {
+    }
+
     public BilibiliBarrage(String mid, Long timeReal, Long timeIndex, String content) {
         super(mid, timeReal, timeIndex, content);
     }

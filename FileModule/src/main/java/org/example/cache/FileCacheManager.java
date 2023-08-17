@@ -93,7 +93,12 @@ public class FileCacheManager extends CommonPlugin {
     }
 
     public boolean deleteFileCache(String filePath){
-        return fileCaches.remove(fileCacheMap.get(filePath)) && fileCacheMap.remove(filePath)!=null;
+        if(fileCacheMap.containsKey(filePath)){
+            FileCache fileCache = fileCacheMap.get(filePath);
+            fileCache.close();
+            return fileCaches.remove(fileCache) && fileCacheMap.remove(filePath)!=null;
+        }
+        return true;
     }
 
     public List<FileCache> getRunnableFileCaches(){

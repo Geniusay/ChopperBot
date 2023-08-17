@@ -13,6 +13,9 @@ public class DouyuBarrage extends Barrage {
 
     private final String platform = ConstPool.PLATFORM.DOUYU.getName();
 
+    public DouyuBarrage() {
+    }
+
     public DouyuBarrage(String mid, Long timeReal, Long timeIndex, String content) {
         super(mid, timeReal, timeIndex, content);
     }
