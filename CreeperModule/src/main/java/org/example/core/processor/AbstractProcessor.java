@@ -5,6 +5,7 @@ import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -12,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author 燧枫
  * @date 2023/4/23 22:17
 */
-public abstract class AbstractProcessor implements Processor {
+public abstract class AbstractProcessor implements Processor, Serializable {
 
     // 运行状态
     protected AtomicBoolean isRunning = new AtomicBoolean(true);

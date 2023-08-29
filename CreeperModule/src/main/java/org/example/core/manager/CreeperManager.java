@@ -4,9 +4,8 @@ import org.example.core.loadtask.LoadTask;
 import org.example.core.manager.annotation.Creeper;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.ReptileTask;
-import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
-import org.example.pojo.download.LoadConfig;
+import org.example.core.loadconfig.LoadConfig;
 import org.example.util.ClassUtil;
 
 import java.util.ArrayList;
@@ -31,8 +30,6 @@ public class CreeperManager extends CommonPlugin {
         nameToLoadTaskMapping = new ConcurrentHashMap<>();
         creeperBeans = new ArrayList<>();
     }
-
-
 
     @Override
     public boolean init() {

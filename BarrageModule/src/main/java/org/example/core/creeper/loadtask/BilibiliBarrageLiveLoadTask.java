@@ -1,11 +1,11 @@
 package org.example.core.creeper.loadtask;
 
 import org.example.constpool.CreeperModuleConstPool;
-import org.example.core.factory.ProcessorFactory;
+import org.example.core.creeper.loadconfig.BilibiliLiveLoadBarrageConfig;
+import org.example.core.creeper.pipline.BarragePipelineWriteJson;
+import org.example.core.creeper.processor.BilibiliBarrageLiveProcessor;
 import org.example.core.loadtask.ASyncLoadTask;
-import org.example.core.pipeline.BarragePipelineWriteJson;
-import org.example.core.processor.barrage.BilibiliBarrageLiveProcessor;
-import org.example.pojo.download.LoadBarrageConfig;
+
 import org.example.utils.CreeperConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -17,33 +17,32 @@ import us.codecraft.webmagic.Spider;
 */
 public class BilibiliBarrageLiveLoadTask extends ASyncLoadTask {
 
-    private final int threadCnt = CreeperConfig.getIntProperty("bi.threadCnt");
-
-    private final int emptySleepTime = CreeperConfig.getIntProperty("bi.emptySleepTime");
-
     private final BilibiliBarrageLiveProcessor bilibiliBarrageLiveProcessor;
 
     private final BarragePipelineWriteJson barragePipelineWriteJson;
 
-    public BilibiliBarrageLiveLoadTask(LoadBarrageConfig loadBarrageConfig) {
-        super(loadBarrageConfig);
-        bilibiliBarrageLiveProcessor = (BilibiliBarrageLiveProcessor) new ProcessorFactory().getProcessor(loadBarrageConfig);
-        barragePipelineWriteJson = new BarragePipelineWriteJson(loadBarrageConfig);
+    public BilibiliBarrageLiveLoadTask(BilibiliLiveLoadBarrageConfig LoadBarrageConfig) {
+        super(LoadBarrageConfig);
+        bilibiliBarrageLiveProcessor = new BilibiliBarrageLiveProcessor(loadConfig.getUrl());
+        barragePipelineWriteJson = new BarragePipelineWriteJson(LoadBarrageConfig);
     }
 
     @Override
     public Object start() {
-        Spider.create(bilibiliBarrageLiveProcessor)
+        Spider spider = Spider.create(bilibiliBarrageLiveProcessor)
                 // 设置起始Request
-                .addRequest(new Request(CreeperModuleConstPool.OCCUURL))
+                .addRequest(new Request(loadConfig.getUrl()))
                 // 设置结果处理类
                 .addPipeline(barragePipelineWriteJson)
                 // 设置抓取线程数（可根据需要调整）
-                .thread(threadCnt)
-                .setEmptySleepTime(emptySleepTime)
-                // 开始抓取
-                .run();
-        return null;
+                .thread(5)
+                .setEmptySleepTime(100);
+        spider.start();
+        while (isRunning()){
+            flushCacheAndSave("-1");
+        }
+        spider.stop();
+        return barragePipelineWriteJson.getResult();
     }
 
     @Override

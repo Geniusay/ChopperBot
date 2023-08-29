@@ -2,10 +2,11 @@ package org.example.core.creeper.pipline;
 
 import org.example.bean.Barrage;
 import org.example.cache.FileCache;
+import org.example.config.BarrageSaveFile;
+import org.example.core.creeper.loadconfig.LoadBarrageConfig;
 import org.example.exception.FileCacheException;
 import org.example.log.LoggerType;
-import org.example.pojo.configfile.BarrageSaveFile;
-import org.example.pojo.download.LoadBarrageConfig;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.ResultItems;

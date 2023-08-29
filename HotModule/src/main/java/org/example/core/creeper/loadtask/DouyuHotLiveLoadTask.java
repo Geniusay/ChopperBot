@@ -5,14 +5,10 @@ import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadconfig.DouyuHotLiveConfig;
 import org.example.core.creeper.processor.DouyuHotLiveProcessor;
 import org.example.core.factory.SpiderFactory;
-import org.example.core.loadtask.HotModuleLoadTask;
 
 import us.codecraft.webmagic.Spider;
 
 import java.util.List;
-
-import static org.example.constpool.ApiPool.DOUYU_HOT_LIVES_API;
-import static org.example.constpool.ApiPool.DOUYU_HOT_MODULE_LIVES_API;
 
 /**
  * @author Genius

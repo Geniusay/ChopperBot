@@ -32,7 +32,9 @@ public class TaskRecord {
         this.startTime = reptileTask.getStartTime();
         this.endTime = reptileTask.getEndTime();
         this.type = reptileTask.getType();
-        taskByteStream = serialization(reptileTask);
+        if(!reptileTask.getType().equals(TaskStatus.No_Status)){
+            taskByteStream = serialization(reptileTask);
+        }
     }
 
     public TaskRecord(String taskId, String startTime, String endTime, TaskStatus type, byte[] taskByteStream) {
@@ -54,11 +56,14 @@ public class TaskRecord {
     }
 
     public <T extends ReptileTask> T getReptileTask(){
-        try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(taskByteStream));){
-            return (T) ois.readObject();
-        }catch (Exception e){
-            throw new TaskSerializationException(taskId,e.getMessage());
+        if(type!=TaskStatus.No_Status){
+            try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(taskByteStream));){
+                return (T) ois.readObject();
+            }catch (Exception e){
+                throw new TaskSerializationException(taskId,e.getMessage());
+            }
         }
+        return null;
     }
 
 

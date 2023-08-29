@@ -1,7 +1,6 @@
-package org.example.pojo.download.assign;
+package org.example.core.creeper.loadconfig;
 
 import org.example.bean.live.DouyuLive;
-import org.example.pojo.download.LoadLiveConfig;
 
 /**
  * @author Genius

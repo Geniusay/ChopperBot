@@ -5,12 +5,8 @@ import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
 import org.example.core.creeper.processor.DouyuHotModuleProcessor;
 import org.example.core.factory.SpiderFactory;
-import org.example.core.loadtask.HotModuleLoadTask;
 
-import org.example.pojo.download.LoadConfig;
 import us.codecraft.webmagic.Spider;
-
-import static org.example.constpool.ApiPool.DOUYU_HOT_MODULE_API;
 
 /**
  * @author Genius
@@ -18,17 +14,18 @@ import static org.example.constpool.ApiPool.DOUYU_HOT_MODULE_API;
  **/
 public class DouyuHotModuleLoadTask extends HotModuleLoadTask<HotModuleList> {
 
-    private DouyuHotModuleProcessor douyuHotModuleProcessor;
 
     public DouyuHotModuleLoadTask(DouyuHotModuleConfig loadConfig) {
         super(loadConfig);
-        douyuHotModuleProcessor = new DouyuHotModuleProcessor();
+
     }
 
     @Override
     public HotModuleList start() {
         HotModuleList data;
-        Spider spider = SpiderFactory.buildSpider(ConstPool.PLATFORM.DOUYU.getName(),
+        DouyuHotModuleProcessor douyuHotModuleProcessor = new DouyuHotModuleProcessor();
+        Spider spider = SpiderFactory.buildSpider(
+                ConstPool.PLATFORM.DOUYU.getName(),
                 douyuHotModuleProcessor,
                 loadConfig.getUrl());
         try {

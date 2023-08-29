@@ -1,39 +1,43 @@
 package org.example.core.loadtask;
 
-import org.example.pojo.download.LoadConfig;
-import us.codecraft.webmagic.ResultItems;
-import us.codecraft.webmagic.Spider;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.util.TypeUtils;
+import org.example.core.loadconfig.LoadConfig;
+import org.example.core.taskcenter.task.TaskRecord;
 
 /**
  * @author Genius
- * @date 2023/08/04 01:07
+ * @date 2023/08/21 01:02
  **/
 public abstract class CommonLoadTask<T> implements LoadTask<T>{
 
-
     protected LoadConfig loadConfig;
 
-    public CommonLoadTask(LoadConfig loadConfig){
+    public CommonLoadTask(LoadConfig loadConfig) {
         this.loadConfig = loadConfig;
     }
 
-    protected T getData(Spider spider){
-        return this.getData(spider,loadConfig.getUrl());
-    }
-    protected T getData(Spider spider, String url){
-        T data = ((ResultItems) spider.get(url)).get("data");
-        spider.close();
-        return data;
-    }
-
-    protected T getData(Spider spider, String url,String key){
-        T data = ((ResultItems) spider.get(url)).get(key);
-        spider.close();
-        return data;
+    @Override
+    public boolean isRunning() {
+        return false;
     }
 
     @Override
-    public void restore(){
+    public int getCacheSize() {
+        return 0;
+    }
 
-    };
+    @Override
+    public int flushCacheAndSave(String key) {
+        return 0;
+    }
+
+    @Override
+    public void restore() {
+
+    }
+
+    public static void main(String[] args) {
+        TypeUtils.isProxy(TaskRecord.class);
+    }
 }

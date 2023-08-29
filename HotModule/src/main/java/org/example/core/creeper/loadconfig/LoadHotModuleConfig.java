@@ -1,6 +1,6 @@
 package org.example.core.creeper.loadconfig;
 
-import org.example.pojo.download.LoadConfig;
+import org.example.core.loadconfig.LoadConfig;
 
 /**
  * 热门爬取配置任务的底层类

@@ -2,7 +2,7 @@
 //
 //import org.example.exception.FileCacheException;
 //import org.example.pojo.configfile.BarrageSaveFile;
-//import org.example.pojo.download.LoadBarrageConfig;
+//import org.example.core.loadconfig.LoadBarrageConfig;
 //import org.junit.jupiter.api.Test;
 //
 //import java.util.concurrent.ConcurrentLinkedQueue;

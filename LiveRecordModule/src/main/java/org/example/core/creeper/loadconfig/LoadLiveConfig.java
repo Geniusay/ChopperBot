@@ -1,7 +1,7 @@
-package org.example.pojo.download;
+package org.example.core.creeper.loadconfig;
 
 import org.example.bean.Live;
-import org.example.pojo.download.LoadConfig;
+import org.example.core.loadconfig.LoadConfig;
 
 /**
  * 直播爬取的配置类最底层

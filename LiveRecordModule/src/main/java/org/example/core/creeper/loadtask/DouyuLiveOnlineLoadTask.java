@@ -1,17 +1,16 @@
-package org.example.core.loadtask.impl;
+package org.example.core.creeper.loadtask;
 
 import org.example.bean.live.DouyuLive;
-import org.example.core.loadtask.CommonLoadTask;
-import org.example.core.loadtask.LoadTask;
+import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
+import org.example.core.loadtask.WebMagicLoadTask;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
-import org.example.pojo.download.assign.DouyuLiveOnlineConfig;
 
 /**
  * @author Genius
  * @date 2023/07/28 23:14
  **/
-public class DouyuLiveOnlineLoadTask extends CommonLoadTask {
+public class DouyuLiveOnlineLoadTask extends WebMagicLoadTask {
 
 
     private DouyuLive douyuLive;

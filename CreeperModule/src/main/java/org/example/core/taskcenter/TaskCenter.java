@@ -14,7 +14,6 @@ import org.example.core.manager.annotation.Creeper;
 import org.example.core.taskcenter.task.TaskRecord;
 import org.example.core.taskcenter.task.TaskStatus;
 import org.example.exception.FileCacheException;
-import org.example.exception.taskcenter.CrackTaskIDException;
 import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
@@ -22,12 +21,11 @@ import org.example.plugin.GuardPlugin;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.ReptileTask;
 import org.example.plugin.PluginCheckAndDo;
-import org.example.pojo.download.LoadConfig;
+import org.example.core.loadconfig.LoadConfig;
 import org.example.util.ConfigFileUtil;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -129,6 +127,7 @@ public class TaskCenter extends GuardPlugin {
             return waitingTask.offer(task,waitingQueueTime,TimeUnit.MILLISECONDS);
         }catch (Exception e){
             //TODO 待完善错误处理
+            ChopperLogFactory.getLogger(LoggerType.Creeper).error("[TaskCenter] Error {} cant serializable",task.getTaskId());
             return false;
         }finally {
             lock.unlock();

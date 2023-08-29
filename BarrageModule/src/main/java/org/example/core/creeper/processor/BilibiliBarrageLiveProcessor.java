@@ -5,13 +5,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.Barrage;
 import org.example.core.processor.AbstractProcessor;
-import org.example.pojo.download.assign.BilibiliLiveLoadBarrageConfig;
 import us.codecraft.webmagic.Page;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * (B站直播)下载与处理
@@ -20,10 +20,6 @@ import java.util.Set;
  */
 public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
 
-    BilibiliLiveLoadBarrageConfig loadConfig;
-
-    // 前缀url
-    private String urlPrefix = "https://api.live.bilibili.com/ajax/msg?roomid=";
 
     private String url = "";
 
@@ -33,13 +29,11 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
     // 开始时间戳
     private Long startTime;
 
-    public BilibiliBarrageLiveProcessor(BilibiliLiveLoadBarrageConfig loadConfig, int retryTimes, int retrySleepTime, String userAgent, int sleepTime) {
-        super(retryTimes, retrySleepTime, userAgent, sleepTime);
-        this.loadConfig = loadConfig;
-        this.processedMids = new HashSet<>();
+
+    public BilibiliBarrageLiveProcessor(String url){
+        this.url = url;
+        processedMids = new ConcurrentSkipListSet<>();
     }
-
-
 
     @Override
     public void process(Page page) {
@@ -54,8 +48,6 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
 
     // 初始化
     public void init(Page page) {
-        // 拼装url
-        url = urlPrefix + loadConfig.getRoomId();
         // 记录开始爬取时间
         startTime = System.currentTimeMillis() / 1000;
         page.addTargetRequest(url + "&_=" + System.currentTimeMillis());

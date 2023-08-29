@@ -7,6 +7,8 @@ package org.example.core.recommend;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.util.TypeUtils;
+import org.example.bean.Barrage;
 import org.example.bean.Live;
 import org.example.bean.LiveType;
 import org.example.cache.FileCacheManagerInstance;
@@ -16,8 +18,10 @@ import org.example.config.HotModuleSetting;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
+import org.example.core.creeper.loadconfig.DouyuRecordLoadBarrageConfig;
 import org.example.core.listen.BarrageFileMonitor;
 import org.example.core.taskcenter.request.ReptileRequest;
+import org.example.core.taskcenter.task.TaskRecord;
 import org.example.factory.BarrageFactory;
 import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
@@ -104,10 +108,11 @@ public class HeatRecommendation extends GuardPlugin {
                                 ((TaskCenter)plugin).request( new ReptileRequest(new DouyuHotModuleConfig(),(t)->{
                                     ChopperLogFactory.getLogger(LoggerType.Hot).info("成功推荐主播,结果为:T");
                                 }));
-                                ((TaskCenter)plugin).request(new ReptileRequest(
-                                        new DouyuHotModuleConfig(),(t)->{
-                                    System.out.println(t);
-                                }));
+//                                ((TaskCenter)plugin).request(new ReptileRequest(
+//                                        new DouyuRecordLoadBarrageConfig("yjj","0Q8mMYYE18mM49Ad"),(t)->{
+//                                            List list = (List) t;
+//                                            System.out.println(list.size());
+//                                }));
                             }
                         }
                     }
@@ -164,5 +169,7 @@ public class HeatRecommendation extends GuardPlugin {
         hotEventList.offer(platform);
     }
 
-
+    public static void main(String[] args) {
+        System.out.println(TypeUtils.isProxy(TaskRecord.class));
+    }
 }

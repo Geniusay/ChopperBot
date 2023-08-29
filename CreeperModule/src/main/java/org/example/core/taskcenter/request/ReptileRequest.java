@@ -1,17 +1,9 @@
 package org.example.core.taskcenter.request;
 
-import com.alibaba.fastjson.JSONObject;
-import org.example.bean.Barrage;
-import org.example.bean.live.DouyuLive;
 import org.example.core.Callback;
-import org.example.pojo.download.LoadConfig;
-import org.example.util.JsonFileUtil;
-import org.example.util.SerializeUtil;
+import org.example.core.loadconfig.LoadConfig;
 
 import java.io.*;
-import java.nio.Buffer;
-import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * @author Genius
@@ -20,13 +12,12 @@ import java.util.function.Consumer;
 public class ReptileRequest<T extends LoadConfig> implements Serializable {
 
     protected Callback callback;
-    protected T requestObj;
 
     protected T loadConfig;
 
     public ReptileRequest(T loadConfig,Callback callback) {
 
-        this.loadConfig = requestObj;
+        this.loadConfig = loadConfig;
         this.callback = callback;
     }
 
@@ -39,7 +30,7 @@ public class ReptileRequest<T extends LoadConfig> implements Serializable {
     }
 
     public String GenerateTaskId(){
-        return String.valueOf(requestObj.hashCode());
+        return loadConfig.getTaskId();
     }
 
     public void response(Object obj){

@@ -1,6 +1,6 @@
 package org.example.core.creeper.loadconfig;
 
-import org.example.pojo.download.LoadConfig;
+import org.example.core.loadconfig.LoadConfig;
 
 /**
  * 单次弹幕爬取信息配置基类

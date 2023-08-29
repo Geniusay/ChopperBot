@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.barrage.DouyuBarrage;
 import org.example.core.processor.AbstractProcessor;
-import org.example.pojo.download.assign.DouyuRecordLoadBarrageConfig;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.utils.HttpConstant;

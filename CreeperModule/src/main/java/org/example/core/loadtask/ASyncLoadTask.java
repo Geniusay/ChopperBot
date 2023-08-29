@@ -1,19 +1,18 @@
 package org.example.core.loadtask;
 
-import org.example.pojo.download.LoadConfig;
+import org.example.core.loadconfig.LoadConfig;
 
 /**
  * @author Genius
  * @date 2023/08/18 02:31
  **/
-public abstract class ASyncLoadTask<T> implements LoadTask<T>{
+public abstract class ASyncLoadTask<T> extends CommonLoadTask<T>{
 
-    protected LoadConfig loadConfig;
 
     protected T result;
 
     public ASyncLoadTask(LoadConfig loadConfig){
-        this.loadConfig = loadConfig;
+        super(loadConfig);
     }
     @Override
     public void restore() {
@@ -27,4 +26,5 @@ public abstract class ASyncLoadTask<T> implements LoadTask<T>{
     public void setResult(T result) {
         this.result = result;
     }
+
 }

@@ -46,11 +46,12 @@ public class SpiderFactory {
                 .setUserAgent(spiderConfig.getUserAgent())
                 .setRetrySleepTime(spiderConfig.getRetrySleepTime())
                 .setRetryTimes(spiderConfig.getRetryTimes())
-                .setRetrySleepTime(spiderConfig.getRetrySleepTime());
+                .setSleepTime(spiderConfig.getSleepTime());
 
         return Spider
                 .create(processor)
                 .thread(spiderConfig.getThreadCnt())
+                .setEmptySleepTime(spiderConfig.getEmptySleepTime())
                 .addUrl(url);
     }
 

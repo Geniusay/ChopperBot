@@ -1,10 +1,10 @@
-package org.example.pojo.configfile;
+package org.example.core.creeper.file;
 
 import com.alibaba.fastjson.JSONArray;
-import org.example.bean.ConfigFile;
-import org.example.pojo.download.LoadBarrageConfig;
-import org.example.exception.FileCacheException;
 import org.example.bean.Barrage;
+import org.example.bean.ConfigFile;
+import org.example.core.creeper.loadconfig.LoadBarrageConfig;
+import org.example.exception.FileCacheException;
 import org.example.util.FileUtil;
 import org.example.util.JsonFileUtil;
 import org.example.util.TimeUtil;
@@ -15,8 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static org.example.constpool.CreeperModuleConstPool.BARRAGE_ROOT;
 
 /**
  * @author Genius

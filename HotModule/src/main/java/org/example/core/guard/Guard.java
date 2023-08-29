@@ -6,7 +6,7 @@ import org.example.bean.Live;
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
-import org.example.core.loadtask.HotModuleLoadTask;
+import org.example.core.creeper.loadtask.HotModuleLoadTask;
 import org.example.core.recommend.HeatRecommendation;
 import org.example.init.InitPluginRegister;
 import org.example.log.ResultLogger;
