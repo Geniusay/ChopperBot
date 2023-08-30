@@ -1,6 +1,9 @@
 package org.example.core.component;
 
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.pool.ConstPool;
+import org.slf4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +27,8 @@ public class M3U8Handle {
         handleProcess(url, String.valueOf(startTime), String.valueOf(endTime), outputFilePath);
     }
     private static void handleProcess(String url, String startTime, String endTime, String outputFilePath) {
-        System.out.println("Starting video download and processing...");
+        Logger logger = ChopperLogFactory.getLogger(LoggerType.LiveRecord);
+        logger.info("Starting video download and processing...");
         ProcessBuilder processBuilder = new ProcessBuilder(
                 ConstPool.FFMEPEG_PATH,
                 "-i", url,
@@ -44,9 +48,9 @@ public class M3U8Handle {
                 }
             }
             int exitCode = process.waitFor();
-            System.out.println("Exit code: " + exitCode);
+            logger.error("Exit code: {}",exitCode);
         } catch (IOException | InterruptedException e) {
-            System.err.println("Error during video processing: " + e.getMessage());
+            logger.error("Error during video processing: {}",e.getMessage());
             e.printStackTrace();
         }
     }

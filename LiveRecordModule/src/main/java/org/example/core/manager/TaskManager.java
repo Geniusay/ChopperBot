@@ -2,13 +2,16 @@ package org.example.core.manager;
 
 import org.example.core.component.LiveStreamTask;
 import org.example.core.component.StatusMonitor;
+import org.example.core.creeper.loadconfig.LoadLiveConfig;
 import org.example.core.factory.LiveTaskFactory;
+import org.example.plugin.CommonPlugin;
 import org.example.pojo.live.LiveConfig;
 import org.example.utils.VideoConverter;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,23 +25,35 @@ import java.util.concurrent.Future;
  * @author 燧枫
  * @date 2023/5/19 17:12
  */
-public class TaskManager {
+public class TaskManager extends CommonPlugin {
 
     private ExecutorService executor;
+    private ExecutorService logExecutor;
     private Map<String, Future<?>> futures;
     private Map<String, LiveStreamTask> tasks;
     private LiveTaskFactory taskFactory;
     private Map<String, StatusMonitor> statusMonitors;
 
+    public TaskManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
+        super(module, pluginName, needPlugins, isAutoStart);
+    }
+
+    @Override
+    public boolean init() {
+        return super.init();
+    }
+
     public TaskManager(int maxTasks) {
+        super(null,null,null,true);
         this.executor = Executors.newFixedThreadPool(maxTasks);
+        this.logExecutor = Executors.newFixedThreadPool(maxTasks);
         this.futures = new HashMap<>();
         this.tasks = new HashMap<>();
         this.taskFactory = new LiveTaskFactory();
         this.statusMonitors = new HashMap<>();
     }
 
-    public String addTask(LiveConfig liveConfig) throws FileNotFoundException {
+    public String addTask(LoadLiveConfig liveConfig) throws FileNotFoundException {
         LiveStreamTask task = this.taskFactory.create(liveConfig);
         if (task == null) {
             throw new IllegalArgumentException("Unable to create task for live config: " + liveConfig);
@@ -49,7 +64,7 @@ public class TaskManager {
         statusMonitors.put(taskId, statusMonitor);
         tasks.put(taskId, task);
 
-        OutputStream fileIO = new FileOutputStream(liveConfig.getVideoPath() + liveConfig.getRoomId() + ".flv");
+        OutputStream fileIO = new FileOutputStream(Path.of(liveConfig.getVideoPath(),liveConfig.getRoomId() + ".flv").toString());
 
         Future<?> future = executor.submit(() -> {
             task.start(executor, statusMonitor, fileIO);
@@ -58,6 +73,7 @@ public class TaskManager {
 
         return taskId;  // 返回任务的标识符
     }
+
 
     public LiveStreamTask getTaskById(String taskId) {
         return tasks.get(taskId);
@@ -81,13 +97,13 @@ public class TaskManager {
         }
     }
 
-    public void terminateThenSave(LiveConfig liveConfig,String taskId){
+    public void terminateThenSave(LoadLiveConfig liveConfig,String taskId){
         LiveStreamTask task = tasks.get(taskId);
         task.terminate();
         removeTask(taskId);
         if (liveConfig.isConvertToMp4()) {
-            String flvFilePath = liveConfig.getVideoPath() + liveConfig.getRoomId() + ".flv";
-            String mp4FilePath = liveConfig.getVideoPath() + liveConfig.getRoomId() + ".mp4";
+            String flvFilePath = Path.of(liveConfig.getVideoPath(),liveConfig.getRoomId() + ".flv").toString();
+            String mp4FilePath = Path.of(liveConfig.getVideoPath(),liveConfig.getRoomId() + ".mp4").toString();
             VideoConverter.convertFlvToMp4(flvFilePath, mp4FilePath);
             System.out.println("start: flv-->mp4");
 
@@ -116,5 +132,12 @@ public class TaskManager {
     public long getDownloadedBytes(String taskId) {
         StatusMonitor statusMonitor = getStatusMonitor(taskId);
         return statusMonitor == null ? 0L : statusMonitor.getDownloadedBytes();
+    }
+
+    public void showDownloadTable(String taskId){
+        StatusMonitor statusMonitor = getStatusMonitor(taskId);
+        logExecutor.submit(()->{
+            statusMonitor.downloadLogTable(taskId);
+        });
     }
 }

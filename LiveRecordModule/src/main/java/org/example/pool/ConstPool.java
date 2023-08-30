@@ -10,4 +10,5 @@ import java.nio.file.Paths;
 public class ConstPool {
 
     public static String FFMEPEG_PATH = Paths.get(System.getProperty("user.dir"),"ffmpeg.exe").toString();
+    public static String EDGE_DRIVER_PATH = Paths.get(System.getProperty("user.dir"),"msedgedriver.exe").toString();
 }

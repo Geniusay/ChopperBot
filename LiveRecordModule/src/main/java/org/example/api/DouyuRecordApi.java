@@ -2,8 +2,8 @@ package org.example.api;
 
 import org.example.core.component.M3U8Handle;
 import org.example.core.component.SimpleRequest;
+import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.impl.DouyuM3u8UrlParser;
-import org.example.pojo.live.DouyuRecordConfig;
 import org.example.pojo.record.RecordList;
 
 /**
@@ -25,7 +25,7 @@ public class DouyuRecordApi {
 
     // 根据vid获取一场录播的M3U8下载链接
     public static String getM3U8ByVid(String vid) {
-        return new DouyuM3u8UrlParser().getUrl(new DouyuRecordConfig(vid, null, null, null,null));
+        return new DouyuM3u8UrlParser().getUrl(new DouyuRecordConfig("yourPath","fileName",vid,0));
     }
 
     // 根据M3U8链接,开始时间,结束时间,保存位置,文件名下载一个录播视频
@@ -37,6 +37,6 @@ public class DouyuRecordApi {
 //        String vid = "wLjGvLxr8yPvmO90";
 //        String url = getM3U8ByVid(vid);
 //        downloadVideoByM3U8(url, "00:00:00", "00:10:00", "D://", "test.mp4");
-        System.out.println(getRecordList("1VwKmGb5XA4l"));
+         System.out.println(getRecordList("1VwKmGb5XA4l"));
     }
 }

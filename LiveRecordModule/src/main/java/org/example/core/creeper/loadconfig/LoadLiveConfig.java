@@ -1,5 +1,6 @@
 package org.example.core.creeper.loadconfig;
 
+import lombok.Data;
 import org.example.bean.Live;
 import org.example.core.loadconfig.LoadConfig;
 
@@ -8,18 +9,18 @@ import org.example.core.loadconfig.LoadConfig;
  * @author Genius
  * @date 2023/07/28 23:16
  **/
-public class LoadLiveConfig<T extends Live> extends LoadConfig {
-    private T live;
+@Data
+public abstract class LoadLiveConfig extends LoadVideoConfig {
+    // 房间号
+    protected String roomId;
 
-    public LoadLiveConfig(T live) {
-        this.live = live;
-    }
 
-    public T getLive() {
-        return live;
-    }
+    // 是否自动转换为mp4格式
+    protected boolean convertToMp4;
 
-    public void setLive(T live) {
-        this.live = live;
+    public LoadLiveConfig(String roomId, String videoPath, String videoName, boolean convertToMp4) {
+        super(videoPath,videoName);
+        this.roomId = roomId;
+        this.convertToMp4 = convertToMp4;
     }
 }

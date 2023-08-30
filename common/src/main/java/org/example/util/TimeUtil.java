@@ -52,4 +52,12 @@ public class TimeUtil {
     public static String getNowTime_YMDHMS() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
+
+    public static String getHMS(Long seconds){
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long remainingSeconds = seconds % 60;
+
+        return hours + "h " + minutes + "m " + remainingSeconds + "s";
+    }
 }

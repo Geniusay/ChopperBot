@@ -20,6 +20,6 @@ public class BilibiliLiveConfig extends LiveConfig {
 
     public BilibiliLiveConfig(String roomId, String videoPath, String videoName) {
         super(roomId, videoPath, videoName, true);
-        this.clarity = 10000;
+        this.clarity = 4000;
     }
 }

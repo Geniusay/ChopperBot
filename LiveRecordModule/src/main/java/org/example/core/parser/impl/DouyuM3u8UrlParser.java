@@ -1,7 +1,9 @@
 package org.example.core.parser.impl;
 
+import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
 import org.example.pojo.live.LiveConfig;
+import org.example.pool.ConstPool;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v115.network.Network;
 import org.openqa.selenium.devtools.v115.network.model.Response;
@@ -16,17 +18,17 @@ import java.util.logging.Logger;
  * @author 燧枫
  * @date 2023/8/3 21:52
  */
-public class DouyuM3u8UrlParser implements PlatformVideoUrlParser {
+public class DouyuM3u8UrlParser implements PlatformVideoUrlParser<DouyuRecordConfig> {
 
     private static String DOUYE_RECORD_M3U8 = "https://v.douyu.com/show/%s";
 
     private static final Logger logger = Logger.getLogger(DouyuM3u8UrlParser.class.getName());
 
     @Override
-    public String getUrl(LiveConfig liveConfig) {
+    public String getUrl(DouyuRecordConfig douyuRecordConfig) {
 
         // 设置 WebDriver 的路径
-        System.setProperty("webdriver.edge.driver", "E:\\edgDriver\\msedgedriver.exe");
+        System.setProperty(ConstPool.EDGE_DRIVER_PATH, "E:\\edgDriver\\msedgedriver.exe");
 
         // 创建 EdgeOptions 实例
         EdgeOptions edgeOptions = new EdgeOptions();
@@ -56,7 +58,7 @@ public class DouyuM3u8UrlParser implements PlatformVideoUrlParser {
         });
 
         // 打开网页
-        driver.get(String.format(DOUYE_RECORD_M3U8, liveConfig.getRoomId()));
+        driver.get(String.format(DOUYE_RECORD_M3U8, douyuRecordConfig.getVid()));
         logger.info("成功打开网页");
 
         // 添加延迟以便获取链接

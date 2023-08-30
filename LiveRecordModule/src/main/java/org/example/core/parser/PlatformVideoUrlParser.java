@@ -1,5 +1,8 @@
 package org.example.core.parser;
 
+import org.example.core.creeper.loadconfig.LoadRecordConfig;
+import org.example.core.creeper.loadconfig.LoadVideoConfig;
+import org.example.core.loadconfig.LoadConfig;
 import org.example.pojo.live.LiveConfig;
 
 /**
@@ -7,7 +10,7 @@ import org.example.pojo.live.LiveConfig;
  * @author 燧枫
  * @date 2023/5/19 17:09
 */
-public interface PlatformVideoUrlParser {
+public interface PlatformVideoUrlParser<T extends LoadVideoConfig> {
 
-    String getUrl(LiveConfig liveConfig) throws Exception;
+    String getUrl(T LoadConfig) throws Exception;
 }

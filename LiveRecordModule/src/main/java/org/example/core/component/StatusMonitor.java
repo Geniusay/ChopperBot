@@ -1,5 +1,8 @@
 package org.example.core.component;
 
+import org.apache.tomcat.jni.Time;
+import org.example.util.TimeUtil;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,6 +31,7 @@ public class StatusMonitor {
         }
     }
 
+
     public synchronized long getDownloadedBytes() {
         return downloadedBytes;
     }
@@ -47,5 +51,24 @@ public class StatusMonitor {
 
     public synchronized boolean isConnectionClosed() {
         return connectionClosed;
+    }
+
+    public void downloadLogTable(String name){
+        //long start = System.currentTimeMillis();
+        long start = 0;
+        String log = "[%s]平均下载速度:%s B/s,瞬时下载速度:%s B/s,写入数据量:%s bytes,持续时间:%s";
+        while(!isConnectionClosed()){
+            String msg = String.format(log,name, getDownloadSpeedAvg(),getDownloadSpeed(),getDownloadedBytes(),
+                    TimeUtil.getHMS(start));
+            System.out.print("\r"+msg);
+            try {
+                Thread.sleep(1000);
+                start++;
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
+        System.out.print("\r"+name+"直播已经结束，总计时间:"+TimeUtil.getHMS(start));
+
     }
 }

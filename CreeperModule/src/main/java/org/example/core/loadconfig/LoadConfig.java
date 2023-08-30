@@ -3,6 +3,7 @@ package org.example.core.loadconfig;
 import org.example.utils.FormatUtil;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -16,6 +17,16 @@ public abstract class LoadConfig implements Serializable {
     protected String url;
 
     protected String startTime;
+
+    protected String UserAgent;
+
+    protected String Origin;
+
+    protected String Referer;
+
+    protected Map<String,String> header;
+
+    protected Map<String,String> cookie;
 
     public LoadConfig() {
         this.startTime = FormatUtil.getNowDate();
@@ -39,5 +50,45 @@ public abstract class LoadConfig implements Serializable {
 
     public String getTaskId(){
         return UUID.randomUUID().toString();
+    }
+
+    public String getUserAgent() {
+        return UserAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        UserAgent = userAgent;
+    }
+
+    public String getOrigin() {
+        return Origin;
+    }
+
+    public void setOrigin(String origin) {
+        Origin = origin;
+    }
+
+    public String getReferer() {
+        return Referer;
+    }
+
+    public void setReferer(String referer) {
+        Referer = referer;
+    }
+
+    public Map<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(Map<String, String> header) {
+        this.header = header;
+    }
+
+    public Map<String, String> getCookie() {
+        return cookie;
+    }
+
+    public void setCookie(Map<String, String> cookie) {
+        this.cookie = cookie;
     }
 }

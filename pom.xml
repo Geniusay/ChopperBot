@@ -6,7 +6,6 @@
   <artifactId>ChopperBot</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>VideoSectionModule</module>
     <module>AccountModule</module>
     <module>SectionWorkModule</module>
     <module>FileModule</module>
@@ -18,6 +17,7 @@
     <module>console</module>
       <module>common</module>
     <module>LiveRecordModule</module>
+    <module>chopperbot-test</module>
   </modules>
   <packaging>pom</packaging>
 

@@ -37,7 +37,4 @@ public abstract class CommonLoadTask<T> implements LoadTask<T>{
 
     }
 
-    public static void main(String[] args) {
-        TypeUtils.isProxy(TaskRecord.class);
-    }
 }

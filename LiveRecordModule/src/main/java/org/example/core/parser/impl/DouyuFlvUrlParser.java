@@ -1,6 +1,8 @@
 package org.example.core.parser.impl;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
+import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
 import org.example.pojo.live.DouyuLiveConfig;
 import org.example.pojo.live.LiveConfig;
@@ -14,15 +16,14 @@ import javax.script.ScriptEngineManager;
 import java.time.LocalDate;
 
 
-public class DouyuFlvUrlParser implements PlatformVideoUrlParser {
+public class DouyuFlvUrlParser implements PlatformVideoUrlParser<DouyuLiveOnlineConfig> {
     String flvBaseUrl = "http://openflv-huos.douyucdn2.cn/dyliveflv1/";
     String did = "818074ef9c05a3fe94acdfe500091601";
 
     @Override
-    public String getUrl(LiveConfig liveConfig) throws Exception {
-        DouyuLiveConfig douyuLiveConfig = (DouyuLiveConfig) liveConfig;
-        String roomId = douyuLiveConfig.getRoomId();
-        int clarity = douyuLiveConfig.getClarity();
+    public String getUrl(DouyuLiveOnlineConfig config) throws Exception {
+        String roomId = config.getRoomId();
+        int clarity = config.getClarity();
         String html = HttpClientUtil.get("https://www.douyu.com/" + roomId);
         // 流程： 获取直播间页面
         //       从页面内获取一个函数和两个变量（每个直播间不同）
@@ -57,7 +58,7 @@ public class DouyuFlvUrlParser implements PlatformVideoUrlParser {
         engine.eval(js_fun);
         Invocable inv = (Invocable) engine;
         Object ret = inv.invokeFunction("ub98484234", roomId, did, time);
-        String resp = HttpClientUtil.post(String.format("https://www.douyu.com/lapi/live/getH5Play/%s?%s&cdn=ws-h5&rate=0", roomId, ret));
+        String resp = HttpClientUtil.post(String.format(config.getUrl(), roomId, ret));
         JSONObject respObj = new JSONObject(resp);
         if (respObj.getInt("error") == 0) {
             JSONObject dataObj = respObj.getJSONObject("data");
@@ -66,9 +67,9 @@ public class DouyuFlvUrlParser implements PlatformVideoUrlParser {
                 if(fileUrl!=null){
                     String name = fileUrl.substring(0,fileUrl.indexOf("."));
                     if(name.contains("_")){
-                        return String.format(flvBaseUrl+"%s_%s.xs",name.substring(0,name.indexOf("_")),clarity);
+                        return String.format(config.getFlvUrl()+"%s_%s.xs",name.substring(0,name.indexOf("_")),clarity);
                     }
-                    return String.format(flvBaseUrl+"%s_%s.xs",name,clarity);
+                    return String.format(config.getFlvUrl()+"%s_%s.xs",name,clarity);
                 }
             }
         }

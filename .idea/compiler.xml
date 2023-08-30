@@ -14,7 +14,7 @@
         <module name="AccountModule" />
         <module name="PublishModule" />
         <module name="SectionWorkModule" />
-        <module name="VideoSectionModule" />
+        <module name="chopperbot-test" />
         <module name="LiveRecordModule" />
         <module name="SectionModule" />
         <module name="BarrageModule" />
@@ -33,7 +33,7 @@
       <module name="PublishModule" options="-parameters" />
       <module name="SectionModule" options="-parameters" />
       <module name="SectionWorkModule" options="-parameters" />
-      <module name="VideoSectionModule" options="-parameters" />
+      <module name="chopperbot-test" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="console" options="-parameters" />
     </option>
