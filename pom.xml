@@ -6,17 +6,17 @@
   <artifactId>ChopperBot</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>AccountModule</module>
-    <module>SectionWorkModule</module>
-    <module>FileModule</module>
-    <module>CreeperModule</module>
-    <module>BarrageModule</module>
-    <module>SectionModule</module>
-    <module>HotModule</module>
-    <module>PublishModule</module>
-    <module>console</module>
-      <module>common</module>
-    <module>LiveRecordModule</module>
+    <module>chopperbot-account</module>
+    <module>chopperbot-section-work</module>
+    <module>chopperbot-file</module>
+    <module>chopperbot-creeper</module>
+    <module>chopperbot-barrage</module>
+    <module>chopperbot-section</module>
+    <module>chopperbot-hot</module>
+    <module>chopperbot-publish</module>
+    <module>chopperbot-console</module>
+      <module>chopperbot-common</module>
+    <module>chopperbot-live</module>
     <module>chopperbot-test</module>
   </modules>
   <packaging>pom</packaging>

@@ -1,0 +1,25 @@
+{
+	"data":{
+		"src":{
+			"Account":"./config/Account",
+			"Creeper":"./config/Creeper",
+			"LiveRecord":"./config/LiveRecord",
+			"SectionWork":"./config/SectionWork",
+			"Hot":"./config/Hot",
+			"Section":"./config/Section",
+			"Barrage":"./config/Barrage",
+			"Publish":"./config/Publish"
+		},
+		"pluginStart":{
+			"HotGuard":true,
+			"FileCacheManager":true,
+			"CreeperManager":true,
+			"HotConfig":true,
+			"BarrageFileListen":false,
+			"TaskCenter":true,
+			"CreeperConfig":true,
+			"HotRecommendation":true
+		}
+	},
+	"updateTime":"2023-08-26 15:13:13"
+}

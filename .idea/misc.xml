@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/console/pom.xml" />
         <option value="$PROJECT_DIR$/AccountModule/pom.xml" />
+        <option value="$PROJECT_DIR$/chopperbot-account/pom.xml" />
       </list>
     </option>
   </component>
