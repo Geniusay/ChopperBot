@@ -15,7 +15,6 @@ import java.time.LocalDate;
 
 
 public class DouyuFlvUrlParser implements PlatformVideoUrlParser {
-    String flvBaseUrl = "http://openflv-huos.douyucdn2.cn/dyliveflv1/";
     String did = "818074ef9c05a3fe94acdfe500091601";
 
     @Override
@@ -63,12 +62,16 @@ public class DouyuFlvUrlParser implements PlatformVideoUrlParser {
             JSONObject dataObj = respObj.getJSONObject("data");
             if(dataObj!=null){
                 String fileUrl = dataObj.getString("rtmp_live");
+                System.out.println(fileUrl);
+                String flvBaseUrl = dataObj.getString("rtmp_url");
                 if(fileUrl!=null){
                     String name = fileUrl.substring(0,fileUrl.indexOf("."));
+                    String token = fileUrl.substring(fileUrl.indexOf("."));
+                    System.out.println(name);
                     if(name.contains("_")){
-                        return String.format(flvBaseUrl+"%s_%s.xs",name.substring(0,name.indexOf("_")),clarity);
+                        return String.format(flvBaseUrl+"/%s_%s%s",name.substring(0,name.indexOf("_")),clarity,token);
                     }
-                    return String.format(flvBaseUrl+"%s_%s.xs",name,clarity);
+                    return String.format(flvBaseUrl+"/%s",fileUrl);
                 }
             }
         }
