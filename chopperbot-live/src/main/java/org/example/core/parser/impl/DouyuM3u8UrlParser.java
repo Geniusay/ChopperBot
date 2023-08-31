@@ -2,7 +2,7 @@ package org.example.core.parser.impl;
 
 import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
-import org.example.pool.ConstPool;
+import org.example.pool.LiveModuleConstPool;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v115.network.Network;
 import org.openqa.selenium.devtools.v115.network.model.Response;
@@ -27,7 +27,7 @@ public class DouyuM3u8UrlParser implements PlatformVideoUrlParser<DouyuRecordCon
     public String getUrl(DouyuRecordConfig douyuRecordConfig) {
 
         // 设置 WebDriver 的路径
-        System.setProperty(ConstPool.EDGE_DRIVER_PATH, "E:\\edgDriver\\msedgedriver.exe");
+        System.setProperty(LiveModuleConstPool.EDGE_DRIVER_PATH, "E:\\edgDriver\\msedgedriver.exe");
 
         // 创建 EdgeOptions 实例
         EdgeOptions edgeOptions = new EdgeOptions();

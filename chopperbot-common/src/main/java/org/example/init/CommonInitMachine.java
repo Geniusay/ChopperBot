@@ -82,6 +82,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
             plugin =  ano.pluginClass()
                     .getDeclaredConstructor(String.class,String.class,List.class,boolean.class)
                     .newInstance(moduleName,pluginName,needPlugins,isAutoStart);
+            plugin.setLogger(this.logger);
             if (plugin.init()) {
                 return success();
             }else{

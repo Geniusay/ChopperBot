@@ -2,7 +2,7 @@ package org.example.core.component;
 
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
-import org.example.pool.ConstPool;
+import org.example.pool.LiveModuleConstPool;
 import org.slf4j.Logger;
 
 import java.io.BufferedReader;
@@ -30,7 +30,7 @@ public class M3U8Handle {
         Logger logger = ChopperLogFactory.getLogger(LoggerType.LiveRecord);
         logger.info("Starting video download and processing...");
         ProcessBuilder processBuilder = new ProcessBuilder(
-                ConstPool.FFMEPEG_PATH,
+                LiveModuleConstPool.FFMEPEG_PATH,
                 "-i", url,
                 "-ss", startTime,
                 "-to", endTime,

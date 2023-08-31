@@ -27,8 +27,7 @@ public class CreeperConfigFile extends ConfigFile<Map<String,Object>> {
                                 ConstPool.PLATFORM.DOUYU.getName(),new SpiderConfig(),
                                 ConstPool.PLATFORM.BILIBILI.getName(),new SpiderConfig()
                         )
-                ),
-                FileType.CREEPER);
+                ));
     }
 
 

@@ -33,7 +33,7 @@ public class DouyuHotLiveProcessor extends AbstractProcessor {
                     JSONObject jsonLive = (JSONObject) live;
                     liveList.add(new DouyuLive(
                             jsonLive.getInteger("ol"),
-                            jsonLive.getInteger("rid"),
+                            jsonLive.getString("rid"),
                             jsonLive.getString("rn"),
                             jsonLive.getString("nn"),
                             jsonLive.getString("od"),

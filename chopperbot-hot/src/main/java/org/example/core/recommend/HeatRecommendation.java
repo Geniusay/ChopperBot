@@ -8,27 +8,25 @@ package org.example.core.recommend;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.util.TypeUtils;
-import org.example.bean.Barrage;
 import org.example.bean.Live;
-import org.example.bean.LiveType;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.FollowDog;
 import org.example.config.HotModuleConfig;
 import org.example.config.HotModuleSetting;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
-import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
-import org.example.core.creeper.loadconfig.DouyuRecordLoadBarrageConfig;
-import org.example.core.listen.BarrageFileMonitor;
+import org.example.core.creeper.loadconfig.*;
+import org.example.core.factory.BarrageLoadConfigFactory;
+import org.example.core.factory.LiveLoadConfigFactory;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.TaskRecord;
-import org.example.factory.BarrageFactory;
 import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.GuardPlugin;
 import org.example.core.taskcenter.TaskCenter;
+import org.example.plugin.PluginCheckAndDo;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -102,18 +100,27 @@ public class HeatRecommendation extends GuardPlugin {
                         }
                         //TODO 待完善 1，需要发送弹幕爬虫请求 2，callback更改
                         for (Live live : needRecommend(lives, followDog.getBanLiver(), followDog.getTop())) {
+                            String tempPlatform = live.getPlatform();
+                            this.info(String.format("推荐请求:平台 %s,直播间 %s,主播 %s",tempPlatform,live.getLiveId(),live.getLiver()));
+                            new DouyuLiveLoadBarrageConfig(live.getLiver(),String.valueOf(live.getLiveId()));
+                            LoadLiveConfig loadLiveConfig = LiveLoadConfigFactory.buildLiveConfig(
+                                    tempPlatform, live.getLiveId(), live.getLiver(),
+                                    true, true);
+
+//                            LoadBarrageConfig loadBarrageConfig = BarrageLoadConfigFactory.buildBarrageConfig(tempPlatform,
+//                                    live.getLiver(), live.getLiveId());
+                            PluginCheckAndDo.CheckAndDo(
+                                    plugin -> {
+                                        ((TaskCenter)plugin).request(new ReptileRequest(loadLiveConfig,(t)->{
+                                            System.out.println(String.format("%s 文件已保存", t));
+                                        }));
+//                                        ((TaskCenter)plugin).request(new ReptileRequest(loadBarrageConfig,(t)->{
+//                                            System.out.println(String.format("%s 爬虫任务已结束", live.getLiver()));
+//                                        }));
+                                    },
+                                    PluginName.TASK_CENTER_PLUGIN
+                            );
                             CommonPlugin plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN);
-                            if(plugin!=null){
-                                //TODO 待重构
-                                ((TaskCenter)plugin).request( new ReptileRequest(new DouyuHotModuleConfig(),(t)->{
-                                    ChopperLogFactory.getLogger(LoggerType.Hot).info("成功推荐主播,结果为:T");
-                                }));
-//                                ((TaskCenter)plugin).request(new ReptileRequest(
-//                                        new DouyuRecordLoadBarrageConfig("yjj","0Q8mMYYE18mM49Ad"),(t)->{
-//                                            List list = (List) t;
-//                                            System.out.println(list.size());
-//                                }));
-                            }
                         }
                     }
                 }

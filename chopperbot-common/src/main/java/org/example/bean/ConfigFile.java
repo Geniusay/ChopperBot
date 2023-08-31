@@ -29,9 +29,9 @@ public abstract class ConfigFile<T> extends CommonPlugin {
         super(null, null, List.of(PluginName.FILE_CACHE_PLUGIN), true);
     }
 
-    public ConfigFile(String filePath, String fileName, T data,FileType fileType) {
+    public ConfigFile(String filePath, String fileName, T data) {
         super(null, null, null, true);
-        this.fileType = fileType;
+        this.fileType = FileType.CONFIG;
         this.filePath = filePath;
         this.fileName = fileName;
         this.data = data;
@@ -80,9 +80,9 @@ public abstract class ConfigFile<T> extends CommonPlugin {
 
 
     public ConfigFile(String module, String pluginName, List<String> needPlugins, boolean isAutoStart,
-                      String filePath, String fileName, T data,FileType fileType) {
+                      String filePath, String fileName, T data) {
         super(module, pluginName, needPlugins, isAutoStart);
-        this.fileType = fileType;
+        this.fileType = FileType.CONFIG;
         this.filePath = filePath;
         this.fileName = fileName;
         this.data = data;

@@ -1,5 +1,7 @@
 package org.example.plugin;
 
+import org.slf4j.Logger;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,8 @@ public abstract class CommonPlugin implements ChopperBotPlugin{
     private List<String> needPlugins;
 
     private boolean isAutoStart;
+
+    protected Logger logger;
 
     @Override
     public boolean init() {
@@ -67,5 +71,11 @@ public abstract class CommonPlugin implements ChopperBotPlugin{
         isAutoStart = autoStart;
     }
 
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 
+    public void info(String msg){
+        logger.info("["+pluginName+"] {}",msg);
+    }
 }

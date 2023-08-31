@@ -28,8 +28,12 @@ public abstract class LiveOnlineLoadTask extends CommonLoadTask<String> {
                     try {
                         String taskId = ((LiveDownloadManager) plugin).addTask(loadLiveConfig);
                         logger.info("正在爬取{}的直播内容....",loadLiveConfig.getLiverName());
+                        if(loadLiveConfig.isShowDownloadTable()){
+                            ((LiveDownloadManager) plugin).showDownloadTable(taskId);
+                        }
                         res.set((String) ((LiveDownloadManager) plugin).waitResult(taskId, loadLiveConfig));
                     }catch (Exception e){
+                        logger.info("爬取{}的直播内容失败!",loadLiveConfig.getLiverName());
                         res.set("");
                     }
                 },

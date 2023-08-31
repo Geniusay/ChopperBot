@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public abstract class Live implements Serializable {
     private int watcherNum;  //直播间观众数目
-    private int liveId;      //直播间ID
+    private String liveId;      //直播间ID
     private String liveName; //直播间名字
 
     private String liver;   //主播
@@ -20,14 +20,14 @@ public abstract class Live implements Serializable {
 
     private String platform;
 
-    public Live(int watcherNum, int liveId, String liveName, String description) {
+    public Live(int watcherNum, String liveId, String liveName, String description) {
         this.watcherNum = watcherNum;
         this.liveId = liveId;
         this.liveName = liveName;
         this.description = description;
     }
 
-    public Live(int watcherNum, int liveId, String liveName, String liver, String description) {
+    public Live(int watcherNum, String liveId, String liveName, String liver, String description) {
         this.watcherNum = watcherNum;
         this.liveId = liveId;
         this.liveName = liveName;
@@ -35,7 +35,7 @@ public abstract class Live implements Serializable {
         this.description = description;
     }
 
-    public Live(int watcherNum, int liveId, String liveName, String liver, String description, String platform) {
+    public Live(int watcherNum, String liveId, String liveName, String liver, String description, String platform) {
         this.watcherNum = watcherNum;
         this.liveId = liveId;
         this.liveName = liveName;
@@ -52,11 +52,11 @@ public abstract class Live implements Serializable {
         this.watcherNum = watcherNum;
     }
 
-    public int getLiveId() {
+    public String getLiveId() {
         return liveId;
     }
 
-    public void setLiveId(int liveId) {
+    public void setLiveId(String liveId) {
         this.liveId = liveId;
     }
 

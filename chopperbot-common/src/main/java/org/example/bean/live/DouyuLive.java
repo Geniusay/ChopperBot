@@ -28,7 +28,7 @@ public class DouyuLive extends Live {
 
     private List<Barrage> barrages = new ArrayList<>();
 
-    public DouyuLive(int watcherNum, int liveId, String liveName, String liver, String description,
+    public DouyuLive(int watcherNum, String liveId, String liveName, String liver, String description,
                      String liveModule, String url, String roomCoverPic, int type, int uid, int moduleId) {
         super(watcherNum, liveId, liveName, liver, description, ConstPool.PLATFORM.DOUYU.getName());
         this.liveModule = liveModule;

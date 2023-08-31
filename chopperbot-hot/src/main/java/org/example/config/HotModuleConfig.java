@@ -36,7 +36,7 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
                                         List.of(allLiveDog()), OneDay, FiveMinute)
                         ),
                         "GuardNum",10
-                ), FileType.HOT);
+                ));
     }
 
     public HotModuleConfig(){
@@ -52,7 +52,7 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
                                 List.of(allLiveDog()), OneDay, FiveMinute)
                         ),
                         "GuardNum",10
-                ), FileType.HOT
+                )
         );
     }
 

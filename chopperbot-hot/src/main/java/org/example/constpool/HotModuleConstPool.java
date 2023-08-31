@@ -14,4 +14,6 @@ public class HotModuleConstPool {
 
     public static final String LOAD_TASK_CLASS_ROOT = "org.example.core.loadtask.impl"; //各个平台爬虫任务包路径
 
+
+
 }

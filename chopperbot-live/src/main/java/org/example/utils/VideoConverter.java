@@ -1,6 +1,6 @@
 package org.example.utils;
 
-import org.example.pool.ConstPool;
+import org.example.pool.LiveModuleConstPool;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class VideoConverter {
 
     public static void convertFlvToMp4(String inputPath, String outputPath) {
-        ProcessBuilder processBuilder = new ProcessBuilder(ConstPool.FFMEPEG_PATH, "-i", inputPath, "-codec", "copy", outputPath);
+        ProcessBuilder processBuilder = new ProcessBuilder(LiveModuleConstPool.FFMEPEG_PATH, "-i", inputPath, "-codec", "copy", outputPath);
         try {
             Process process = processBuilder.start();
             process.waitFor();
