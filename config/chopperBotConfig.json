@@ -19,8 +19,9 @@
 			"TaskCenter":true,
 			"CreeperConfig":true,
 			"LiveDownLoadManager":true,
+			"LiveConfig":true,
 			"HotRecommendation":true
 		}
 	},
-	"updateTime":"2023-09-01 00:47:33"
+	"updateTime":"2023-09-01 01:31:43"
 }

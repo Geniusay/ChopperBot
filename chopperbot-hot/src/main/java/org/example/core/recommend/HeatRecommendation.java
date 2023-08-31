@@ -102,7 +102,6 @@ public class HeatRecommendation extends GuardPlugin {
                         for (Live live : needRecommend(lives, followDog.getBanLiver(), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
                             this.info(String.format("推荐请求:平台 %s,直播间 %s,主播 %s",tempPlatform,live.getLiveId(),live.getLiver()));
-                            new DouyuLiveLoadBarrageConfig(live.getLiver(),String.valueOf(live.getLiveId()));
                             LoadLiveConfig loadLiveConfig = LiveLoadConfigFactory.buildLiveConfig(
                                     tempPlatform, live.getLiveId(), live.getLiver(),
                                     true, true);

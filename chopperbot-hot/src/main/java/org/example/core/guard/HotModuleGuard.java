@@ -35,7 +35,7 @@ public class HotModuleGuard extends CommonPlugin {
     }
 
     @Override
-    public boolean init() {
+    public boolean init(){
         try {
             FileCache HotModuleFileCache = FileCacheManagerInstance.getInstance().getFileCache(HotModuleConfig.getFullFilePath());
 
@@ -74,7 +74,7 @@ public class HotModuleGuard extends CommonPlugin {
             runningGuards = new ConcurrentHashMap<>();
             start();
         }catch (Exception e){
-            return false;
+            throw e;
         }
         return true;
     }

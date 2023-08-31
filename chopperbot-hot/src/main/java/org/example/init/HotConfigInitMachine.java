@@ -28,4 +28,23 @@ public class HotConfigInitMachine extends ConfigInitMachine {
     public HotConfigInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
         super(needPlugins, isAutoStart, moduleName, name, clazz);
     }
+
+    public static void main(String[] args) throws InterruptedException {
+        int i = 0;
+        while (true){
+            clearConsole(2);
+            System.out.printf("A times:%s\n", i);
+            System.out.printf("B times:%s\n", i);
+            Thread.sleep(1000);
+            i++;
+        }
+    }
+
+    private static void clearConsole(int lines) {
+        for (int i = 0; i < lines; i++) {
+            System.out.print("\033[2K"); // 清除当前行
+            System.out.print("\033[1A"); // 上移一行
+        }
+        System.out.print("\033[2K"); // 清除最后一行
+    }
 }

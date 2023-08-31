@@ -6,8 +6,7 @@ import org.example.log.LoggerType;
 
 import java.util.List;
 
-import static org.example.constpool.ConstPool.CREEPER;
-import static org.example.constpool.ConstPool.FILE;
+import static org.example.constpool.ConstPool.*;
 
 /**
  * @author Genius
@@ -15,7 +14,7 @@ import static org.example.constpool.ConstPool.FILE;
  **/
 public class CreeperModuleInitMachine extends ModuleInitMachine {
     public CreeperModuleInitMachine() {
-        super(List.of(FILE), ChopperLogFactory.getLogger(LoggerType.Creeper), CREEPER);
+        super(List.of(FILE,LIVE_RECORD), ChopperLogFactory.getLogger(LoggerType.Creeper), CREEPER);
     }
 
 }

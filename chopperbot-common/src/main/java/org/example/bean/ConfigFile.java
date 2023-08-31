@@ -38,6 +38,34 @@ public abstract class ConfigFile<T> extends CommonPlugin {
         this.updateTime = LocalDateTime.now();
     }
 
+    public ConfigFile(String filePath, String fileName, T data,FileType fileType) {
+        super(null, null, null, true);
+        this.fileType = fileType;
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.data = data;
+        this.updateTime = LocalDateTime.now();
+    }
+
+    public ConfigFile(String module, String pluginName, List<String> needPlugins, boolean isAutoStart,
+                      String filePath, String fileName, T data) {
+        super(module, pluginName, needPlugins, isAutoStart);
+        this.fileType = FileType.CONFIG;
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.data = data;
+        this.updateTime = LocalDateTime.now();
+    }
+
+    public ConfigFile(String module, String pluginName, List<String> needPlugins, boolean isAutoStart,
+                      String filePath, String fileName, T data,FileType fileType) {
+        super(module, pluginName, needPlugins, isAutoStart);
+        this.fileType = fileType;
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.data = data;
+        this.updateTime = LocalDateTime.now();
+    }
     /**
     * 用于最开始创建配置文件结构的打包
      * @return Map
@@ -76,17 +104,6 @@ public abstract class ConfigFile<T> extends CommonPlugin {
      */
     public void updateConfigTime(){
         updateTime = LocalDateTime.now();
-    }
-
-
-    public ConfigFile(String module, String pluginName, List<String> needPlugins, boolean isAutoStart,
-                      String filePath, String fileName, T data) {
-        super(module, pluginName, needPlugins, isAutoStart);
-        this.fileType = FileType.CONFIG;
-        this.filePath = filePath;
-        this.fileName = fileName;
-        this.data = data;
-        this.updateTime = LocalDateTime.now();
     }
 
 

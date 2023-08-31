@@ -20,7 +20,7 @@ public class LiveModuleInitMachine extends ModuleInitMachine {
 
     public LiveModuleInitMachine() {
         super(
-                List.of(ConstPool.FILE,ConstPool.CREEPER),
+                List.of(ConstPool.FILE),
                 ChopperLogFactory.getLogger(LoggerType.LiveRecord),
                 ModuleName.LIVE
         );
