@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://twj666.github.io/ChopperBot-Doc/">
+  <a href="https://969025903.github.io/ChopperBot-Doc/">
     <img src="https://img.shields.io/badge/文档-简体中文-blue.svg" alt="简体中文文档" />
   </a>
 
@@ -74,8 +74,8 @@
 ![Alt](https://repobeats.axiom.co/api/embed/0ae23655bb105addf8d90a999df36f690d615af7.svg "Repobeats analytics image")
 
 # 🔗 Links
-👉 [Document](https://twj666.github.io/ChopperBot-Doc/)
+👉 [Document](https://969025903.github.io/ChopperBot-Doc/)
 
-👉 [Developer's Guide](https://twj666.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
+👉 [Developer's Guide](https://969025903.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
 
 👉 [CHANGE LOG](https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md)

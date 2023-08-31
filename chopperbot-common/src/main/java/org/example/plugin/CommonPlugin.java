@@ -15,7 +15,7 @@ public abstract class CommonPlugin implements ChopperBotPlugin{
 
     @Override
     public boolean init() {
-        return false;
+        return true;
     }
 
     @Override

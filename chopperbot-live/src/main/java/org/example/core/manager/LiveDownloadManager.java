@@ -5,7 +5,7 @@ import org.example.core.component.StatusMonitor;
 import org.example.core.creeper.loadconfig.LoadLiveConfig;
 import org.example.core.factory.LiveTaskFactory;
 import org.example.plugin.CommonPlugin;
-import org.example.pojo.live.LiveConfig;
+import org.example.thread.NamedThreadFactory;
 import org.example.utils.VideoConverter;
 
 import java.io.FileNotFoundException;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -25,7 +26,7 @@ import java.util.concurrent.Future;
  * @author 燧枫
  * @date 2023/5/19 17:12
  */
-public class TaskManager extends CommonPlugin {
+public class LiveDownloadManager extends CommonPlugin {
 
     private ExecutorService executor;
     private ExecutorService logExecutor;
@@ -34,16 +35,11 @@ public class TaskManager extends CommonPlugin {
     private LiveTaskFactory taskFactory;
     private Map<String, StatusMonitor> statusMonitors;
 
-    public TaskManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
+    public LiveDownloadManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
     }
 
-    @Override
-    public boolean init() {
-        return super.init();
-    }
-
-    public TaskManager(int maxTasks) {
+    public LiveDownloadManager(int maxTasks) {
         super(null,null,null,true);
         this.executor = Executors.newFixedThreadPool(maxTasks);
         this.logExecutor = Executors.newFixedThreadPool(maxTasks);
@@ -52,6 +48,20 @@ public class TaskManager extends CommonPlugin {
         this.taskFactory = new LiveTaskFactory();
         this.statusMonitors = new HashMap<>();
     }
+
+    @Override
+    public boolean init() {
+        NamedThreadFactory poolName = new NamedThreadFactory("LiveManager");
+        this.executor = Executors.newCachedThreadPool(poolName);
+        this.logExecutor = Executors.newCachedThreadPool(poolName);
+        this.futures = new HashMap<>();
+        this.tasks = new HashMap<>();
+        this.taskFactory = new LiveTaskFactory();
+        this.statusMonitors = new HashMap<>();
+        return true;
+    }
+
+
 
     public String addTask(LoadLiveConfig liveConfig) throws FileNotFoundException {
         LiveStreamTask task = this.taskFactory.create(liveConfig);
@@ -67,7 +77,7 @@ public class TaskManager extends CommonPlugin {
         OutputStream fileIO = new FileOutputStream(Path.of(liveConfig.getVideoPath(),liveConfig.getVideoName() + ".flv").toString());
 
         Future<?> future = executor.submit(() -> {
-            task.start(executor, statusMonitor, fileIO);
+            task.start(statusMonitor, fileIO);
         });
         futures.put(taskId, future);
 
@@ -83,6 +93,14 @@ public class TaskManager extends CommonPlugin {
         return new ArrayList<>(tasks.keySet());
     }
 
+    public Object waitResult(String taskId,LoadLiveConfig liveConfig) throws ExecutionException, InterruptedException {
+        Future<?> future = futures.get(taskId);
+        if(future!=null){
+            future.get();
+            return terminateThenSave(liveConfig,taskId);
+        }
+        return null;
+    }
     public void removeTask(String taskId) {
         pauseTask(taskId);
         statusMonitors.remove(taskId);
@@ -97,17 +115,18 @@ public class TaskManager extends CommonPlugin {
         }
     }
 
-    public void terminateThenSave(LoadLiveConfig liveConfig,String taskId){
+    public String terminateThenSave(LoadLiveConfig liveConfig,String taskId){
         LiveStreamTask task = tasks.get(taskId);
         task.terminate();
         removeTask(taskId);
+        String path = Path.of(liveConfig.getVideoPath(),liveConfig.getRoomId() + ".flv").toString();
         if (liveConfig.isConvertToMp4()) {
-            String flvFilePath = Path.of(liveConfig.getVideoPath(),liveConfig.getRoomId() + ".flv").toString();
             String mp4FilePath = Path.of(liveConfig.getVideoPath(),liveConfig.getRoomId() + ".mp4").toString();
-            VideoConverter.convertFlvToMp4(flvFilePath, mp4FilePath);
+            VideoConverter.convertFlvToMp4(path, mp4FilePath);
             System.out.println("start: flv-->mp4");
-
+            path = mp4FilePath;
         }
+        return path;
     }
 
     private StatusMonitor getStatusMonitor(String taskId) {
@@ -139,5 +158,12 @@ public class TaskManager extends CommonPlugin {
         logExecutor.submit(()->{
             statusMonitor.downloadLogTable(taskId);
         });
+    }
+
+    @Override
+    public void shutdown() {
+        logExecutor.shutdown();
+        executor.shutdown();
+        super.shutdown();
     }
 }

@@ -22,22 +22,20 @@ public class LiveStreamTask {
     private Map<String, String> headers;
     private FlvHandle f = new FlvHandle();
 
-    public void start(ExecutorService executor, StatusMonitor statusMonitor, OutputStream fileIO) {
-        executor.execute(() -> {
-            try {
-                URLConnection conn = new URL(this.url).openConnection();
-                if (this.headers != null) {
-                    for (Map.Entry<String, String> entry : this.headers.entrySet()) {
-                        conn.setRequestProperty(entry.getKey(), entry.getValue());
-                    }
+    public void start(StatusMonitor statusMonitor, OutputStream fileIO) {
+        try {
+            URLConnection conn = new URL(this.url).openConnection();
+            if (this.headers != null) {
+                for (Map.Entry<String, String> entry : this.headers.entrySet()) {
+                    conn.setRequestProperty(entry.getKey(), entry.getValue());
                 }
-                try (InputStream in = conn.getInputStream()) {
-                    f.parseStream(in, statusMonitor, fileIO);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        });
+            try (InputStream in = conn.getInputStream()) {
+                f.parseStream(in, statusMonitor, fileIO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void terminate() {

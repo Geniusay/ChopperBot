@@ -244,8 +244,8 @@ public class TaskCenter extends GuardPlugin {
 
     public void request(ReptileRequest request){
         PluginCheckAndDo.CheckAndDo(
-                ()->{
-                    ReptileTask task = ((CreeperManager)InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN)).getReptileTask(request);
+                (plugin)->{
+                    ReptileTask task = ((CreeperManager)plugin).getReptileTask(request);
                     if(task!=null){
                         addTask(task);
                     }

@@ -18,8 +18,9 @@
 			"BarrageFileListen":false,
 			"TaskCenter":true,
 			"CreeperConfig":true,
+			"LiveDownLoadManager":true,
 			"HotRecommendation":true
 		}
 	},
-	"updateTime":"2023-08-26 15:13:13"
+	"updateTime":"2023-08-31 17:18:49"
 }

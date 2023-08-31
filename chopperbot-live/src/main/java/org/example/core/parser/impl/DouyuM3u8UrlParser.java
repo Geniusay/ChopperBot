@@ -2,7 +2,6 @@ package org.example.core.parser.impl;
 
 import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
-import org.example.pojo.live.LiveConfig;
 import org.example.pool.ConstPool;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v115.network.Network;

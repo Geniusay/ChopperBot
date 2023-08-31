@@ -2,15 +2,18 @@ package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
 import org.example.bean.live.DouyuLive;
+import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
+import org.example.core.creeper.loadtask.DouyuRecordLoadTask;
+import org.example.core.manager.annotation.Creeper;
 
 /**
  * @author Genius
  * @date 2023/07/28 23:17
  **/
 @Data
+@Creeper(creeperName = "douyu_live",loadTask = DouyuLiveOnlineLoadTask.class,creeperDescription = "斗鱼直播爬取")
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
 
-    private String flvUrl = "http://openflv-huos.douyucdn2.cn/dyliveflv1/";
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);
         this.clarity = clarity;

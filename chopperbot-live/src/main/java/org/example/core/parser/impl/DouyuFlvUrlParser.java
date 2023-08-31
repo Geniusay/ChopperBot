@@ -2,10 +2,7 @@ package org.example.core.parser.impl;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
-import org.example.core.creeper.loadconfig.DouyuRecordConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
-import org.example.pojo.live.DouyuLiveConfig;
-import org.example.pojo.live.LiveConfig;
 import org.example.utils.HttpClientUtil;
 import org.example.utils.RegexUtil;
 import org.json.JSONObject;
@@ -17,7 +14,6 @@ import java.time.LocalDate;
 
 
 public class DouyuFlvUrlParser implements PlatformVideoUrlParser<DouyuLiveOnlineConfig> {
-    String flvBaseUrl = "http://openflv-huos.douyucdn2.cn/dyliveflv1/";
     String did = "818074ef9c05a3fe94acdfe500091601";
 
     @Override
@@ -64,12 +60,14 @@ public class DouyuFlvUrlParser implements PlatformVideoUrlParser<DouyuLiveOnline
             JSONObject dataObj = respObj.getJSONObject("data");
             if(dataObj!=null){
                 String fileUrl = dataObj.getString("rtmp_live");
+                String flvBaseUrl = dataObj.getString("rtmp_url");
+                String token = fileUrl.substring(fileUrl.indexOf("."));
                 if(fileUrl!=null){
                     String name = fileUrl.substring(0,fileUrl.indexOf("."));
                     if(name.contains("_")){
-                        return String.format(config.getFlvUrl()+"%s_%s.xs",name.substring(0,name.indexOf("_")),clarity);
+                        return String.format(flvBaseUrl+"/%s_%s%s",name.substring(0,name.indexOf("_")),clarity,token);
                     }
-                    return String.format(config.getFlvUrl()+"%s_%s.xs",name,clarity);
+                    return String.format(flvBaseUrl+"/%s",fileUrl);
                 }
             }
         }

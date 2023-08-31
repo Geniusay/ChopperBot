@@ -16,16 +16,13 @@ import java.util.function.Supplier;
  **/
 public class WorldInitMachine extends ModuleInitMachine{
 
-
-
-
     private static final String githubUrl = "https://github.com/969025903/ChopperBot";
 
     public WorldInitMachine() throws Exception {
         super("ChopperBot",ChopperLogFactory.getLogger(LoggerType.System));
     }
 
-
+    public List<CommonInitMachine> alreadyInitModule = new ArrayList<>();
 
     @Override
     public boolean init() {
@@ -41,6 +38,7 @@ public class WorldInitMachine extends ModuleInitMachine{
                                 return fail();
                             }
                             (initMachine).registerPlugin();
+                             alreadyInitModule.add(initMachine);
                         }else{
                             return fail();
                         }
@@ -86,7 +84,7 @@ public class WorldInitMachine extends ModuleInitMachine{
         logger.info("🌏 <{}> is shutting down,{} modules need to be closed,please wait.....","ChopperBot",getInitMachines().size());
 
         ChopperBotGuardPool.GuardPool().shutdown();
-        this.getInitMachines().forEach(
+        this.alreadyInitModule.forEach(
                 InitMachine::shutdown
         );
 

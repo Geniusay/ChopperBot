@@ -3,7 +3,7 @@ package org.example.live;
 import org.example.ConsoleApplication;
 import org.example.core.creeper.loadconfig.BilibiliLiveOnlineConfig;
 import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
-import org.example.core.manager.TaskManager;
+import org.example.core.manager.LiveDownloadManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,21 +19,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class LiveTest {
     @Test
     public void DouyuLive(){
-        TaskManager taskManager = new TaskManager(5);
+        LiveDownloadManager liveDownLoadManager = new LiveDownloadManager(5);
         DouyuLiveOnlineConfig douyuLiveConfig = new  DouyuLiveOnlineConfig(
-                "4333872", "E:\\Project\\ChopperBot\\config\\LiveRecord\\", "CF", true
+                "36252", "E:\\Project\\ChopperBot\\config\\LiveRecord\\", "CF", true
         );
         try {
             // 向任务管理器中添加任务
-            String taskId = taskManager.addTask(douyuLiveConfig);  // 获取任务的标识符
-            taskManager.showDownloadTable(taskId);
+            String taskId = liveDownLoadManager.addTask(douyuLiveConfig);  // 获取任务的标识符
+            liveDownLoadManager.showDownloadTable(taskId);
             int cnt = 100;
             while (cnt > 0) {
                 cnt--;
                 Thread.sleep(1000);
             }
 
-            taskManager.terminateThenSave(douyuLiveConfig,taskId);
+            liveDownLoadManager.terminateThenSave(douyuLiveConfig,taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,19 +44,19 @@ public class LiveTest {
         BilibiliLiveOnlineConfig liveConfig = new BilibiliLiveOnlineConfig("732", "E:\\Project\\ChopperBot\\config\\LiveRecord\\", "猪猪公主",false);
 
         // 创建下载任务管理器
-        TaskManager taskManager = new TaskManager(5);
+        LiveDownloadManager liveDownLoadManager = new LiveDownloadManager(5);
 
         try {
             // 向任务管理器中添加任务
-            String taskId = taskManager.addTask(liveConfig);  // 获取任务的标识符
-            taskManager.showDownloadTable(taskId);
-//            int cnt = 20;
-//            while (cnt > 0) {
-//                cnt--;
-//                Thread.sleep(1000);
-//            }
-//
-//            taskManager.terminateThenSave(liveConfig,taskId);
+            String taskId = liveDownLoadManager.addTask(liveConfig);  // 获取任务的标识符
+            liveDownLoadManager.showDownloadTable(taskId);
+            int cnt = 600;
+            while (cnt > 0) {
+                cnt--;
+                Thread.sleep(1000);
+            }
+
+            liveDownLoadManager.terminateThenSave(liveConfig,taskId);
         } catch (Exception e) {
             e.printStackTrace();
         }

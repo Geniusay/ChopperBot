@@ -67,10 +67,10 @@ public class Guard<T extends HotModuleLoadTask> implements Runnable, ResultLogge
 
             //查看热度推送插件是否装载，如果装载则进行热度推送
             PluginCheckAndDo.CheckAndDo(
-                    ()->{
-                        HeatRecommendation plugin = (HeatRecommendation) InitPluginRegister.getPlugin(PluginName.HOT_RECOMMENDATION_PLUGIN);
+                    (plugin)->{
+
                         assert plugin != null;
-                        plugin.sendHotEvent(platform);
+                        ((HeatRecommendation)plugin).sendHotEvent(platform);
                     },
                     PluginName.HOT_RECOMMENDATION_PLUGIN
             );

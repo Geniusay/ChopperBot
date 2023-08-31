@@ -16,6 +16,6 @@ git commit -m 'deploy'
 
 # 推到你仓库的的 gh-page 分支
 # 将 <USERNAME>/<REPO> 替换为你的信息
-git push -f git@github.com:twj666/ChopperBot-Doc.git master:pages
+git push -f git@github.com:969025903/ChopperBot-Doc.git master:gh-pages
 
 ```

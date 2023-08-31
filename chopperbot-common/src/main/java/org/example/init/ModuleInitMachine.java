@@ -151,9 +151,11 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     @Override
     public void shutdown() {
         logger.info("👇 <{}> is shutting down , {} plugins need to shut down...",moduleName,initMachines.size());
-        initMachines.forEach(
-                InitMachine::shutdown
-        );
+            initMachines.forEach(initMachine-> {
+            if(InitPluginRegister.isRegister(initMachine.getPluginName())){
+                initMachine.shutdown();
+            }
+        });
         logger.info("👆 <{}> Completing the shutdown of all plugins!",moduleName);
     }
 }

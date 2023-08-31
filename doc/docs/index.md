@@ -43,6 +43,7 @@ postList: none
 [twj666🤡](https://github.com/tmlgenius)
 [welsir🤡](https://github.com/tmlgenius)
 [masteryf🤡](https://github.com/masteryf)
+[Klein422🤡](https://github.com/Klein422)
 
 
 ### TML生态圈
@@ -59,7 +60,7 @@ postList: none
 欢迎各路好汉一起来参与完善 ChopperBot，我们期待你的 PR！
 
 - 贡献代码：代码地址 [ChopperBot](https://github.com/969025903/ChopperBot) ，欢迎提交 Issue 或者 Pull Requests
-- 维护文档：文档地址 [ChopperBot-Doc](https://github.com/twj666/Chopper-Doc) ，欢迎参与翻译和修订
+- 维护文档：文档地址 [ChopperBot-Doc](https://github.com/969025903/ChopperBot-Doc/) ，欢迎参与翻译和修订
 
 
 ### 友情链接

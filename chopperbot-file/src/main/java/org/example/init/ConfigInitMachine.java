@@ -1,12 +1,17 @@
 package org.example.init;
 
 import org.example.bean.ConfigFile;
+import org.example.cache.FileCacheManager;
+import org.example.constpool.PluginName;
 import org.example.plugin.CommonPlugin;
+import org.example.plugin.PluginCheckAndDo;
 import org.example.plugin.annotation.Plugin;
 import org.example.util.ConfigFileUtil;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
 
 /**
  * @author Genius
@@ -38,6 +43,19 @@ public abstract class ConfigInitMachine extends CommonInitMachine{
             return fail(e.getMessage());
         }
 
+    }
+
+    @Override
+    public void shutdown() {
+        String path = Path.of(configFile.getFilePath(), configFile.getFileName()).toString();
+
+        PluginCheckAndDo.CheckAndDo(
+                (plugin)->{
+                    ((FileCacheManager)plugin).deleteFileCache(path);
+                },
+                PluginName.FILE_CACHE_PLUGIN
+        );
+        logger.info("[\uD83C\uDD96] {} close success",path);
     }
 
 

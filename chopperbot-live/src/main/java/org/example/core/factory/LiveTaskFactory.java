@@ -7,9 +7,6 @@ import org.example.core.parser.PlatformVideoUrlParser;
 import org.example.core.parser.impl.BilibiliFlvUrlParser;
 import org.example.core.component.LiveStreamTask;
 import org.example.core.parser.impl.DouyuFlvUrlParser;
-import org.example.pojo.live.BilibiliLiveConfig;
-import org.example.pojo.live.DouyuLiveConfig;
-import org.example.pojo.live.LiveConfig;
 
 import java.util.HashMap;
 import java.util.Map;
