@@ -13,23 +13,28 @@ import org.example.core.manager.annotation.Creeper;
 @Data
 @Creeper(creeperName = "douyu_live",loadTask = DouyuLiveOnlineLoadTask.class,creeperDescription = "斗鱼直播爬取")
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
-
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);
-        this.clarity = clarity;
-        setHeader();
-
+        setHeader(clarity);
+    }
+    /**
+     清晰度clarity：0-3
+     0画质最高
+     */
+    public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,boolean convertToMp4,int clarity) {
+        super(roomId, videoPath, videoName, convertToMp4);
+        setHeader(clarity);
     }
 
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,boolean convertToMp4) {
         super(roomId, videoPath, videoName, convertToMp4);
-        this.clarity = 4000;
+        setHeader(0);
 
-        setHeader();
+
     }
 
-    private void setHeader(){
-        this.url = "https://www.douyu.com/lapi/live/getH5Play/%s?%s&cdn=ws-h5&rate=0";
+    private void setHeader(int clarity){
+        this.url = "https://www.douyu.com/lapi/live/getH5Play/%s?%s&cdn=ws-h5&rate="+clarity;
         this.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36";
         this.Origin = "https://www.douyu.com";
         this.Referer = "https://www.douyu.com/topic/15ZNQ?rid=3357246&dyshid=0-818074ef9c05a3fe94acdfe500091601";
