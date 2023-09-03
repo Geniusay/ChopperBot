@@ -64,9 +64,6 @@ public class DouyuFlvUrlParser implements PlatformVideoUrlParser<DouyuLiveOnline
                 String token = fileUrl.substring(fileUrl.indexOf("."));
                 if(fileUrl!=null){
                     String name = fileUrl.substring(0,fileUrl.indexOf("."));
-                    if(name.contains("_")){
-                        return String.format(flvBaseUrl+"/%s_%s%s",name.substring(0,name.indexOf("_")),clarity,token);
-                    }
                     return String.format(flvBaseUrl+"/%s",fileUrl);
                 }
             }

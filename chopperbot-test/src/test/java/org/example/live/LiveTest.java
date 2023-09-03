@@ -21,7 +21,7 @@ public class LiveTest {
     public void DouyuLive(){
         LiveDownloadManager liveDownLoadManager = new LiveDownloadManager(5);
         DouyuLiveOnlineConfig douyuLiveConfig = new  DouyuLiveOnlineConfig(
-                "36252", "E:\\Project\\ChopperBot\\config\\LiveRecord\\", "CF", true
+                "793400", "C:\\Users\\admin\\Desktop\\douyu", "CF", true,0
         );
         try {
             // 向任务管理器中添加任务
