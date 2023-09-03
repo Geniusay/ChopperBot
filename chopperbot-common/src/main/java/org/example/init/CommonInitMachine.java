@@ -30,7 +30,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
 
     protected CommonPlugin plugin;      //插件类
 
-    private String pluginName_CN;
+    protected String pluginName_CN;
     protected String pluginDescription;
 
     public CommonInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name,Class<? extends CommonPlugin> clazz) {

@@ -1,5 +1,8 @@
 package org.example.bean;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,39 +11,23 @@ import java.util.List;
  **/
 
 
-public abstract class HotModule<T> {
+@Data
+public abstract class HotModule<T extends Live> implements Serializable {
     private String tagId;
     private String tagName;
 
     private List<T> lives;
-
-    public String getTagId() {
-        return tagId;
-    }
-
-    public String getTagName() {
-        return tagName;
-    }
-
-    public void setTagId(String tagId) {
-        this.tagId = tagId;
-    }
-
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
-    }
-
-    public List<T> getHotLives() {
-        return lives;
-    }
-
-    public void setHotLives(List<T> lives) {
-        this.lives = lives;
-    }
 
     public HotModule(String tagId, String tagName){
         this.tagId = tagId;
         this.tagName = tagName;
     }
 
+    public void setHotLives(List<T> lives) {
+        this.lives = lives;
+    }
+
+    public List<T> getHotLives() {
+        return lives;
+    }
 }

@@ -59,13 +59,13 @@ public class BarragePipelineWriteJson<T extends Barrage> implements Pipeline {
 
         try {
             if (barrageList != null) {
-                alreadyCount.incrementAndGet();
                 lock.lock();
+                alreadyCount.getAndIncrement();
                 Collections.sort(barrageList);
                 cache.addAll(barrageList);
             }
         }finally {
-            alreadyCount.decrementAndGet();
+            alreadyCount.getAndDecrement();
             lock.unlock();
         }
 

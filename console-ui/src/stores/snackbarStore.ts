@@ -1,7 +1,4 @@
 import { defineStore } from "pinia";
-
-type MessageType = "" | "info" | "success" | "error" | "warning";
-
 export const useSnackbarStore = defineStore({
   id: "snackbarStore",
   state: () => ({

@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.bean.Plugin;
 import org.example.constpool.GlobalFileCache;
 import org.example.constpool.ModuleName;
+import org.example.constpool.PluginName;
 import org.example.init.InitPluginRegister;
 import org.example.service.PluginService;
 import org.example.util.Result;
@@ -36,6 +37,9 @@ public class PluginController {
 
     @GetMapping("/close")
     public Result closePlugin(@RequestParam("plugin")String plugin){
+        if(plugin.equals(PluginName.CHOPPER_BOT_CONFIG_PLUGIN)){
+            return Result.error("System plugin cannot close");
+        }
         boolean res = InitPluginRegister.closePlugin(plugin);
         if(!res){
             return Result.error(plugin+" not register");

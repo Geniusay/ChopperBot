@@ -24,7 +24,7 @@ public class DouyuHotLiveProcessor extends AbstractProcessor {
     @Override
     public void process(Page page) {
 
-        List<Live> liveList = new ArrayList<>();
+        List<DouyuLive> liveList = new ArrayList<>();
         try{
             JSONArray Lives = JSON.parseObject(page.getRawText()).getJSONObject("data").getJSONArray("rl");
 
@@ -42,7 +42,8 @@ public class DouyuHotLiveProcessor extends AbstractProcessor {
                             jsonLive.getString("rs16"),
                             jsonLive.getInteger("type"),
                             jsonLive.getInteger("uid"),
-                            jsonLive.getInteger("cid2")
+                            jsonLive.getString("cid2"),
+                            jsonLive.getString("c2name")
                     ));
                 }
             }

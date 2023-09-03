@@ -1,10 +1,13 @@
 package org.example.api;
 
+import org.example.bean.live.BiliBiliLive;
 import org.example.bean.live.DouyuLive;
 import org.example.bean.hotmodule.HotModuleList;
 
+import org.example.core.creeper.loadconfig.BilibiliHotLiveConfig;
 import org.example.core.creeper.loadconfig.DouyuHotLiveConfig;
 import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
+import org.example.core.creeper.loadtask.BiliBiliHotLiveLoadTask;
 import org.example.core.creeper.loadtask.DouyuHotLiveLoadTask;
 import org.example.core.creeper.loadtask.DouyuHotModuleLoadTask;
 
@@ -31,5 +34,9 @@ public class HotModuleApi {
 
     public static List<DouyuLive> getDouyuHotLive(int moduleId){
         return new DouyuHotLiveLoadTask(new DouyuHotLiveConfig(moduleId)).start();
+    }
+
+    public static List<BiliBiliLive> getBiliBiliHotLive(String parentId,String areaId,int page){
+        return new BiliBiliHotLiveLoadTask(new BilibiliHotLiveConfig(parentId,areaId,page)).start();
     }
 }

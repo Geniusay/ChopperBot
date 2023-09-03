@@ -115,6 +115,7 @@ export default {
     },
     chatbot_v1: "Chatbot v1",
     chatbot_v2: "Chatbot v2",
+    plugin_setting: "插件设置"
   },
   dashboard: {
     activity: "活动",

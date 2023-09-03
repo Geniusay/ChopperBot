@@ -6,16 +6,19 @@ import org.example.core.creeper.pipline.BarragePipelineWriteJson;
 import org.example.core.creeper.processor.BilibiliBarrageLiveProcessor;
 import org.example.core.loadtask.ASyncLoadTask;
 
+import org.example.pojo.Barrage;
 import org.example.utils.CreeperConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
+
+import java.util.List;
 
 /**
  * (B站直播)一个任务
  * @author 燧枫
  * @date 2023/4/23 18:19
 */
-public class BilibiliBarrageLiveLoadTask extends ASyncLoadTask {
+public class BilibiliBarrageLiveLoadTask extends ASyncLoadTask<List<? extends Barrage>> {
 
     private final BilibiliBarrageLiveProcessor bilibiliBarrageLiveProcessor;
 
@@ -28,7 +31,7 @@ public class BilibiliBarrageLiveLoadTask extends ASyncLoadTask {
     }
 
     @Override
-    public Object start() {
+    public List<? extends Barrage> start() {
         Spider spider = Spider.create(bilibiliBarrageLiveProcessor)
                 // 设置起始Request
                 .addRequest(new Request(loadConfig.getUrl()))

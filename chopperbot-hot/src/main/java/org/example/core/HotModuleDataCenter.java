@@ -5,6 +5,7 @@ import lombok.Data;
 import org.example.api.HotModuleApi;
 import org.example.bean.Live;
 import org.example.bean.HotModule;
+import org.example.bean.hotmodule.BilibiliHotModule;
 import org.example.bean.hotmodule.HotModuleList;
 import org.example.constpool.ConstPool;
 import org.example.log.ChopperLogFactory;
@@ -92,21 +93,28 @@ public class HotModuleDataCenter{
             if (moduleLives.isExpire()) {
                 //TODO 改为爬虫请求
                 OddJobBoy.Boy().addWork(()->{
-                    addModuleLiveList(platform,hotModule,
-                            HotModuleApi.getDouyuHotLive(Integer.parseInt(hotModule.getTagId())));
+                    addModuleLiveList(platform,hotModule, checkPlatformAndGetList(platform,hotModule));
                     ChopperLogFactory.getLogger(LoggerType.Hot).info("platform:{} module:{} hot lives refresh~",platform,hotModule.getTagName());
                 });
             }
             return moduleLives.lives;
         }else{
             //TODO多次访问改方法时会导致链接中断
-            List<? extends Live> lives = new ArrayList<>();
-            if(ConstPool.PLATFORM.DOUYU.getName().equals(platform)){
-                lives = HotModuleApi.getDouyuHotLive(Integer.parseInt(hotModule.getTagId()));
-            }
+            List<? extends Live> lives = checkPlatformAndGetList(platform, hotModule);
             addModuleLiveList(platform,hotModule, lives);
             return lives;
         }
+    }
+
+    private List<? extends Live> checkPlatformAndGetList(String platform,HotModule hotModule){
+        List<? extends Live> lives = new ArrayList<>();
+        if(ConstPool.PLATFORM.DOUYU.getName().equals(platform)){
+            lives = HotModuleApi.getDouyuHotLive(Integer.parseInt(hotModule.getTagId()));
+        }else if (ConstPool.PLATFORM.BILIBILI.getName().equals(platform)){
+            BilibiliHotModule temp = (BilibiliHotModule) hotModule;
+            lives = HotModuleApi.getBiliBiliHotLive(temp.getParent_id(),temp.getTagId(),1);
+        }
+        return lives;
     }
 
     //根据平台的模块名获取某模块

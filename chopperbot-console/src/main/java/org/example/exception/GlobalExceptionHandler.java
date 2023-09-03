@@ -38,10 +38,9 @@ public class GlobalExceptionHandler {
             return Result.error(exception.getResultCode());
         }else if(ex instanceof PluginDependOnException){
             PluginDependOnException exception = (PluginDependOnException) ex;
-            return Result.error(exception.getResultCode(), Map.of(
-                    "fatherName",exception.getFatherName(),
-                    "sonName",exception.getSonName()
-            ));
+            String msg = "[%s] plugin depend on [%s]!";
+            return Result.error(exception.getResultCode(), String.format(msg,
+                    exception.getSonName(),exception.getFatherName()));
         }
         return Result.error("error");
     }

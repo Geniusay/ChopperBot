@@ -8,6 +8,7 @@ package org.example.core.recommend;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.util.TypeUtils;
+import org.example.bean.HotModule;
 import org.example.bean.Live;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.FollowDog;
@@ -86,40 +87,47 @@ public class HeatRecommendation extends GuardPlugin {
             }
             if(platform!=null){
                 List<FollowDog> followDogList;
-                ChopperLogFactory.getLogger(LoggerType.Hot).info("<{}> Hotspot event detected.", PluginName.HOT_RECOMMENDATION_PLUGIN);
+                logger.info("[{}] {} Hotspot event detected.",platform, PluginName.HOT_RECOMMENDATION_PLUGIN);
                 if(platformFollowDogMap.containsKey(platform)
                         &&(followDogList=platformFollowDogMap.get(platform)).size()>0){
                     //发送给爬虫队列
+                    List<? extends Live> lives = HotModuleDataCenter.DataCenter().getLiveList(platform);
                     for (FollowDog followDog : followDogList) {
                         String moduleName = followDog.getModuleName();
-                        List<? extends Live> lives;
-                        if(FollowDog.ALL_LIVES.equals(moduleName)){
-                            lives = HotModuleDataCenter.DataCenter().getLiveList(platform);
-                        }else{
-                            lives = HotModuleDataCenter.DataCenter().getModule(platform,moduleName).getHotLives();
+                        List<? extends Live> tempLives = lives;
+                        if(!FollowDog.ALL_LIVES.equals(moduleName)){
+                            HotModule module = HotModuleDataCenter.DataCenter().getModule(platform, moduleName);
+                            if(module==null){
+                                logger.error("[{}] {} not exist the {} module!",PluginName.HOT_RECOMMENDATION_PLUGIN,platform,moduleName);
+                                continue;
+                            }
+                            tempLives = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, module);
+                        }
+                        if(tempLives==null){
+                            logger.error("[{}] cannot found {} {} hot lives",PluginName.HOT_RECOMMENDATION_PLUGIN,platform,moduleName);
+                            break;
                         }
                         //TODO 待完善 1，需要发送弹幕爬虫请求 2，callback更改
-                        for (Live live : needRecommend(lives, followDog.getBanLiver(), followDog.getTop())) {
+                        for (Live live : needRecommend(tempLives, followDog.getBanLiver(), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
-                            this.info(String.format("推荐请求:平台 %s,直播间 %s,主播 %s",tempPlatform,live.getLiveId(),live.getLiver()));
-                            LoadLiveConfig loadLiveConfig = LiveLoadConfigFactory.buildLiveConfig(
-                                    tempPlatform, live.getLiveId(), live.getLiver(),
-                                    true, true);
-
-//                            LoadBarrageConfig loadBarrageConfig = BarrageLoadConfigFactory.buildBarrageConfig(tempPlatform,
-//                                    live.getLiver(), live.getLiveId());
-                            PluginCheckAndDo.CheckAndDo(
-                                    plugin -> {
-                                        ((TaskCenter)plugin).request(new ReptileRequest(loadLiveConfig,(t)->{
-                                            System.out.println(String.format("%s 文件已保存", t));
-                                        }));
-//                                        ((TaskCenter)plugin).request(new ReptileRequest(loadBarrageConfig,(t)->{
-//                                            System.out.println(String.format("%s 爬虫任务已结束", live.getLiver()));
+                            this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()));
+//                            LoadLiveConfig loadLiveConfig = LiveLoadConfigFactory.buildLiveConfig(
+//                                    tempPlatform, live.getLiveId(), live.getLiver(),
+//                                    true, true);
+//
+////                            LoadBarrageConfig loadBarrageConfig = BarrageLoadConfigFactory.buildBarrageConfig(tempPlatform,
+////                                    live.getLiver(), live.getLiveId());
+//                            PluginCheckAndDo.CheckAndDo(
+//                                    plugin -> {
+//                                        ((TaskCenter)plugin).request(new ReptileRequest(loadLiveConfig,(t)->{
+//                                            System.out.println(String.format("%s 文件已保存", t));
 //                                        }));
-                                    },
-                                    PluginName.TASK_CENTER_PLUGIN
-                            );
-                            CommonPlugin plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN);
+////                                        ((TaskCenter)plugin).request(new ReptileRequest(loadBarrageConfig,(t)->{
+////                                            System.out.println(String.format("%s 爬虫任务已结束", live.getLiver()));
+////                                        }));
+//                                    },
+//                                    PluginName.TASK_CENTER_PLUGIN
+//                            );
                         }
                     }
                 }
@@ -158,7 +166,6 @@ public class HeatRecommendation extends GuardPlugin {
             }
             if(num>=top)break;
         }
-        ChopperLogFactory.getLogger(LoggerType.Hot).info("<HeatRecommend> recommend {} lives,liver info:",livers);
         return recommendLive;
     }
 

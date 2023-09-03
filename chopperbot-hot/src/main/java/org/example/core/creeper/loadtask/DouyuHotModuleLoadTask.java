@@ -24,6 +24,7 @@ public class DouyuHotModuleLoadTask extends HotModuleLoadTask<HotModuleList> {
     public HotModuleList start() {
         HotModuleList data;
         DouyuHotModuleProcessor douyuHotModuleProcessor = new DouyuHotModuleProcessor();
+        clearFinishFlag();
         Spider spider = SpiderFactory.buildSpider(
                 ConstPool.PLATFORM.DOUYU.getName(),
                 douyuHotModuleProcessor,

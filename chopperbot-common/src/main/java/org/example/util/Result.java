@@ -73,6 +73,13 @@ public class Result implements Serializable {
         return result;
     }
 
+    public static Result error(ResultCode resultCode,String msg){
+        Result result = new Result();
+        result.setCode(resultCode.getCode());
+        result.setMsg(msg);
+        return result;
+    }
+
     public Object getData() {
         return data;
     }

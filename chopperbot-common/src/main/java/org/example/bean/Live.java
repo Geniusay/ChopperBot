@@ -5,11 +5,14 @@ package org.example.bean;
  * @date 2023/07/18 22:24
  **/
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * 热门直播抽象类
  */
+@Data
 public abstract class Live implements Serializable {
     private int watcherNum;  //直播间观众数目
     private String liveId;      //直播间ID
@@ -19,6 +22,10 @@ public abstract class Live implements Serializable {
     private String description; //直播间简介
 
     private String platform;
+
+    private String moduleId;
+
+    private String moduleName;
 
     public Live(int watcherNum, String liveId, String liveName, String description) {
         this.watcherNum = watcherNum;
@@ -44,51 +51,15 @@ public abstract class Live implements Serializable {
         this.platform = platform;
     }
 
-    public int getWatcherNum() {
-        return watcherNum;
-    }
-
-    public void setWatcherNum(int watcherNum) {
+    public Live(int watcherNum, String liveId, String liveName, String liver, String description, String platform,String moduleId,String moduleName) {
         this.watcherNum = watcherNum;
-    }
-
-    public String getLiveId() {
-        return liveId;
-    }
-
-    public void setLiveId(String liveId) {
         this.liveId = liveId;
-    }
-
-    public String getLiveName() {
-        return liveName;
-    }
-
-    public void setLiveName(String liveName) {
         this.liveName = liveName;
-    }
-
-    public String getLiver() {
-        return liver;
-    }
-
-    public void setLiver(String liver) {
         this.liver = liver;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(String platform) {
         this.platform = platform;
+        this.moduleId = moduleId;
+        this.moduleName = moduleName;
     }
+
 }

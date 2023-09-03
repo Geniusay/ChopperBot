@@ -37,6 +37,7 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
         initFlag = true;
         isAutoStart = true;
         pluginName = PluginName.CHOPPER_BOT_CONFIG_PLUGIN;
+        pluginName_CN = "ChopperBot系统配置文件";
         pluginClass = ChopperBotConfigFile.class;
         plugin = chopperBotConfigFile;
     }
@@ -59,6 +60,7 @@ public class ChopperBotConfigFileInitMachine extends CommonInitMachine {
             initFlag =  fail("module directory");
             return initFlag;
         }
+        registerPlugin();
         return initFlag;
     }
 

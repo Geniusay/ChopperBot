@@ -57,7 +57,6 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
             if (!Files.exists(path)) {
                 Files.createDirectory(path);
             }
-
         } catch (IOException e) {
             return false;
         }

@@ -74,7 +74,7 @@ public class HotModuleGuard extends CommonPlugin {
             runningGuards = new ConcurrentHashMap<>();
             start();
         }catch (Exception e){
-            throw e;
+            return false;
         }
         return true;
     }
