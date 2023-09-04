@@ -1,0 +1,30 @@
+
+a	java:S112­"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+F
+java:S3740Œ"/Provide the parametrized type for this generic.(ĞïˆÁ
+9
+java:S2189¨""Add an end condition to this loop.(´ÿÕ™
+w
+java:S3008 "aRename this field "MAX_WRITE_BUFFER_LIMIT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•®¬®
+M
+java:S1135"2Complete the task associated to this TODO comment.(¤¥©†şÿÿÿÿ
+H
+java:S1135&"2Complete the task associated to this TODO comment.(ıÊëº
+N
+java:S30107"3Remove this assignment of "MAX_WRITE_BUFFER_LIMIT".(¸æüÏşÿÿÿÿ
+`
+java:S3252"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ƒµƒ¨ùÿÿÿÿ
+I
+java:S1135‚"2Complete the task associated to this TODO comment.(Ø¦¼Å
+i
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(¦Í 
+a
+java:S3252õ"EUse static access with "com.alibaba.fastjson.JSON" for "parseObject".(ƒµƒ¨ùÿÿÿÿ
+u
+java:S2142ø"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+u
+java:S2142¬"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+i
+java:S1871½"MThis branch's code block is the same as the block for the branch on line 315.(©®ù‘ùÿÿÿÿ
+7
+java:S3398" Move this method into "SyncMan".(ãÃù‚

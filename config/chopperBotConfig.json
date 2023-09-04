@@ -3,7 +3,6 @@
 		"src":{
 			"Account":"./config/Account",
 			"Creeper":"./config/Creeper",
-			"LiveRecord":"./config/LiveRecord",
 			"SectionWork":"./config/SectionWork",
 			"Hot":"./config/Hot",
 			"Section":"./config/Section",
@@ -13,15 +12,12 @@
 		"pluginStart":{
 			"HotGuard":true,
 			"FileCacheManager":true,
-			"CreeperManager":true,
 			"HotConfig":true,
-			"BarrageFileListen":false,
+			"BarrageFileListen":true,
 			"TaskCenter":true,
 			"CreeperConfig":true,
-			"LiveDownLoadManager":true,
-			"LiveConfig":true,
 			"HotRecommendation":true
 		}
 	},
-	"updateTime":"2023-09-04 00:03:07"
+	"updateTime":"2023-08-06 23:24:27"
 }

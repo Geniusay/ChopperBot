@@ -1,0 +1,23 @@
+
+‡
+java:S1130"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(ÙØ¤Þýÿÿÿÿ
+V	java:S125!"<This block of commented-out lines of code should be removed.(û›“Ñúÿÿÿÿ
+N	java:S106;"9Replace this use of System.out or System.err by a logger.(Ê¸µ³
+S	java:S106="9Replace this use of System.out or System.err by a logger.(¬ñé‡þÿÿÿÿ
+K
+java:S1128"6Remove this unused import 'com.alibaba.fastjson.JSON'.(Ö¢å$
+_
+java:S1128	"IRemove this unused import 'org.example.constpool.BarrageModuleConstPool'.(¥’‡ 
+b
+java:S1128
+"GRemove this unused import 'org.example.core.listen.BarrageFileMonitor'.(ä±”²ûÿÿÿÿ
+O
+java:S1128"4Remove this unused import 'org.example.pojo.Anchor'.(¾¬ïßùÿÿÿÿ
+L
+java:S1128"6Remove this unused import 'org.example.util.FileUtil'.(í”Û£
+U
+java:S1128":Remove this unused import 'org.example.util.JsonFileUtil'.(“øªŒûÿÿÿÿ
+?
+java:S1128")Remove this unused import 'java.io.File'.(†Ð¥Å
+M
+java:S1068"2Remove this unused "anchorScoreMap" private field.(¿‚éäúÿÿÿÿ

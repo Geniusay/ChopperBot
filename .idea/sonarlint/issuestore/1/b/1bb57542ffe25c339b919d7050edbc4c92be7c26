@@ -1,0 +1,13 @@
+
+Q
+java:S2387";"moduleName" is the name of a field in "CommonInitMachine".( ¦–ò
+O
+java:S5993W"9Change the visibility of this constructor to "protected".(çÆîÍ
+O
+java:S5993\"9Change the visibility of this constructor to "protected".(Îúòæ
+h
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(ËîÅÐ
+U
+java:S1161f":Add the "@Override" annotation above this method signature(¬—çÔýÿÿÿÿ
+l
+java:S4276€"URefactor this code to use the more specialised Functional Interface 'BooleanSupplier'(Ó£Ó³

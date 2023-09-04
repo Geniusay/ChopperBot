@@ -1,0 +1,11 @@
+
+n
+java:S3008"SRename this field "Instance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò™€¼ùÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(„®Ä¾
+r
+java:S3077"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(ò™€¼ùÿÿÿÿ
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ

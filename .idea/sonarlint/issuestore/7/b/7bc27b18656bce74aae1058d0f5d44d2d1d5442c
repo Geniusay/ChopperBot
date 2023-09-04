@@ -1,0 +1,15 @@
+
+=
+java:S2189.""Add an end condition to this loop.(˜ïˆžÿÿÿÿÿ
+i
+java:S3008"SRename this field "Instance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®°Àˆ
+´
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(Ž¥¡£úÿÿÿÿ
+m
+java:S3077"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(®°Àˆ
+c	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿¥ÝÅ
+t
+java:S21423"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
+>	java:S1083")Either remove or fill this block of code.(ä ¹€
+]
+java:S1128"BRemove this unused import 'org.example.thread.NamedThreadFactory'.(–˜½Üùÿÿÿÿ
