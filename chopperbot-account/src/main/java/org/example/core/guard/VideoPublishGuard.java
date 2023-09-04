@@ -50,8 +50,8 @@ public class VideoPublishGuard extends GuardPlugin {
         Iterator<Map.Entry<String, Object>> iterator = object.entrySet().iterator();
 
         while(iterator.hasNext()) {
-            Map.Entry<String, Object> entry = (Map.Entry)iterator.next();
-            String platform = (String)entry.getKey();
+            Map.Entry<String, Object> entry = iterator.next();
+            String platform = entry.getKey();
             JSONObject platformData = (JSONObject)entry.getValue();
             System.out.println("Platform: " + platform);
             System.out.println("platformData: " + platformData);
