@@ -10,7 +10,7 @@ module.exports = {
   searchMaxSuggestions: 10,
   lastUpdated: "上次更新",
 
-  docsRepo: "/twj666/Chopper-Doc",
+  docsRepo: "/969025903/Chopper-Doc",
   docsDir: "docs",
   docsBranch: "master",
   editLinks: true,

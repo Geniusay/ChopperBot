@@ -49,6 +49,7 @@ export default {
     booking: "Booking",
     ikea: "IKEA",
 
+
     board: "Task Board",
     users: "Users",
     usersList: "List",
@@ -118,6 +119,7 @@ export default {
     },
     chatbot_v1: "Chatbot v1",
     chatbot_v2: "Chatbot v2",
+    plugin_setting:"Plugin Setting"
   },
 
   dashboard: {

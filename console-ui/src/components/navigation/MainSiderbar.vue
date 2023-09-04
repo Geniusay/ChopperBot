@@ -12,7 +12,7 @@ const customizeTheme = useCustomizeThemeStore();
 const navigation = ref(configs.navigation);
 
 const openGithubSite = () => {
-  window.open("https://github.com/969025903", "_blank");
+  window.open("https://github.com/969025903/ChopperBot", "_blank");
 };
 </script>
 
@@ -77,7 +77,7 @@ const openGithubSite = () => {
           <v-card-subtitle> </v-card-subtitle>
           <v-card-text>
             <div><b>Github:</b></div>
-            <div>github.com/TimeMachineLab</div>
+            <div>github.com/ChopperBot</div>
           </v-card-text>
           <v-card-actions>
             <v-btn

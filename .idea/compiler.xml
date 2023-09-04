@@ -7,35 +7,35 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="console" />
-        <module name="CreeperModule" />
-        <module name="FileModule" />
-        <module name="common" />
-        <module name="AccountModule" />
-        <module name="PublishModule" />
-        <module name="SectionWorkModule" />
-        <module name="VideoSectionModule" />
-        <module name="LiveRecordModule" />
-        <module name="SectionModule" />
-        <module name="BarrageModule" />
-        <module name="HotModule" />
+        <module name="chopperbot-common" />
+        <module name="chopperbot-hot" />
+        <module name="chopperbot-section" />
+        <module name="chopperbot-publish" />
+        <module name="chopperbot-console" />
+        <module name="chopperbot-test" />
+        <module name="chopperbot-file" />
+        <module name="chopperbot-creeper" />
+        <module name="chopperbot-live" />
+        <module name="chopperbot-barrage" />
+        <module name="chopperbot-account" />
+        <module name="chopperbot-section-work" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="AccountModule" options="-parameters" />
-      <module name="BarrageModule" options="-parameters" />
-      <module name="CreeperModule" options="-parameters" />
-      <module name="FileModule" options="-parameters" />
-      <module name="HotModule" options="-parameters" />
-      <module name="LiveRecordModule" options="-parameters" />
-      <module name="PublishModule" options="-parameters" />
-      <module name="SectionModule" options="-parameters" />
-      <module name="SectionWorkModule" options="-parameters" />
-      <module name="VideoSectionModule" options="-parameters" />
-      <module name="common" options="-parameters" />
-      <module name="console" options="-parameters" />
+      <module name="chopperbot-account" options="-parameters" />
+      <module name="chopperbot-barrage" options="-parameters" />
+      <module name="chopperbot-common" options="-parameters" />
+      <module name="chopperbot-console" options="-parameters" />
+      <module name="chopperbot-creeper" options="-parameters" />
+      <module name="chopperbot-file" options="-parameters" />
+      <module name="chopperbot-hot" options="-parameters" />
+      <module name="chopperbot-live" options="-parameters" />
+      <module name="chopperbot-publish" options="-parameters" />
+      <module name="chopperbot-section" options="-parameters" />
+      <module name="chopperbot-section-work" options="-parameters" />
+      <module name="chopperbot-test" options="-parameters" />
     </option>
   </component>
 </project>
