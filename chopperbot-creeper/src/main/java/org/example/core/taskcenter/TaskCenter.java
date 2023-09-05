@@ -10,11 +10,10 @@ import org.example.config.TaskCenterConfig;
 import org.example.constpool.PluginName;
 import org.example.core.loadtask.LoadTask;
 import org.example.core.manager.CreeperManager;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.manager.Creeper;
 import org.example.core.taskcenter.task.TaskRecord;
 import org.example.core.taskcenter.task.TaskStatus;
 import org.example.exception.FileCacheException;
-import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.GuardPlugin;
@@ -223,7 +222,7 @@ public class TaskCenter extends GuardPlugin {
                             creeperLogFileCache.writeKeys(taskRecord,"task",String.valueOf(i));
                             waitingTask.put(reptileTask);
                         } catch (InterruptedException |FileCacheException e) {
-                            return false;
+                           throw new RuntimeException(e);
                         }
                     }
                 }

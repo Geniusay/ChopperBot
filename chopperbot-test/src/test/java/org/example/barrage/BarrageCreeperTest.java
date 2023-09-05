@@ -1,9 +1,9 @@
 package org.example.barrage;
 
 import org.example.ConsoleApplication;
+import org.example.bean.barrage.BilibiliBarrage;
 import org.example.core.creeper.loadconfig.BilibiliLiveLoadBarrageConfig;
-import org.example.core.creeper.loadtask.BilibiliBarrageLiveLoadTask;
-import org.example.pojo.Barrage;
+import org.example.core.creeper.loadtask.BilibiliLiveBarrageLoadTask;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +22,8 @@ public class BarrageCreeperTest {
 
     @Test
     public void testBilibiliBarrageCreeper(){
-        BilibiliLiveLoadBarrageConfig config = new BilibiliLiveLoadBarrageConfig("猪猪女孩", "71002");
-        List<? extends Barrage> start = new BilibiliBarrageLiveLoadTask(config).start();
+        BilibiliLiveLoadBarrageConfig config = new BilibiliLiveLoadBarrageConfig("某幻君", "271744");
+        List<BilibiliBarrage> start = new BilibiliLiveBarrageLoadTask(config).start();
 
     }
 }

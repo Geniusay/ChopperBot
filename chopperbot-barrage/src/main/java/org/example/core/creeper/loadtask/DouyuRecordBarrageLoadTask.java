@@ -2,7 +2,7 @@ package org.example.core.creeper.loadtask;
 
 import org.example.bean.barrage.DouyuBarrage;
 import org.example.constpool.ConstPool;
-import org.example.core.creeper.loadconfig.DouyuLiveLoadBarrageConfig;
+import org.example.core.creeper.loadconfig.DouyuRecordLoadBarrageConfig;
 import org.example.core.creeper.loadconfig.LoadBarrageConfig;
 import org.example.core.creeper.pipline.BarragePipelineWriteJson;
 import org.example.core.creeper.processor.DouyuBarrageRecordProcessor;
@@ -17,10 +17,10 @@ import java.util.List;
  * @author 燧枫
  * @date 2023/4/23 18:12
 */
-public class DouyuBarrageLoadTask extends ASyncLoadTask<List<DouyuBarrage>> {
+public class DouyuRecordBarrageLoadTask extends ASyncLoadTask<List<DouyuBarrage>> {
 
 
-    public DouyuBarrageLoadTask(DouyuLiveLoadBarrageConfig loadBarrageConfig) {
+    public DouyuRecordBarrageLoadTask(DouyuRecordLoadBarrageConfig loadBarrageConfig) {
         super(loadBarrageConfig);
     }
 
@@ -69,7 +69,7 @@ public class DouyuBarrageLoadTask extends ASyncLoadTask<List<DouyuBarrage>> {
     }
 
     public static void main(String[] args) {
-        new DouyuBarrageLoadTask(new DouyuLiveLoadBarrageConfig("yjj","0Q8mMYYE18mM49Ad")).start();
+        new DouyuRecordBarrageLoadTask(new DouyuRecordLoadBarrageConfig("yjj","0Q8mMYYE18mM49Ad")).start();
     }
 
 }

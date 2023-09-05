@@ -5,9 +5,11 @@ package org.example.core.recommend;
  * @date 2023/07/22 23:20
  **/
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson2.util.TypeUtils;
+import lombok.Data;
 import org.example.bean.HotModule;
 import org.example.bean.Live;
 import org.example.cache.FileCacheManagerInstance;
@@ -17,14 +19,10 @@ import org.example.config.HotModuleSetting;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.creeper.loadconfig.*;
-import org.example.core.factory.BarrageLoadConfigFactory;
-import org.example.core.factory.LiveLoadConfigFactory;
+import org.example.core.manager.CreeperManager;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.TaskRecord;
 import org.example.init.InitPluginRegister;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
-import org.example.plugin.CommonPlugin;
 import org.example.plugin.GuardPlugin;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.plugin.PluginCheckAndDo;
@@ -39,13 +37,18 @@ import java.util.regex.Pattern;
 /**
  * 根据热门的直播以及看门狗设置来推荐热门直播间到系统
  */
+@Data
 public class HeatRecommendation extends GuardPlugin {
 
+    private static final long serialVersionUID = 4749216808636623354L;
     private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
     private BlockingQueue<String> hotEventList; //用于接收每一次的热榜更新信息，并进行跟风狗推送
 
+    private Map<String,String> recommendationCreeper;
     private static final String SHUTDOWN_SIGN = "shutdown";
+
+
 
     public HeatRecommendation(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
@@ -55,13 +58,24 @@ public class HeatRecommendation extends GuardPlugin {
     public boolean init() {
         try {
             platformFollowDogMap = new ConcurrentHashMap<>();
+            recommendationCreeper = new HashMap<>();
             hotEventList = new ArrayBlockingQueue<>(1024);
+
             List<HotModuleSetting> modules = new ArrayList<>();
 
             JSONArray jsonModules = (JSONArray) FileCacheManagerInstance
                     .getInstance()
                     .getFileCache(HotModuleConfig.getFullFilePath())
                     .get("Module");
+
+            JSONObject jsonCreepers = (JSONObject) FileCacheManagerInstance
+                    .getInstance()
+                    .getFileCache(HotModuleConfig.getFullFilePath())
+                    .get("HeatRecommendation","recommendation_creeper");
+
+            for (String s : jsonCreepers.keySet()) {
+                recommendationCreeper.put(s,jsonCreepers.getString(s));
+            }
 
             jsonModules.forEach(jsonModule->{
                 modules.add(JSONObject.parseObject(jsonModule.toString(),HotModuleSetting.class));
@@ -107,27 +121,47 @@ public class HeatRecommendation extends GuardPlugin {
                             logger.error("[{}] cannot found {} {} hot lives",PluginName.HOT_RECOMMENDATION_PLUGIN,platform,moduleName);
                             break;
                         }
-                        //TODO 待完善 1，需要发送弹幕爬虫请求 2，callback更改
                         for (Live live : needRecommend(tempLives, followDog.getBanLiver(), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
                             this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()));
-//                            LoadLiveConfig loadLiveConfig = LiveLoadConfigFactory.buildLiveConfig(
-//                                    tempPlatform, live.getLiveId(), live.getLiver(),
-//                                    true, true);
-//
-////                            LoadBarrageConfig loadBarrageConfig = BarrageLoadConfigFactory.buildBarrageConfig(tempPlatform,
-////                                    live.getLiver(), live.getLiveId());
-//                            PluginCheckAndDo.CheckAndDo(
-//                                    plugin -> {
-//                                        ((TaskCenter)plugin).request(new ReptileRequest(loadLiveConfig,(t)->{
-//                                            System.out.println(String.format("%s 文件已保存", t));
-//                                        }));
-////                                        ((TaskCenter)plugin).request(new ReptileRequest(loadBarrageConfig,(t)->{
-////                                            System.out.println(String.format("%s 爬虫任务已结束", live.getLiver()));
-////                                        }));
-//                                    },
-//                                    PluginName.TASK_CENTER_PLUGIN
-//                            );
+                            String liveCreeper = tempPlatform+"_live";
+                            String barrageCreeper = tempPlatform+"_live_barrage";
+                            if (recommendationCreeper.containsKey(liveCreeper)) {
+                                PluginCheckAndDo.CheckAndDo(
+                                        taskCenter -> {
+                                            CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN,
+                                                    CreeperManager.class);
+                                            assert plugin != null;
+                                            LoadLiveConfig loadLiveConfig = plugin.buildLoadConfig(recommendationCreeper.get(liveCreeper),live);
+                                            if(loadLiveConfig!=null){
+                                                ((TaskCenter)taskCenter).request(new ReptileRequest(loadLiveConfig,(t)->{
+                                                    System.out.printf("%s 文件已保存%n", t);
+                                                }));
+                                            }else{
+                                                this.logger.error("[{}] {} fail found creeper shell，cannot recommend!",this.getPluginName(),liveCreeper);
+                                            }
+                                        },
+                                        PluginName.TASK_CENTER_PLUGIN
+                                );
+                            }
+                            if (recommendationCreeper.containsKey(barrageCreeper)) {
+                                PluginCheckAndDo.CheckAndDo(
+                                        taskCenter -> {
+                                            CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN,
+                                                    CreeperManager.class);
+                                            assert plugin != null;
+                                            LoadBarrageConfig loadBarrageConfig = plugin.buildLoadConfig(recommendationCreeper.get(barrageCreeper),live);
+                                            if(loadBarrageConfig!=null){
+                                                ((TaskCenter)taskCenter).request(new ReptileRequest(loadBarrageConfig,(t)->{
+                                                    System.out.printf("%s 文件已保存%n", t);
+                                                }));
+                                            }else{
+                                                this.logger.error("[{}] {} fail found creeper shell，cannot recommend!",this.getPluginName(),barrageCreeper);
+                                            }
+                                        },
+                                        PluginName.TASK_CENTER_PLUGIN
+                                );
+                            }
                         }
                     }
                 }
@@ -182,7 +216,4 @@ public class HeatRecommendation extends GuardPlugin {
         hotEventList.offer(platform);
     }
 
-    public static void main(String[] args) {
-        System.out.println(TypeUtils.isProxy(TaskRecord.class));
-    }
 }

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.bean.Barrage;
 import org.example.core.processor.AbstractProcessor;
+import org.example.util.TimeUtil;
 import us.codecraft.webmagic.Page;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
         if (isFirst) {
             isFirst = false;
             init(page);
-            return;
         }
         processOnePage(page);
     }
@@ -49,7 +49,7 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
     // 初始化
     public void init(Page page) {
         // 记录开始爬取时间
-        startTime = System.currentTimeMillis() / 1000;
+        startTime = System.currentTimeMillis();
         page.addTargetRequest(url + "&_=" + System.currentTimeMillis());
     }
 
@@ -71,11 +71,12 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
             JSONObject temp = (JSONObject) o;
             JSONObject check_info = temp.getJSONObject("check_info");
             // 唯一id
+            String timeLine = temp.getString("timeline");
             String mid = check_info.getString("ct");
 
             if (!processedMids.contains(mid)) { // 检查mid是否已经存在
                 // 真实时间戳
-                Long timeReal = check_info.getLong("ts");
+                Long timeReal = TimeUtil.getTimeNaos(timeLine);
                 // 相对时间戳
                 Long timeIndex = timeReal - startTime;
                 if (timeIndex < 0) timeIndex = 0L;

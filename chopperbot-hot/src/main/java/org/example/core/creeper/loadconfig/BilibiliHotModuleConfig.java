@@ -1,8 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
 import org.example.core.creeper.loadtask.BilibiliHotModuleLoadTask;
-import org.example.core.creeper.loadtask.DouyuHotLiveLoadTask;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.manager.Creeper;
 
 /**
  * @author Genius

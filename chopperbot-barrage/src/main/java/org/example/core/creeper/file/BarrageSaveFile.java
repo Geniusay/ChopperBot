@@ -3,6 +3,7 @@ package org.example.core.creeper.file;
 import com.alibaba.fastjson.JSONArray;
 import org.example.bean.Barrage;
 import org.example.bean.ConfigFile;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadconfig.LoadBarrageConfig;
 import org.example.exception.FileCacheException;
 import org.example.util.FileUtil;
@@ -15,6 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static org.example.constpool.BarrageModuleConstPool.BARRAGE_ROOT_PATH;
 
 /**
  * @author Genius
@@ -48,14 +51,16 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
     private boolean init(ConcurrentLinkedQueue<T> data) {
         String fileName = this.filaName();
         setFileName(fileName);
-        //String rootPath = Paths.get(BARRAGE_ROOT, "anchor",loadBarrageConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
-        String rootPath = Paths.get("./config/Barrage", "anchor",loadBarrageConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
+
+        String rootPath = Paths.get(BARRAGE_ROOT_PATH,
+                loadBarrageConfig.getPlatform(),
+                loadBarrageConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
+
         setFilePath(rootPath);
         Path path = Path.of(rootPath);
-        //TODO 待移除 建立主播文件夹
         try {
             if (!Files.exists(path)) {
-                Files.createDirectory(path);
+                Files.createDirectories(path);
             }
 
         } catch (IOException e) {
@@ -82,9 +87,10 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
     }
 
     private String filaName() {
-        String format = "%s_%s_%s_%s.json";
+        String format = "%s_%s_%s_%s_%s.json";
         return String.format(format,
                 loadBarrageConfig.getPlatform(),
+                loadBarrageConfig.getAction(),
                 loadBarrageConfig.getAnchorName(),
                 loadBarrageConfig.getAction(),
                 TimeUtil.getToday_YMD());

@@ -1,17 +1,19 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
-import org.example.bean.live.DouyuLive;
+import org.example.core.creeper.builder.DouyuLiveLoadConfigBuilder;
 import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
-import org.example.core.creeper.loadtask.DouyuRecordLoadTask;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.manager.Creeper;
 
 /**
  * @author Genius
  * @date 2023/07/28 23:17
  **/
 @Data
-@Creeper(creeperName = "douyu_live",loadTask = DouyuLiveOnlineLoadTask.class,creeperDescription = "斗鱼直播爬取")
+@Creeper(creeperName = "douyu_live",
+        loadTask = DouyuLiveOnlineLoadTask.class,
+        builder = DouyuLiveLoadConfigBuilder.class,
+        creeperDescription = "斗鱼直播爬取")
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);

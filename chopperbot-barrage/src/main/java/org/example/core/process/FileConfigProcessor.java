@@ -39,7 +39,7 @@ public class FileConfigProcessor {
     }
 
     public static void barrageFileLoadingProcessor(Map<String,List<Barrage>> barrageMap){
-        File file = new File(BarrageModuleConstPool.BARRAGE_FILE_PATH);
+        File file = new File(BarrageModuleConstPool.BARRAGE_ROOT_PATH);
         for (File listFile : Objects.requireNonNull(file.listFiles())) {
             if(!"barrageScoreConfig".equals(listFile.getName())){
                 for (File barrageFile : Objects.requireNonNull(listFile.listFiles())) {

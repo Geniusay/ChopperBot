@@ -1,9 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
-import org.example.core.VideoType;
 import org.example.core.creeper.loadtask.DouyuRecordLoadTask;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.manager.Creeper;
 
 /**
  * @author Genius

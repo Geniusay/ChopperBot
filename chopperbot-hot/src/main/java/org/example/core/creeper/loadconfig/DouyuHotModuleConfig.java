@@ -1,7 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
 import org.example.core.creeper.loadtask.DouyuHotModuleLoadTask;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.manager.Creeper;
 
 
 /**

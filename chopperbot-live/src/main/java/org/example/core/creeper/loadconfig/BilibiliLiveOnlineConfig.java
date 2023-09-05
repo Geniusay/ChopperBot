@@ -1,17 +1,19 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.core.creeper.builder.BiliBiliLiveLoadConfigBuilder;
 import org.example.core.creeper.loadtask.BilibiliLiveOnlineLoadTask;
-import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
-import org.example.core.creeper.loadtask.DouyuRecordLoadTask;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.manager.Creeper;
 
 /**
  * @author Genius
  * @date 2023/08/30 18:05
  **/
 @Data
-@Creeper(creeperName = "bilibili_live",loadTask = BilibiliLiveOnlineLoadTask.class,creeperDescription = "B站直播爬取")
+@Creeper(creeperName = "bilibili_live",
+        loadTask = BilibiliLiveOnlineLoadTask.class,
+        builder = BiliBiliLiveLoadConfigBuilder.class,
+        creeperDescription = "B站直播爬取")
 public class BilibiliLiveOnlineConfig extends LoadLiveConfig{
 
 

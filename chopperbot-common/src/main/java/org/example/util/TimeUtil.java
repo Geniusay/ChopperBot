@@ -1,5 +1,7 @@
 package org.example.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -51,6 +53,16 @@ public class TimeUtil {
      */
     public static String getNowTime_YMDHMS() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    public static long getTimeNaos(String date){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            return sdf.parse(date).getTime();
+        } catch (ParseException e) {
+            return 0;
+        }
     }
 
     public static String getHMS(Long seconds){

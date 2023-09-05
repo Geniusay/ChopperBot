@@ -82,7 +82,7 @@ public class BarrageFileMonitor extends GuardPlugin {
                     CreepBarrage creepBarrage = (CreepBarrage) res;
                     String fileName = creepBarrage.getRoomId()+creepBarrage.getAnchorName()+creepBarrage.getCreeperTime();
                     try {
-                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(BarrageModuleConstPool.BARRAGE_FILE_PATH+fileName+BarrageModuleConstPool.FILE_TYPE));
+                        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(BarrageModuleConstPool.BARRAGE_ROOT_PATH+fileName+BarrageModuleConstPool.FILE_TYPE));
                         barrageMap.put(fileName,creepBarrage.getBarrageList());
                         bufferedWriter.write(creepBarrage.getBarrageList().toString());
                         logger.info("[BarrageModule]: file write suc!");

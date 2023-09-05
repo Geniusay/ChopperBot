@@ -35,7 +35,15 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
                                 new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, new ArrayList<>(), false,
                                         List.of(allLiveDog()), OneDay, FiveMinute)
                         ),
-                        "GuardNum",10
+                        "GuardNum",10,
+                        "HeatRecommendation",Map.of(
+                                "recommendation_creeper",Map.of(
+                                        "douyu_live","douyu_live",
+                                        "douyu_live_barrage","douyu_live_barrage",
+                                        "bilibili_live","bilibili_live",
+                                        "bilibili_live_barrage","bilibili_live_barrage"
+                                )
+                        )
                 ));
     }
 

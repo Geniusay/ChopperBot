@@ -1,6 +1,9 @@
-package org.example.core.manager.annotation;
+package org.example.core.manager;
 
 import org.example.core.loadtask.LoadTask;
+import org.example.core.manager.CommonLoadConfigBuilder;
+import org.example.core.manager.CreeperManager;
+
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,5 +19,7 @@ public @interface Creeper {
     Class<? extends LoadTask> loadTask();
 
     String creeperDescription() default "该爬虫暂无介绍";       //插件介绍
+
+    Class<? extends CommonLoadConfigBuilder> builder() default CreeperManager.ValidLoadConfigBuilder.class;
 
 }

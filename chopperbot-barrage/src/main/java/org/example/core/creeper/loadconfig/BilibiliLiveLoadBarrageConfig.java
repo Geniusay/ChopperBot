@@ -2,8 +2,9 @@ package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
 import org.example.constpool.CreeperModuleConstPool;
-import org.example.core.creeper.loadtask.BilibiliBarrageLiveLoadTask;
-import org.example.core.manager.annotation.Creeper;
+import org.example.core.creeper.builder.BilibiliLiveBarrageLoadConfigBuilder;
+import org.example.core.creeper.loadtask.BilibiliLiveBarrageLoadTask;
+import org.example.core.manager.Creeper;
 
 /**
  * (B站直播)配置信息
@@ -11,7 +12,11 @@ import org.example.core.manager.annotation.Creeper;
  * @date 2023/4/23 17:59
 */
 @Data
-@Creeper(creeperName = "bilibili_live_barrage",loadTask = BilibiliBarrageLiveLoadTask.class,creeperDescription = "B站直播爬虫")
+@Creeper(creeperName = "bilibili_live_barrage",
+        loadTask = BilibiliLiveBarrageLoadTask.class,
+        builder = BilibiliLiveBarrageLoadConfigBuilder.class,
+        creeperDescription = "B站直播爬虫"
+)
 public class BilibiliLiveLoadBarrageConfig extends LoadBarrageConfig {
 
     // 房间号
