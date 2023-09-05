@@ -21,6 +21,20 @@
         <module name="chopperbot-section-work" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AccountModule" target="11" />
+      <module name="BarrageModule" target="11" />
+      <module name="common" target="11" />
+      <module name="console" target="11" />
+      <module name="CreeperModule" target="11" />
+      <module name="FileModule" target="11" />
+      <module name="HotModule" target="11" />
+      <module name="LiveRecordModule" target="11" />
+      <module name="PublishModule" target="11" />
+      <module name="SectionModule" target="9" />
+      <module name="SectionWorkModule" target="11" />
+      <module name="VideoSectionModule" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

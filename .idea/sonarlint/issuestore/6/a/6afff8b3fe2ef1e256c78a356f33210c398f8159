@@ -1,0 +1,26 @@
+
+J
+java:S3740?"/Provide the parametrized type for this generic.(ªÛªüøÿÿÿÿ
+J
+java:S3740K"/Provide the parametrized type for this generic.(˜Ä¦˜ûÿÿÿÿ
+E
+java:S3740Y"/Provide the parametrized type for this generic.(Û„ÊÑ
+J
+java:S3740q"/Provide the parametrized type for this generic.(ÝÞž®ÿÿÿÿÿ
+J
+java:S3740v"/Provide the parametrized type for this generic.(“¼Ì˜ûÿÿÿÿ
+ž
+java:S1319?"‚The type of "hotModuleLivePool" should be an interface such as "ConcurrentMap" rather than the implementation "ConcurrentHashMap".(ªÛªüøÿÿÿÿ
+x
+java:S1104?"]Make hotModuleLivePool a static final constant or non-public and provide accessors if needed.(ªÛªüøÿÿÿÿ
+¯
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(ä‘š´
+r
+java:S3077%"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(ª’Ã€ûÿÿÿÿ
+c	java:S100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘ßÿã
+<
+java:S1452U"&Remove usage of generic wildcard type.(Š´Âã
+<
+java:S1452Y"&Remove usage of generic wildcard type.(Û„ÊÑ
+H
+java:S1135]"2Complete the task associated to this TODO comment.(‡èüÙ
