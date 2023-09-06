@@ -2,12 +2,15 @@ package org.example.core.creeper.loadtask;
 
 import org.example.bean.barrage.DouyuBarrage;
 import org.example.constpool.ConstPool;
+import org.example.core.BarrageTaskMonitor;
 import org.example.core.creeper.loadconfig.DouyuRecordLoadBarrageConfig;
 import org.example.core.creeper.loadconfig.LoadBarrageConfig;
 import org.example.core.creeper.pipline.BarragePipelineWriteJson;
 import org.example.core.creeper.processor.DouyuBarrageRecordProcessor;
 import org.example.core.factory.SpiderFactory;
 import org.example.core.loadtask.ASyncLoadTask;
+import org.example.core.taskmonitor.Monitor;
+import org.example.util.ThreadUtil;
 import us.codecraft.webmagic.Spider;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
  * @author 燧枫
  * @date 2023/4/23 18:12
 */
+@Monitor(clazz = BarrageTaskMonitor.class)
 public class DouyuRecordBarrageLoadTask extends ASyncLoadTask<List<DouyuBarrage>> {
 
 
@@ -36,7 +40,7 @@ public class DouyuRecordBarrageLoadTask extends ASyncLoadTask<List<DouyuBarrage>
         );
         spider.addPipeline(barragePipelineWriteJson).start();
 
-        while (douyuBarrageRecordProcessor.isRunning()){
+        while (douyuBarrageRecordProcessor.isRunning()&&!ThreadUtil.isInterrupt()){
             barragePipelineWriteJson.writeDataToFileAndFlushCache("-1");
         }
         spider.stop();

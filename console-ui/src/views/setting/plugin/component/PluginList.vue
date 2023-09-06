@@ -68,7 +68,7 @@ const clickToggle = (plugin: Plugin) => {
       <transition-group name="fade">
         <div v-for="plugin in searchPlugin" :key="plugin.pluginName">
 
-          <div class="todo-item d-flex align-center pa-xl-16">
+          <div class="todo-item d-flex align-center" style="padding: 40px">
             <v-avatar size="40">
               <v-img
                 src="/src/assets/images/img/plugin.png"

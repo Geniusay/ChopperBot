@@ -14,4 +14,6 @@ import lombok.NoArgsConstructor;
 public class CreeperBean {
     private String name;
     private String description;
+    private String author;
+    private Boolean discard;
 }

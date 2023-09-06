@@ -5,7 +5,18 @@ export default [
     text: "Board",
     link: "/apps/board",
   },
-
+  {
+    icon:"mdi mdi-ladybug",
+    key:"menu.creeper_library",
+    text:"Creeper Library",
+    link: "/apps/creeperLibrary"
+  },
+  {
+    icon:"mdi mdi-account-hard-hat-outline",
+    key:"menu.task_center",
+    text:"Task Center",
+    link: "/apps/taskCenter"
+  },
   {
     icon: "mdi-forum-outline",
     key: "menu.chat",

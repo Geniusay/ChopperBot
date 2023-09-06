@@ -1,7 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
-import org.example.core.creeper.builder.DouyuLiveLoadConfigBuilder;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
 import org.example.core.manager.Creeper;
 
@@ -12,11 +12,11 @@ import org.example.core.manager.Creeper;
 @Data
 @Creeper(creeperName = "douyu_live",
         loadTask = DouyuLiveOnlineLoadTask.class,
-        builder = DouyuLiveLoadConfigBuilder.class,
         creeperDescription = "斗鱼直播爬取")
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);
+        this.platform = ConstPool.PLATFORM.DOUYU.getName();
         setHeader(clarity);
     }
     /**
@@ -25,11 +25,13 @@ public class DouyuLiveOnlineConfig extends LoadLiveConfig {
      */
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,boolean convertToMp4,int clarity) {
         super(roomId, videoPath, videoName, convertToMp4);
+        this.platform = ConstPool.PLATFORM.DOUYU.getName();
         setHeader(clarity);
     }
 
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,boolean convertToMp4) {
         super(roomId, videoPath, videoName, convertToMp4);
+        this.platform = ConstPool.PLATFORM.DOUYU.getName();
         setHeader(0);
 
 

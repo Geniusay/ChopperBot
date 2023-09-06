@@ -2,11 +2,16 @@ package org.example.core.creeper.pipline;
 
 import org.example.bean.Barrage;
 import org.example.cache.FileCache;
+import org.example.constpool.PluginName;
+import org.example.core.BarrageTaskMonitor;
 import org.example.core.creeper.file.BarrageSaveFile;
 import org.example.core.creeper.loadconfig.LoadBarrageConfig;
+import org.example.core.taskmonitor.CommonTaskMonitor;
+import org.example.core.taskmonitor.MonitorCenter;
 import org.example.exception.FileCacheException;
 import org.example.log.LoggerType;
 
+import org.example.plugin.PluginCheckAndDo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.ResultItems;
@@ -63,6 +68,15 @@ public class BarragePipelineWriteJson<T extends Barrage> implements Pipeline {
                 alreadyCount.getAndIncrement();
                 Collections.sort(barrageList);
                 cache.addAll(barrageList);
+
+                PluginCheckAndDo.CheckAndDo(
+                        (plugin)->{
+                            BarrageTaskMonitor monitor = ((MonitorCenter) plugin).getInitMonitor(loadBarrageConfig.getTaskId(), BarrageTaskMonitor.class);
+                            if(monitor!=null){
+                                monitor.addBarrage(barrageList.size());
+                            }
+                        }, PluginName.TASK_MONITOR_PLUGIN
+                );
             }
         }finally {
             alreadyCount.getAndDecrement();

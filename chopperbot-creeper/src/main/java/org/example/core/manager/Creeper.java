@@ -20,6 +20,8 @@ public @interface Creeper {
 
     String creeperDescription() default "该爬虫暂无介绍";       //插件介绍
 
-    Class<? extends CommonLoadConfigBuilder> builder() default CreeperManager.ValidLoadConfigBuilder.class;
+    String creeperAuthor() default "ChopperBot";
+
+    boolean discard() default false;
 
 }

@@ -23,6 +23,7 @@ import org.example.core.manager.CreeperManager;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.TaskRecord;
 import org.example.init.InitPluginRegister;
+import org.example.plugin.CommonPlugin;
 import org.example.plugin.GuardPlugin;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.plugin.PluginCheckAndDo;
@@ -38,17 +39,12 @@ import java.util.regex.Pattern;
  * 根据热门的直播以及看门狗设置来推荐热门直播间到系统
  */
 @Data
-public class HeatRecommendation extends GuardPlugin {
+public class HeatRecommendation extends CommonPlugin {
 
     private static final long serialVersionUID = 4749216808636623354L;
     private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
-    private BlockingQueue<String> hotEventList; //用于接收每一次的热榜更新信息，并进行跟风狗推送
-
     private Map<String,String> recommendationCreeper;
-    private static final String SHUTDOWN_SIGN = "shutdown";
-
-
 
     public HeatRecommendation(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
@@ -59,7 +55,6 @@ public class HeatRecommendation extends GuardPlugin {
         try {
             platformFollowDogMap = new ConcurrentHashMap<>();
             recommendationCreeper = new HashMap<>();
-            hotEventList = new ArrayBlockingQueue<>(1024);
 
             List<HotModuleSetting> modules = new ArrayList<>();
 
@@ -92,13 +87,12 @@ public class HeatRecommendation extends GuardPlugin {
         return super.init();
     }
 
-    @Override
-    public void start() {
+    public void sendHotEvent(String platform){
+        handleEvent(platform);
+    }
+
+    public void handleEvent(String platform){
         try {
-            String platform = hotEventList.poll(5,TimeUnit.MILLISECONDS);
-            if(SHUTDOWN_SIGN.equals(platform)){
-                return;
-            }
             if(platform!=null){
                 List<FollowDog> followDogList;
                 logger.info("[{}] {} Hotspot event detected.",platform, PluginName.HOT_RECOMMENDATION_PLUGIN);
@@ -174,9 +168,6 @@ public class HeatRecommendation extends GuardPlugin {
     @Override
     public void shutdown() {
         super.shutdown();
-        if(hotEventList.isEmpty()){
-            hotEventList.offer(SHUTDOWN_SIGN);
-        }
     }
 
     /**
@@ -212,8 +203,6 @@ public class HeatRecommendation extends GuardPlugin {
         return false;
     }
 
-    public void sendHotEvent(String platform){
-        hotEventList.offer(platform);
-    }
+
 
 }

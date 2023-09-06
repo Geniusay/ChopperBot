@@ -86,11 +86,5 @@ public class DouyuRecordListLoadTask extends CommonLoadTask<RecordList> {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println(new DouyuRecordListLoadTask(
-                new DouyuRecordListLoadConfig(1,
-                        "1VwKmGb5XA4l"
-                        ,LocalDate.parse("2023-08-20"))).start());
-    }
 
 }

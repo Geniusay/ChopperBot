@@ -47,11 +47,4 @@ public class DouyuRecordLoadTask extends CommonLoadTask<String> {
 
     }
 
-    public static void main(String[] args) {
-        DouyuRecordConfig config = new DouyuRecordConfig(
-                "E:\\Project\\ChopperBot\\config\\LiveRecord\\",
-                "test.mp4", "wLjGvLxr8yPvmO90", 60 * 10
-        );
-        Object start = new DouyuRecordLoadTask(config).start();
-    }
 }

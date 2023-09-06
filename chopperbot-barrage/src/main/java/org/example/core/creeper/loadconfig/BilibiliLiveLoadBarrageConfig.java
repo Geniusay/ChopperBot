@@ -14,7 +14,6 @@ import org.example.core.manager.Creeper;
 @Data
 @Creeper(creeperName = "bilibili_live_barrage",
         loadTask = BilibiliLiveBarrageLoadTask.class,
-        builder = BilibiliLiveBarrageLoadConfigBuilder.class,
         creeperDescription = "B站直播爬虫"
 )
 public class BilibiliLiveLoadBarrageConfig extends LoadBarrageConfig {

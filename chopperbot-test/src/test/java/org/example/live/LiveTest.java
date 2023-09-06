@@ -26,7 +26,6 @@ public class LiveTest {
         try {
             // 向任务管理器中添加任务
             String taskId = liveDownLoadManager.addTask(douyuLiveConfig);  // 获取任务的标识符
-            liveDownLoadManager.showDownloadTable(taskId);
             int cnt = 100;
             while (cnt > 0) {
                 cnt--;
@@ -49,7 +48,6 @@ public class LiveTest {
         try {
             // 向任务管理器中添加任务
             String taskId = liveDownLoadManager.addTask(liveConfig);  // 获取任务的标识符
-            liveDownLoadManager.showDownloadTable(taskId);
             int cnt = 600;
             while (cnt > 0) {
                 cnt--;

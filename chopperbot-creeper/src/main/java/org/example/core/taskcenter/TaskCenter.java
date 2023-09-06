@@ -2,6 +2,7 @@ package org.example.core.taskcenter;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.Data;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperConfigFile;
@@ -13,6 +14,8 @@ import org.example.core.manager.CreeperManager;
 import org.example.core.manager.Creeper;
 import org.example.core.taskcenter.task.TaskRecord;
 import org.example.core.taskcenter.task.TaskStatus;
+import org.example.core.taskmonitor.MonitorCenter;
+import org.example.core.taskmonitor.TaskMonitor;
 import org.example.exception.FileCacheException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
@@ -22,6 +25,7 @@ import org.example.core.taskcenter.task.ReptileTask;
 import org.example.plugin.PluginCheckAndDo;
 import org.example.core.loadconfig.LoadConfig;
 import org.example.util.ConfigFileUtil;
+import org.example.util.TimeUtil;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -38,6 +42,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 2，记录正在运行的爬虫任务
  * 3，未完成的爬虫任务修复
  */
+@Data
 public class TaskCenter extends GuardPlugin {
 
     private long waitingQueueTime;  //等待队列时间
@@ -46,10 +51,11 @@ public class TaskCenter extends GuardPlugin {
 
     private Map<String, ReptileTask> runningTask;   //正在运行的任务
 
+    private Map<String,Future> runningTaskFuture;
+
     private BlockingQueue<ReptileTask> waitingTask; //正在等待运行的任务
 
     private Map<String,TaskRecord> recordMap;
-
 
 
     private ExecutorService taskPool;               //任务池子
@@ -72,6 +78,7 @@ public class TaskCenter extends GuardPlugin {
             TaskCenterConfig taskCenterConfig = JSONObject.parseObject(obj.toString(), TaskCenterConfig.class);
             this.threads =  taskCenterConfig.getThreads();
             this.runningTask = new ConcurrentHashMap<>();
+            this.runningTaskFuture = new ConcurrentHashMap<>();
             this.waitingTask = new ArrayBlockingQueue<>(taskCenterConfig.getQueueCapacity());
             this.taskPool = Executors.newFixedThreadPool(threads);
             this.waitingQueueTime =  taskCenterConfig.getWaitingTime();
@@ -89,41 +96,48 @@ public class TaskCenter extends GuardPlugin {
         try {
             ReptileTask task = waitingTask.poll(waitingQueueTime,TimeUnit.MILLISECONDS);
             if(task!=null){
-                runningTask.put(task.getTaskId(),task);
-                changeTaskType(task, TaskStatus.Running);
+                if(runningTask.containsKey(task.getTaskId())) return;
                 try {
                     lock.lock();
+                    if(runningTask.containsKey(task.getTaskId())) return;
+                    runningTask.put(task.getTaskId(),task);
+                    changeTaskType(task, TaskStatus.Running);
                     checkAndUpdateLogFile();
 
                     creeperLogFileCache.writeSyncFlag();
                 } finally {
                    lock.unlock();
                 }
-                taskPool.submit(task::reptile);
+
+                PluginCheckAndDo.CheckAndDo((plugin)->{
+                    ((MonitorCenter)plugin).register(task.getTaskId(), task.getLoadTask());
+                },PluginName.TASK_MONITOR_PLUGIN);
+
+                runningTaskFuture.put(task.getTaskId(),taskPool.submit(task::reptile));
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-
-
     public boolean addTask(ReptileTask task){
-        if(recordMap.containsKey(task.getTaskId())) return false;
+        if(runningTask.containsKey(task.getTaskId())) return false;
         try {
             lock.lock();
-                if(recordMap.containsKey(task.getTaskId())) return false;
-
-                TaskRecord taskRecord = new TaskRecord(task);
-                recordMap.put(task.getTaskId(),taskRecord);
-                changeTaskType(task, TaskStatus.Already);
-                checkAndUpdateLogFile();
-            try {
-                creeperLogFileCache.append(taskRecord,"task","-1");
-            } catch (FileCacheException e) {
-                return false;
-            }
-            return waitingTask.offer(task,waitingQueueTime,TimeUnit.MILLISECONDS);
+                if(runningTask.containsKey(task.getTaskId())) return false;
+                if (waitingTask.offer(task,waitingQueueTime, TimeUnit.MILLISECONDS)) {
+                    TaskRecord taskRecord = new TaskRecord(task);
+                    recordMap.put(task.getTaskId(),taskRecord);
+                    try {
+                        creeperLogFileCache.append(taskRecord,"task","-1");
+                    } catch (FileCacheException e) {
+                        return false;
+                    }
+                    changeTaskType(task, TaskStatus.Already);
+                    checkAndUpdateLogFile();
+                }else{
+                    return false;
+                }
         }catch (Exception e){
             //TODO 待完善错误处理
             ChopperLogFactory.getLogger(LoggerType.Creeper).error("[TaskCenter] Error {} cant serializable",task.getTaskId());
@@ -131,11 +145,13 @@ public class TaskCenter extends GuardPlugin {
         }finally {
             lock.unlock();
         }
+        return true;
     }
 
     public boolean finishTask(String taskId){
         ReptileTask reptileTask;
-        if ((reptileTask=runningTask.remove(taskId))!=null) {
+        if ((runningTaskFuture.remove(taskId)!=null)&
+                (reptileTask=runningTask.remove(taskId))!=null) {
             changeTaskType(reptileTask, TaskStatus.Finish);
             try {
                 //查看是不是需要更新日志
@@ -145,11 +161,36 @@ public class TaskCenter extends GuardPlugin {
             }catch (Exception e){
                 return false;
             }finally {
+                PluginCheckAndDo.CheckAndDo((plugin)->{
+                    ((MonitorCenter)plugin).close(reptileTask.getTaskId());
+                },PluginName.TASK_MONITOR_PLUGIN);
                 lock.unlock();
             }
-
         }
         return false;
+    }
+
+    public boolean stopTask(String taskId){
+        Future future;
+        if((future=runningTaskFuture.remove(taskId))!=null){
+            ReptileTask reptileTask = runningTask.remove(taskId);
+            reptileTask.end();
+            future.cancel(true);
+            changeTaskType(reptileTask,TaskStatus.Finish);
+            reptileTask.setEndTime(TimeUtil.getNowTime_YMDHMS());
+            recordMap.get(taskId).setEndTime(reptileTask.getEndTime());
+            try {
+                lock.lock();
+                checkAndUpdateLogFile();
+                creeperLogFileCache.writeSyncFlag();
+            }catch (Exception e){
+                return false;
+            }finally {
+                lock.unlock();
+            }
+        }
+        this.info(String.format("%s stop success!", taskId));
+        return true;
     }
 
     /**

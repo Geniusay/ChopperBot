@@ -9,5 +9,6 @@ import org.example.core.loadtask.LoadTask;
  **/
 public interface LoadConfigBuilder<T extends LoadConfig> {
 
+     String getName();
      T build(Object obj);
 }

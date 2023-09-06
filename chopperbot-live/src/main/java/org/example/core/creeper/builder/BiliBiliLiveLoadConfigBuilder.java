@@ -7,12 +7,19 @@ import org.example.core.creeper.loadconfig.BilibiliLiveOnlineConfig;
 import org.example.core.creeper.loadconfig.LoadLiveConfig;
 import org.example.core.manager.CommonLoadConfigBuilder;
 import org.example.pool.LiveModuleConstPool;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Genius
  * @date 2023/09/05 19:18
  **/
+@Component
 public class BiliBiliLiveLoadConfigBuilder extends CommonLoadConfigBuilder<BilibiliLiveOnlineConfig> {
+    @Override
+    public String getName() {
+        return "bilibili_live";
+    }
+
     @Override
     public BilibiliLiveOnlineConfig build(Object obj) {
         if(obj instanceof BiliBiliLive){
@@ -22,6 +29,7 @@ public class BiliBiliLiveLoadConfigBuilder extends CommonLoadConfigBuilder<Bilib
             BilibiliLiveOnlineConfig bilibiliLiveOnlineConfig = new BilibiliLiveOnlineConfig(liveId, path, LoadLiveConfig.fileName(liveId, liver), true);
             bilibiliLiveOnlineConfig.setShowDownloadTable(true);
             bilibiliLiveOnlineConfig.setLiverName(liver);
+            bilibiliLiveOnlineConfig.setRoomName(((BiliBiliLive) obj).getLiveName());
             return bilibiliLiveOnlineConfig;
         }
         return null;

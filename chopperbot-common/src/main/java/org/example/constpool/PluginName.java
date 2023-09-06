@@ -20,6 +20,8 @@ public class PluginName {
     public static final String CREEPER_MANAGER_PLUGIN = "CreeperManager";
     public static final String TASK_CENTER_PLUGIN = "TaskCenter";
 
+    public static final String TASK_MONITOR_PLUGIN = "TaskMonitor";
+
     //Hot
     public static final String HOT_CONFIG_PLUGIN = "HotConfig";
     public static final String HOT_GUARD_PLUGIN = "HotGuard";

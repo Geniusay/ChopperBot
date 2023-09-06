@@ -9,6 +9,8 @@ import org.example.core.taskcenter.task.serializer.TaskStatusEnumDeserializer;
 import org.example.core.taskcenter.task.serializer.TaskStatusEnumSerializer;
 import org.example.init.InitPluginRegister;
 import org.example.core.taskcenter.request.ReptileRequest;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.util.TimeUtil;
 
 import java.io.Serializable;
@@ -44,18 +46,29 @@ public class ReptileTask implements Serializable {
     }
 
     public void reptile(){
+        TaskCenter plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN,TaskCenter.class);
+        assert plugin != null;
         //开始任务
         this.startTime = TimeUtil.getNowTime_YMDHMS();
+        plugin.getRecordMap().get(taskId).setStartTime(this.startTime);
         this.type = TaskStatus.Running;
-        Object res = loadTask.start();
 
+        try {
+            Object res = loadTask.start();
+            request.response(res); //让请求响应结果
+        }catch (Exception e){
+            ChopperLogFactory.getLogger(LoggerType.Creeper).info("[{}] {} stop, Error{}",
+                    PluginName.TASK_CENTER_PLUGIN,taskId,e.getMessage());
+        }
         //完成任务
-        request.response(res); //让请求响应结果
-        TaskCenter plugin = (TaskCenter) InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN);
         plugin.finishTask(taskId);
         this.type = TaskStatus.Finish;
         this.endTime = TimeUtil.getNowTime_YMDHMS();
+        plugin.getRecordMap().get(taskId).setStartTime(this.endTime);
     }
 
+    public void end(){
+        loadTask.end();
+    }
 
 }

@@ -14,6 +14,7 @@
 			"HotGuard":true,
 			"FileCacheManager":true,
 			"CreeperManager":true,
+			"TaskMonitor":true,
 			"HotConfig":true,
 			"BarrageFileListen":false,
 			"TaskCenter":true,
@@ -23,5 +24,5 @@
 			"HotRecommendation":true
 		}
 	},
-	"updateTime":"2023-09-05 20:52:21"
+	"updateTime":"2023-09-07 03:14:39"
 }

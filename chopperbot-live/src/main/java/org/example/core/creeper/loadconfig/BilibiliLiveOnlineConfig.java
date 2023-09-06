@@ -1,6 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.builder.BiliBiliLiveLoadConfigBuilder;
 import org.example.core.creeper.loadtask.BilibiliLiveOnlineLoadTask;
 import org.example.core.manager.Creeper;
@@ -12,7 +13,6 @@ import org.example.core.manager.Creeper;
 @Data
 @Creeper(creeperName = "bilibili_live",
         loadTask = BilibiliLiveOnlineLoadTask.class,
-        builder = BiliBiliLiveLoadConfigBuilder.class,
         creeperDescription = "B站直播爬取")
 public class BilibiliLiveOnlineConfig extends LoadLiveConfig{
 
@@ -20,12 +20,14 @@ public class BilibiliLiveOnlineConfig extends LoadLiveConfig{
     public BilibiliLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);
         this.clarity = clarity;
+        this.platform = ConstPool.PLATFORM.BILIBILI.getName();
         setHeader();
     }
 
     public BilibiliLiveOnlineConfig(String roomId, String videoPath, String videoName,boolean convertToMp4) {
         super(roomId, videoPath, videoName, convertToMp4);
         this.clarity = 4000;
+        this.platform = ConstPool.PLATFORM.BILIBILI.getName();
         setHeader();
     }
 
@@ -34,5 +36,6 @@ public class BilibiliLiveOnlineConfig extends LoadLiveConfig{
         this.Origin = "https://live.bilibili.com";
         this.Referer = "https://live.bilibili.com/";
     }
+
 
 }

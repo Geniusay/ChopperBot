@@ -64,7 +64,7 @@ public class HotModuleGuard extends CommonPlugin {
                     if (plugin.hasLoadTask(creeperName)) {
                         HotModuleLoadTask loadTask = plugin.getLoadTask(creeperName);
                         guards.add(new Guard(ChopperLogFactory.getLogger(type),loadTask.getClass().getName(),loadTask,
-                                hotModuleSetting.getUpdateHotModuleTimes(),hotModuleSetting.getFailRetryTimes()));
+                                hotModuleSetting.getUpdateHotLivesTimes(),hotModuleSetting.getFailRetryTimes()));
                     }
                 }
             }
@@ -72,7 +72,7 @@ public class HotModuleGuard extends CommonPlugin {
             this.guards = guards;
             this.hotModuleGuardPool =  Executors.newScheduledThreadPool(guardNum, new NamedThreadFactory("HotModuleGuard"));
             runningGuards = new ConcurrentHashMap<>();
-            start();
+
         }catch (Exception e){
             return false;
         }
@@ -148,4 +148,8 @@ public class HotModuleGuard extends CommonPlugin {
         return false;
     }
 
+    @Override
+    public void afterInit() {
+        start();
+    }
 }

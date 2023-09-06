@@ -2,6 +2,7 @@ package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
 import org.example.core.loadconfig.LoadConfig;
+import org.example.util.TimeUtil;
 
 import java.nio.file.Path;
 
@@ -21,5 +22,10 @@ public abstract class LoadRecordConfig extends LoadVideoConfig {
 
     public String getRecordPath(){
         return Path.of(videoPath,videoName).toString();
+    }
+
+    @Override
+    public String getTaskId() {
+        return "live_record_"+platform+"_"+videoName+"_"+ TimeUtil.getToday_YMD();
     }
 }

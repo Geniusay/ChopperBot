@@ -11,12 +11,14 @@ import org.example.core.loadconfig.LoadConfig;
 public abstract class LoadVideoConfig extends LoadConfig {
     protected String videoPath;
 
+    protected String platform;
     // 视频保存名称
     protected String videoName;
 
     protected int clarity;
 
     public LoadVideoConfig(String videoPath, String videoName) {
+        super();
         this.videoPath = videoPath;
         this.videoName = videoName;
     }

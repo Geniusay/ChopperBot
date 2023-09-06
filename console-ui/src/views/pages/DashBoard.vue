@@ -65,7 +65,7 @@ import TaskCard from "@/components/dashboard/ChartCard.vue";
       <v-col cols="12" xl="6">
         <!-- Target Card-->
         <v-card class="card-shadow" height="420"
-          ><todo-card></todo-card
+          ><task-card></task-card
         ></v-card>
       </v-col>
       <v-col cols="12" xl="6">

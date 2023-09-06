@@ -1,7 +1,6 @@
 package org.example.core.manager;
 
 import org.example.core.component.LiveStreamTask;
-import org.example.core.component.StatusMonitor;
 import org.example.core.creeper.loadconfig.LoadLiveConfig;
 import org.example.core.factory.LiveTaskFactory;
 import org.example.plugin.CommonPlugin;
@@ -33,7 +32,6 @@ public class LiveDownloadManager extends CommonPlugin {
     private Map<String, Future<?>> futures;
     private Map<String, LiveStreamTask> tasks;
     private LiveTaskFactory taskFactory;
-    private Map<String, StatusMonitor> statusMonitors;
 
     public LiveDownloadManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
@@ -46,7 +44,6 @@ public class LiveDownloadManager extends CommonPlugin {
         this.futures = new HashMap<>();
         this.tasks = new HashMap<>();
         this.taskFactory = new LiveTaskFactory();
-        this.statusMonitors = new HashMap<>();
     }
 
     @Override
@@ -57,7 +54,6 @@ public class LiveDownloadManager extends CommonPlugin {
         this.futures = new HashMap<>();
         this.tasks = new HashMap<>();
         this.taskFactory = new LiveTaskFactory();
-        this.statusMonitors = new HashMap<>();
         return true;
     }
 
@@ -69,15 +65,13 @@ public class LiveDownloadManager extends CommonPlugin {
             throw new IllegalArgumentException("Unable to create task for live config: " + liveConfig);
         }
 
-        StatusMonitor statusMonitor = new StatusMonitor();
-        String taskId = System.currentTimeMillis() + liveConfig.getRoomId();  // 创建唯一的任务标识符
-        statusMonitors.put(taskId, statusMonitor);
+        String taskId = liveConfig.getTaskId();  // 创建唯一的任务标识符
         tasks.put(taskId, task);
 
         OutputStream fileIO = new FileOutputStream(Path.of(liveConfig.getVideoPath(),liveConfig.getVideoName() + ".flv").toString());
 
         Future<?> future = executor.submit(() -> {
-            task.start(statusMonitor, fileIO);
+            task.start(taskId, fileIO);
         });
         futures.put(taskId, future);
 
@@ -93,17 +87,23 @@ public class LiveDownloadManager extends CommonPlugin {
         return new ArrayList<>(tasks.keySet());
     }
 
-    public Object waitResult(String taskId,LoadLiveConfig liveConfig) throws ExecutionException, InterruptedException {
+    public Object waitResult(String taskId,LoadLiveConfig liveConfig) {
         Future<?> future = futures.get(taskId);
         if(future!=null){
-            future.get();
+            try{
+                future.get();
+            }catch (InterruptedException e){
+                future.cancel(true);
+                return terminateThenSave(liveConfig,taskId);
+            }catch (ExecutionException e){
+                return null;
+            }
             return terminateThenSave(liveConfig,taskId);
         }
         return null;
     }
     public void removeTask(String taskId) {
         pauseTask(taskId);
-        statusMonitors.remove(taskId);
         tasks.remove(taskId);
         futures.remove(taskId);
     }
@@ -129,36 +129,6 @@ public class LiveDownloadManager extends CommonPlugin {
         return path;
     }
 
-    private StatusMonitor getStatusMonitor(String taskId) {
-        return statusMonitors.get(taskId);
-    }
-
-    public boolean isConnectionClosed(String taskId) {
-        StatusMonitor statusMonitor = getStatusMonitor(taskId);
-        return statusMonitor == null || statusMonitor.isConnectionClosed();
-    }
-
-    public double getDownloadSpeedAvg(String taskId) {
-        StatusMonitor statusMonitor = getStatusMonitor(taskId);
-        return statusMonitor == null ? 0.0 : statusMonitor.getDownloadSpeedAvg();
-    }
-
-    public double getDownloadSpeed(String taskId) {
-        StatusMonitor statusMonitor = getStatusMonitor(taskId);
-        return statusMonitor == null ? 0.0 : statusMonitor.getDownloadSpeed();
-    }
-
-    public long getDownloadedBytes(String taskId) {
-        StatusMonitor statusMonitor = getStatusMonitor(taskId);
-        return statusMonitor == null ? 0L : statusMonitor.getDownloadedBytes();
-    }
-
-    public void showDownloadTable(String taskId){
-        StatusMonitor statusMonitor = getStatusMonitor(taskId);
-        logExecutor.submit(()->{
-            statusMonitor.downloadLogTable(taskId);
-        });
-    }
 
     @Override
     public void shutdown() {

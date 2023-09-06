@@ -15,8 +15,8 @@ public abstract class LoadLiveConfig extends LoadVideoConfig {
     // 房间号
     protected String roomId;
 
+    protected String roomName;
     protected String liverName;
-
 
     // 是否自动转换为mp4格式
     protected boolean convertToMp4;
@@ -40,5 +40,10 @@ public abstract class LoadLiveConfig extends LoadVideoConfig {
 
     public static String fileName(String roomId,String liver){
         return String.format("%s_%s_%s",liver,roomId, TimeUtil.getToday_YMD() );
+    }
+
+    @Override
+    public String getTaskId() {
+        return "live_online_"+platform+"_"+liverName+"_"+TimeUtil.getToday_YMD();
     }
 }

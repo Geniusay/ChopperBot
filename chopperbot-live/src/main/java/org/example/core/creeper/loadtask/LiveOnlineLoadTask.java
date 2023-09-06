@@ -8,6 +8,8 @@ import org.example.core.manager.LiveDownloadManager;
 import org.example.plugin.PluginCheckAndDo;
 import org.slf4j.Logger;
 
+import java.io.FileNotFoundException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -26,13 +28,11 @@ public abstract class LiveOnlineLoadTask extends CommonLoadTask<String> {
         PluginCheckAndDo.CheckAndDo(
                 (plugin) -> {
                     try {
-                        String taskId = ((LiveDownloadManager) plugin).addTask(loadLiveConfig);
+                        String taskId = ((LiveDownloadManager) plugin). addTask(loadLiveConfig);
                         logger.info("正在爬取{}的直播内容....",loadLiveConfig.getLiverName());
-                        if(loadLiveConfig.isShowDownloadTable()){
-                            ((LiveDownloadManager) plugin).showDownloadTable(taskId);
-                        }
                         res.set((String) ((LiveDownloadManager) plugin).waitResult(taskId, loadLiveConfig));
-                    }catch (Exception e){
+
+                    } catch (FileNotFoundException e) {
                         logger.info("爬取{}的直播内容失败!",loadLiveConfig.getLiverName());
                         res.set("");
                     }

@@ -1,12 +1,15 @@
 package org.example.core.creeper.loadconfig;
 
+import lombok.Data;
 import org.example.core.loadconfig.LoadConfig;
+import org.example.util.TimeUtil;
 
 /**
  * 单次弹幕爬取信息配置基类
  * @author 燧枫
  * @date 2023/4/23 16:03
 */
+@Data
 public class LoadBarrageConfig extends LoadConfig {
 
     // 爬取的平台
@@ -19,33 +22,14 @@ public class LoadBarrageConfig extends LoadConfig {
     protected String anchorName;
 
     public LoadBarrageConfig(String platform, String action, String anchorName) {
+        super();
         this.platform = platform;
         this.action = action;
         this.anchorName = anchorName;
     }
 
-    public String getPlatform() {
-        return platform;
+    @Override
+    public String getTaskId() {
+        return action+"_barrage_"+platform+"_"+anchorName+"_"+TimeUtil.getToday_YMD();
     }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getAnchorName() {
-        return anchorName;
-    }
-
-    public void setAnchorName(String anchorName) {
-        this.anchorName = anchorName;
-    }
-
 }

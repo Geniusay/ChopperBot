@@ -1,6 +1,14 @@
 package org.example.core.component;
 
+import org.example.constpool.PluginName;
+import org.example.core.VideoTaskMonitor;
+import org.example.core.taskmonitor.CommonTaskMonitor;
+import org.example.core.taskmonitor.MonitorCenter;
+import org.example.plugin.PluginCheckAndDo;
+import org.example.util.ThreadUtil;
+
 import java.io.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Flv流下载器
@@ -13,9 +21,9 @@ public class FlvHandle {
     private static final int BUFFER_SIZE = 64 * 1024;  // 64 KB buffer
     private volatile boolean shouldTerminate = false;
 
-    public void parseStream(InputStream in, StatusMonitor statusMonitor, OutputStream out) {
+    public void parseStream(InputStream in, String taskId, OutputStream out) {
         int retryCount = 0;
-        while (retryCount < RETRY_TIMES && !shouldTerminate) {
+        while (retryCount < RETRY_TIMES && !shouldTerminate && !ThreadUtil.isInterrupt()) {
             try (BufferedInputStream input = new BufferedInputStream(in);
                  BufferedOutputStream output = new BufferedOutputStream(out)) {
                 byte[] buffer = new byte[BUFFER_SIZE];
@@ -25,7 +33,13 @@ public class FlvHandle {
                         break;
                     }
                     output.write(buffer, 0, bytesRead);
-                    statusMonitor.addDownloadedBytes(bytesRead);
+                    int finalBytesRead = bytesRead;
+                    PluginCheckAndDo.CheckAndDo((plugin)->{
+                        VideoTaskMonitor monitor = ((MonitorCenter) plugin).getInitMonitor(taskId, VideoTaskMonitor.class);
+                        if(monitor!=null){
+                            monitor.addDownloadedBytes(finalBytesRead);
+                        }
+                    }, PluginName.TASK_MONITOR_PLUGIN);
                 }
             } catch (IOException e) {
                 retryCount++;
@@ -36,7 +50,6 @@ public class FlvHandle {
                         Thread.currentThread().interrupt();
                     }
                 } else {
-                    statusMonitor.setConnectionClosed(true);
                     e.printStackTrace();
                 }
             }finally {

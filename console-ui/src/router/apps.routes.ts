@@ -2,6 +2,7 @@ import unsplashRoutes from "@/views/app/unsplash/UnsplashRoutes";
 import todoRoutes from "@/views/app/todo/todoRoutes";
 import emailRoutes from "@/views/app/email/emailRoutes";
 import chatRoutes from "@/views/app/chat/chatRoutes";
+import taskRoutes from "@/views/app/taskcenter/taskRoutes";
 
 export default [
   {
@@ -14,6 +15,35 @@ export default [
     meta: {
       requiresAuth: true,
       title: "Board",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
+    path: "/apps/creeperLibrary",
+    name: "app-creeper-library",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/creeper/CreeperPage.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "CreeperLibrary",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
+    path: "/apps/taskCenter",
+    name: "app-task-center",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/taskcenter/TaskCenterApp.vue"
+        ),
+    children: [...taskRoutes],
+    meta: {
+      requiresAuth: true,
+      title: "Task Center",
       layout: "ui",
       category: "APP",
     },

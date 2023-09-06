@@ -251,7 +251,7 @@ public class FileCache <T extends ConfigFile>{
         try {
             syncChannel.put(temp);
         } catch (InterruptedException e) {
-            logger.error("自动刷入失败");
+            logger.error("自动刷入失败,Error:{}",e.getMessage());
         }
     }
 

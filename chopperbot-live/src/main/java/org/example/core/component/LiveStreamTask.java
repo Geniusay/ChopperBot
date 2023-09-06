@@ -1,7 +1,6 @@
 package org.example.core.component;
 
 import lombok.Data;
-import org.example.core.component.StatusMonitor;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -22,7 +21,7 @@ public class LiveStreamTask {
     private Map<String, String> headers;
     private FlvHandle f = new FlvHandle();
 
-    public void start(StatusMonitor statusMonitor, OutputStream fileIO) {
+    public void start(String taskId, OutputStream fileIO) {
         try {
             URLConnection conn = new URL(this.url).openConnection();
             if (this.headers != null) {
@@ -31,7 +30,7 @@ public class LiveStreamTask {
                 }
             }
             try (InputStream in = conn.getInputStream()) {
-                f.parseStream(in, statusMonitor, fileIO);
+                f.parseStream(in, taskId, fileIO);
             }
         } catch (Exception e) {
             e.printStackTrace();

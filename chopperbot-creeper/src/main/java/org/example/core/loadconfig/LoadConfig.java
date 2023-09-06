@@ -1,5 +1,6 @@
 package org.example.core.loadconfig;
 
+import org.example.util.TimeUtil;
 import org.example.utils.FormatUtil;
 
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public abstract class LoadConfig implements Serializable {
     protected Map<String,String> cookie;
 
     public LoadConfig() {
-        this.startTime = FormatUtil.getNowDate();
+        this.startTime = TimeUtil.getNowTime_YMDHMS();
     }
 
     public String getStartTime() {

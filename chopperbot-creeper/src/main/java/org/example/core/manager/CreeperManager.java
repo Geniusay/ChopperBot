@@ -20,14 +20,12 @@ public class CreeperManager extends CommonPlugin {
 
     private ConcurrentHashMap<String,Class<? extends LoadConfig>> nameToLoadTaskMapping;
 
-    private Map<String,CommonLoadConfigBuilder> loadConfigBuilder;
 
     private ArrayList<CreeperBean> creeperBeans;
 
     public CreeperManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
         nameToLoadTaskMapping = new ConcurrentHashMap<>();
-        loadConfigBuilder = new HashMap<>();
         creeperBeans = new ArrayList<>();
     }
 
@@ -38,18 +36,12 @@ public class CreeperManager extends CommonPlugin {
             Creeper annotation = creeper.getAnnotation(Creeper.class);
             String name = annotation.creeperName();
             String description = annotation.creeperDescription();
-            Class<? extends CommonLoadConfigBuilder> builder = annotation.builder();
-            try {
-                if(!builder.getName().equals(ValidLoadConfigBuilder.class.getName())){
-                    CommonLoadConfigBuilder<? extends LoadConfig> commonLoadConfigBuilder = builder.getDeclaredConstructor().newInstance();
-                    loadConfigBuilder.put(name,commonLoadConfigBuilder);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            boolean discard = annotation.discard();
+            String author = annotation.creeperAuthor();
+
             nameToLoadTaskMapping.put(name, (Class<? extends LoadConfig>) creeper);
 
-            creeperBeans.add(new CreeperBean(name,description));
+            creeperBeans.add(new CreeperBean(name,description,author,discard));
         }
         return true;
     }
@@ -78,11 +70,7 @@ public class CreeperManager extends CommonPlugin {
     }
 
     public <T extends LoadConfig> T buildLoadConfig(String name,Object param){
-        if(loadConfigBuilder.containsKey(name)) {
-            CommonLoadConfigBuilder commonLoadConfigBuilder = loadConfigBuilder.get(name);
-            return (T) commonLoadConfigBuilder.build(param);
-        }
-        return null;
+        return CreeperBuilder.buildLoadConfig(name, param);
     }
 
     public <T extends LoadTask> T getLoadTask(String name,Object param){
@@ -105,13 +93,5 @@ public class CreeperManager extends CommonPlugin {
         return creeperBeans;
     }
 
-    protected class ValidLoadConfigBuilder extends CommonLoadConfigBuilder<LoadConfig>{
-
-        @Override
-        public LoadConfig build(Object obj) {
-            return null;
-        }
-
-    }
 
 }

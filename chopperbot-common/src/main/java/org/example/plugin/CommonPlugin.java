@@ -78,4 +78,7 @@ public abstract class CommonPlugin implements ChopperBotPlugin{
     public void info(String msg){
         logger.info("["+pluginName+"] {}",msg);
     }
+    public void error(String msg){
+        logger.error("["+pluginName+"] {}",msg);
+    }
 }

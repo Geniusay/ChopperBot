@@ -8,12 +8,19 @@ import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
 import org.example.core.creeper.loadconfig.LoadLiveConfig;
 import org.example.core.manager.CommonLoadConfigBuilder;
 import org.example.pool.LiveModuleConstPool;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Genius
  * @date 2023/09/05 19:27
  **/
+@Component
 public class DouyuLiveLoadConfigBuilder extends CommonLoadConfigBuilder<DouyuLiveOnlineConfig> {
+
+    @Override
+    public String getName() {
+        return "douyu_live";
+    }
 
     @Override
     public DouyuLiveOnlineConfig build(Object obj) {
@@ -25,6 +32,7 @@ public class DouyuLiveLoadConfigBuilder extends CommonLoadConfigBuilder<DouyuLiv
 
             douyuLiveOnlineConfig.setShowDownloadTable(true);
             douyuLiveOnlineConfig.setLiverName(liver);
+            douyuLiveOnlineConfig.setRoomName(((DouyuLive) obj).getLiveName());
             return douyuLiveOnlineConfig;
         }
         return null;
