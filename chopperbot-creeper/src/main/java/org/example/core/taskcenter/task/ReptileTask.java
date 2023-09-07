@@ -36,10 +36,10 @@ public class ReptileTask implements Serializable {
     private TaskStatus type;
 
 
-    public ReptileTask(LoadTask loadTask,ReptileRequest request) {
+    public ReptileTask(LoadTask loadTask,ReptileRequest request,String taskId) {
         this.loadTask = loadTask;
         this.request =request;
-        this.taskId = request.GenerateTaskId();
+        this.taskId = taskId;
         this.type = TaskStatus.Already;
         this.endTime = NULL_TIME;
         this.startTime = NULL_TIME;

@@ -19,6 +19,7 @@ import org.example.config.HotModuleSetting;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.creeper.loadconfig.*;
+import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.TaskRecord;
@@ -44,8 +45,6 @@ public class HeatRecommendation extends CommonPlugin {
     private static final long serialVersionUID = 4749216808636623354L;
     private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
-    private Map<String,String> recommendationCreeper;
-
     public HeatRecommendation(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
     }
@@ -54,7 +53,6 @@ public class HeatRecommendation extends CommonPlugin {
     public boolean init() {
         try {
             platformFollowDogMap = new ConcurrentHashMap<>();
-            recommendationCreeper = new HashMap<>();
 
             List<HotModuleSetting> modules = new ArrayList<>();
 
@@ -63,14 +61,6 @@ public class HeatRecommendation extends CommonPlugin {
                     .getFileCache(HotModuleConfig.getFullFilePath())
                     .get("Module");
 
-            JSONObject jsonCreepers = (JSONObject) FileCacheManagerInstance
-                    .getInstance()
-                    .getFileCache(HotModuleConfig.getFullFilePath())
-                    .get("HeatRecommendation","recommendation_creeper");
-
-            for (String s : jsonCreepers.keySet()) {
-                recommendationCreeper.put(s,jsonCreepers.getString(s));
-            }
 
             jsonModules.forEach(jsonModule->{
                 modules.add(JSONObject.parseObject(jsonModule.toString(),HotModuleSetting.class));
@@ -118,44 +108,18 @@ public class HeatRecommendation extends CommonPlugin {
                         for (Live live : needRecommend(tempLives, followDog.getBanLiver(), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
                             this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()));
-                            String liveCreeper = tempPlatform+"_live";
-                            String barrageCreeper = tempPlatform+"_live_barrage";
-                            if (recommendationCreeper.containsKey(liveCreeper)) {
-                                PluginCheckAndDo.CheckAndDo(
-                                        taskCenter -> {
-                                            CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN,
-                                                    CreeperManager.class);
-                                            assert plugin != null;
-                                            LoadLiveConfig loadLiveConfig = plugin.buildLoadConfig(recommendationCreeper.get(liveCreeper),live);
-                                            if(loadLiveConfig!=null){
-                                                ((TaskCenter)taskCenter).request(new ReptileRequest(loadLiveConfig,(t)->{
-                                                    System.out.printf("%s 文件已保存%n", t);
-                                                }));
-                                            }else{
-                                                this.logger.error("[{}] {} fail found creeper shell，cannot recommend!",this.getPluginName(),liveCreeper);
-                                            }
-                                        },
-                                        PluginName.TASK_CENTER_PLUGIN
-                                );
-                            }
-                            if (recommendationCreeper.containsKey(barrageCreeper)) {
-                                PluginCheckAndDo.CheckAndDo(
-                                        taskCenter -> {
-                                            CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN,
-                                                    CreeperManager.class);
-                                            assert plugin != null;
-                                            LoadBarrageConfig loadBarrageConfig = plugin.buildLoadConfig(recommendationCreeper.get(barrageCreeper),live);
-                                            if(loadBarrageConfig!=null){
-                                                ((TaskCenter)taskCenter).request(new ReptileRequest(loadBarrageConfig,(t)->{
-                                                    System.out.printf("%s 文件已保存%n", t);
-                                                }));
-                                            }else{
-                                                this.logger.error("[{}] {} fail found creeper shell，cannot recommend!",this.getPluginName(),barrageCreeper);
-                                            }
-                                        },
-                                        PluginName.TASK_CENTER_PLUGIN
-                                );
-                            }
+                            PluginCheckAndDo.CheckAndDo(
+                                    taskCenter -> {
+                                        ((TaskCenter)taskCenter).request(new ReptileRequest((t)->{
+                                            System.out.printf("%s 直播已结束", t);
+                                        }, CreeperGroupCenter.getGroupName(platform,"live"),live));
+
+                                        ((TaskCenter)taskCenter).request(new ReptileRequest((t)->{
+                                            System.out.printf("%s 直播弹幕爬取完毕", t);
+                                        }, CreeperGroupCenter.getGroupName(platform,"live_barrage"),live));
+                                    },
+                                    PluginName.TASK_CENTER_PLUGIN
+                            );
                         }
                     }
                 }

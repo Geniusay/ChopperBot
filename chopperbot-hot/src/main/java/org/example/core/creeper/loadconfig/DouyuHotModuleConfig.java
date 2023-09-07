@@ -9,7 +9,12 @@ import org.example.core.manager.Creeper;
  * @date 2023/06/01 22:16
  **/
 
-@Creeper(creeperName = "douyu_hot_module",loadTask = DouyuHotModuleLoadTask.class,creeperDescription = "斗鱼的热门模块爬虫")
+@Creeper(creeperName = "斗鱼热门模块爬虫",
+        loadTask = DouyuHotModuleLoadTask.class,
+        creeperDescription = "斗鱼的热门模块爬虫",
+        priority = 10,
+        group = "douyu_hot_module"
+)
 public class DouyuHotModuleConfig extends LoadHotModuleConfig {
 
     public DouyuHotModuleConfig() {

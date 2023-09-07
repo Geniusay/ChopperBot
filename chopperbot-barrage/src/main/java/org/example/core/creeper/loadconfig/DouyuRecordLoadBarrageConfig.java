@@ -11,7 +11,12 @@ import org.example.core.manager.Creeper;
  * @date 2023/4/23 16:30
 */
 @Data
-@Creeper(creeperName = "douyu_record_barrage",loadTask = DouyuRecordBarrageLoadTask.class,creeperDescription = "斗鱼录播弹幕爬虫")
+@Creeper(creeperName = "斗鱼录播爬虫",
+        loadTask = DouyuRecordBarrageLoadTask.class,
+        creeperDescription = "斗鱼录播弹幕爬虫(WebMagic,需要提供录播Id)",
+        priority = 10,
+        group = "douyu_record_barrage"
+)
 public class DouyuRecordLoadBarrageConfig extends LoadBarrageConfig {
 
     // 录播vid

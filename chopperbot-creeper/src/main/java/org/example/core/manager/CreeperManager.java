@@ -20,12 +20,11 @@ public class CreeperManager extends CommonPlugin {
 
     private ConcurrentHashMap<String,Class<? extends LoadConfig>> nameToLoadTaskMapping;
 
-
     private ArrayList<CreeperBean> creeperBeans;
+
 
     public CreeperManager(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
-        nameToLoadTaskMapping = new ConcurrentHashMap<>();
         creeperBeans = new ArrayList<>();
     }
 
@@ -33,15 +32,21 @@ public class CreeperManager extends CommonPlugin {
     public boolean init() {
         Set<Class<?>> creepers = ClassUtil.getAnnotationClass(PROJECT_PATH + ".core.creeper.loadconfig", Creeper.class);
         for (Class<?> creeper : creepers) {
+
             Creeper annotation = creeper.getAnnotation(Creeper.class);
             String name = annotation.creeperName();
             String description = annotation.creeperDescription();
             boolean discard = annotation.discard();
             String author = annotation.creeperAuthor();
+            String groupName = annotation.group();
+            int priority = annotation.priority();
 
-            nameToLoadTaskMapping.put(name, (Class<? extends LoadConfig>) creeper);
+            if (CreeperGroupCenter.GroupMap().containsKey(groupName)) {
+                AbstractCreeperGroup group = CreeperGroupCenter.GroupMap().get(groupName);
+                group.addMember(new AbstractCreeperGroup.CreeperMember(priority, (Class<? extends LoadConfig>) creeper,discard,name));
+            }
 
-            creeperBeans.add(new CreeperBean(name,description,author,discard));
+            creeperBeans.add(new CreeperBean(name,description,author,groupName,discard,priority));
         }
         return true;
     }
@@ -59,30 +64,25 @@ public class CreeperManager extends CommonPlugin {
         }
     }
 
-    public <T extends LoadTask> T getLoadTask(String name){
-        Class<? extends LoadConfig> loadConfigClazz = nameToLoadTaskMapping.get(name);
+    public <T extends LoadTask> T getLoadTask(String groupName){
+        Class<? extends LoadConfig> loadConfigClazz = CreeperGroupCenter.getFirstConfig(groupName);
         try {
-            LoadConfig loadConfig = loadConfigClazz.getDeclaredConstructor().newInstance();
+            LoadConfig loadConfig =  CreeperBuilder.buildLoadConfig(loadConfigClazz);
             return getLoadTask(loadConfig);
         }catch (Exception e){
             return null;
         }
     }
 
-    public <T extends LoadConfig> T buildLoadConfig(String name,Object param){
-        return CreeperBuilder.buildLoadConfig(name, param);
-    }
 
-    public <T extends LoadTask> T getLoadTask(String name,Object param){
-       return getLoadTask(buildLoadConfig(name,param));
-    }
-
-    public ReptileTask getReptileTask(ReptileRequest request){
-        LoadTask loadTask = getLoadTask(request.getLoadConfig());
-        if(loadTask==null){
+    public <T extends LoadTask> T getLoadTask(String groupName,String creeperName){
+        Class<? extends LoadConfig> loadConfigClazz = CreeperGroupCenter.getLoadConfig(groupName,creeperName);
+        try {
+            LoadConfig loadConfig =  CreeperBuilder.buildLoadConfig(loadConfigClazz);
+            return getLoadTask(loadConfig);
+        }catch (Exception e){
             return null;
         }
-        return new ReptileTask(loadTask,request);
     }
 
     public boolean hasLoadTask(String name){

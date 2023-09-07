@@ -12,9 +12,11 @@ import org.example.core.manager.Creeper;
  * @date 2023/4/23 17:59
 */
 @Data
-@Creeper(creeperName = "bilibili_live_barrage",
+@Creeper(creeperName = "B站直播弹幕爬虫",
         loadTask = BilibiliLiveBarrageLoadTask.class,
-        creeperDescription = "B站直播爬虫"
+        creeperDescription = "爬取B站的直播弹幕内容(WebMagic爬虫，包含监控器)",
+        priority = 10,
+        group = "bilibili_live_barrage"
 )
 public class BilibiliLiveLoadBarrageConfig extends LoadBarrageConfig {
 

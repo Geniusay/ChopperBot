@@ -15,5 +15,7 @@ public class CreeperBean {
     private String name;
     private String description;
     private String author;
+    private String group;
     private Boolean discard;
+    private int priority;
 }

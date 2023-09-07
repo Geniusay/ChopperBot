@@ -5,6 +5,7 @@ import org.example.bean.live.BiliBiliLive;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadconfig.BilibiliLiveOnlineConfig;
 import org.example.core.creeper.loadconfig.LoadLiveConfig;
+import org.example.core.loadconfig.LoadConfig;
 import org.example.core.manager.CommonLoadConfigBuilder;
 import org.example.pool.LiveModuleConstPool;
 import org.springframework.stereotype.Component;
@@ -15,10 +16,6 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class BiliBiliLiveLoadConfigBuilder extends CommonLoadConfigBuilder<BilibiliLiveOnlineConfig> {
-    @Override
-    public String getName() {
-        return "bilibili_live";
-    }
 
     @Override
     public BilibiliLiveOnlineConfig build(Object obj) {

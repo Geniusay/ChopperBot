@@ -18,11 +18,6 @@ import org.springframework.stereotype.Component;
 public class DouyuLiveLoadConfigBuilder extends CommonLoadConfigBuilder<DouyuLiveOnlineConfig> {
 
     @Override
-    public String getName() {
-        return "douyu_live";
-    }
-
-    @Override
     public DouyuLiveOnlineConfig build(Object obj) {
         if(obj instanceof DouyuLive){
             String liveId = ((DouyuLive) obj).getLiveId();

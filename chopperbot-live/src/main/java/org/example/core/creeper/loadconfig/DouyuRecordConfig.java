@@ -10,7 +10,12 @@ import org.example.core.manager.Creeper;
  **/
 
 @Data
-@Creeper(creeperName = "douyu_record",loadTask = DouyuRecordLoadTask.class,creeperDescription = "斗鱼录播爬取")
+@Creeper(creeperName = "斗鱼录播爬取",
+        loadTask = DouyuRecordLoadTask.class,
+        creeperDescription = "斗鱼录播爬取(采用ffmpeg爬取，需要拥有ffmpeg才能运行)",
+        priority = 10,
+        group = "douyu_record"
+)
 public class DouyuRecordConfig extends LoadRecordConfig{
 
     private String vid;

@@ -11,9 +11,12 @@ import org.example.core.manager.Creeper;
  * @date 2023/08/30 18:05
  **/
 @Data
-@Creeper(creeperName = "bilibili_live",
+@Creeper(creeperName = "B站直播爬虫",
         loadTask = BilibiliLiveOnlineLoadTask.class,
-        creeperDescription = "B站直播爬取")
+        creeperDescription = "B站直播爬取(包含监控器)",
+        priority = 10,
+        group = "bilibili_live"
+)
 public class BilibiliLiveOnlineConfig extends LoadLiveConfig{
 
 

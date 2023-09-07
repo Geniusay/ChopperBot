@@ -10,6 +10,8 @@ import org.example.config.CreeperLogConfigFile;
 import org.example.config.TaskCenterConfig;
 import org.example.constpool.PluginName;
 import org.example.core.loadtask.LoadTask;
+import org.example.core.manager.CreeperBuilder;
+import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
 import org.example.core.manager.Creeper;
 import org.example.core.taskcenter.task.TaskRecord;
@@ -17,6 +19,7 @@ import org.example.core.taskcenter.task.TaskStatus;
 import org.example.core.taskmonitor.MonitorCenter;
 import org.example.core.taskmonitor.TaskMonitor;
 import org.example.exception.FileCacheException;
+import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.GuardPlugin;
@@ -26,6 +29,7 @@ import org.example.plugin.PluginCheckAndDo;
 import org.example.core.loadconfig.LoadConfig;
 import org.example.util.ConfigFileUtil;
 import org.example.util.TimeUtil;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -283,27 +287,37 @@ public class TaskCenter extends GuardPlugin {
     }
 
     public void request(ReptileRequest request){
-        PluginCheckAndDo.CheckAndDo(
-                (plugin)->{
-                    ReptileTask task = ((CreeperManager)plugin).getReptileTask(request);
-                    if(task!=null){
-                        addTask(task);
-                    }
-                },
-                ()->{
-                    LoadConfig loadConfig = request.getLoadConfig();
-                    Class<? extends LoadTask> taskClazz = loadConfig.getClass().getAnnotation(Creeper.class).loadTask();
-                    try {
-                        LoadTask loadTask = taskClazz.getDeclaredConstructor(loadConfig.getClass()).newInstance(loadConfig);
-                        ReptileTask task = new ReptileTask(loadTask,request);
-                        addTask(task);
-                    }catch (Exception e){
-                        return;
-                    }
-                },
-                PluginName.CREEPER_MANAGER_PLUGIN
-        );
+        ReptileTask task = getReptileTask(request);
+        if(task!=null){
+            addTask(task);
+        }else{
+            this.error(String.format("There are no suitable creeper for this %s group", request.getCreeperGroup()));
+        }
+    }
 
+    private ReptileTask getReptileTask(ReptileRequest request){
+        String creeperName = request.getCreeperName();
+        String creeperGroup = request.getCreeperGroup();
+        Object param = request.getParam();
+        Class<? extends LoadConfig> fcc;
+
+        if(StringUtils.isEmpty(creeperName)){
+            fcc = CreeperGroupCenter.getFirstConfig(creeperGroup);
+        }else{
+            fcc = CreeperGroupCenter.getLoadConfig(creeperGroup,creeperName);
+        }
+        if(fcc!=null){
+            LoadConfig loadConfig = CreeperBuilder.buildLoadConfig(fcc, param);
+            if(loadConfig!=null){
+                CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
+                assert plugin != null;
+                LoadTask loadTask = plugin.getLoadTask(loadConfig);
+                if(loadTask!=null){
+                    return new ReptileTask(loadTask,request,loadConfig.getTaskId());
+                }
+            }
+        }
+        return null;
     }
     @Override
     public void shutdown(){

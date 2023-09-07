@@ -15,22 +15,30 @@ import java.util.Map;
  **/
 @Component
 public class CreeperBuilder{
-    private static Map<String,CommonLoadConfigBuilder> builderMap = new HashMap<>();
+    private static Map<Class<? extends LoadConfig>,CommonLoadConfigBuilder> builderMap = new HashMap<>();
 
     @Autowired
     public CreeperBuilder(ApplicationContext context){
         Map<String, CommonLoadConfigBuilder> beans = context.getBeansOfType(CommonLoadConfigBuilder.class);
         beans.forEach((k,v)->{
-            builderMap.put(v.getName(),v);
+            builderMap.put(v.getLoadConfigClass(),v);
         });
     }
 
-    public static  <T extends LoadConfig> T buildLoadConfig(String name,Object param){
-        if(builderMap.containsKey(name)) {
-            CommonLoadConfigBuilder commonLoadConfigBuilder = builderMap.get(name);
+    public static  <T extends LoadConfig> T buildLoadConfig(Class<? extends LoadConfig> clazz,Object param){
+        if(builderMap.containsKey(clazz)) {
+            CommonLoadConfigBuilder commonLoadConfigBuilder = builderMap.get(clazz);
             return (T) commonLoadConfigBuilder.build(param);
         }
         return null;
+    }
+
+    public static <T extends LoadConfig> T buildLoadConfig(Class<? extends LoadConfig> clazz){
+        try {
+            return (T) clazz.getDeclaredConstructor().newInstance();
+        }catch (Exception e){
+            return null;
+        }
     }
 
 }

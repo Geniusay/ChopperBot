@@ -22,6 +22,10 @@ public @interface Creeper {
 
     String creeperAuthor() default "ChopperBot";
 
+    int priority() default 5;           //优先级
+
+    String group() default "";
+
     boolean discard() default false;
 
 }

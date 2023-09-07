@@ -13,11 +13,6 @@ import org.springframework.stereotype.Component;
 public class BilibiliLiveBarrageLoadConfigBuilder extends CommonLoadConfigBuilder<BilibiliLiveLoadBarrageConfig> {
 
     @Override
-    public String getName() {
-        return "bilibili_live_barrage";
-    }
-
-    @Override
     public BilibiliLiveLoadBarrageConfig build(Object obj) {
         if(obj instanceof BiliBiliLive){
             return new BilibiliLiveLoadBarrageConfig(((BiliBiliLive) obj).getLiver(),((BiliBiliLive) obj).getLiveId());

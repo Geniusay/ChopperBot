@@ -10,9 +10,12 @@ import org.example.core.manager.Creeper;
  * @date 2023/07/28 23:17
  **/
 @Data
-@Creeper(creeperName = "douyu_live",
+@Creeper(creeperName = "斗鱼直播爬虫",
         loadTask = DouyuLiveOnlineLoadTask.class,
-        creeperDescription = "斗鱼直播爬取")
+        creeperDescription = "斗鱼直播爬取(包含监控器)",
+        priority = 10,
+        group = "douyu_live"
+)
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {
         super(roomId, videoPath, videoName, false);
