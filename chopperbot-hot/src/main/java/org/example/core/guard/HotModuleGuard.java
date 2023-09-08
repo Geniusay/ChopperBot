@@ -66,7 +66,7 @@ public class HotModuleGuard extends CommonPlugin {
                     HotModuleLoadTask loadTask =  plugin.getLoadTask(platform.toLowerCase()+"_hot_live");
                     if(loadTask!=null){
                         guards.add(new Guard(this.logger,loadTask.getClass().getName(),loadTask,
-                                hotModuleSetting.getUpdateHotModuleTimes(),hotModuleSetting.getFailRetryTimes()));
+                                hotModuleSetting.getUpdateHotLivesTimes(),hotModuleSetting.getFailRetryTimes()));
                     }else{
                         this.error(String.format("Unable to listen %s hot live,cause: invalid loadTask!", groupName));
                     }

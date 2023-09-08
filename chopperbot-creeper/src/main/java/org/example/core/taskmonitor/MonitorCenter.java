@@ -18,7 +18,7 @@ import java.util.concurrent.*;
 @Data
 public class MonitorCenter extends CommonPlugin {
 
-    private Map<String,Class<? extends CommonTaskMonitor>> monitorClazzMap;
+   // private Map<String,Class<? extends CommonTaskMonitor>> monitorClazzMap;
     private Map<String,CommonTaskMonitor> monitorMap;
 
     private ScheduledExecutorService monitorPool;
@@ -32,7 +32,7 @@ public class MonitorCenter extends CommonPlugin {
     @Override
     public boolean init() {
         monitorMap = new HashMap<>();
-        monitorClazzMap = new HashMap<>();
+        //monitorClazzMap = new HashMap<>();
         monitorPool = Executors.newScheduledThreadPool(20,
                 new NamedThreadFactory(PluginName.TASK_MONITOR_PLUGIN));
 
@@ -43,14 +43,17 @@ public class MonitorCenter extends CommonPlugin {
     public void register(String taskId, LoadTask loadTask){
         try {
             Monitor annotation = loadTask.getClass().getAnnotation(Monitor.class);
-            monitorClazzMap.put(taskId,annotation.clazz());
+           // monitorClazzMap.put(taskId,annotation.clazz());
+            CommonTaskMonitor monitor = annotation.clazz().getDeclaredConstructor().newInstance();
+            monitor.setTaskId(taskId);
+            monitorMap.put(taskId,monitor);
         }catch (Exception e){
             this.error(String.format("%s no setting monitor", taskId));
         }
     }
 
     public boolean start(String taskId){
-        CommonTaskMonitor monitor = getMonitor(taskId, CommonTaskMonitor.class);
+        CommonTaskMonitor monitor = getInitMonitor(taskId, CommonTaskMonitor.class);
         if(monitor!=null){
             if(monitorThreadMap.containsKey(taskId)){
                 return true;
@@ -77,8 +80,7 @@ public class MonitorCenter extends CommonPlugin {
     public boolean close(String taskId){
         CommonTaskMonitor monitor;
          if((monitor=monitorMap.remove(taskId))!=null){
-             monitor.stop();
-             monitorClazzMap.remove(taskId);
+             monitor.close();
              Future future;
              if((future=monitorThreadMap.remove(taskId))!=null) {
                  future.cancel(true);
@@ -89,24 +91,6 @@ public class MonitorCenter extends CommonPlugin {
          return false;
     }
 
-    private  <T extends CommonTaskMonitor> T getMonitor(String taskId,Class<? extends CommonTaskMonitor> tClass){
-        if (monitorMap.containsKey(taskId)) {
-            return (T) monitorMap.get(taskId);
-        }else if(monitorClazzMap.containsKey(taskId)){
-            try {
-                Class<? extends CommonTaskMonitor> mClazz = monitorClazzMap.get(taskId);
-                CommonTaskMonitor commonTaskMonitor = mClazz.getDeclaredConstructor().newInstance();
-                commonTaskMonitor.setTaskId(taskId);
-                monitorMap.put(taskId,commonTaskMonitor);
-                return (T) commonTaskMonitor;
-            }catch (Exception e){
-                this.info(String.format("%s no setting monitor", taskId));
-                return null;
-            }
-        }
-        return null;
-    }
-
     public <T extends CommonTaskMonitor> T getInitMonitor(String taskId,Class<? extends CommonTaskMonitor> tClass){
         if (monitorMap.containsKey(taskId)) {
             return (T) monitorMap.get(taskId);
@@ -114,4 +98,8 @@ public class MonitorCenter extends CommonPlugin {
         return null;
     }
 
+    public String getMonitorType(String taskId){
+        CommonTaskMonitor monitor = monitorMap.get(taskId);
+        return monitor==null?null:monitor.getMonitorType();
+    }
 }

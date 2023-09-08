@@ -10,4 +10,5 @@ public interface TaskMonitor extends Serializable {
 
     boolean stop();
 
+    boolean close();
 }

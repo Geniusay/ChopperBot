@@ -5,7 +5,9 @@ import org.example.util.ByteConvertUtil;
 import org.example.ws.MessageHandlerFactory;
 import org.example.ws.handler.AbstractMessageHandler;
 import org.example.ws.handler.MessageProtocol;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
@@ -26,6 +28,9 @@ public class VideoTaskMonitor extends CommonTaskMonitor {
 
     private long windowBytes = 0;  // 滑动窗口内的下载字节数
 
+    public VideoTaskMonitor() {
+        monitorType = "live";
+    }
 
     public void addDownloadedBytes(int bytes) {
         downloadedBytes += bytes;
@@ -51,15 +56,22 @@ public class VideoTaskMonitor extends CommonTaskMonitor {
     @Override
     public void run() {
         if(handler!=null){
-            handler.wrapperAndSend(
-                    Map.of(
-                            "taskId",getTaskId(),
-                            "total", ByteConvertUtil.byteSpeedConvert(getDownloadedBytes()),
-                            "avg",ByteConvertUtil.byteSpeedConvert(getDownloadSpeedAvg()),
-                            "now",ByteConvertUtil.byteSpeedConvert(getDownloadSpeed()),
-                            "time",timeConsuming()
-                    ).toString()
-            );
+            try {
+                handler.wrapperAndSend(
+                        Map.of(
+                                "taskId",getTaskId(),
+                                "monitor",monitorType,
+                                "total", ByteConvertUtil.byteConvert(getDownloadedBytes()),
+                                "avg",ByteConvertUtil.byteConvert(getDownloadSpeedAvg()),
+                                "now",ByteConvertUtil.byteConvert(getDownloadSpeed()),
+                                "useTime",timeConsuming(),
+                                "time", LocalDateTime.now()
+                        ),getTaskId()
+                );
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 

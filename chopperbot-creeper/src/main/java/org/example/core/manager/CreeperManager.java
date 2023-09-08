@@ -18,8 +18,6 @@ import static org.example.constpool.ConstPool.PROJECT_PATH;
  **/
 public class CreeperManager extends CommonPlugin {
 
-    private ConcurrentHashMap<String,Class<? extends LoadConfig>> nameToLoadTaskMapping;
-
     private ArrayList<CreeperBean> creeperBeans;
 
 
@@ -85,8 +83,14 @@ public class CreeperManager extends CommonPlugin {
         }
     }
 
-    public boolean hasLoadTask(String name){
-        return nameToLoadTaskMapping.containsKey(name);
+    public <T extends LoadTask> T getLoadTask(String groupName,String creeperName,Object param){
+        Class<? extends LoadConfig> loadConfigClazz = CreeperGroupCenter.getLoadConfig(groupName,creeperName);
+        try {
+            LoadConfig loadConfig = CreeperBuilder.buildLoadConfig(loadConfigClazz,param);
+            return getLoadTask(loadConfig);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     public ArrayList<CreeperBean> getCreeperBeans() {

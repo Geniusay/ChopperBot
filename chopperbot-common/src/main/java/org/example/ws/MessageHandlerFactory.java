@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.websocket.Session;
 import java.util.List;
 
 /**
@@ -21,10 +22,10 @@ public class MessageHandlerFactory implements CommandLineRunner {
         MessageHandlerFactory.link = link;
     }
 
-    public static void doHandler(String msg){
+    public static void doHandler(String msg, Session session){
         for (AbstractMessageHandler abstractMessageHandler : link) {
             if (abstractMessageHandler.check(msg)) {
-                abstractMessageHandler.handler(msg);
+                abstractMessageHandler.handler(msg,session);
                 return;
             }
         }

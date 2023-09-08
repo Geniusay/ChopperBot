@@ -34,16 +34,16 @@
 				"enableHotModule":true,
 				"failRetryTimes":2,
 				"focusLiver":[],
-				"followDogEnable":true,
+				"followDogEnable":false,
 				"followDogs":[
 					{
-						"banLiver":[],
+						"banLiver":["笑笑","Ed","甜药","飞天狙","老骚"],
 						"moduleName":"all",
 						"top":1
 					}
 				],
 				"platform":"bilibili",
-				"updateHotLivesTimes":300000,
+				"updateHotLivesTimes":86400000,
 				"updateHotModuleTimes":86400000
 			},
 			{
@@ -58,7 +58,7 @@
 						"banLiver":[],
 						"moduleName":"all",
 						"top":6
-					}
+					},
 				],
 				"platform":"huya",
 				"updateHotLivesTimes":300000,

@@ -4,18 +4,17 @@ import {useTaskStore} from "@/views/app/taskcenter/taskStore";
 import CopyLabel from "@/components/common/CopyLabel.vue";
 import WebSocketClient from "@/utils/ws/webSocket";
 import {useSnackbarStore} from "@/stores/snackbarStore";
+import {allTask} from "@/api/creeperApi";
 
 const snackbarStore = useSnackbarStore();
-
-const webSocket = new WebSocketClient(()=>{
-  webSocket.sendMsg(webSocket.encodeMsg("hello","你好"))
-},null);
 
 const taskStore = useTaskStore();
 
 const props = defineProps<{
   tasks: Task[];
 }>();
+
+
 
 const searchKey = ref("");
 const avatar = "/src/assets/images/img/Creeper.png"
@@ -54,7 +53,6 @@ const closeSnackbar = () =>{
 }
 
 const startMonitor = (task: Task) =>{
-  console.log(task)
   if(task.hasMonitor===0){
     taskStore.startMonitor(task)
   }else{
@@ -100,7 +98,7 @@ const headers = [
     <!-- List -->
     <!-- ---------------------------------------------- -->
     <v-card-text class="table-container">
-      <v-data-table-server
+      <v-data-table
         :headers="headers"
         :items="tasks"
         :search="searchKey"
@@ -140,7 +138,9 @@ const headers = [
               >
             </td>
             <td>
-              <v-btn size="x-small" rounded="xl" elevation="8" prepend-icon="mdi mdi-monitor" @click="startMonitor(item.columns)">
+              <v-btn @click="startMonitor(item.columns)">
+                  <v-icon v-if="item.columns.hasMonitor===1" color="success">mdi mdi-monitor</v-icon>
+                  <v-icon v-else color="warning">mdi mdi-monitor</v-icon>
               </v-btn>
             </td>
             <td>
@@ -160,7 +160,7 @@ const headers = [
             </td>
           </tr>
         </template>
-      </v-data-table-server>
+      </v-data-table>
     </v-card-text>
   </v-card>
 </template>

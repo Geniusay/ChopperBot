@@ -88,7 +88,7 @@ public class TaskCenter extends GuardPlugin {
             this.waitingQueueTime =  taskCenterConfig.getWaitingTime();
             this.recordMap = new ConcurrentHashMap<>();
             if(newLogFile(new CreeperLogConfigFile(new ArrayList<>()))){
-                restoreTaskCenter();
+                //restoreTaskCenter();
                 return super.init();
             }
         }
@@ -190,6 +190,9 @@ public class TaskCenter extends GuardPlugin {
             }catch (Exception e){
                 return false;
             }finally {
+                PluginCheckAndDo.CheckAndDo((plugin)->{
+                    ((MonitorCenter)plugin).close(reptileTask.getTaskId());
+                },PluginName.TASK_MONITOR_PLUGIN);
                 lock.unlock();
             }
         }

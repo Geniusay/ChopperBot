@@ -217,5 +217,10 @@ export default {
         currentPage: "当前页，第{0}页",
       },
     },
+    monitor:{
+      totalDownload:"总计下载",
+      avgDownload:"平阶下载速度",
+      barrageMonitor:"弹幕监控器"
+    }
   },
 };

@@ -3,6 +3,7 @@ package org.example.controller;
 import com.genius.assistant.common.Result;
 import org.example.api.HotModuleApi;
 import org.example.bean.Live;
+import org.example.bean.MonitorVO;
 import org.example.bean.ReptileTaskVO;
 import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
@@ -61,13 +62,26 @@ public class CreeperController {
     }
 
     @CheckPlugin(needPlugin = {PluginName.TASK_MONITOR_PLUGIN})
+    @GetMapping("/monitor/all")
+    public Result allMonitor(){
+        return Result.success(
+                Map.of(
+                        "list",creeperService.monitorApi().getStartMonitor()
+                )
+        );
+    }
+
+    @CheckPlugin(needPlugin = {PluginName.TASK_MONITOR_PLUGIN})
     @GetMapping("/monitor/start")
     public Result startMonitor(@RequestParam String taskId){
-        boolean start = creeperService.monitorApi().start(taskId);
-        return Result.success(
-                Map.of("taskId",taskId,
-                        "start",start)
-        );
+        MonitorVO monitor = creeperService.monitorApi().hasMonitor(taskId);
+        if(monitor==null){
+            return Result.error("400", String.format("%s 不存在监视器", taskId));
+        }else{
+            return Result.success(
+                    Map.of("monitor",monitor)
+            );
+        }
     }
 
     @CheckPlugin(needPlugin = {PluginName.TASK_MONITOR_PLUGIN})
