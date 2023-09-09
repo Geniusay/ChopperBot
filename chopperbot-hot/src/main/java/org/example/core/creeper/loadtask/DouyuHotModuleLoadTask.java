@@ -17,7 +17,6 @@ public class DouyuHotModuleLoadTask extends HotModuleLoadTask<HotModuleList> {
 
     public DouyuHotModuleLoadTask(DouyuHotModuleConfig loadConfig) {
         super(loadConfig);
-
     }
 
     @Override

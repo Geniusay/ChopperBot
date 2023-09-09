@@ -10,7 +10,7 @@ import java.util.*;
  * @Date 2023/9/4 22:07
  */
 public class Exchange {
-    private final Map<String, List<VideoQueue>> bindings = new HashMap();
+    private final Map<String, List<VideoQueue>> bindings = new HashMap<>();
 
     public Exchange() {
     }
@@ -20,9 +20,10 @@ public class Exchange {
        this.bindings.get(routingKey).add(queue);
     }
 
+
     public void publish(String routingKey, Object message) {
         if (this.bindings.containsKey(routingKey)) {
-            List<VideoQueue> queues = (List)this.bindings.get(routingKey);
+            List<VideoQueue> queues = this.bindings.get(routingKey);
             Iterator var4 = queues.iterator();
 
             while(var4.hasNext()) {
@@ -30,7 +31,6 @@ public class Exchange {
                 queue.enqueue(message);
             }
         }
-
     }
 
     public boolean isEmpty() {

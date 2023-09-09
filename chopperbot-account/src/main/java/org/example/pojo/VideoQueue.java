@@ -30,7 +30,7 @@ public class VideoQueue {
 
     public VideoQueue(String name, boolean isStrongMatch) {
         this.name = name;
-        this.messages = new ArrayList();
+        this.messages = new ArrayList<>();
         this.isStrongMatch = isStrongMatch;
     }
 

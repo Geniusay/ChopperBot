@@ -30,6 +30,11 @@ public class PluginName {
     //Barrage
     public static final String BARRAGE_FILE_PLUGIN= "BarrageFileListen";
 
+    //Account
+    public static final String VIDEO_PUSH_PLUGIN = "VideoPush";
+
+
+
     public static final String LIVE_CONFIG_PLUGIN= "LiveConfig";
     public static final String LIVE_MANAGER_PLUGIN= "LiveDownLoadManager";
 

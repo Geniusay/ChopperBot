@@ -22,8 +22,6 @@ import java.util.List;
 //TODO 待重构
 public class HotModuleApi {
 
-
-
     public static HotModuleList getDouyuAllHotModule(){
         return new DouyuHotModuleLoadTask(new DouyuHotModuleConfig()).start();
     }

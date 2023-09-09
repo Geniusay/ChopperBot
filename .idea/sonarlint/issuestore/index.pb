@@ -1,0 +1,27 @@
+
+w
+Gchopperbot-hot/src/main/java/org/example/core/guard/HotModuleGuard.java,a\0\a041720980ce8572991a33b197c3d81b7cb2e69d
+q
+Achopperbot-live/src/main/java/org/example/api/DouyuRecordApi.java,8\f\8f191dc97b4e0d2571f649a1600c703d34ad26c2
+x
+Hchopperbot-common/src/main/java/org/example/init/InitPluginRegister.java,5\a\5a133c519459ad4a22878928f82def26862acd31
+{
+Kdoc/docs/01.指南/01.开发指南/02.系统插件/03.热度监控插件.md,c\4\c4fa3a693a39c9b1847c5eaf7059cca997527b45
+{
+Kdoc/docs/01.指南/01.开发指南/02.系统插件/01.文件缓存插件.md,c\1\c1323f01e0736fea6d2fb87e88e904a79a9a30a8
+p
+@chopperbot-account/src/main/java/org/example/core/VideoType.java,2\6\265ab5b7137a542213410da8195b02b06a7692d0
+�
+Qdoc/docs/01.指南/01.开发指南/02.系统插件/04.爬虫任务中心插件.md,e\8\e83a2fa7f8f76b2daf1183cff7572f224a44ac6b
+�
+Vchopperbot-barrage/src/main/java/org/example/init/module/BarrageModuleInitMachine.java,a\f\af71a49d825f2b79243dc2df9f134a7cb4640b2e
+n
+>chopperbot-hot/src/main/java/org/example/config/FollowDog.java,7\4\74b76b9d2bd43d07054d9e6eb36e9ee4507da3e1
+t
+Dchopperbot-console/src/main/java/org/example/ConsoleApplication.java,a\b\abdd1c60a367131d127a01ca5bc834e95020a4e3
+O
+config/Hot/hotModuleConfig.json,5\0\50eb6bdb4a00f0b15b783cfc947a7a759c934449
+v
+Fchopperbot-creeper/src/main/java/org/example/api/MonitorCenterApi.java,5\c\5c440003ab53fc4466023bd8249cb4898ddeb5d8
+w
+Gchopperbot-creeper/src/main/java/org/example/api/CreeperManagerApi.java,5\d\5d5897de24b870055a6792786f1de4b6fe558b74
