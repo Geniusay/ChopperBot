@@ -26,13 +26,13 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
         super(module, pluginName, needPlugins, isAutoStart
                 ,HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName,
                 Map.of("Module", List.of(
-                                new HotModuleSetting(CreeperModuleConstPool.DOUYU,2,true, true,true, new ArrayList<>(), false,
+                                new HotModuleSetting(CreeperModuleConstPool.DOUYU,2,true, true,true, false,
                                         List.of(allLiveDog()), OneDay, FiveMinute),
-                                new HotModuleSetting(CreeperModuleConstPool.BILIBILI, 2,true,true,true, new ArrayList<>(), false,
+                                new HotModuleSetting(CreeperModuleConstPool.BILIBILI, 2,true,true,true,false,
                                         List.of(allLiveDog()), OneDay, FiveMinute),
-                                new HotModuleSetting(CreeperModuleConstPool.HUYA,2, true,true,true, new ArrayList<>(), false,
+                                new HotModuleSetting(CreeperModuleConstPool.HUYA,2, true,true,true, false,
                                         List.of(allLiveDog()), OneDay, FiveMinute),
-                                new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, new ArrayList<>(), false,
+                                new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, false,
                                         List.of(allLiveDog()), OneDay, FiveMinute)
                         ),
                         "GuardNum",10,
@@ -43,26 +43,14 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
                                         "bilibili_live","bilibili_live",
                                         "bilibili_live_barrage","bilibili_live_barrage"
                                 )
-                        )
+                        ),
+                        "LiverFollower",Map.of("focusLive",1,
+                                "focusBarrage",1,
+                                "focusRecord",1,
+                                "checkTime",60000)
                 ));
     }
 
-    public HotModuleConfig(){
-        super(HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName,
-                Map.of("Module", List.of(
-                        new HotModuleSetting(CreeperModuleConstPool.DOUYU,2,true, true,true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), OneDay, FiveMinute),
-                        new HotModuleSetting(CreeperModuleConstPool.BILIBILI, 2,true,true,true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), OneDay, FiveMinute),
-                        new HotModuleSetting(CreeperModuleConstPool.HUYA,2, true,true,true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), OneDay, FiveMinute),
-                        new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, new ArrayList<>(), false,
-                                List.of(allLiveDog()), OneDay, FiveMinute)
-                        ),
-                        "GuardNum",10
-                )
-        );
-    }
 
     public static String getFullFilePath(){
         return Paths.get(HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName).toString();

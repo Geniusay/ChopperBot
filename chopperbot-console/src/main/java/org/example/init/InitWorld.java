@@ -12,6 +12,7 @@ import org.example.util.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
@@ -36,10 +37,10 @@ public class InitWorld implements CommandLineRunner {
     ChopperBotConfigFileInitMachine moduleSrcConfigFileInitMachine;
 
 
-    private ConfigurableApplicationContext ctx;
+    private ApplicationContext ctx;
 
 
-    private InitWorld(ConfigurableApplicationContext ctx) {
+    private InitWorld(ApplicationContext ctx) {
         this.ctx = ctx;
     }
 
@@ -65,7 +66,7 @@ public class InitWorld implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (!InitPluginRegister.initPluginRegister()) {
+        if (!InitPluginRegister.initPluginRegister(ctx)) {
             close();
         }
 

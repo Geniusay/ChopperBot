@@ -83,6 +83,16 @@ public class CreeperManager extends CommonPlugin {
         }
     }
 
+
+    public <T extends LoadTask> T getLoadTask(String groupName,Object param){
+        Class<? extends LoadConfig> loadConfigClazz = CreeperGroupCenter.getFirstConfig(groupName);
+        try {
+            LoadConfig loadConfig =  CreeperBuilder.buildLoadConfig(loadConfigClazz,param);
+            return getLoadTask(loadConfig);
+        }catch (Exception e){
+            return null;
+        }
+    }
     public <T extends LoadTask> T getLoadTask(String groupName,String creeperName,Object param){
         Class<? extends LoadConfig> loadConfigClazz = CreeperGroupCenter.getLoadConfig(groupName,creeperName);
         try {

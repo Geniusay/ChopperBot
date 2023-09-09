@@ -13,6 +13,8 @@ import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.util.ClassUtil;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class InitPluginRegister {
 
     public static Map<String,Boolean> pluginStartSetting;
 
-    public static boolean initPluginRegister(){
+    public static boolean initPluginRegister(ApplicationContext ctx){
         Set<Class<?>> initMachineClasses = ClassUtil.getAnnotationClass(ConstPool.PROJECT_PATH + ".init", Plugin.class);
         for (Class<?> initMachineClass : initMachineClasses) {
             try {
@@ -49,9 +51,15 @@ public class InitPluginRegister {
                 String pluginDescription = ano.pluginDescription();
                 List<String> needPlugins = List.of(ano.needPlugin());
                 boolean autoStart = pluginStartSetting.containsKey(pluginName)?pluginStartSetting.get(pluginName):ano.autoStart();
-                CommonInitMachine initMachine = (CommonInitMachine) initMachineClass
-                        .getDeclaredConstructor(List.class,boolean.class,String.class,String.class,Class.class)
-                        .newInstance(needPlugins,autoStart,moduleName,pluginName,ano.pluginClass());
+                CommonInitMachine initMachine;
+                if(ano.springBootPlugin()){
+                   initMachine = (CommonInitMachine) ctx.getBean(initMachineClass);
+                }else{
+                   initMachine = (CommonInitMachine) initMachineClass
+                            .getDeclaredConstructor(List.class,boolean.class,String.class,String.class,Class.class)
+                            .newInstance(needPlugins,autoStart,moduleName,pluginName,ano.pluginClass());
+                }
+
                 initMachine.setPluginName_CN(pluginName_CN);
                 initMachine.setPluginDescription(pluginDescription);
                 pluginStartSetting.put(pluginName,autoStart);

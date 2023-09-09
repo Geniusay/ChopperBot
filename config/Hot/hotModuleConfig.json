@@ -1,21 +1,12 @@
 {
-	"updateTime":"2023-09-05 20:06:31",
+	"updateTime":"2023-09-10 03:22:37",
 	"data":{
-		"HeatRecommendation":{
-			"recommendation_creeper":{
-				"bilibili_live":"bilibili_live",
-				"bilibili_live_barrage":"bilibili_live_barrage",
-				"douyu_live":"douyu_live",
-				"douyu_live_barrage":"douyu_live_barrage"
-			}
-		},
 		"Module":[
 			{
 				"autoWork":true,
 				"enableHotLive":true,
 				"enableHotModule":true,
 				"failRetryTimes":2,
-				"focusLiver":[],
 				"followDogEnable":false,
 				"followDogs":[
 					{
@@ -33,17 +24,16 @@
 				"enableHotLive":true,
 				"enableHotModule":true,
 				"failRetryTimes":2,
-				"focusLiver":[],
 				"followDogEnable":false,
 				"followDogs":[
 					{
-						"banLiver":["笑笑","Ed","甜药","飞天狙","老骚"],
+						"banLiver":[],
 						"moduleName":"all",
-						"top":1
+						"top":6
 					}
 				],
 				"platform":"bilibili",
-				"updateHotLivesTimes":86400000,
+				"updateHotLivesTimes":300000,
 				"updateHotModuleTimes":86400000
 			},
 			{
@@ -51,14 +41,13 @@
 				"enableHotLive":true,
 				"enableHotModule":true,
 				"failRetryTimes":2,
-				"focusLiver":[],
 				"followDogEnable":false,
 				"followDogs":[
 					{
 						"banLiver":[],
 						"moduleName":"all",
 						"top":6
-					},
+					}
 				],
 				"platform":"huya",
 				"updateHotLivesTimes":300000,
@@ -69,7 +58,6 @@
 				"enableHotLive":true,
 				"enableHotModule":true,
 				"failRetryTimes":2,
-				"focusLiver":[],
 				"followDogEnable":false,
 				"followDogs":[
 					{
@@ -83,6 +71,20 @@
 				"updateHotModuleTimes":86400000
 			}
 		],
-		"GuardNum":10
+		"LiverFollower":{
+			"focusLive":1,
+			"checkTime":10000,
+			"focusBarrage":1,
+			"focusRecord":1
+		},
+		"GuardNum":10,
+		"HeatRecommendation":{
+			"recommendation_creeper":{
+				"bilibili_live":"bilibili_live",
+				"bilibili_live_barrage":"bilibili_live_barrage",
+				"douyu_live":"douyu_live",
+				"douyu_live_barrage":"douyu_live_barrage"
+			}
+		}
 	}
 }

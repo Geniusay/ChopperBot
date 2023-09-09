@@ -129,9 +129,10 @@ public class TaskCenter extends GuardPlugin {
         try {
             lock.lock();
                 if(runningTask.containsKey(task.getTaskId())) return false;
+                TaskRecord taskRecord = new TaskRecord(task);
+                recordMap.put(task.getTaskId(),taskRecord);
                 if (waitingTask.offer(task,waitingQueueTime, TimeUnit.MILLISECONDS)) {
-                    TaskRecord taskRecord = new TaskRecord(task);
-                    recordMap.put(task.getTaskId(),taskRecord);
+
                     try {
                         creeperLogFileCache.append(taskRecord,"task","-1");
                     } catch (FileCacheException e) {

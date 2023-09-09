@@ -107,7 +107,7 @@ public class DouyuProtoctl {
     }
 
     public static void main(String[] args) {
-        long timestamp = 1693908608000L; // 你的时间戳
+        long timestamp = 1694246297000L; // 你的时间戳
         Date date = new Date(timestamp);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
