@@ -3,12 +3,11 @@ package org.example.utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.example.pool.HttpClientPool;
 
@@ -23,54 +22,66 @@ import java.util.Map;
 */
 public class HttpClientUtil {
 
-    private static final CloseableHttpClient httpClient = HttpClientPool.getInstance().getHttpClient();
+    private static final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-    // get请求
     public static String get(String url) {
-        return get(url, null);
+        return executeRequest(new HttpGet(url));
     }
 
-    // post请求
-    public static String post(String url, String json) {
-        return post(url, json, null);
-    }
-    public static String post(String url) {
-        return post2(url, null);
-    }
-    // get请求，带请求头
     public static String get(String url, Map<String, String> headers) {
         HttpGet httpGet = new HttpGet(url);
         addHeaders(httpGet, headers);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            return handleResponse(response);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return executeRequest(httpGet);
     }
 
-    // post请求，带请求头
+    public static String post(String url){
+        return executeRequest(new HttpPost(url));
+    }
+
+    public static String post(String url, String json) {
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
+        return executeRequest(httpPost);
+    }
+
     public static String post(String url, String json, Map<String, String> headers) {
         HttpPost httpPost = new HttpPost(url);
         httpPost.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
         addHeaders(httpPost, headers);
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+        return executeRequest(httpPost);
+    }
+
+    public static String put(String url, String json) {
+        HttpPut httpPut = new HttpPut(url);
+        httpPut.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
+        return executeRequest(httpPut);
+    }
+
+    public static String put(String url, String json, Map<String, String> headers) {
+        HttpPut httpPut = new HttpPut(url);
+        httpPut.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
+        addHeaders(httpPut, headers);
+        return executeRequest(httpPut);
+    }
+
+    public static String delete(String url) {
+        return executeRequest(new HttpDelete(url));
+    }
+
+    public static String delete(String url, Map<String, String> headers) {
+        HttpDelete httpDelete = new HttpDelete(url);
+        addHeaders(httpDelete, headers);
+        return executeRequest(httpDelete);
+    }
+
+    private static String executeRequest(HttpUriRequest request) {
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
             return handleResponse(response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static String post2(String url, Map<String, String> headers) {
-        HttpPost httpPost = new HttpPost(url);
-        addHeaders(httpPost, headers);
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-            return handleResponse(response);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // 统一处理请求头
     private static void addHeaders(HttpRequest httpRequest, Map<String, String> headers) {
         if (headers != null && !headers.isEmpty()) {
             for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -79,7 +90,6 @@ public class HttpClientUtil {
         }
     }
 
-    // 统一封装成response
     private static String handleResponse(HttpResponse response) {
         HttpEntity entity = response.getEntity();
         if (entity != null) {
