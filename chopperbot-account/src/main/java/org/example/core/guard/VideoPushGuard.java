@@ -35,7 +35,6 @@ public class VideoPushGuard extends GuardPlugin {
         super(module, pluginName, needPlugins, isAutoStart);
     }
 
-
     @Override
     public boolean init() {
 //        exchange = new Exchange();

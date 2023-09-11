@@ -31,4 +31,23 @@ public class VideoApi {
         return liveRecordMap;
     }
 
+    public boolean deleteFile(String fileName,String videoType,String platForm){
+
+        String delFilePath = VIDEO_FILE_ROOT_PATH+"/"+videoType+"/"+platForm+"/"+fileName;
+
+        File file = new File(delFilePath);
+
+        try {
+            if(file.exists()){
+                return file.delete();
+            }else {
+                System.out.println("file path is error, please check parameters are correct!");
+                return false;
+            }
+        }catch (SecurityException e) {
+            System.out.println("删除文件时发生安全异常: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
