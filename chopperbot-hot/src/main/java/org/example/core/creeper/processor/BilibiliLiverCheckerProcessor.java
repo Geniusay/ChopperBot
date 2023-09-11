@@ -25,25 +25,29 @@ public class BilibiliLiverCheckerProcessor extends AbstractProcessor {
 
     @Override
     public void process(Page page) {
-        JSONArray Lives = JSON.parseObject(page.getRawText()).getJSONObject("data").getJSONObject("result").getJSONArray("live_room");
+        JSONObject res = JSON.parseObject(page.getRawText()).getJSONObject("data").getJSONObject("result");
+        JSONArray Lives = res.getJSONArray("live_room");
         BiliBiliLive biliBiliLive = null;
-        for (Object live : Lives) {
-            if(live instanceof JSONObject){
-                String uname = ((JSONObject) live).getString("uname");
-                if(uname.equals(liver)){
-                    String cate_name = ((JSONObject) live).getString("cate_name");
-                    int online = ((JSONObject) live).getInteger("online");
-                    String roomid = ((JSONObject) live).getString("roomid");
-                    String roomname = ((JSONObject) live).getString("title");
-                    String liveTime = ((JSONObject) live).getString("live_time");
-                    String uid = ((JSONObject) live).getString("uid");
-                    String pic = ((JSONObject) live).getString("cover");
-                    biliBiliLive = new BiliBiliLive(online,roomid,roomname,liver,roomname,uid,null,cate_name,null,null,null,null);
-                    biliBiliLive.setShowTime(liveTime);
-                    biliBiliLive.setRoomPic(pic);
+        if(Lives!=null){
+            for (Object live : Lives) {
+                if(live instanceof JSONObject){
+                    String uname = ((JSONObject) live).getString("uname");
+                    if(uname.equals(liver)){
+                        String cate_name = ((JSONObject) live).getString("cate_name");
+                        int online = ((JSONObject) live).getInteger("online");
+                        String roomid = ((JSONObject) live).getString("roomid");
+                        String roomname = ((JSONObject) live).getString("title");
+                        String liveTime = ((JSONObject) live).getString("live_time");
+                        String uid = ((JSONObject) live).getString("uid");
+                        String pic = ((JSONObject) live).getString("cover");
+                        biliBiliLive = new BiliBiliLive(online,roomid,roomname,liver,roomname,uid,null,cate_name,null,null,null,null);
+                        biliBiliLive.setShowTime(liveTime);
+                        biliBiliLive.setRoomPic(pic);
+                    }
                 }
             }
         }
+
         page.putField("data",biliBiliLive);
     }
 }
