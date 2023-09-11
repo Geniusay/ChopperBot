@@ -38,7 +38,15 @@ const getTags = (plugin: Plugin) => {
   return types
 }
 
-const clickToggle = (plugin: Plugin) => {
+const clickAutoStartToggle = (plugin: Plugin) => {
+  if(plugin.register){
+    pluginStore.disabledPlugin(plugin)
+  }else{
+    pluginStore.enablePlugin(plugin)
+  }
+}
+
+const clickRunningToggle = (plugin: Plugin) => {
   if(plugin.register){
     pluginStore.closePlugin(plugin)
   }else{
@@ -64,6 +72,17 @@ const clickToggle = (plugin: Plugin) => {
     <!-- ---------------------------------------------- -->
     <!-- List -->
     <!-- ---------------------------------------------- -->
+    <div class="desc">
+      <div class="item" style="width:33%;text-align:center">
+        <span>Plugin</span>
+      </div>
+      <div class="item" style="width:33%;text-align:right">
+        <span>autoStart</span>
+      </div>
+      <div class="item" style="width:30%;text-align:right">
+        <span>running</span>
+      </div>
+    </div>
     <perfect-scrollbar class="plugin-list">
       <transition-group name="fade">
         <div v-for="plugin in searchPlugin" :key="plugin.pluginName">
@@ -104,10 +123,18 @@ const clickToggle = (plugin: Plugin) => {
               <v-switch class="flex-col"
                         style="left: 50%"
                         size="small"
-                        color="success"
-                        v-model="plugin.register"
-                        @click="clickToggle(plugin)"
+                        v-model="plugin.start"
+                        color="rgb(33,150,243)"
+                        @click="clickAutoStartToggle(plugin)"
                         inset
+              ></v-switch>
+              <v-switch v-model="plugin.register"
+                        class="flex-col"
+                        color="success"
+                        inset
+                        size="small"
+                        style="left: 50%"
+                        @click="clickRunningToggle(plugin)"
               ></v-switch>
 
           </div>
@@ -120,7 +147,7 @@ const clickToggle = (plugin: Plugin) => {
 
 <style lang="scss">
 .plugin-list {
-  height: 100%;
+  height: calc(100% - 100px);
   overflow: scroll;
   .todo-item {
     transition: all 0.3s;
@@ -131,6 +158,18 @@ const clickToggle = (plugin: Plugin) => {
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
       cursor: pointer;
     }
+  }
+}
+.desc {
+  height: 50px;
+  width: 100%;
+  box-shadow: 0 6px 6px 0px  rgba(0,0,0,0.2);
+  .item {
+    display: inline-block;
+    height: 100%;
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: 500;
   }
 }
 .v-switch .v-selection-control{
