@@ -1,11 +1,13 @@
 package org.example.service.impl;
 
+import org.example.api.PluginApi;
 import org.example.bean.Plugin;
 import org.example.init.CommonInitMachine;
 import org.example.init.InitPluginRegister;
 import org.example.service.PluginService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.Map;
  **/
 @Service
 public class PluginServiceImpl implements PluginService {
+
+    @Resource
+    PluginApi pluginApi;
 
     @Override
     public List<Plugin> getPlugins(String moduleName) {
@@ -38,6 +43,11 @@ public class PluginServiceImpl implements PluginService {
         );
 
         return list;
+    }
+
+    @Override
+    public PluginApi pluginApi() {
+        return pluginApi;
     }
 
 

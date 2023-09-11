@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.api.PluginApi;
 import org.example.bean.Plugin;
 import org.example.constpool.GlobalFileCache;
 import org.example.constpool.ModuleName;
@@ -24,6 +25,7 @@ public class PluginController {
 
     @Resource
     PluginService pluginService;
+
 
     @GetMapping("/get")
     public Result getPlugin(){
@@ -55,4 +57,11 @@ public class PluginController {
         return Result.error("The plugin has been started or does not exist");
     }
 
+    @GetMapping("/switchAutoStart")
+    public Result switchAutoStart(@RequestParam("plugin")String plugin,@RequestParam("isOpen")Boolean isOpen){
+        boolean b = pluginService.pluginApi().switchPluginAutoStart(plugin, isOpen);
+        return Result.success(Map.of(
+                "success",b
+        ));
+    }
 }
