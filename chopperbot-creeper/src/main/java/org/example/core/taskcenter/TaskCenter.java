@@ -88,7 +88,7 @@ public class TaskCenter extends GuardPlugin {
             this.waitingQueueTime =  taskCenterConfig.getWaitingTime();
             this.recordMap = new ConcurrentHashMap<>();
             if(newLogFile(new CreeperLogConfigFile(new ArrayList<>()))){
-                restoreTaskCenter();
+                //restoreTaskCenter();
                 return super.init();
             }
         }
@@ -129,9 +129,10 @@ public class TaskCenter extends GuardPlugin {
         try {
             lock.lock();
                 if(runningTask.containsKey(task.getTaskId())) return false;
+                TaskRecord taskRecord = new TaskRecord(task);
+                recordMap.put(task.getTaskId(),taskRecord);
                 if (waitingTask.offer(task,waitingQueueTime, TimeUnit.MILLISECONDS)) {
-                    TaskRecord taskRecord = new TaskRecord(task);
-                    recordMap.put(task.getTaskId(),taskRecord);
+
                     try {
                         creeperLogFileCache.append(taskRecord,"task","-1");
                     } catch (FileCacheException e) {
@@ -190,6 +191,9 @@ public class TaskCenter extends GuardPlugin {
             }catch (Exception e){
                 return false;
             }finally {
+                PluginCheckAndDo.CheckAndDo((plugin)->{
+                    ((MonitorCenter)plugin).close(reptileTask.getTaskId());
+                },PluginName.TASK_MONITOR_PLUGIN);
                 lock.unlock();
             }
         }

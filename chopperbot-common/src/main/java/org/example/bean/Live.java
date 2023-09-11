@@ -6,8 +6,10 @@ package org.example.bean;
  **/
 
 import lombok.Data;
+import org.example.util.TimeUtil;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 热门直播抽象类
@@ -26,6 +28,10 @@ public abstract class Live implements Serializable {
     private String moduleId;
 
     private String moduleName;
+
+    private String showTime = TimeUtil.getNowTime_YMDHMS();
+
+    private String roomPic;
 
     public Live(int watcherNum, String liveId, String liveName, String description) {
         this.watcherNum = watcherNum;

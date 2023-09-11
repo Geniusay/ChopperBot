@@ -38,11 +38,26 @@ class WebSocketClient {
 
   encodeMsg(type:string,data:string){
 
-     return "type@="+type+"/data@="+data+"/"
+     return "type@="+type+"|data@="+data+"|"
   }
 
   decodeMsg(msg:string){
+    const result = new Map();
 
+    // 使用正则表达式匹配字符串中的 "key@=value" 对
+    const regex = /(\w+)@=([^|]+)(?:\||$)/g;
+    let match;
+
+    // 使用正则表达式的 exec 方法来匹配所有的 "key@=value" 对
+    while ((match = regex.exec(msg)) !== null) {
+      const key = match[1];
+      const value = match[2];
+
+      // 将匹配到的 key 和 value 添加到 Map 中
+      result.set(key, value);
+    }
+
+    return result;
   }
 
   sendMsg(message: string) {

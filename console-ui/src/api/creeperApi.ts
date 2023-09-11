@@ -32,6 +32,16 @@ export function allCreeper() {
   });
 }
 
+export function allMonitors(){
+  return request({
+    url: '/creeper/monitor/all',
+    method: 'get',
+    params: {
+
+    }
+  })
+}
+
 export function startMonitor(taskId:string){
   return request({
     url: '/creeper/monitor/start',

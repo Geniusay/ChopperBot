@@ -9,7 +9,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.example.pool.HttpClientPool;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -49,6 +48,10 @@ public class HttpClientUtil {
         httpPost.setEntity(new StringEntity(json, ContentType.APPLICATION_JSON));
         addHeaders(httpPost, headers);
         return executeRequest(httpPost);
+    }
+
+    public static String put(String url) {
+        return executeRequest(new HttpPut(url));
     }
 
     public static String put(String url, String json) {
@@ -102,4 +105,5 @@ public class HttpClientUtil {
             throw new RuntimeException("Response entity is null");
         }
     }
+
 }

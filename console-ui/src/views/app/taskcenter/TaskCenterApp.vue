@@ -11,6 +11,7 @@
           <component :is="Component" />
         </transition>
       </router-view>
+      <TaskMonitorTable></TaskMonitorTable>
     </div>
   </div>
 </template>
@@ -43,7 +44,8 @@
 </style>
 <script>
 import TaskMenu from "./componet/TaskMenu.vue"
+import TaskMonitorTable from "@/views/app/taskcenter/componet/TaskMonitorTable";
 export default {
-  components: {TaskMenu}
+  components: {TaskMonitorTable, TaskMenu}
 }
 </script>

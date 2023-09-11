@@ -2,12 +2,15 @@ package org.example.ws;
 
 
 import org.example.api.MonitorCenterApi;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.ws.WebSocketHandler;
 import org.example.ws.handler.AbstractMessageHandler;
 import org.example.ws.handler.MessageProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.websocket.Session;
 import java.util.Map;
 
 /**
@@ -24,12 +27,14 @@ public class MonitorMessageHandler extends AbstractMessageHandler {
     }
 
     @Override
-    public void handler(String msg) {
+    public void handler(String msg, Session session) {
         Map<String, String> data = MessageProtocol.decodeMsg(msg);
         if(data.containsKey("data")){
             String taskId = data.get("data");
-            //TODO 获取监视器
-            new MonitorCenterApi().start(taskId);
+            webSocketHandler.register(taskId,session);
+            if (!new MonitorCenterApi().start(taskId)) {
+                wrapperAndSend("close",taskId);
+            }
         }
     }
 

@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>2.0.39</version>
+            <version>1.2.75</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -56,6 +56,23 @@
             <artifactId>hutool-all</artifactId>
             <version>5.7.19</version>
             <scope>compile</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.36.0.3</version>
         </dependency>
     </dependencies>
 </project>

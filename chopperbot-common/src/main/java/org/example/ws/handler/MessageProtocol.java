@@ -8,8 +8,8 @@ import java.util.Map;
  * @date 2023/09/06 19:49
  **/
 public class MessageProtocol {
-    private static final String head = "type@=%s/";
-    private static final String body = "data@=%s/";
+    private static final String head = "type@=%s|";
+    private static final String body = "data@=%s|";
 
 
     public static String getHead(String type){
@@ -23,14 +23,14 @@ public class MessageProtocol {
         StringBuffer buffer = new StringBuffer(getHead(type));
         contentBody.forEach(
                 (k,v)->{
-                    buffer.append(k).append("@=").append(v).append("/");
+                    buffer.append(k).append("@=").append(v).append("|");
                 }
         );
         return buffer.toString();
     }
 
     public static Map<String,String> decodeMsg(String msg){
-        String[] params = msg.split("/");
+        String[] params = msg.split("\\|");
         HashMap<String, String> res = new HashMap<>();
         if(params.length>0){
             for (String param : params) {

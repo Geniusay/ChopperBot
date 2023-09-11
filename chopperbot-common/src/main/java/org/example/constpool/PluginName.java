@@ -26,6 +26,7 @@ public class PluginName {
     public static final String HOT_CONFIG_PLUGIN = "HotConfig";
     public static final String HOT_GUARD_PLUGIN = "HotGuard";
     public static final String HOT_RECOMMENDATION_PLUGIN = "HotRecommendation";
+    public static final String HOT_LIVER_FOLLOWER = "LiverFollower";
 
     //Barrage
     public static final String BARRAGE_FILE_PLUGIN= "BarrageFileListen";

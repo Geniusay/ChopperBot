@@ -5,6 +5,7 @@ import lombok.Data;
 import org.example.core.taskmonitor.CommonTaskMonitor;
 import org.example.ws.MessageHandlerFactory;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,6 +20,10 @@ public class BarrageTaskMonitor extends CommonTaskMonitor {
 
     private int preDownloadBarrage = 0;
 
+    public BarrageTaskMonitor() {
+        monitorType = "barrage";
+    }
+
     public void addBarrage(){
         addBarrage(1);
     }
@@ -32,14 +37,16 @@ public class BarrageTaskMonitor extends CommonTaskMonitor {
         if(handler!=null){
             handler.wrapperAndSend(
                     Map.of(
+                            "taskId",getTaskId(),
+                            "monitor",monitorType,
                             "pre",preDownloadBarrage,
                             "total",totalBarrage,
-                            "time",timeConsuming()
-                    ).toString()
+                            "type","barrage",
+                            "useTime",timeConsuming(),
+                            "time", LocalDateTime.now()
+                    ),getTaskId()
             );
         }
-        //TODO 有线程安全问题，但是影响不大
-        preDownloadBarrage = 0;
     }
 
 }

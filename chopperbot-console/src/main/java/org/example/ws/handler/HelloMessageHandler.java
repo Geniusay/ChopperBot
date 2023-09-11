@@ -4,6 +4,8 @@ import org.example.ws.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.websocket.Session;
+
 /**
  * @author Genius
  * @date 2023/09/06 20:02
@@ -18,7 +20,7 @@ public class HelloMessageHandler extends AbstractMessageHandler {
     }
 
     @Override
-    public void handler(String msg) {
+    public void handler(String msg, Session session) {
         send(msg);
     }
 

@@ -6,6 +6,7 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperConfigFile;
 import org.example.config.SpiderConfig;
 import org.example.constpool.ConstPool;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -53,6 +54,25 @@ public class SpiderFactory {
                 .thread(spiderConfig.getThreadCnt())
                 .setEmptySleepTime(spiderConfig.getEmptySleepTime())
                 .addUrl(url);
+    }
+
+    public static Spider buildSpider(String platform, PageProcessor processor, Request request){
+        SpiderConfig spiderConfig = spiderConfigMap.get(platform);
+        if(spiderConfig==null){
+            return Spider.create(processor).addRequest(request);
+        }
+
+        processor.getSite()
+                .setUserAgent(spiderConfig.getUserAgent())
+                .setRetrySleepTime(spiderConfig.getRetrySleepTime())
+                .setRetryTimes(spiderConfig.getRetryTimes())
+                .setSleepTime(spiderConfig.getSleepTime());
+
+        return Spider
+                .create(processor)
+                .thread(spiderConfig.getThreadCnt())
+                .setEmptySleepTime(spiderConfig.getEmptySleepTime())
+                .addRequest(request);
     }
 
 }

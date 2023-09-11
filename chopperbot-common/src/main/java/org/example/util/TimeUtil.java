@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * @author Genius
@@ -71,5 +72,12 @@ public class TimeUtil {
         long remainingSeconds = seconds % 60;
 
         return hours + "h " + minutes + "m " + remainingSeconds + "s";
+    }
+
+    public static String getFormatDate(Long timestamp){
+        Date date = new Date(timestamp);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
     }
 }

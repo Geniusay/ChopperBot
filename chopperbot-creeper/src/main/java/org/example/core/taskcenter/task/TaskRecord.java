@@ -32,9 +32,9 @@ public class TaskRecord {
         this.startTime = reptileTask.getStartTime();
         this.endTime = reptileTask.getEndTime();
         this.type = reptileTask.getType();
-        if(!reptileTask.getType().equals(TaskStatus.No_Status)){
-            taskByteStream = serialization(reptileTask);
-        }
+//        if(!reptileTask.getType().equals(TaskStatus.No_Status)){
+//            taskByteStream = serialization(reptileTask);
+//        }
     }
 
     public TaskRecord(String taskId, String startTime, String endTime, TaskStatus type, byte[] taskByteStream) {

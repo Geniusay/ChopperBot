@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/illuminator?useSSL=false&serverTimezone=UTC
+    url: jdbc:sqlite:./database.db
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: org.sqlite.JDBC

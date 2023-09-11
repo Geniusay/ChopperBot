@@ -7,6 +7,11 @@ import org.example.ws.MessageHandlerFactory;
 import org.example.ws.handler.AbstractMessageHandler;
 import org.example.ws.handler.MessageProtocol;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Genius
  * @date 2023/09/06 17:51
@@ -17,6 +22,8 @@ public abstract class CommonTaskMonitor implements TaskMonitor {
     private boolean isOpen = true;
 
     private String taskId;
+
+    protected String monitorType;
 
     private long startTime = System.currentTimeMillis();
 
@@ -42,11 +49,22 @@ public abstract class CommonTaskMonitor implements TaskMonitor {
 
     @Override
     public boolean stop() {
-        return false;
+        isOpen = false;
+        return true;
+    }
+
+    @Override
+    public boolean close() {
+        return this.getHandler().close(taskId);
     }
 
     public String timeConsuming(){
         long time = (System.currentTimeMillis() - startTime)/ 1000;
         return TimeUtil.getHMS(time);
     }
+
+    public String getMonitorType(){
+        return monitorType;
+    }
+
 }

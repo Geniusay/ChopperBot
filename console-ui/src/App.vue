@@ -3,7 +3,7 @@
     <component :is="currentLayout" v-if="isRouterLoaded">
       <router-view> </router-view>
     </component>
-    <CustomizationMenu />
+<!--    <CustomizationMenu />-->
     <BackToTop />
     <Snackbar />
   </v-app>

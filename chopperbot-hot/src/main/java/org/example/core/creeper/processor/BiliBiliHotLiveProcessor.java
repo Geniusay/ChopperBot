@@ -27,7 +27,7 @@ public class BiliBiliHotLiveProcessor extends AbstractProcessor {
             for (Object live : Lives) {
                 if(live instanceof JSONObject){
                     JSONObject jsonLive = (JSONObject) live;
-                    liveList.add(new BiliBiliLive(
+                    BiliBiliLive biliBiliLive = new BiliBiliLive(
                             jsonLive.getInteger("online"),
                             jsonLive.getString("roomid"),
                             jsonLive.getString("title"),
@@ -40,7 +40,9 @@ public class BiliBiliHotLiveProcessor extends AbstractProcessor {
                             jsonLive.getString("parent_name"),
                             jsonLive.getString("session_id"),
                             jsonLive.getString("group_id")
-                    ));
+                    );
+                    biliBiliLive.setRoomPic(jsonLive.getString("user_cover"));
+                    liveList.add(biliBiliLive);
                 }
             }
         }catch (Exception e){

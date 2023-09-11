@@ -31,20 +31,19 @@ public class DouyuHotLiveProcessor extends AbstractProcessor {
             for (Object live : Lives) {
                 if(live instanceof JSONObject){
                     JSONObject jsonLive = (JSONObject) live;
-                    liveList.add(new DouyuLive(
+                    DouyuLive douyuLive = new DouyuLive(
                             jsonLive.getInteger("ol"),
                             jsonLive.getString("rid"),
                             jsonLive.getString("rn"),
                             jsonLive.getString("nn"),
                             jsonLive.getString("od"),
-                            jsonLive.getString("c2name"),
-                            jsonLive.getString("url"),
                             jsonLive.getString("rs16"),
-                            jsonLive.getInteger("type"),
-                            jsonLive.getInteger("uid"),
+                            jsonLive.getString("uid"),
                             jsonLive.getString("cid2"),
                             jsonLive.getString("c2name")
-                    ));
+                    );
+                    douyuLive.setRoomPic(jsonLive.getJSONArray("rs_ext").getJSONObject(1).getString("rs16"));
+                    liveList.add(douyuLive);
                 }
             }
         }catch (Exception e){

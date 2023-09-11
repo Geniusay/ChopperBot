@@ -123,7 +123,12 @@ export default {
     creeper_library:"Creeper Library",
     task_center:"Task Center"
   },
-
+  monitor:{
+    totalDownload:"Total",
+    avgDownload:"Avg Download",
+    speed:"Download Speed",
+    barrageMonitor:"Barrage Monitor"
+  },
   dashboard: {
     activity: "Activity",
     weeklySales: "Weekly Sales",

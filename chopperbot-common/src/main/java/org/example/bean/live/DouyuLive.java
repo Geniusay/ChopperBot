@@ -15,27 +15,15 @@ import java.util.List;
 @Data
 public class DouyuLive extends Live {
 
-    private String liveModule;  //直播板块
-
-    private String url;         //直播间地址
-
-    private String roomCoverPic;     //直播间封面地址
 
 
-    private int type;
+    private String uid;
 
-    private int uid;
-
-
-    private List<Barrage> barrages = new ArrayList<>();
 
     public DouyuLive(int watcherNum, String liveId, String liveName, String liver, String description,
-                     String liveModule, String url, String roomCoverPic, int type, int uid, String moduleId,String moduleName) {
+                    String roomCoverPic, String uid, String moduleId,String moduleName) {
         super(watcherNum, liveId, liveName, liver, description, ConstPool.PLATFORM.DOUYU.getName(),moduleId,moduleName);
-        this.liveModule = liveModule;
-        this.url = url;
-        this.roomCoverPic = roomCoverPic;
-        this.type = type;
+        setRoomPic(roomCoverPic);
         this.uid = uid;
     }
 }

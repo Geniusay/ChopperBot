@@ -1,5 +1,6 @@
 package org.example.plugin;
 
+import lombok.Data;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -8,13 +9,12 @@ import java.util.List;
  * @author Genius
  * @date 2023/07/31 22:55
  **/
+@Data
 public abstract class CommonPlugin implements ChopperBotPlugin{
-    private String module;
-    private String pluginName;
-    private List<String> needPlugins;
-
-    private boolean isAutoStart;
-
+    protected String module;
+    protected String pluginName;
+    protected List<String> needPlugins;
+    protected boolean isAutoStart;
     protected Logger logger;
 
     @Override
