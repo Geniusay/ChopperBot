@@ -30,6 +30,6 @@ public class LoadBarrageConfig extends LoadConfig {
 
     @Override
     public String getTaskId() {
-        return action+"_barrage_"+platform+"_"+anchorName+"_"+TimeUtil.getToday_YMD();
+        return String.format("barrage_%s_%s_%s_%s", action,platform,anchorName,startTime);
     }
 }

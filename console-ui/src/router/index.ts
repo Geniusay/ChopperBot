@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import UserRoutes from "./user.routes";
 import AuthRoutes from "./auth.routes";
 import UIRoutes from "./ui.routes";
@@ -48,7 +48,7 @@ export const routes = [
 export const dynamicRoutes = [];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   // hash模式：createWebHashHistory，history模式：createWebHistory
   // process.env.NODE_ENV === "production"
 

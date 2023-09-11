@@ -1,6 +1,5 @@
 package org.example.init.module;
 
-import org.example.constpool.ConstPool;
 import org.example.constpool.ModuleName;
 import org.example.init.ModuleInitMachine;
 import org.example.log.ChopperLogFactory;

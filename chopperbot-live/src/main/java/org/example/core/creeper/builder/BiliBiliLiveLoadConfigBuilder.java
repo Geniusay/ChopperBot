@@ -22,11 +22,13 @@ public class BiliBiliLiveLoadConfigBuilder extends CommonLoadConfigBuilder<Bilib
         if(obj instanceof BiliBiliLive){
             String liveId = ((BiliBiliLive) obj).getLiveId();
             String liver = ((BiliBiliLive) obj).getLiver();
+            String showTime = ((BiliBiliLive) obj).getShowTime();
             String path = LiveModuleConstPool.getPlatformLiveSavePath(ConstPool.PLATFORM.BILIBILI);
-            BilibiliLiveOnlineConfig bilibiliLiveOnlineConfig = new BilibiliLiveOnlineConfig(liveId, path, LoadLiveConfig.fileName(liveId, liver), true);
+            BilibiliLiveOnlineConfig bilibiliLiveOnlineConfig = new BilibiliLiveOnlineConfig(liveId, path, LoadLiveConfig.fileName(liveId, liver,showTime), true);
             bilibiliLiveOnlineConfig.setShowDownloadTable(true);
             bilibiliLiveOnlineConfig.setLiverName(liver);
             bilibiliLiveOnlineConfig.setRoomName(((BiliBiliLive) obj).getLiveName());
+            bilibiliLiveOnlineConfig.setStartTime(showTime);
             return bilibiliLiveOnlineConfig;
         }
         return null;

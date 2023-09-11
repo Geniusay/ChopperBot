@@ -1,12 +1,12 @@
 package org.example.config;
 
 import org.example.bean.ConfigFile;
-import org.example.bean.FileType;
+import org.example.bean.HotModuleSetting;
 import org.example.constpool.CreeperModuleConstPool;
 import org.example.constpool.HotModuleConstPool;
+import org.example.constpool.PluginName;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,26 +25,8 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
     public HotModuleConfig(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart
                 ,HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName,
-                Map.of("Module", List.of(
-                                new HotModuleSetting(CreeperModuleConstPool.DOUYU,2,true, true,true, false,
-                                        List.of(allLiveDog()), OneDay, FiveMinute),
-                                new HotModuleSetting(CreeperModuleConstPool.BILIBILI, 2,true,true,true,false,
-                                        List.of(allLiveDog()), OneDay, FiveMinute),
-                                new HotModuleSetting(CreeperModuleConstPool.HUYA,2, true,true,true, false,
-                                        List.of(allLiveDog()), OneDay, FiveMinute),
-                                new HotModuleSetting(CreeperModuleConstPool.DOUYING, 2,true,true,true, false,
-                                        List.of(allLiveDog()), OneDay, FiveMinute)
-                        ),
-                        "GuardNum",10,
-                        "HeatRecommendation",Map.of(
-                                "recommendation_creeper",Map.of(
-                                        "douyu_live","douyu_live",
-                                        "douyu_live_barrage","douyu_live_barrage",
-                                        "bilibili_live","bilibili_live",
-                                        "bilibili_live_barrage","bilibili_live_barrage"
-                                )
-                        ),
-                        "LiverFollower",Map.of("focusLive",1,
+                Map.of(PluginName.HOT_GUARD_PLUGIN,Map.of("GuardNum",10),
+                        PluginName.HOT_LIVER_FOLLOWER,Map.of("focusLive",1,
                                 "focusBarrage",1,
                                 "focusRecord",1,
                                 "checkTime",60000)
@@ -56,7 +38,4 @@ public class HotModuleConfig extends ConfigFile<Map<String,Object>> {
         return Paths.get(HotModuleConstPool.HOT_MODULE_CONFIG_ROOT,fileName).toString();
     }
 
-    private static FollowDog allLiveDog(){
-        return new FollowDog(FollowDog.ALL_LIVES,6,new ArrayList<>());
-    }
 }

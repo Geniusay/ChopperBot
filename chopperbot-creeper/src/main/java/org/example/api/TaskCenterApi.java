@@ -3,6 +3,7 @@ package org.example.api;
 import org.example.bean.ReptileTaskVO;
 import org.example.constpool.PluginName;
 import org.example.core.taskcenter.TaskCenter;
+import org.example.core.taskcenter.TaskLog;
 import org.example.core.taskcenter.task.TaskRecord;
 import org.example.init.InitPluginRegister;
 import org.springframework.stereotype.Component;
@@ -28,11 +29,14 @@ public class TaskCenterApi {
         TaskCenter plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
         assert plugin != null;
         List<ReptileTaskVO> list = new ArrayList<>();
-        Map<String, TaskRecord> recordMap = plugin.getRecordMap();
+        Map<String, TaskLog> recordMap = plugin.getTaskCenterLogger().getTaskLogMap();
+        MonitorCenterApi monitorCenterApi = new MonitorCenterApi();
         recordMap.forEach(
                 (k,v)->{
+
                     list.add(new ReptileTaskVO(
-                            v.getTaskId(),v.getStartTime(),v.getEndTime(),v.getType().getName(),0
+                            v.getTaskId(),v.getStartTime(),v.getEndTime(),v.getType().getName(),
+                            monitorCenterApi.hasMonitor(v.getTaskId())==null?0:1
                     ));
                 }
         );

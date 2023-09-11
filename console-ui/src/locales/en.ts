@@ -121,7 +121,8 @@ export default {
     chatbot_v2: "Chatbot v2",
     plugin_setting:"Plugin Setting",
     creeper_library:"Creeper Library",
-    task_center:"Task Center"
+    task_center:"Task Center",
+    hot_live:"Hot Live"
   },
   monitor:{
     totalDownload:"Total",

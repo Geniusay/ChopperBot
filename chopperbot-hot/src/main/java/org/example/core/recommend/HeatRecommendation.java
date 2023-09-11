@@ -5,70 +5,72 @@ package org.example.core.recommend;
  * @date 2023/07/22 23:20
  **/
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson2.util.TypeUtils;
 import lombok.Data;
 import org.example.bean.HotModule;
 import org.example.bean.Live;
 import org.example.cache.FileCacheManagerInstance;
-import org.example.config.FollowDog;
+import org.example.bean.FollowDog;
 import org.example.config.HotModuleConfig;
-import org.example.config.HotModuleSetting;
+import org.example.bean.HotModuleSetting;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
-import org.example.core.creeper.loadconfig.*;
+import org.example.core.guard.HotModuleGuard;
 import org.example.core.manager.CreeperGroupCenter;
-import org.example.core.manager.CreeperManager;
 import org.example.core.taskcenter.request.ReptileRequest;
-import org.example.core.taskcenter.task.TaskRecord;
 import org.example.init.InitPluginRegister;
+import org.example.mapper.FollowDogMapper;
 import org.example.plugin.CommonPlugin;
-import org.example.plugin.GuardPlugin;
 import org.example.core.taskcenter.TaskCenter;
-import org.example.plugin.PluginCheckAndDo;
+import org.example.plugin.SpringBootPlugin;
+import org.example.service.FollowDogService;
+import org.example.service.HotModuleSettingService;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
  * 根据热门的直播以及看门狗设置来推荐热门直播间到系统
  */
 @Data
-public class HeatRecommendation extends CommonPlugin {
+@Component
+public class HeatRecommendation extends SpringBootPlugin {
 
     private static final long serialVersionUID = 4749216808636623354L;
     private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
-    public HeatRecommendation(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
-        super(module, pluginName, needPlugins, isAutoStart);
-    }
+    @Resource
+    FollowDogService service;
+
+    @Resource
+    HotModuleSettingService hotModuleSettingService;
+
 
     @Override
     public boolean init() {
         try {
             platformFollowDogMap = new ConcurrentHashMap<>();
 
-            List<HotModuleSetting> modules = new ArrayList<>();
+            List<HotModuleSetting> modules = hotModuleSettingService.getAllSetting();
+            Map<String,HotModuleSetting> map = new HashMap<>();
+            modules.forEach(
+                    module->{
+                        map.put(module.getPlatform(),module);
+                        platformFollowDogMap.put(module.getPlatform(),new ArrayList<>());
+                    }
+            );
 
-            JSONArray jsonModules = (JSONArray) FileCacheManagerInstance
-                    .getInstance()
-                    .getFileCache(HotModuleConfig.getFullFilePath())
-                    .get("Module");
-
-
-            jsonModules.forEach(jsonModule->{
-                modules.add(JSONObject.parseObject(jsonModule.toString(),HotModuleSetting.class));
-            });
-
-            for (HotModuleSetting module : modules) {
-                if (module.isFollowDogEnable()) {
-                    platformFollowDogMap.put(module.getPlatform(),module.getFollowDogs());
+            List<FollowDog> allDog = service.getAllDog();
+            for (FollowDog followDog : allDog) {
+                String platform = followDog.getPlatform();
+                if (platformFollowDogMap.containsKey(platform)) {
+                    if(map.get(platform).isFollowDogEnable()){
+                        platformFollowDogMap.get(platform).add(followDog);
+                    }
                 }
             }
         }catch (Exception e){
@@ -105,21 +107,31 @@ public class HeatRecommendation extends CommonPlugin {
                             logger.error("[{}] cannot found {} {} hot lives",PluginName.HOT_RECOMMENDATION_PLUGIN,platform,moduleName);
                             break;
                         }
-                        for (Live live : needRecommend(tempLives, followDog.getBanLiver(), followDog.getTop())) {
+                        for (Live live : needRecommend(tempLives, getBanList(followDog.getBanLiver()), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
                             this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()));
-                            PluginCheckAndDo.CheckAndDo(
-                                    taskCenter -> {
-                                        ((TaskCenter)taskCenter).request(new ReptileRequest((t)->{
-                                            System.out.printf("%s 直播已结束", t);
-                                        }, CreeperGroupCenter.getGroupName(platform,"live"),live));
-
-                                        ((TaskCenter)taskCenter).request(new ReptileRequest((t)->{
-                                            System.out.printf("%s 直播弹幕爬取完毕", t);
-                                        }, CreeperGroupCenter.getGroupName(platform,"live_barrage"),live));
-                                    },
-                                    PluginName.TASK_CENTER_PLUGIN
-                            );
+                            String checkGroup = CreeperGroupCenter.getGroupName(platform, "focus_check");
+                            String liveGroup = CreeperGroupCenter.getGroupName(platform,"live");
+                            String barrageGroup = CreeperGroupCenter.getGroupName(platform,"live_barrage");
+                            TaskCenter taskCenter = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
+                            if (CreeperGroupCenter.getFirstConfig(checkGroup)==null) {
+                                taskCenter.request(new ReptileRequest((t)->{
+                                    System.out.println(String.format("%s 直播爬取完毕", live.getLiver()));
+                                },liveGroup,live));
+                                taskCenter.request(new ReptileRequest((t)->{
+                                    System.out.println(String.format("%s 直播弹幕爬取完毕", live.getLiver()));
+                                },barrageGroup,live));
+                            }else{
+                                taskCenter.request(new ReptileRequest((obj -> {
+                                    obj = obj==null?live:obj;
+                                    taskCenter.request(new ReptileRequest((t)->{
+                                        System.out.println(String.format("%s 直播爬取完毕", live.getLiver()));
+                                    },liveGroup,obj));
+                                    taskCenter.request(new ReptileRequest((t)->{
+                                        System.out.println(String.format("%s 直播弹幕爬取完毕", live.getLiver()));
+                                    },barrageGroup,obj));
+                                }),checkGroup,live));
+                            }
                         }
                     }
                 }
@@ -167,6 +179,13 @@ public class HeatRecommendation extends CommonPlugin {
         return false;
     }
 
-
-
+    private List<String> getBanList(String banLiver){
+        if(banLiver==null){
+            return  new ArrayList<>();
+        }else{
+            String s = banLiver.substring(1, banLiver.length() - 1);
+            String[] ss = s.split(",");
+            return List.of(ss);
+        }
+    }
 }

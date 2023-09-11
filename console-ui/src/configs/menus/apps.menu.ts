@@ -18,6 +18,12 @@ export default [
     link: "/apps/taskCenter"
   },
   {
+    icon:"mdi mdi-fire-circle",
+    key:"menu.hot_live",
+    text:"Hot Live",
+    link: "/apps/hotLive"
+  },
+  {
     icon: "mdi-forum-outline",
     key: "menu.chat",
     text: "Chat",

@@ -13,8 +13,6 @@ import java.nio.file.Path;
 @Data
 public abstract class LoadRecordConfig extends LoadVideoConfig {
 
-
-
     public LoadRecordConfig(String downloadPath, String fileName,String url) {
         super(downloadPath,fileName);
         this.url = url;
@@ -26,6 +24,6 @@ public abstract class LoadRecordConfig extends LoadVideoConfig {
 
     @Override
     public String getTaskId() {
-        return "live_record_"+platform+"_"+videoName+"_"+ TimeUtil.getToday_YMD();
+        return String.format("live_record_%s_%s_%s", platform,videoName,startTime);
     }
 }

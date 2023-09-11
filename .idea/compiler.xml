@@ -12,10 +12,10 @@
         <module name="chopperbot-section" />
         <module name="chopperbot-publish" />
         <module name="chopperbot-console" />
-        <module name="chopperbot-test" />
         <module name="chopperbot-file" />
-        <module name="chopperbot-creeper" />
+        <module name="chopperbot-test" />
         <module name="chopperbot-live" />
+        <module name="chopperbot-creeper" />
         <module name="chopperbot-barrage" />
         <module name="chopperbot-account" />
         <module name="chopperbot-section-work" />
@@ -38,6 +38,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ChopperBot" options="" />
       <module name="chopperbot-account" options="-parameters" />
       <module name="chopperbot-barrage" options="-parameters" />
       <module name="chopperbot-common" options="-parameters" />

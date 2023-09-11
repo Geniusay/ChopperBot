@@ -6,6 +6,7 @@ import org.example.constpool.PluginName;
 import org.example.core.recommend.HeatRecommendation;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -19,11 +20,10 @@ import java.util.List;
         pluginName_CN = "热门推荐插件",
         pluginDescription = "推荐各个平台的热门直播，根据跟风狗设置，自动爬取直播",
         needPlugin = {PluginName.HOT_CONFIG_PLUGIN,PluginName.HOT_GUARD_PLUGIN,PluginName.CREEPER_MANAGER_PLUGIN},
-        pluginClass= HeatRecommendation.class )
-public class HeatRecommendationInitMachine extends CommonInitMachine{
-
-    public HeatRecommendationInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
-        super(needPlugins, isAutoStart, moduleName, name, clazz);
-    }
+        pluginClass= HeatRecommendation.class,
+        springBootPlugin = true
+)
+@Component
+public class HeatRecommendationInitMachine extends SpringPlugInitMachine{
 
 }

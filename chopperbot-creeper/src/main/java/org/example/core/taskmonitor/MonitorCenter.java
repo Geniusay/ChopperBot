@@ -42,13 +42,17 @@ public class MonitorCenter extends CommonPlugin {
 
     public void register(String taskId, LoadTask loadTask){
         try {
-            Monitor annotation = loadTask.getClass().getAnnotation(Monitor.class);
-           // monitorClazzMap.put(taskId,annotation.clazz());
-            CommonTaskMonitor monitor = annotation.clazz().getDeclaredConstructor().newInstance();
-            monitor.setTaskId(taskId);
-            monitorMap.put(taskId,monitor);
+            if (loadTask.getClass().isAnnotationPresent(Monitor.class)) {
+                Monitor annotation = loadTask.getClass().getAnnotation(Monitor.class);
+                // monitorClazzMap.put(taskId,annotation.clazz());
+                CommonTaskMonitor monitor = annotation.clazz().getDeclaredConstructor().newInstance();
+                monitor.setTaskId(taskId);
+                monitorMap.put(taskId,monitor);
+            }else{
+                this.info(String.format("%s no setting monitor", taskId));
+            }
         }catch (Exception e){
-            this.error(String.format("%s no setting monitor", taskId));
+            this.error(String.format("Error:%s",e.getMessage()));
         }
     }
 

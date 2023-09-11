@@ -19,7 +19,7 @@ public class CreeperModuleConstPool {
      * 下载的方式
      */
     // 直播
-    public static final String ACTION_LIVE = "live";
+    public static final String ACTION_LIVE = "online";
     // 录播
     public static final String ACTION_RECORD = "record";
 
@@ -33,7 +33,7 @@ public class CreeperModuleConstPool {
     // 虎牙
     public static final String HUYA = "huya";
     // 抖音
-    public static final String DOUYING = "douying";
+    public static final String DOUYIN = "douyin";
 
     /**
      * 其他

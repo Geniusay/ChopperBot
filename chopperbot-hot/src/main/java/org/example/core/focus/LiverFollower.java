@@ -96,7 +96,6 @@ public class LiverFollower extends SpringBootPlugin {
     }
 
 
-    @AllArgsConstructor
     class FollowerEyes implements Runnable,Serializable{
 
         private LoadTask checker;
@@ -104,45 +103,62 @@ public class LiverFollower extends SpringBootPlugin {
         private String platform;
         private String liver;
 
+        private TaskCenter taskCenter = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
+
+        private String barrageTaskId = null;
+
+        private String liveTaskId = null;
+        public FollowerEyes(LoadTask checker, String platform, String liver) {
+            this.checker = checker;
+            this.platform = platform;
+            this.liver = liver;
+        }
+
         @Override
         public void run() {
-            Object live = checker.start();
-            if(live!=null){
-                info(String.format("The %s is starting to live!!!!!!", liver));
-                doLiveCreeper(live);
-                doBarrageCreeper(live);
+            if(!alreadyFocus()){
+                Object live = checker.start();
+                if(live!=null){
+                    info(String.format("The %s is starting to live!!!!!!", liver));
+                    doLiveCreeper(live);
+                    doBarrageCreeper(live);
+                }
             }
+
         }
 
         public void doLiveCreeper(Object obj){
             if(focusLive){
                 String groupName = CreeperGroupCenter.getGroupName(platform, "live");
-                PluginCheckAndDo.CheckAndDo(
-                        (plugin)->{
-                            ((TaskCenter)plugin).request(
-                                    new ReptileRequest((t)->{
-                                        System.out.printf("主播%s直播结束\n", liver);
-                                    },groupName,obj)
-                            );
-                        },PluginName.TASK_CENTER_PLUGIN
-                );
-
+                liveTaskId = taskCenter.request( new ReptileRequest((t)->{
+                    System.out.printf("主播%s直播结束\n", liver);
+                },groupName,obj));
             }
         }
 
         public void doBarrageCreeper(Object obj){
             if(focusBarrage){
                 String groupName = CreeperGroupCenter.getGroupName(platform,"live_barrage");
-                PluginCheckAndDo.CheckAndDo(
-                        (plugin)->{
-                            ((TaskCenter)plugin).request(
-                                    new ReptileRequest((t)->{
-                                        System.out.printf("主播%s弹幕爬取结束\n%n", liver);
-                                    },groupName,obj)
-                            );
-                        },PluginName.TASK_CENTER_PLUGIN
-                );
+                barrageTaskId = taskCenter.request( new ReptileRequest((t)->{
+                    System.out.printf("主播%s弹幕爬取结束\n%n", liver);
+                },groupName,obj));
             }
+        }
+
+        public boolean alreadyFocus(){
+            if(focusBarrage){
+                if(barrageTaskId==null)return false;
+                if (!taskCenter.isRunning(barrageTaskId)) {
+                    return false;
+                }
+            }
+            if(focusLive){
+                if(liveTaskId==null)return false;
+                if(!taskCenter.isRunning(liveTaskId)){
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

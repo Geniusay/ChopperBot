@@ -162,4 +162,7 @@ public class FileUtil {
         return true;
     }
 
+    public static String convertTimeToFile(String time){
+        return time.replace(":", "_");
+    }
 }

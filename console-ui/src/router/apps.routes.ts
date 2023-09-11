@@ -49,6 +49,20 @@ export default [
     },
   },
   {
+    path: "/apps/hotLive",
+    name: "app-hot-live",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot/HotLiveView.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "Hot Live",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
     path: "/apps/email",
     meta: {
       requiresAuth: true,

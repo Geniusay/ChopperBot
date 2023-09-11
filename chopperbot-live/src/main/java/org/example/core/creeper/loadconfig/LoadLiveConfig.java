@@ -3,6 +3,7 @@ package org.example.core.creeper.loadconfig;
 import lombok.Data;
 import org.example.bean.Live;
 import org.example.core.loadconfig.LoadConfig;
+import org.example.util.FileUtil;
 import org.example.util.TimeUtil;
 
 /**
@@ -38,12 +39,12 @@ public abstract class LoadLiveConfig extends LoadVideoConfig {
         this.showDownloadTable = false;
     }
 
-    public static String fileName(String roomId,String liver){
-        return String.format("%s_%s_%s",liver,roomId, TimeUtil.getToday_YMD() );
+    public static String fileName(String roomId,String liver,String startTime){
+        return String.format("%s_%s_%s",liver,roomId, FileUtil.convertTimeToFile(startTime));
     }
 
     @Override
     public String getTaskId() {
-        return "live_online_"+platform+"_"+liverName+"_"+TimeUtil.getToday_YMD();
+        return String.format("live_online_%s_%s_%s", platform,liverName,startTime);
     }
 }

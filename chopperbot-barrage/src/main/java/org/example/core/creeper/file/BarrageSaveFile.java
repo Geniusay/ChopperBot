@@ -52,9 +52,7 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
         String fileName = this.filaName();
         setFileName(fileName);
 
-        String rootPath = Paths.get(BARRAGE_ROOT_PATH,
-                loadBarrageConfig.getPlatform(),
-                loadBarrageConfig.getAnchorName()).toString(); //获取当前主播的文件夹路径
+        String rootPath = Paths.get(BARRAGE_ROOT_PATH, loadBarrageConfig.getPlatform(),loadBarrageConfig.getAction()).toString(); //获取当前主播的文件夹路径
 
         setFilePath(rootPath);
         Path path = Path.of(rootPath);
@@ -87,13 +85,12 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
     }
 
     private String filaName() {
-        String format = "%s_%s_%s_%s_%s.json";
+        String format = "barrage_%s_%s_%s_%s.json";
         return String.format(format,
+                loadBarrageConfig.getAction(),
                 loadBarrageConfig.getPlatform(),
-                loadBarrageConfig.getAction(),
                 loadBarrageConfig.getAnchorName(),
-                loadBarrageConfig.getAction(),
-                TimeUtil.getToday_YMD());
+                FileUtil.convertTimeToFile(loadBarrageConfig.getStartTime()));
     }
 
     public int getAlreadyRead() {

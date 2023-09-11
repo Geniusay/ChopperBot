@@ -15,7 +15,9 @@ public class BilibiliLiveBarrageLoadConfigBuilder extends CommonLoadConfigBuilde
     @Override
     public BilibiliLiveLoadBarrageConfig build(Object obj) {
         if(obj instanceof BiliBiliLive){
-            return new BilibiliLiveLoadBarrageConfig(((BiliBiliLive) obj).getLiver(),((BiliBiliLive) obj).getLiveId());
+            BilibiliLiveLoadBarrageConfig config = new BilibiliLiveLoadBarrageConfig(((BiliBiliLive) obj).getLiver(), ((BiliBiliLive) obj).getLiveId());
+            config.setStartTime(((BiliBiliLive) obj).getShowTime());
+            return config;
         }
         return null;
     }

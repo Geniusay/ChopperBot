@@ -50,21 +50,21 @@ public class ReptileTask implements Serializable {
         assert plugin != null;
         //开始任务
         this.startTime = TimeUtil.getNowTime_YMDHMS();
-        plugin.getRecordMap().get(taskId).setStartTime(this.startTime);
+        plugin.getTaskCenterLogger().setStartTime(taskId,startTime);
         this.type = TaskStatus.Running;
 
         try {
             Object res = loadTask.start();
             request.response(res); //让请求响应结果
         }catch (Exception e){
-            ChopperLogFactory.getLogger(LoggerType.Creeper).info("[{}] {} stop, Error{}",
+            ChopperLogFactory.getLogger(LoggerType.Creeper).info("[{}] {} stop, Error:{}",
                     PluginName.TASK_CENTER_PLUGIN,taskId,e.getMessage());
         }
         //完成任务
         plugin.finishTask(taskId);
         this.type = TaskStatus.Finish;
         this.endTime = TimeUtil.getNowTime_YMDHMS();
-        plugin.getRecordMap().get(taskId).setStartTime(this.endTime);
+        plugin.getTaskCenterLogger().setEndTime(taskId,endTime);
     }
 
     public void end(){
