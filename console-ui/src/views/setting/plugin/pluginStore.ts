@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Plugin } from "./pluginTypes"
-import {startPlugin,closePlugin} from "@/api/pluginApi";
+import {startPlugin, closePlugin, enablePlugin, disabledPlugin} from "@/api/pluginApi";
 import { useSnackbarStore } from "@/stores/snackbarStore";
 
 const snackbarStore = useSnackbarStore();
@@ -26,6 +26,11 @@ export const usePluginStore = defineStore({
         title: "AutoStart",
         color: "blue"
       },
+      {
+        id: "disabled",
+        title: "Disabled",
+        color: "red"
+      }
     ]
   }),
 
@@ -61,12 +66,14 @@ export const usePluginStore = defineStore({
 
     startPlugin(plugin: Plugin){
        startPlugin(plugin.pluginName).then(res => {
+         // @ts-ignore
          if(res.code===200){
            plugin.register = true
            snackbarStore.showSuccessMessage("开启"+plugin.pluginName+"成功");
          }else{
            // @ts-ignore
            plugin.register = false;
+           // @ts-ignore
            snackbarStore.showErrorMessage(res.msg)
          }
        })
@@ -74,13 +81,43 @@ export const usePluginStore = defineStore({
 
     closePlugin(plugin: Plugin){
       closePlugin(plugin.pluginName).then(res => {
+        // @ts-ignore
         if(res.code===200){
           plugin.register = false
           snackbarStore.showSuccessMessage("关闭"+plugin.pluginName+"成功");
         }else{
           // @ts-ignore
           plugin.register = true;
+          // @ts-ignore
           snackbarStore.showErrorMessage(res.msg)
+        }
+      })
+    },
+
+    enablePlugin(plugin: Plugin){
+      enablePlugin(plugin.pluginName).then(res => {
+        // @ts-ignore
+        if(res.code === 200 && res.data.success === true){
+          plugin.start = true
+          snackbarStore.showSuccessMessage("开启" + plugin.pluginName + "自启动成功");
+        }else{
+          plugin.start = false;
+          // @ts-ignore
+          snackbarStore.showErrorMessage(res.msg?res.msg:("开启" + plugin.pluginName + "自启动失败"))
+        }
+      })
+    },
+
+    disabledPlugin(plugin: Plugin){
+      disabledPlugin(plugin.pluginName).then(res => {
+        // @ts-ignore
+        if(res.code === 200 && res.data.success === true){
+          plugin.start = false
+          snackbarStore.showSuccessMessage("关闭" + plugin.pluginName + "自启动成功");
+        }else{
+          plugin.start = true;
+          // @ts-ignore
+          snackbarStore.showErrorMessage(res.msg?res.msg:("关闭" + plugin.pluginName + "自启动失败"))
         }
       })
     }
