@@ -22,7 +22,7 @@ public class DouyuLiveLoadConfigBuilder extends CommonLoadConfigBuilder<DouyuLiv
         if(obj instanceof DouyuLive){
             String liveId = ((DouyuLive) obj).getLiveId();
             String liver = ((DouyuLive) obj).getLiver();
-            String path = LiveModuleConstPool.getPlatformLiveSavePath(ConstPool.PLATFORM.BILIBILI);
+            String path = LiveModuleConstPool.getPlatformLiveSavePath(ConstPool.PLATFORM.DOUYU);
             String showTime = ((DouyuLive) obj).getShowTime();
             DouyuLiveOnlineConfig douyuLiveOnlineConfig = new DouyuLiveOnlineConfig(liveId, path, LoadLiveConfig.fileName(liveId, liver,showTime), true);
 

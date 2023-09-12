@@ -30,26 +30,11 @@ public class DouyuLiveOnlineLoadTask extends LiveOnlineLoadTask {
 
     @Override
     public String start() {
-        return this.start(ChopperLogFactory.getLogger(LoggerType.LiveRecord),(DouyuLiveOnlineConfig)loadConfig);
+        return this.start(logger,(DouyuLiveOnlineConfig)loadConfig);
     }
 
     @Override
     public void end() {
 
-    }
-
-    @Override
-    public boolean isRunning() {
-        return false;
-    }
-
-    @Override
-    public int getCacheSize() {
-        return 0;
-    }
-
-    @Override
-    public int flushCacheAndSave(String key) {
-        return 0;
     }
 }

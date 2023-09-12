@@ -80,7 +80,11 @@
             <artifactId>edgegrid-signer-core</artifactId>
             <version>5.0.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.5.1</version> <!-- 使用最新版本 -->
+        </dependency>
 
     </dependencies>
 

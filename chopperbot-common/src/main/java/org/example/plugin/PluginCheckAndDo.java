@@ -25,6 +25,12 @@ public class PluginCheckAndDo {
         success.action((InitPluginRegister.getPlugin(needPlugin)));
     }
 
+    public static <T> T CheckAndGet(PluginGetAction<T> getAction,String needPlugin,Class<T> res){
+        if (!InitPluginRegister.isRegister(needPlugin)) {
+            return null;
+        }
+        return getAction.action((InitPluginRegister.getPlugin(needPlugin)));
+    }
 
     public static void CheckAndDo(
             PluginAction success,

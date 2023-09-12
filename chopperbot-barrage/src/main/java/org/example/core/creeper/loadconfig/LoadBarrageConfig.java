@@ -2,7 +2,10 @@ package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
 import org.example.core.loadconfig.LoadConfig;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.util.TimeUtil;
+import org.slf4j.Logger;
 
 /**
  * 单次弹幕爬取信息配置基类
@@ -20,6 +23,8 @@ public class LoadBarrageConfig extends LoadConfig {
 
     // 主播名称
     protected String anchorName;
+
+
 
     public LoadBarrageConfig(String platform, String action, String anchorName) {
         super();

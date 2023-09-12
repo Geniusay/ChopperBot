@@ -27,7 +27,7 @@ public class BilibiliLiveOnlineLoadTask extends LiveOnlineLoadTask {
 
     @Override
     public String start() {
-        return this.start(ChopperLogFactory.getLogger(LoggerType.LiveRecord),(BilibiliLiveOnlineConfig)loadConfig);
+        return this.start(logger,(BilibiliLiveOnlineConfig)loadConfig);
     }
 
     @Override

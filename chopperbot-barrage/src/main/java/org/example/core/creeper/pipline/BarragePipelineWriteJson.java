@@ -47,12 +47,14 @@ public class BarragePipelineWriteJson<T extends Barrage> implements Pipeline {
 
     private ReentrantLock lock = new ReentrantLock();
 
+
     public BarragePipelineWriteJson(LoadBarrageConfig loadBarrageConfig) {
         try {
             this.loadBarrageConfig = loadBarrageConfig;
             this.cache = new ConcurrentLinkedQueue<>();
             this.barrageSaveFile = new BarrageSaveFile(loadBarrageConfig, cache);
             this.filecache = new FileCache(barrageSaveFile, 0, 10 * 1024);
+
         } catch (FileCacheException e) {
             throw new RuntimeException(e);
         }
@@ -62,21 +64,20 @@ public class BarragePipelineWriteJson<T extends Barrage> implements Pipeline {
     public void process(ResultItems resultItems, Task task) {
         List<T> barrageList = resultItems.get("barrageList");
 
+
         try {
             if (barrageList != null) {
                 lock.lock();
                 alreadyCount.getAndIncrement();
                 Collections.sort(barrageList);
                 cache.addAll(barrageList);
+                PluginCheckAndDo.CheckAndDo(plugin -> {
+                    BarrageTaskMonitor monitor = ((MonitorCenter) plugin).getInitMonitor(this.loadBarrageConfig.getTaskId(), BarrageTaskMonitor.class);
+                    if(monitor!=null){
+                        monitor.addBarrage(barrageList.size());
+                    }
+                }, PluginName.TASK_MONITOR_PLUGIN);
 
-                PluginCheckAndDo.CheckAndDo(
-                        (plugin)->{
-                            BarrageTaskMonitor monitor = ((MonitorCenter) plugin).getInitMonitor(loadBarrageConfig.getTaskId(), BarrageTaskMonitor.class);
-                            if(monitor!=null){
-                                monitor.addBarrage(barrageList.size());
-                            }
-                        }, PluginName.TASK_MONITOR_PLUGIN
-                );
             }
         }finally {
             alreadyCount.getAndDecrement();

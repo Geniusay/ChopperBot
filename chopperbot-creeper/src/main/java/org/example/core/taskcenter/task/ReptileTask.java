@@ -58,7 +58,7 @@ public class ReptileTask implements Serializable {
             request.response(res); //让请求响应结果
         }catch (Exception e){
             ChopperLogFactory.getLogger(LoggerType.Creeper).info("[{}] {} stop, Error:{}",
-                    PluginName.TASK_CENTER_PLUGIN,taskId,e.getMessage());
+                    PluginName.TASK_CENTER_PLUGIN,taskId,e.getCause());
         }
         //完成任务
         plugin.finishTask(taskId);

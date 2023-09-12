@@ -32,7 +32,7 @@ public class BilibiliLiveBarrageLoadTask extends ASyncLoadTask<List<BilibiliBarr
 
     @Override
     public List<BilibiliBarrage> start() {
-        ChopperLogFactory.getLogger(LoggerType.Barrage).info("正在爬取{}直播弹幕....",((BilibiliLiveLoadBarrageConfig)loadConfig).getAnchorName());
+        logger.info("正在爬取{}直播弹幕....",((BilibiliLiveLoadBarrageConfig)loadConfig).getAnchorName());
         BilibiliBarrageLiveProcessor bilibiliBarrageLiveProcessor = new BilibiliBarrageLiveProcessor(loadConfig.getUrl());
         BarragePipelineWriteJson<BilibiliBarrage> barragePipelineWriteJson =
                 new BarragePipelineWriteJson<BilibiliBarrage>((BilibiliLiveLoadBarrageConfig)loadConfig);
