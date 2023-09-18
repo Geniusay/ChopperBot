@@ -1,0 +1,22 @@
+package org.example.api;
+
+import org.example.core.publisher.impl.BilibiliVideoPublisher;
+
+/**
+ * @author dhx
+ * @date 2023/9/18 20:42
+ */
+public class BilibiliPublishApi {
+    public static void PublishVideo(String videoPath,String devicePath,String Cookie,String coverPath){
+        BilibiliVideoPublisher bilibiliVideoPublisher = new BilibiliVideoPublisher();
+        bilibiliVideoPublisher.publishVideo(videoPath,devicePath,Cookie,coverPath);
+    }
+
+    public static void main(String[] args) {
+        PublishVideo(
+                "C:\\Users\\admin\\Downloads\\test.mp4", //视频路径
+                "C:\\Users\\admin\\Desktop\\video_bin\\", //分割后视频存放路径
+                "", //b站Cookie
+                "C:\\Users\\admin\\Desktop\\OIP-C.jpg");  //封面路径
+    }
+}
