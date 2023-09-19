@@ -39,7 +39,7 @@ const getTags = (plugin: Plugin) => {
 }
 
 const clickAutoStartToggle = (plugin: Plugin) => {
-  if(plugin.register){
+  if(plugin.start){
     pluginStore.disabledPlugin(plugin)
   }else{
     pluginStore.enablePlugin(plugin)
