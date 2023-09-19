@@ -16,6 +16,7 @@ import org.example.util.TimeUtil;
 
 import java.io.Serializable;
 import java.util.TreeSet;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.example.constpool.ConstPool.NULL_TIME;
 
@@ -37,7 +38,7 @@ public class ReptileTask implements Serializable {
     @JSONField(serializeUsing = TaskStatusEnumSerializer.class, deserializeUsing = TaskStatusEnumDeserializer.class)
     private TaskStatus type;
 
-
+    private ReentrantLock typeLock = new ReentrantLock();
     public ReptileTask(LoadTask loadTask,LoadConfig config,ReptileRequest request,String taskId) {
         this.loadTask = loadTask;
         this.request =request;

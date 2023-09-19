@@ -16,4 +16,5 @@ public class ModuleName {
 
     public static final String BARRAGE = ConstPool.BARRAGE;
     public static final String LIVE = ConstPool.LIVE_RECORD;
+    public static final String SECTION = ConstPool.SECTION;
 }

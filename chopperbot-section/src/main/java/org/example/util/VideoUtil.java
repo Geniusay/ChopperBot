@@ -404,18 +404,17 @@ public class VideoUtil {
     }
 
 
-    private static String formatTimeToFFMpeg(long seconds){
+    public static String formatTimeToFFMpeg(long seconds){
         long hours = seconds / 3600;
         long minutes = (seconds % 3600) / 60;
         long remainingSeconds = seconds % 60;
 
         return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds);
     }
-    public static boolean cutVideoByFFMpeg(String inputFilePath,String outputFilePath,long startSeconds,long endSeconds){
-        String startTime = formatTimeToFFMpeg(startSeconds);
-        String endTime = formatTimeToFFMpeg(endSeconds);
+
+    public static boolean cutVideoByFFMpeg(String inputFilePath,String outputFilePath,String start,String end){
         try {
-            String ffmpegCmd = FFMPEG_PATH + " -i " + "\""+inputFilePath+"\"" + " -ss " + startTime + " -to " + endTime + " -c copy " + "\""+outputFilePath+"\"" +" -y";
+            String ffmpegCmd = FFMPEG_PATH + " -i " + "\""+inputFilePath+"\"" + " -ss " + start + " -to " + end + " -c copy " + "\""+outputFilePath+"\"" +" -y";
 
             // 执行FFmpeg命令
             Process process = Runtime.getRuntime().exec(ffmpegCmd);
@@ -434,6 +433,11 @@ public class VideoUtil {
             e.printStackTrace();
             return false;
         }
+    }
+    public static boolean cutVideoByFFMpeg(String inputFilePath,String outputFilePath,long startSeconds,long endSeconds){
+        String startTime = formatTimeToFFMpeg(startSeconds);
+        String endTime = formatTimeToFFMpeg(endSeconds);
+        return cutVideoByFFMpeg(inputFilePath,outputFilePath,startTime,endTime);
     }
 
     public static void main(String[] args) {

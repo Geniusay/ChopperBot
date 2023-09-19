@@ -2,14 +2,18 @@ package org.example.core;
 
 import org.example.bean.Live;
 import org.example.constpool.ConstGroup;
+import org.example.constpool.FileNameBuilder;
 import org.example.constpool.PluginName;
 import org.example.core.bgevnet.BarrageEvent;
 import org.example.core.bgevnet.BarrageEventCenter;
 import org.example.core.bgevnet.instantslicing.InstantSlicingPlugin;
+import org.example.core.section.SectionRequest;
+import org.example.core.section.VideoSectionWorkShop;
 import org.example.core.taskcenter.observer.AbstractTaskCenterObserver;
 import org.example.core.taskcenter.task.ReptileTask;
 import org.example.init.InitPluginRegister;
 import org.example.plugin.PluginCheckAndDo;
+import org.example.util.TimeUtil;
 import org.springframework.stereotype.Component;
 
 /**
@@ -43,9 +47,24 @@ public class LiveAndBarrageHandlerObserver extends AbstractTaskCenterObserver {
                             ((Live) param).getLiver(),
                             task.getLoadConfig().getStartTime()
                     );
+                    event.setSuffix(task.getLoadConfig().getSuffix());
                     ((BarrageEventCenter)plugin).event(event);
                 }
             },PluginName.BARRAGE_EVENT_PLUGIN);
+        } else{
+            PluginCheckAndDo.CheckAndDo(plugin -> {
+                Object param = task.getRequest().getParam();
+
+                if(param instanceof Live){
+                    SectionRequest request = ((VideoSectionWorkShop)plugin).wrapperReq((Live)param,task.getLoadConfig().getSuffix()
+                            ,"online",
+                            task.getLoadConfig().getStartTime(),
+                            0,TimeUtil.getTimeNaos(task.getEndTime())
+                            );
+                    ((VideoSectionWorkShop)plugin).request(request);
+                }
+
+            },PluginName.VIDEO_SECTION_WORK_SHOP);
         }
     }
 

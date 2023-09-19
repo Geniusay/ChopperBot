@@ -30,6 +30,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.*;
 
 /**
@@ -158,5 +159,32 @@ public class LiverFollower extends SpringBootPlugin {
         );
         focusPool.shutdown();
         super.shutdown();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(
+                ()->{
+                    System.out.println("hello");
+                    long sum = 0;
+                    Random random = new Random();
+                    for(int i=0;i<100000000;i++){
+                        sum = random.nextInt();
+                    }
+                    for(int i=0;i<100000000;i++){
+                        sum = random.nextInt();
+                    }
+                    for(int i=0;i<100000000;i++){
+                        sum = random.nextInt();
+                    }
+                    for(int i=0;i<1000000000;i++){
+                        sum = random.nextInt();
+                    }
+                    System.out.println(sum);
+                },0,1000,TimeUnit.MILLISECONDS
+        );
+        while(true){
+            System.out.println(666);
+            Thread.sleep(1000);
+        }
     }
 }

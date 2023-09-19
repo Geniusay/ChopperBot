@@ -53,7 +53,7 @@ public class BarrageCurveTest {
     @Test
     public void testCurve(){
         long l = System.currentTimeMillis();
-        List<BarragePoint> list = plugin.generateCurve(new BarrageEvent("bilibili", "online", "Asaki大人", "2023-09-18 23_12_43"));
+        List<BarragePoint> list = plugin.generateCurve(new BarrageEvent("bilibili", "online", "Asaki大人", "2023-09-19 22_00_06"));
         System.out.println(System.currentTimeMillis()-l);
         LineChartDemo demo = new LineChartDemo("Asaki大人",list);
         demo.pack();
@@ -63,13 +63,13 @@ public class BarrageCurveTest {
         System.out.println(range);
         int i = 0;
         for (PopularRange popularRange : range) {
-            long timeNaos = TimeUtil.getTimeNaos("2023-09-18 23:12:43");
+            long timeNaos = TimeUtil.getTimeNaos("2023-09-19 22:00:06");
             long videoStartTime = popularRange.getStartTime()-timeNaos;
             videoStartTime = videoStartTime<0?0:videoStartTime;
             long videoEndTime = popularRange.getEndTime()-timeNaos;
             System.out.println(videoStartTime+" "+videoEndTime);
-            VideoUtil.cutVideoByFFMpeg("E:\\Project\\ChopperBot\\chopperbot-test\\config\\LiveRecord\\online\\bilibili\\Asaki大人_2023-09-18 23_12_43.flv",
-                    "E:\\Project\\ChopperBot\\chopperbot-test\\config\\LiveRecord\\online\\bilibili\\Asaki大人_2023-09-18 23_12_43"+i+".flv",
+            VideoUtil.cutVideoByFFMpeg("E:\\Project\\ChopperBot\\chopperbot-test\\config\\LiveRecord\\online\\bilibili\\Asaki大人_2023-09-19 22_00_06.flv",
+                    "E:\\Project\\ChopperBot\\chopperbot-test\\config\\LiveRecord\\online\\bilibili\\Asaki大人_2023-09-19 22_00_06"+i+".flv",
                     videoStartTime/1000,videoEndTime/1000);
             i++;
         }

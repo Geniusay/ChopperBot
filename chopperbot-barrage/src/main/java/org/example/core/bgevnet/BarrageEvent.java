@@ -31,7 +31,7 @@ public class BarrageEvent {
     private String date;
 
     private String fileName;
-    private String suffix;
+    private String suffix=".flv";
     private List<Barrage> barrages;
     private boolean isSort = false;
 

@@ -2,12 +2,20 @@ package org.example.core.bgevnet;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.example.bean.Live;
+import org.example.constpool.FileNameBuilder;
 import org.example.constpool.PluginName;
+import org.example.core.bgevnet.bghot.BarragePopularRangePlugin;
+import org.example.core.bgevnet.bghot.PopularRange;
+import org.example.core.bgevnet.bgscore.BarragePoint;
 import org.example.core.bgevnet.bgscore.BarrageScoreCurvePlugin;
+import org.example.core.section.SectionRequest;
+import org.example.core.section.VideoSectionWorkShop;
 import org.example.plugin.PluginCheckAndDo;
 import org.example.plugin.SpringBootPlugin;
 import org.example.bean.Barrage;
 import org.example.thread.NamedThreadFactory;
+import org.example.util.TimeUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -63,13 +71,33 @@ public class BarrageEventCenter extends SpringBootPlugin {
         @Override
         public void run() {
             //计算弹幕曲线
-            List<Barrage> list = PluginCheckAndDo.CheckAndGet(
+            List<BarragePoint> points = PluginCheckAndDo.CheckAndGet(
                     plugin -> {
                         return ((BarrageScoreCurvePlugin) plugin).generateCurve(event);
                     }, PluginName.BARRAGE_SCORE_CURVE_PLUGIN, List.class
             );
 
-            //TODO 弹幕评分切割
+            // 弹幕热门区间
+            List<PopularRange> popularRanges = PluginCheckAndDo.CheckAndGet(
+                    plugin -> {
+                        return ((BarragePopularRangePlugin) plugin).findRange(points);
+                    }, PluginName.BARRAGE_POPULAR_RANGE_PLUGIN, List.class
+            );
+            if(popularRanges!=null){
+                PluginCheckAndDo.CheckAndDo(plugin -> {
+                    for (PopularRange popularRange : popularRanges) {
+                        String liver = event.getLiver();
+                        String platform = event.getPlatform();
+                        String suffix = event.getSuffix();
+                        String action = event.getAction();
+                        String fileName = event.getFileName().split("\\.")[0]+suffix;
+                        String date = event.getDate();
+                        SectionRequest request = new SectionRequest(fileName, action, popularRange.getStartTime(), popularRange.getEndTime(), liver, platform,date);
+                        ((VideoSectionWorkShop)plugin).request(request);
+                    }
+
+                },PluginName.VIDEO_SECTION_WORK_SHOP);
+            }
             //TODO 弹幕标签插件
         }
     }

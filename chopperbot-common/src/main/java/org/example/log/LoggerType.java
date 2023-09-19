@@ -10,7 +10,8 @@ public enum LoggerType {
     File("FileModule "),
     Hot("HotModule  "),
     Barrage("Barrage    "),
-    LiveRecord("LiveRecord ");
+    LiveRecord("LiveRecord "),
+    Section("Section    ");
     private String loggerName;
 
     LoggerType(String name){

@@ -6,9 +6,12 @@ import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.ReptileTask;
+import org.example.core.taskcenter.task.TaskStatus;
 import org.example.init.InitPluginRegister;
 import org.example.plugin.annotation.Plugin;
 import org.springframework.stereotype.Component;
+
+import static org.example.constpool.ConstPool.NULL_TIME;
 
 /**
  * @author Genius
@@ -25,7 +28,20 @@ public class LiveTaskObserver extends AbstractTaskCenterObserver {
 
     @Override
     public void onAlready(ReptileTask task) {
+
+    }
+
+    @Override
+    public void onRunning(ReptileTask task) {
         ReptileRequest request = task.getRequest();
+        //重置开始时间，严格保证
+        while(true){
+            if(!task.getStartTime().equals(NULL_TIME)){
+                task.getLoadConfig().setStartTime(task.getStartTime());
+                break;
+            }
+            if(task.getType().equals(TaskStatus.Finish))break;
+        }
         String groupName = request.getCreeperGroup().replace(ConstGroup.LIVE_ONLINE,ConstGroup.BARRAGE_ONLINE);
         ReptileRequest barrageReq = new ReptileRequest(
                 (t)->{
@@ -35,21 +51,16 @@ public class LiveTaskObserver extends AbstractTaskCenterObserver {
         TaskCenter plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
         assert plugin != null;
         ReptileTask reptileTask = plugin.getReptileTask(barrageReq);
-        if(reptileTask!=null){
+        if(reptileTask!=null&&task.getType().equals(TaskStatus.Running)){
             reptileTask.getLoadConfig().setStartTime(task.getLoadConfig().getStartTime());
         }
         plugin.request(reptileTask);
     }
 
     @Override
-    public void onRunning(ReptileTask task) {
-
-    }
-
-    @Override
     public void onFinish(ReptileTask task) {
         String lid = task.getTaskId();
-        String bid = lid.replace("live_","barrage_");
+        String bid = lid.replace(ConstGroup.LIVE_ONLINE,ConstGroup.BARRAGE_ONLINE);
         taskCenter.stopTask(bid);
     }
 

@@ -50,6 +50,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>chopperbot-file</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!--  ========== 优化依赖 ffmpeg-platform-gpl javacv-platform 只导入windows liunx平台 ==============  -->
         <dependency>
             <groupId>org.bytedeco</groupId>

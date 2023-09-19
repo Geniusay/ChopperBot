@@ -64,14 +64,15 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
                 TaskStatus status = task.getType();
                 if (!task.getStartTime().equals(NULL_TIME)) {
                     Long time = TimeUtil.getTimeNaos(entry.getValue().getStartTime());
-                    if(now - time > splitTime || status == TaskStatus.Finish){
+                    Integer times = taskSplitTimes.get(task.getTaskId()).get();
+                    if(now - time >= splitTime*(times+1) || status == TaskStatus.Finish){
+                        taskSplitTimes.get(task.getTaskId()).incrementAndGet();
                         Object live = task.getRequest().getParam();
                         if (live instanceof Live) {
                             String platform = ((Live) live).getPlatform();
                             LoadConfig loadConfig = task.getLoadConfig();
                             String startTime = task.getLoadConfig().getStartTime();
                             String liver = ((Live) live).getLiver();
-                            Integer times = taskSplitTimes.get(task.getTaskId()).getAndIncrement();
                             String barrageRoot = Path.of(BarrageModuleConstPool.BARRAGE_ROOT_PATH,"online",platform).toString();
                             String videoRoot = Path.of(videoRootPath,"online",platform).toString();
                             String oldBarrageFileName = FileNameBuilder.buildBarrageFileName(liver,startTime);
@@ -84,7 +85,9 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
                                     Path.of(barrageRoot,newBarrageFileName).toString(),startNaos,endNaos)) {
                                 if(spiltVideoFile(Path.of(videoRoot,oldVideoFileName).toString(),
                                         Path.of(videoRoot,newVideoFileName).toString(),startNaos/1000,endNaos/1000)){
-                                    center.event(new BarrageEvent(platform,"online",liver,startTime,newBarrageFileName));
+                                    BarrageEvent event = new BarrageEvent(platform, "online", liver, startTime, newBarrageFileName);
+                                    event.setSuffix(task.getLoadConfig().getSuffix());
+                                    center.event(event);
                                 }
                             }
                         }
@@ -111,7 +114,7 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
 
     @Override
     public void handler() {
-        this.scheduledFuture = pool.scheduleWithFixedDelay(this::monitorTask,0,splitTime, TimeUnit.MILLISECONDS);
+        this.scheduledFuture = pool.scheduleWithFixedDelay(this::monitorTask,0,1000, TimeUnit.MILLISECONDS);
     }
 
     @Override

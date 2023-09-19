@@ -47,4 +47,5 @@ public class PluginName {
     public static final String LIVE_CONFIG_PLUGIN= "LiveConfig";
     public static final String LIVE_MANAGER_PLUGIN= "LiveDownLoadManager";
 
+    public static final String VIDEO_SECTION_WORK_SHOP = "SectionWorkShop";
 }
