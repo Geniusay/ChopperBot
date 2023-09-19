@@ -7,12 +7,22 @@ import org.example.bean.Live;
 import org.example.bean.HotModule;
 import org.example.bean.hotmodule.BilibiliHotModule;
 import org.example.bean.hotmodule.HotModuleList;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
+import org.example.constpool.PluginName;
+import org.example.core.loadtask.LoadTask;
+import org.example.core.manager.CreeperGroupCenter;
+import org.example.core.manager.CreeperManager;
+import org.example.core.taskcenter.TaskCenter;
+import org.example.core.taskcenter.request.ReptileRequest;
+import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.oddjob.OddJobBoy;
 import org.example.util.TimeUtil;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 热门模块的数据中心
  */
+
 public class HotModuleDataCenter{
 
     /**
@@ -36,7 +47,6 @@ public class HotModuleDataCenter{
     private static final long HOT_MODULE_LIVE_TTL = 60; //热门模块直播过期时间
 
     private static volatile HotModuleDataCenter dataCenter;
-
 
     public static HotModuleDataCenter DataCenter(){
         if(dataCenter==null){
@@ -80,11 +90,53 @@ public class HotModuleDataCenter{
     }
 
     public HotModuleList getModuleList(String platform){
-        return hotModuleListPool.get(platform);
+        String group = CreeperGroupCenter.getGroupName(platform, ConstGroup.HOT_MODULE);
+        HotModuleList moduleList = hotModuleListPool.get(platform);
+        if(moduleList!=null){
+            return moduleList;
+        }
+        CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
+        HotModuleList list = new HotModuleList();
+        if(plugin!=null){
+            LoadTask loadTask = plugin.getLoadTask(group);
+            if(loadTask!=null){
+                Object res = loadTask.start();
+                if(res!=null){
+                    if(res instanceof List){
+                        ((List<?>) res).forEach(
+                                obj->{
+                                    if(obj instanceof HotModule){
+                                        list.getHotModuleList().add((HotModule) obj);
+                                    }
+                                }
+                        );
+                        hotModuleListPool.put(platform,list);
+                    }
+                }
+            }
+        }
+        return list;
     }
 
     public List<? extends Live> getLiveList(String platform){
-        return hotLiveListPool.get(platform);
+        List<? extends Live> lives = hotLiveListPool.get(platform);
+        if(lives==null){
+            lives = new ArrayList<>();
+            CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
+            String group = CreeperGroupCenter.getGroupName(platform, ConstGroup.HOT_LIVE);
+            if(plugin!=null){
+                LoadTask loadTask = plugin.getLoadTask(group);
+                if(loadTask!=null){
+                    Object res = loadTask.start();
+                    if(res!=null){
+                        if(res instanceof List){
+                           lives = (List<? extends Live>) res;
+                        }
+                    }
+                }
+            }
+        }
+        return lives;
     }
 
     public List<? extends Live> getModuleLiveList(String platform, HotModule hotModule) throws InterruptedException {

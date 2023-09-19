@@ -1,6 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
 import org.example.core.manager.Creeper;
@@ -14,7 +15,8 @@ import org.example.core.manager.Creeper;
         loadTask = DouyuLiveOnlineLoadTask.class,
         creeperDescription = "斗鱼直播爬取(包含监控器)",
         priority = 10,
-        group = "douyu_live"
+        group = ConstGroup.LIVE_ONLINE,
+        platform = ConstPool.DOUYU
 )
 public class DouyuLiveOnlineConfig extends LoadLiveConfig {
     public DouyuLiveOnlineConfig(String roomId, String videoPath, String videoName,int clarity) {

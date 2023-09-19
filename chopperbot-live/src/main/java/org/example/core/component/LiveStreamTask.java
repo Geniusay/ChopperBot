@@ -33,7 +33,7 @@ public class LiveStreamTask {
                 f.parseStream(in, taskId, fileIO);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return;
         }
     }
 

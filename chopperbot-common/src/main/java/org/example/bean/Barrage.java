@@ -48,7 +48,7 @@ public class Barrage implements Serializable,Comparable<Barrage> {
 
     @Override
     public int compareTo(Barrage o) {
-        return o.getTimeReal().compareTo(this.getTimeReal());
+        return (int) (this.getTimeReal()-o.getTimeReal());
     }
 
 

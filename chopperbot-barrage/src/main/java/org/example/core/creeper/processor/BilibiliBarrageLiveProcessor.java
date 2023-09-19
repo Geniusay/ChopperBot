@@ -77,6 +77,7 @@ public class BilibiliBarrageLiveProcessor extends AbstractProcessor {
             if (!processedMids.contains(mid)) { // 检查mid是否已经存在
                 // 真实时间戳
                 Long timeReal = TimeUtil.getTimeNaos(timeLine);
+                if(timeReal<=startTime)timeReal = startTime;
                 // 相对时间戳
                 Long timeIndex = timeReal - startTime;
                 if (timeIndex < 0) timeIndex = 0L;

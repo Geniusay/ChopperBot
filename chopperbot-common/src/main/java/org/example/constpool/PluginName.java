@@ -29,7 +29,15 @@ public class PluginName {
     public static final String HOT_LIVER_FOLLOWER = "LiverFollower";
 
     //Barrage
+    public static final String BARRAGE_CONFIG = "BarrageConfig";
     public static final String BARRAGE_FILE_PLUGIN= "BarrageFileListen";
+
+    public static final String BARRAGE_EVENT_PLUGIN = "BarrageEvent";
+
+    public static final String BARRAGE_SCORE_CURVE_PLUGIN = "BarrageScoreCurve";
+    public static final String BARRAGE_POPULAR_RANGE_PLUGIN = "BarragePopularRange";
+
+    public static final String INSTANT_SLICING_PLUGIN = "InstantSlicing";
 
     //Account
     public static final String VIDEO_PUSH_PLUGIN = "VideoPush";

@@ -1,5 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
+import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.group.BilibiliHotModuleGroup;
 import org.example.core.creeper.loadtask.BiliBiliHotLiveLoadTask;
 import org.example.core.manager.Creeper;
@@ -13,7 +15,8 @@ import org.example.core.manager.CreeperGroupCenter;
         loadTask = BiliBiliHotLiveLoadTask.class,
         creeperDescription = "爬取B站当前热门直播，按人气排行",
         priority = 10,
-        group = "bilibili_hot_live"
+        group = ConstGroup.HOT_LIVE,
+        platform = ConstPool.BILIBILI
 )
 public class BilibiliHotLiveConfig extends LoadHotModuleConfig{
 

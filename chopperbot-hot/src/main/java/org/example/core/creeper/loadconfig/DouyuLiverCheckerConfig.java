@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyuHotLiveLoadTask;
 import org.example.core.creeper.loadtask.DouyuLiverCheckerLoadTask;
 import org.example.core.loadconfig.LoadConfig;
@@ -15,7 +17,8 @@ import org.example.core.manager.Creeper;
         loadTask = DouyuLiverCheckerLoadTask.class,
         creeperDescription = "用于检测斗鱼主播是否开播，并且获取直播详细信息",
         priority = 10,
-        group = "douyu_focus_check"
+        group = ConstGroup.LIVER_CHECKER,
+        platform = ConstPool.DOUYU
 )
 public class DouyuLiverCheckerConfig extends LoadConfig {
     private String roomId;

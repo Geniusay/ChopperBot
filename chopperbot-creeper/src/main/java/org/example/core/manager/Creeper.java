@@ -26,6 +26,7 @@ public @interface Creeper {
 
     String group() default "";
 
+    String platform() default "";
     boolean discard() default false;
 
 }

@@ -14,14 +14,11 @@ import org.springframework.stereotype.Component;
 public class PluginApi {
 
     public boolean switchPluginAutoStart(String pluginName,boolean isOpen){
-        if (InitPluginRegister.getPlugin(pluginName)!=null) {
-            try {
-                GlobalFileCache.ModuleSrcConfigFile.writeKeys(isOpen,"pluginStart",pluginName);
-                return true;
-            }catch (Exception e){
-                return false;
-            }
+        try {
+            GlobalFileCache.ModuleSrcConfigFile.writeKeys(isOpen,"pluginStart",pluginName);
+            return true;
+        }catch (Exception e){
+            return false;
         }
-        return false;
     }
 }

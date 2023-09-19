@@ -30,9 +30,14 @@ public class DouyuLiverCheckerProcessor extends AbstractProcessor {
             String nickname = live.getString("nickname");
             Long show_time = (live.getLong("show_time") * 1000);
             String show_details = live.getString("show_details");
-            Integer moduleId = live.getInteger("cate2_id");
-            HotModule module = HotModuleDataCenter.DataCenter().getModule(ConstPool.DOUYU, moduleId);
-            String moduleName = module==null?"未知模块":module.getTagName();
+            Integer moduleId = live.getInteger("cate_id");
+            String moduleName = "未知模块";
+            try {
+                HotModule module = HotModuleDataCenter.DataCenter().getModule(ConstPool.DOUYU,moduleId);
+                moduleName = module==null?"未知模块":module.getTagName();
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
             douyuLive = new DouyuLive(0,room_id,room_name,nickname,show_details,pic_url,owner_uid,String.valueOf(moduleId),moduleName);
             douyuLive.setShowTime(TimeUtil.getFormatDate(show_time));
         }

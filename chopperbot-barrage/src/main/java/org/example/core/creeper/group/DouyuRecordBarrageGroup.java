@@ -1,5 +1,6 @@
 package org.example.core.creeper.group;
 
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.manager.AbstractCreeperGroup;
 import org.example.ws.handler.AbstractMessageHandler;
@@ -18,6 +19,6 @@ public class DouyuRecordBarrageGroup extends AbstractCreeperGroup {
 
     @Override
     public String getFunctionName() {
-        return "record_barrage";
+        return ConstGroup.BARRAGE_RECORD;
     }
 }

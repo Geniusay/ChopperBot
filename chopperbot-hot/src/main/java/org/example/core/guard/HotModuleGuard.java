@@ -6,8 +6,10 @@ import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.bean.HotModuleSetting;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.PluginName;
 import org.example.core.creeper.loadtask.HotModuleLoadTask;
+import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
 import org.example.init.InitPluginRegister;
 import org.example.plugin.CommonPlugin;
@@ -74,7 +76,7 @@ public class HotModuleGuard extends SpringBootPlugin {
             this.guards = guards;
             this.hotModuleGuardPool =  Executors.newScheduledThreadPool(guardNum, new NamedThreadFactory("HotModuleGuard"));
             runningGuards = new ConcurrentHashMap<>();
-
+            start();
         }catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -116,8 +118,7 @@ public class HotModuleGuard extends SpringBootPlugin {
     public boolean addGuard(String platform,boolean isHotModule){
         FileCache fileCache = FileCacheManagerInstance.getInstance().getFileCache(HotModuleConfig.getFullFilePath());
         platform = platform.substring(0,1).toUpperCase() + platform.substring(1);
-        String groupName = platform.toLowerCase()+"_hot_"+(isHotModule?"module":"live");
-
+        String groupName = CreeperGroupCenter.getGroupName(platform.toLowerCase(),isHotModule? ConstGroup.HOT_MODULE:ConstGroup.HOT_LIVE);
 
         String timeName = isHotModule?"updateHotModuleTimes":"updateHotLivesTimes";
         try {
@@ -155,8 +156,4 @@ public class HotModuleGuard extends SpringBootPlugin {
         return false;
     }
 
-    @Override
-    public void afterInit() {
-        start();
-    }
 }

@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
 import org.example.core.creeper.loadtask.DouyuRecordBarrageLoadTask;
 import org.example.core.manager.Creeper;
@@ -15,7 +17,8 @@ import org.example.core.manager.Creeper;
         loadTask = DouyuRecordBarrageLoadTask.class,
         creeperDescription = "斗鱼录播弹幕爬虫(WebMagic,需要提供录播Id)",
         priority = 10,
-        group = "douyu_record_barrage"
+        group = ConstGroup.BARRAGE_RECORD,
+        platform = ConstPool.DOUYU
 )
 public class DouyuRecordLoadBarrageConfig extends LoadBarrageConfig {
 
@@ -29,8 +32,4 @@ public class DouyuRecordLoadBarrageConfig extends LoadBarrageConfig {
         this.url = "https://v.douyu.com/wgapi/vod/center/getBarrageListByPage?vid="+vid;
     }
 
-    @Override
-    public String getTaskId() {
-        return "douyu_"+anchorName+"_record_"+vid+"_"+startTime;
-    }
 }

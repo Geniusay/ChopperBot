@@ -2,6 +2,7 @@ package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
 import org.example.constpool.BarrageModuleConstPool;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
 import org.example.core.creeper.loadtask.BilibiliLiveBarrageLoadTask;
@@ -18,7 +19,8 @@ import org.example.core.manager.Creeper;
         loadTask = DouyuLiveBarrageLoadTask.class,
         creeperDescription = "爬取斗鱼的直播弹幕（采用ws的方式实时获取）",
         priority = 10,
-        group = "douyu_live_barrage"
+        group = ConstGroup.BARRAGE_ONLINE,
+        platform = ConstPool.DOUYU
 )
 public class DouyuLiveBarrageLoadConfig extends LoadBarrageConfig{
 

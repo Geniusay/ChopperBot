@@ -1,5 +1,6 @@
 package org.example.core.creeper.group;
 
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.manager.AbstractCreeperGroup;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,6 @@ public class DouyuLiveGroup extends AbstractCreeperGroup {
 
     @Override
     public String getFunctionName() {
-        return "live";
+        return ConstGroup.LIVE_ONLINE;
     }
 }

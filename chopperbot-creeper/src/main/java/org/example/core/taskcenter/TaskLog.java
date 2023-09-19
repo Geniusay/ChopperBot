@@ -23,4 +23,6 @@ public class TaskLog implements Serializable {
     private String endTime;
     @JSONField(serializeUsing = TaskStatusEnumSerializer.class, deserializeUsing = TaskStatusEnumDeserializer.class)
     private TaskStatus type;
+
+
 }

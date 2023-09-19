@@ -171,7 +171,15 @@ public class FileCache <T extends ConfigFile>{
             }
             ((JSONObject) temp).put(key,value);
         }
-        else{
+        else if(temp instanceof Map){
+            String key = keys[keys.length-1];
+            String oldValue = ((HashMap) temp).get(key).toString();
+            value = isAppend?oldValue+value:value;
+            if(oldValue.equals(value)){
+                return null;
+            }
+            ((HashMap) temp).put(key,value);
+        }else{
             throw new FileCacheException("the keys is error!");
         }
         return data;

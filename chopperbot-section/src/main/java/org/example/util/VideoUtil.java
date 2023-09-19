@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -31,6 +32,8 @@ import java.util.List;
 public class VideoUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(VideoUtil.class);
+
+    private static final String FFMPEG_PATH = "./ffmpeg.exe";
 
     /**
      * 获取视频采集器
@@ -400,4 +403,44 @@ public class VideoUtil {
         return outPutPath;
     }
 
+
+    private static String formatTimeToFFMpeg(long seconds){
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long remainingSeconds = seconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds);
+    }
+    public static boolean cutVideoByFFMpeg(String inputFilePath,String outputFilePath,long startSeconds,long endSeconds){
+        String startTime = formatTimeToFFMpeg(startSeconds);
+        String endTime = formatTimeToFFMpeg(endSeconds);
+        try {
+            String ffmpegCmd = FFMPEG_PATH + " -i " + "\""+inputFilePath+"\"" + " -ss " + startTime + " -to " + endTime + " -c copy " + "\""+outputFilePath+"\"" +" -y";
+
+            // 执行FFmpeg命令
+            Process process = Runtime.getRuntime().exec(ffmpegCmd);
+
+            // 等待命令执行完成
+            int exitCode = process.waitFor();
+
+            if (exitCode == 0) {
+                System.out.printf("in:%s 视频分割完成。 out:%s\n",inputFilePath, outputFilePath);
+                return true;
+            } else {
+                System.err.printf("in:%s 视频分割失败。\n",inputFilePath);
+                return false;
+            }
+        }catch (IOException | InterruptedException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        cutVideoByFFMpeg(
+                "E:\\Project\\ChopperBot\\config\\LiveRecord\\online\\douyu\\即将拥有人鱼线的PDD_2023-09-15 14_55_32.flv",
+                "E:\\Project\\ChopperBot\\config\\LiveRecord\\online\\douyu\\即将拥有人鱼线的PDD_2023-09-15 14_55_32_split.flv",
+                0,30
+        );
+    }
 }

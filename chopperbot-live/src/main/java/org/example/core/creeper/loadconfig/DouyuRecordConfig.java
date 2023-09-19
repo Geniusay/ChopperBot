@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyuRecordLoadTask;
 import org.example.core.manager.Creeper;
 
@@ -14,7 +16,8 @@ import org.example.core.manager.Creeper;
         loadTask = DouyuRecordLoadTask.class,
         creeperDescription = "斗鱼录播爬取(采用ffmpeg爬取，需要拥有ffmpeg才能运行)",
         priority = 10,
-        group = "douyu_record"
+        group = ConstGroup.LIVE_RECORD,
+        platform = ConstPool.DOUYU
 )
 public class DouyuRecordConfig extends LoadRecordConfig{
 

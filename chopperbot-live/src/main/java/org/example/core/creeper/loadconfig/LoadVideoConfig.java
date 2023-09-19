@@ -21,5 +21,10 @@ public abstract class LoadVideoConfig extends LoadConfig {
         super();
         this.videoPath = videoPath;
         this.videoName = videoName;
+        this.suffix  = ".flv";
+    }
+
+    public String fileName(){
+        return videoName+suffix;
     }
 }

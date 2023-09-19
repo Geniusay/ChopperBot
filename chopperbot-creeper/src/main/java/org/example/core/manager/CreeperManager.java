@@ -36,7 +36,7 @@ public class CreeperManager extends CommonPlugin {
             String description = annotation.creeperDescription();
             boolean discard = annotation.discard();
             String author = annotation.creeperAuthor();
-            String groupName = annotation.group();
+            String groupName = CreeperGroupCenter.getGroupName(annotation.platform(),annotation.group());
             int priority = annotation.priority();
 
             if (CreeperGroupCenter.GroupMap().containsKey(groupName)) {

@@ -1,6 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.creeper.builder.BiliBiliLiveLoadConfigBuilder;
 import org.example.core.creeper.loadtask.BilibiliLiveOnlineLoadTask;
@@ -15,7 +16,8 @@ import org.example.core.manager.Creeper;
         loadTask = BilibiliLiveOnlineLoadTask.class,
         creeperDescription = "B站直播爬取(包含监控器)",
         priority = 10,
-        group = "bilibili_live"
+        group = ConstGroup.LIVE_ONLINE,
+        platform = ConstPool.BILIBILI
 )
 public class BilibiliLiveOnlineConfig extends LoadLiveConfig{
 

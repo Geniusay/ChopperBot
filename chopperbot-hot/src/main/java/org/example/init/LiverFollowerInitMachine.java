@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
         pluginName = PluginName.HOT_LIVER_FOLLOWER,
         pluginName_CN = "主播关注插件",
         pluginDescription = "时时刻刻监视主播--的直播录播情况",
-        needPlugin = {PluginName.FILE_CACHE_PLUGIN,PluginName.HOT_CONFIG_PLUGIN,PluginName.TASK_CENTER_PLUGIN},
+        needPlugin = {PluginName.TASK_CENTER_PLUGIN,PluginName.HOT_GUARD_PLUGIN},
         pluginClass= LiverFollower.class,
         springBootPlugin = true
 )

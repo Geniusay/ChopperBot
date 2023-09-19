@@ -90,6 +90,11 @@ public class DouyuLiveBarrageLoadTask extends WebSocketLoadTask<List<DouyuBarrag
     public void onMessage(ByteBuffer buffer) {
         DouyuBarrage douyuBarrage = wrapperBarrage(buffer, startTime);
         if(douyuBarrage!=null){
+            if(douyuBarrage.getTimeReal()==0){
+                long now = System.currentTimeMillis();
+                douyuBarrage.setTimeReal(now);
+                douyuBarrage.setTimeReal(now-startTime);
+            }
             list.add(douyuBarrage);
             try {
                 fileCache.append(douyuBarrage,"-1");
@@ -134,6 +139,9 @@ public class DouyuLiveBarrageLoadTask extends WebSocketLoadTask<List<DouyuBarrag
                     if(var.startsWith("cst@=")){
                         String str = getVar(var, "cst@=");
                         timeReal = str.equals("")?System.currentTimeMillis():Long.parseLong(str);
+                        if(timeReal<startTime){
+                            timeReal = System.currentTimeMillis();
+                        }
                         long index = timeReal - startTime;
                         timeIndex = index<0?0:index;
                     }

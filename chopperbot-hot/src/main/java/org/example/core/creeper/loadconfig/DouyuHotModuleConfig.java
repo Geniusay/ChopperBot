@@ -1,5 +1,7 @@
 package org.example.core.creeper.loadconfig;
 
+import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.core.creeper.loadtask.DouyuHotModuleLoadTask;
 import org.example.core.manager.Creeper;
 
@@ -13,7 +15,8 @@ import org.example.core.manager.Creeper;
         loadTask = DouyuHotModuleLoadTask.class,
         creeperDescription = "斗鱼的热门模块爬虫",
         priority = 10,
-        group = "douyu_hot_module"
+        group = ConstGroup.HOT_MODULE,
+        platform = ConstPool.DOUYU
 )
 public class DouyuHotModuleConfig extends LoadHotModuleConfig {
 

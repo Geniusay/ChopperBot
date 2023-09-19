@@ -26,6 +26,12 @@
 
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>chopperbot-section</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>chopperbot-console</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -52,6 +58,19 @@
             <groupId>org.java-websocket</groupId>
             <artifactId>Java-WebSocket</artifactId>
             <version>1.5.1</version> <!-- 使用最新版本 -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.3</version> <!-- 版本号根据你需要的版本进行修改 -->
+        </dependency>
+
+        <!-- JCommon -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>1.0.23</version> <!-- 版本号根据你需要的版本进行修改 -->
         </dependency>
     </dependencies>
 </project>

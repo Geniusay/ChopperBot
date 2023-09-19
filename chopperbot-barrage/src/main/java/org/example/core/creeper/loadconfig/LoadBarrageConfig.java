@@ -4,6 +4,7 @@ import lombok.Data;
 import org.example.core.loadconfig.LoadConfig;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.util.FileUtil;
 import org.example.util.TimeUtil;
 import org.slf4j.Logger;
 
@@ -35,6 +36,9 @@ public class LoadBarrageConfig extends LoadConfig {
 
     @Override
     public String getTaskId() {
-        return String.format("barrage_%s_%s_%s_%s", action,platform,anchorName,startTime);
+        String taskId = super.getTaskId();
+        return String.format(taskId+"_%s",anchorName);
     }
+
+
 }

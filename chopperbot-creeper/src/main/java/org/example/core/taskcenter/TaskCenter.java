@@ -1,39 +1,29 @@
 package org.example.core.taskcenter;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.config.CreeperConfigFile;
-import org.example.config.CreeperLogConfigFile;
 import org.example.config.TaskCenterConfig;
 import org.example.constpool.PluginName;
 import org.example.core.loadtask.LoadTask;
 import org.example.core.manager.CreeperBuilder;
 import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
-import org.example.core.manager.Creeper;
-import org.example.core.taskcenter.task.TaskRecord;
+import org.example.core.taskcenter.observer.AbstractTaskCenterObserver;
 import org.example.core.taskcenter.task.TaskStatus;
-import org.example.core.taskmonitor.MonitorCenter;
-import org.example.core.taskmonitor.TaskMonitor;
-import org.example.exception.FileCacheException;
 import org.example.init.InitPluginRegister;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
-import org.example.plugin.GuardPlugin;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.core.taskcenter.task.ReptileTask;
-import org.example.plugin.PluginCheckAndDo;
 import org.example.core.loadconfig.LoadConfig;
-import org.example.util.ConfigFileUtil;
-import org.example.util.TimeUtil;
+import org.example.plugin.SpringGuardPlugin;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author Genius
@@ -47,7 +37,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * 3，未完成的爬虫任务修复
  */
 @Data
-public class TaskCenter extends GuardPlugin {
+@Component
+public class TaskCenter extends SpringGuardPlugin {
 
     private long waitingQueueTime;  //等待队列时间
 
@@ -63,9 +54,10 @@ public class TaskCenter extends GuardPlugin {
 
     private TaskCenterLogger taskCenterLogger;
 
+    @Resource
+    private List<AbstractTaskCenterObserver> taskObservers;
 
-    public TaskCenter(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
-        super(module, pluginName, needPlugins, isAutoStart);
+    public TaskCenter() {
         afterDo = false;
     }
 
@@ -93,14 +85,9 @@ public class TaskCenter extends GuardPlugin {
             ReptileTask task = waitingTask.poll(waitingQueueTime,TimeUnit.MILLISECONDS);
             if(task!=null){
                 if(runningTask.putIfAbsent(task.getTaskId(),task)!=null) return;
-                changeTaskType(task, TaskStatus.Running);
-
                 taskCenterLogger.syncLog();
-                PluginCheckAndDo.CheckAndDo((plugin)->{
-                    ((MonitorCenter)plugin).register(task.getTaskId(), task.getLoadTask());
-                },PluginName.TASK_MONITOR_PLUGIN);
-
                 runningTaskFuture.put(task.getTaskId(),taskPool.submit(task::reptile));
+                changeTaskType(task, TaskStatus.Running);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -116,9 +103,9 @@ public class TaskCenter extends GuardPlugin {
                     task.getEndTime(),
                     task.getType()
             );
+            taskCenterLogger.appendLog(log);
             if (waitingTask.offer(task,waitingQueueTime, TimeUnit.MILLISECONDS)) {
                 changeTaskType(task, TaskStatus.Already);
-                taskCenterLogger.appendLog(log);
             }else{
                 return false;
             }
@@ -135,9 +122,6 @@ public class TaskCenter extends GuardPlugin {
                 (reptileTask=runningTask.remove(taskId))!=null) {
             changeTaskType(reptileTask, TaskStatus.Finish);
             taskCenterLogger.syncLog();
-            PluginCheckAndDo.CheckAndDo((plugin)->{
-                ((MonitorCenter)plugin).close(reptileTask.getTaskId());
-            },PluginName.TASK_MONITOR_PLUGIN);
         }
         return false;
     }
@@ -150,73 +134,44 @@ public class TaskCenter extends GuardPlugin {
             future.cancel(true);
             changeTaskType(reptileTask,TaskStatus.Finish);
             taskCenterLogger.syncLog();
-            PluginCheckAndDo.CheckAndDo((plugin)->{
-                ((MonitorCenter)plugin).close(reptileTask.getTaskId());
-            },PluginName.TASK_MONITOR_PLUGIN);
         }
         this.info(String.format("%s stop success!", taskId));
         return true;
     }
 
-    /**
-     * 检测同时更新日志
-     */
-    /**
-     * 恢复当日因异常关闭而没有完成的任务
-     */
-    public boolean restoreTaskCenter(){
-//        ChopperLogFactory.getLogger(LoggerType.Creeper).
-//                info("<{}> start to restore...", PluginName.TASK_CENTER_PLUGIN);
-//        int restoreNum = 0;
-//        JSONArray restoreTask = (JSONArray) creeperLogFileCache.get("task");
-//        if(restoreTask.size()>0){
-//            for (int i=0;i<restoreTask.size();i++) {
-//                Object task = restoreTask.get(i);
-//                if(task instanceof JSONObject){
-//                    TaskRecord taskRecord = JSONObject.parseObject(task.toString(), TaskRecord.class);
-//                    ReptileTask reptileTask = taskRecord.getReptileTask();
-//                    if(taskRecord.getType().equals(TaskStatus.Running)
-//                            ||taskRecord.getType().equals(TaskStatus.Already)){
-//                        restoreNum++;
-//                        try {
-//                            changeTaskType(reptileTask, TaskStatus.Already);
-//                            waitingTask.put(reptileTask);
-//                        } catch (InterruptedException |FileCacheException e) {
-//                           throw new RuntimeException(e);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        ChopperLogFactory.getLogger(LoggerType.Creeper).info("<{}> Find {} reptile task need restore,already insert waiting queue",
-//                PluginName.TASK_CENTER_PLUGIN,restoreNum);
-        return true;
-    }
-
-
     private void changeTaskType(ReptileTask task,TaskStatus status){
-        if(task.getType()!= TaskStatus.No_Status){
-            task.setType(status);
-            TaskLog taskLog = taskCenterLogger.getTaskLogMap().get(task.getTaskId());
-            if(taskLog!=null){
-                taskLog.setType(status);
-            }
+        task.setType(status);
+        noticeObserver(task,status);
+        TaskLog taskLog = taskCenterLogger.getTaskLogMap().get(task.getTaskId());
+        if(taskLog!=null){
+            taskLog.setType(status);
         }
     }
 
+    private void noticeObserver(ReptileTask task,TaskStatus status){
+        for (AbstractTaskCenterObserver taskObserver : taskObservers) {
+            taskObserver.listen(status,task);
+        }
+    }
     public String request(ReptileRequest request){
         ReptileTask task = getReptileTask(request);
+        String taskId = request(task);
+        if(taskId==null){
+            this.error(String.format("There are no suitable creeper for this %s group", request.getCreeperGroup()));
+        }
+        return taskId;
+    }
+
+    public String request(ReptileTask task){
         if(task!=null){
             if (addTask(task)) {
                 return task.getTaskId();
             }
-        }else{
-            this.error(String.format("There are no suitable creeper for this %s group", request.getCreeperGroup()));
         }
         return null;
     }
 
-    private ReptileTask getReptileTask(ReptileRequest request){
+    public ReptileTask getReptileTask(ReptileRequest request){
         String creeperName = request.getCreeperName();
         String creeperGroup = request.getCreeperGroup();
         Object param = request.getParam();
@@ -234,7 +189,7 @@ public class TaskCenter extends GuardPlugin {
                 assert plugin != null;
                 LoadTask loadTask = plugin.getLoadTask(loadConfig);
                 if(loadTask!=null){
-                    return new ReptileTask(loadTask,request,loadConfig.getTaskId());
+                    return new ReptileTask(loadTask,loadConfig,request,loadConfig.getTaskId());
                 }
             }
         }

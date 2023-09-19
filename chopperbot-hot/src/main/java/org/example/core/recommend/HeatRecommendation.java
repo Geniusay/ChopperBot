@@ -14,6 +14,7 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.bean.FollowDog;
 import org.example.config.HotModuleConfig;
 import org.example.bean.HotModuleSetting;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.guard.HotModuleGuard;
@@ -110,26 +111,19 @@ public class HeatRecommendation extends SpringBootPlugin {
                         for (Live live : needRecommend(tempLives, getBanList(followDog.getBanLiver()), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
                             this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()));
-                            String checkGroup = CreeperGroupCenter.getGroupName(platform, "focus_check");
-                            String liveGroup = CreeperGroupCenter.getGroupName(platform,"live");
-                            String barrageGroup = CreeperGroupCenter.getGroupName(platform,"live_barrage");
+                            String checkGroup = CreeperGroupCenter.getGroupName(platform, ConstGroup.LIVER_CHECKER);
+                            String liveGroup = CreeperGroupCenter.getGroupName(platform,ConstGroup.LIVE_ONLINE);
                             TaskCenter taskCenter = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
                             if (CreeperGroupCenter.getFirstConfig(checkGroup)==null) {
                                 taskCenter.request(new ReptileRequest((t)->{
                                     System.out.println(String.format("%s 直播爬取完毕", live.getLiver()));
                                 },liveGroup,live));
-                                taskCenter.request(new ReptileRequest((t)->{
-                                    System.out.println(String.format("%s 直播弹幕爬取完毕", live.getLiver()));
-                                },barrageGroup,live));
                             }else{
                                 taskCenter.request(new ReptileRequest((obj -> {
                                     obj = obj==null?live:obj;
                                     taskCenter.request(new ReptileRequest((t)->{
                                         System.out.println(String.format("%s 直播爬取完毕", live.getLiver()));
                                     },liveGroup,obj));
-                                    taskCenter.request(new ReptileRequest((t)->{
-                                        System.out.println(String.format("%s 直播弹幕爬取完毕", live.getLiver()));
-                                    },barrageGroup,obj));
                                 }),checkGroup,live));
                             }
                         }

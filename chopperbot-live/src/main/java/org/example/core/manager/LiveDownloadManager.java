@@ -69,7 +69,7 @@ public class LiveDownloadManager extends CommonPlugin {
         tasks.put(taskId, task);
 
         //TODO 存储插件
-        OutputStream fileIO = new FileOutputStream(Path.of(liveConfig.getVideoPath(),liveConfig.getVideoName() + ".flv").toString());
+        OutputStream fileIO = new FileOutputStream(liveConfig.fullFilePath());
 
         Future<?> future = executor.submit(() -> {
             task.start(taskId, fileIO);

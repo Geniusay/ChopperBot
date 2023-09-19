@@ -90,7 +90,7 @@ public class InitPluginRegister {
                     }
                 }
             } catch (Exception e) {
-                return false;
+                throw new RuntimeException(e);
             }
         }
         ChopperBotGuardPool.setPluginNum(allPlugins.size());
@@ -137,7 +137,7 @@ public class InitPluginRegister {
             );
             return res.get();
         }catch (Exception e){
-            return false;
+            throw new RuntimeException(e);
         }
 
     }

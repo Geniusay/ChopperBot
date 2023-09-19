@@ -6,6 +6,7 @@ import org.example.bean.Live;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManager;
 import org.example.config.HotModuleConfig;
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
 import org.example.core.loadconfig.LoadConfig;
@@ -60,20 +61,23 @@ public class LiverFollower extends SpringBootPlugin {
             assert plugin != null;
             FileCache fileCache = plugin.getFileCache(HotModuleConfig.getFullFilePath());
             focusLive = (Integer)fileCache.get("LiverFollower", "focusLive")==1;
-            focusBarrage = (Integer)fileCache.get("LiverFollower", "focusBarrage")==1;
+            //focusBarrage = (Integer)fileCache.get("LiverFollower", "focusBarrage")==1;
             focusRecord = (Integer)fileCache.get("LiverFollower", "focusRecord")==1;
             checkTime = (Integer)fileCache.get("LiverFollower", "checkTime");
             focusLivers = service.getFocusLivers();
             info(String.format("Find %s following anchors", focusLivers.size()));
             focusFuture = new HashMap<>();
             focusPool = Executors.newScheduledThreadPool(focusLivers.size()+5, new NamedThreadFactory(pluginName));
-            doFocus();
         }catch (Exception e){
             throw new RuntimeException(e);
         }
         return true;
     }
 
+    @Override
+    public void afterInit(){
+        doFocus();
+    }
     private void doFocus(){
         focusLivers.forEach(
                 liver -> {
@@ -105,8 +109,6 @@ public class LiverFollower extends SpringBootPlugin {
 
         private TaskCenter taskCenter = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
 
-        private String barrageTaskId = null;
-
         private String liveTaskId = null;
         public FollowerEyes(LoadTask checker, String platform, String liver) {
             this.checker = checker;
@@ -121,7 +123,6 @@ public class LiverFollower extends SpringBootPlugin {
                 if(live!=null){
                     info(String.format("The %s is starting to live!!!!!!", liver));
                     doLiveCreeper(live);
-                    doBarrageCreeper(live);
                 }
             }
 
@@ -129,29 +130,15 @@ public class LiverFollower extends SpringBootPlugin {
 
         public void doLiveCreeper(Object obj){
             if(focusLive){
-                String groupName = CreeperGroupCenter.getGroupName(platform, "live");
+                String groupName = CreeperGroupCenter.getGroupName(platform, ConstGroup.LIVE_ONLINE);
                 liveTaskId = taskCenter.request( new ReptileRequest((t)->{
                     System.out.printf("主播%s直播结束\n", liver);
-                },groupName,obj));
-            }
-        }
-
-        public void doBarrageCreeper(Object obj){
-            if(focusBarrage){
-                String groupName = CreeperGroupCenter.getGroupName(platform,"live_barrage");
-                barrageTaskId = taskCenter.request( new ReptileRequest((t)->{
-                    System.out.printf("主播%s弹幕爬取结束\n%n", liver);
+                    liveTaskId = null;
                 },groupName,obj));
             }
         }
 
         public boolean alreadyFocus(){
-            if(focusBarrage){
-                if(barrageTaskId==null)return false;
-                if (!taskCenter.isRunning(barrageTaskId)) {
-                    return false;
-                }
-            }
             if(focusLive){
                 if(liveTaskId==null)return false;
                 if(!taskCenter.isRunning(liveTaskId)){
@@ -160,5 +147,16 @@ public class LiverFollower extends SpringBootPlugin {
             }
             return true;
         }
+    }
+
+    @Override
+    public void shutdown() {
+        focusFuture.forEach(
+                (k,f)->{
+                    f.cancel(true);
+                }
+        );
+        focusPool.shutdown();
+        super.shutdown();
     }
 }

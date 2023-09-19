@@ -1,6 +1,8 @@
 package org.example.core.creeper.loadconfig;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.constpool.CreeperModuleConstPool;
 import org.example.core.creeper.builder.BilibiliLiveBarrageLoadConfigBuilder;
 import org.example.core.creeper.loadtask.BilibiliLiveBarrageLoadTask;
@@ -16,7 +18,8 @@ import org.example.core.manager.Creeper;
         loadTask = BilibiliLiveBarrageLoadTask.class,
         creeperDescription = "爬取B站的直播弹幕内容(WebMagic爬虫，包含监控器)",
         priority = 10,
-        group = "bilibili_live_barrage"
+        group = ConstGroup.BARRAGE_ONLINE,
+        platform = ConstPool.BILIBILI
 )
 public class BilibiliLiveLoadBarrageConfig extends LoadBarrageConfig {
 

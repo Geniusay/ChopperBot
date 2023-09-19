@@ -1,5 +1,6 @@
 package org.example.core.creeper.group;
 
+import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.core.manager.AbstractCreeperGroup;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class BilibiliHotLiveGroup extends AbstractCreeperGroup {
 
     @Override
     public String getFunctionName() {
-        return "hot_live";
+        return ConstGroup.HOT_LIVE;
     }
 
 }

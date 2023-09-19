@@ -9,6 +9,10 @@
   <strong>A multifunctional, intelligent, personalized, scalable, easy to build, and fully automated multi platform intelligent live video editing and publishing robot</strong>
 </p>
 
+<audio id="audio" controls="" preload="none">
+      <source id="mp3" src="音频地址">
+</audio>
+
 <p align="center">
   <a href="https://969025903.github.io/ChopperBot-Doc/">
     <img src="https://img.shields.io/badge/文档-简体中文-blue.svg" alt="简体中文文档" />

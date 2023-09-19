@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import org.example.bean.Barrage;
 import org.example.bean.ConfigFile;
 import org.example.constpool.ConstPool;
+import org.example.constpool.FileNameBuilder;
 import org.example.core.creeper.loadconfig.LoadBarrageConfig;
 import org.example.exception.FileCacheException;
 import org.example.util.FileUtil;
@@ -49,10 +50,10 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
      * @return
      */
     private boolean init(ConcurrentLinkedQueue<T> data) {
-        String fileName = this.filaName();
+        String fileName = fileName(loadBarrageConfig.getAnchorName(),loadBarrageConfig.getStartTime());
         setFileName(fileName);
 
-        String rootPath = Paths.get(BARRAGE_ROOT_PATH, loadBarrageConfig.getPlatform(),loadBarrageConfig.getAction()).toString(); //获取当前主播的文件夹路径
+        String rootPath = fileRoot(loadBarrageConfig.getAction(),loadBarrageConfig.getPlatform());
 
         setFilePath(rootPath);
         Path path = Path.of(rootPath);
@@ -66,12 +67,12 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
         }
 
         setData(data);
-        if (!FileUtil.isFileExist(Paths.get(rootPath, fileName).toString())) {
+        String fileFullPath = Paths.get(rootPath, fileName).toString();
+        if (!FileUtil.isFileExist(fileFullPath)) {
 
             return !(JsonFileUtil.writeJsonFile(rootPath, fileName, this.packageConfig()) == null);
         }else{
-            String filePath = Path.of(rootPath.toString(),fileName).toString();
-            Map<String, Object> stringObjectMap = JsonFileUtil.readJsonFile(filePath);
+            Map<String, Object> stringObjectMap = JsonFileUtil.readJsonFile(fileFullPath);
             JSONArray array = (JSONArray) stringObjectMap.get("data");
             for (Object barrage : array) {
                 if(barrage instanceof Barrage){
@@ -84,13 +85,12 @@ public class BarrageSaveFile<T extends Barrage> extends ConfigFile<ConcurrentLin
         return true;
     }
 
-    private String filaName() {
-        String format = "barrage_%s_%s_%s_%s.json";
-        return String.format(format,
-                loadBarrageConfig.getAction(),
-                loadBarrageConfig.getPlatform(),
-                loadBarrageConfig.getAnchorName(),
-                FileUtil.convertTimeToFile(loadBarrageConfig.getStartTime()));
+    public static String fileRoot(String action,String platform){
+        return Paths.get(BARRAGE_ROOT_PATH, action,platform).toString(); //获取当前主播的文件夹路径
+    }
+
+    public static String fileName(String anchorName,String startTime) {
+        return FileNameBuilder.buildBarrageFileName(anchorName, startTime);
     }
 
     public int getAlreadyRead() {

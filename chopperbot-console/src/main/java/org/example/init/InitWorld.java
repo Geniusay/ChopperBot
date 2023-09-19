@@ -7,6 +7,8 @@ import org.example.constpool.GlobalFileCache;
 import org.example.core.creeper.loadconfig.DouyuHotModuleConfig;
 import org.example.core.manager.CreeperManager;
 import org.example.exception.FileCacheException;
+import org.example.log.ChopperLogFactory;
+import org.example.log.LoggerType;
 import org.example.plugin.annotation.Plugin;
 import org.example.util.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +68,12 @@ public class InitWorld implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (!InitPluginRegister.initPluginRegister(ctx)) {
+        try {
+            if (!InitPluginRegister.initPluginRegister(ctx)) {
+                close();
+            }
+        }catch (Exception e){
+            ChopperLogFactory.getLogger(LoggerType.System).error("Init Plugins Error:{}",e.getMessage());
             close();
         }
 

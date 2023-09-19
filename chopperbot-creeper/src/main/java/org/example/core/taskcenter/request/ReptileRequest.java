@@ -20,10 +20,6 @@ public class ReptileRequest<T> implements Serializable {
 
     protected String creeperName;
 
-    public ReptileRequest(T loadConfig,Callback callback) {
-        this.callback = callback;
-    }
-
     public ReptileRequest(Callback callback, String creeperGroup) {
         this.callback = callback;
         this.creeperGroup = creeperGroup;
@@ -31,6 +27,12 @@ public class ReptileRequest<T> implements Serializable {
 
     public ReptileRequest(Callback callback, String creeperGroup,T param) {
         this.callback = callback;
+        this.param = param;
+        this.creeperGroup = creeperGroup;
+    }
+
+    public ReptileRequest(String creeperGroup,T param) {
+        this.callback = (t)->{};
         this.param = param;
         this.creeperGroup = creeperGroup;
     }

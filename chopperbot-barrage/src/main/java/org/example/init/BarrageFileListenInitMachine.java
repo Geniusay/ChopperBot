@@ -17,7 +17,9 @@ import java.util.List;
 @Plugin(moduleName = ModuleName.BARRAGE,
         pluginName = PluginName.BARRAGE_FILE_PLUGIN,
         needPlugin = {PluginName.CREEPER_CONFIG_PLUGIN,PluginName.TASK_CENTER_PLUGIN},
-        pluginClass= BarrageFileMonitor.class)
+        pluginClass= BarrageFileMonitor.class,
+        autoStart = false
+)
 public class BarrageFileListenInitMachine extends CommonInitMachine {
     public BarrageFileListenInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
         super(needPlugins, isAutoStart, moduleName, name, clazz);

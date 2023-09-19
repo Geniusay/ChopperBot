@@ -30,13 +30,11 @@ public class TaskCenterApi {
         assert plugin != null;
         List<ReptileTaskVO> list = new ArrayList<>();
         Map<String, TaskLog> recordMap = plugin.getTaskCenterLogger().getTaskLogMap();
-        MonitorCenterApi monitorCenterApi = new MonitorCenterApi();
         recordMap.forEach(
                 (k,v)->{
 
                     list.add(new ReptileTaskVO(
-                            v.getTaskId(),v.getStartTime(),v.getEndTime(),v.getType().getName(),
-                            monitorCenterApi.hasMonitor(v.getTaskId())==null?0:1
+                            v.getTaskId(),v.getStartTime(),v.getEndTime(),v.getType().getName(),0
                     ));
                 }
         );

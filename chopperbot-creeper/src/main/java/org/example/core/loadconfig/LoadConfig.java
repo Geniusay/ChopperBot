@@ -1,5 +1,7 @@
 package org.example.core.loadconfig;
 
+import org.example.core.manager.Creeper;
+import org.example.core.manager.CreeperGroupCenter;
 import org.example.util.TimeUtil;
 import org.example.utils.FormatUtil;
 
@@ -29,6 +31,7 @@ public abstract class LoadConfig implements Serializable {
 
     protected Map<String,String> cookie;
 
+    protected String suffix;
     public LoadConfig() {
         this.startTime = TimeUtil.getNowTime_YMDHMS();
     }
@@ -50,7 +53,13 @@ public abstract class LoadConfig implements Serializable {
     }
 
     public String getTaskId(){
-        return UUID.randomUUID().toString();
+        if (this.getClass().isAnnotationPresent(Creeper.class)) {
+            Creeper ano = this.getClass().getAnnotation(Creeper.class);
+            return ano.group()+"_"+ano.platform();
+        }else{
+            return  UUID.randomUUID().toString();
+        }
+
     }
 
     public String getUserAgent() {
@@ -91,5 +100,13 @@ public abstract class LoadConfig implements Serializable {
 
     public void setCookie(Map<String, String> cookie) {
         this.cookie = cookie;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 }
