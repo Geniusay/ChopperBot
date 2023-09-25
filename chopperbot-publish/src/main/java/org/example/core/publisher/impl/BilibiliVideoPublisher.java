@@ -10,8 +10,12 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.example.core.apiUrl.BilibiliApiUrl;
 import org.example.core.publisher.PlatformVideoPublisher;
 import org.example.exception.ChopperBotException;
+import org.example.pojo.BilibiliUploader;
+
+import org.example.utils.CookieUtil;
 import org.example.utils.FileUtil;
 import org.example.utils.HttpClientUtil;
 import org.example.utils.VideoDeviceUtil;
@@ -28,16 +32,17 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author dhx
  * @date 2023/9/18 20:49
  */
-public class BilibiliVideoPublisher implements PlatformVideoPublisher {
+public class BilibiliVideoPublisher implements PlatformVideoPublisher<BilibiliUploader> {
     @Override
-    public void publishVideo(String videoPath, String devicePath, String Cookie, String coverPath) {
-        String jctPart = Cookie.substring(Cookie.indexOf("bili_jct"));
-        String csrf;
-        try {
-            csrf = jctPart.substring(jctPart.indexOf("=") + 1, jctPart.indexOf(";"));
-            System.out.println(csrf);
-        } catch (Exception e) {
-            throw new ChopperBotException("Cookie 错误");
+    public void publishVideo(BilibiliUploader bilibiliUploader) {
+        Map<String, String> header = bilibiliUploader.getHeader();
+        String videoPath = bilibiliUploader.getVideoPath();
+        String devicePath = bilibiliUploader.getDeviceVideoPath();
+        String cookie = bilibiliUploader.getCookie();
+        String coverPath = bilibiliUploader.getCoverPath();
+        String csrf = CookieUtil.getParam(cookie,"bili_jct");
+        if(csrf == null){
+            throw new ChopperBotException("Cookie错误");
         }
         int filesize = FileUtil.getFilesize(videoPath);
         if (filesize == -1) {
@@ -45,11 +50,7 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
         }
 
         //申请上传
-        Map<String, String> header = new HashMap<>();
-        header.put("Cookie", Cookie);
-        header.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.69");
-        header.put("Referer", "https://member.bilibili.com/platform/upload/video/frame?spm_id_from=333.1007.top_bar.upload");
-        String res = HttpClientUtil.get("https://member.bilibili.com/preupload?probe_version=20221109&upcdn=bda2&zone=cs&name=test.mp4&r=upos&profile=ugcfx%2Fbup&ssl=0&version=2.14.0.0&build=2140000&size=" + filesize + "&webVersion=2.14.0"
+        String res = HttpClientUtil.get(String.format(BilibiliApiUrl.VIDEO_PREUPLOAD_URL,filesize)
                 , header);
         JSONObject mp4Obj = JSONObject.parseObject(res);
         String mp4_upos_uri = mp4Obj.getString("upos_uri");
@@ -60,10 +61,10 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
         String auth = mp4Obj.getString("auth");
 
 
-        String res2 = HttpClientUtil.get("https://member.bilibili.com/preupload?name=file_meta.txt&size=2000&r=upos&profile=fxmeta%2Fbup&ssl=0&version=2.14.0.0&build=2140000&webVersion=2.14.0", header);
+        String res2 = HttpClientUtil.get(BilibiliApiUrl.TXT_PREUPLOAD_URL, header);
         JSONObject txtObj = JSONObject.parseObject(res2);
         String meta_upos_uri = txtObj.getString("upos_uri");
-        String preUploadUrl = String.format("https:%s%s?uploads&output=json%s&filesize=%s&partsize=%s&meta_upos_uri=%s&biz_id=%s", endpoint, mp4_upos_uri.substring(mp4_upos_uri.indexOf('/') + 1), put_query.substring(put_query.indexOf('&')), String.valueOf(filesize), chunk_size, meta_upos_uri, biz_id);
+        String preUploadUrl = String.format(BilibiliApiUrl.PREUPLOAD_URL, endpoint, mp4_upos_uri.substring(mp4_upos_uri.indexOf('/') + 1), put_query.substring(put_query.indexOf('&')), String.valueOf(filesize), chunk_size, meta_upos_uri, biz_id);
         Map<String, String> header2 = new HashMap<>();
         header2.put("X-Upos-Auth", auth);
         String res3 = HttpClientUtil.post(preUploadUrl, "{}", header2);
@@ -87,7 +88,7 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
                 throw new ChopperBotException(String.format("未找到视频片段%s", i));
             }
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpPut httpPut = new HttpPut(String.format("https:%s%s?partNumber=%s&uploadId=%s&chunk=%s&chunks=%s&size=%s&start=%s&end=%s&total=%s",
+                HttpPut httpPut = new HttpPut(String.format(BilibiliApiUrl.VIDEO_UPLOAD_URL,
                         endpoint, mp4_upos_uri.substring(mp4_upos_uri.indexOf('/') + 1), i, upload_id, i - 1, chunkNumber, end - start, start, end, filesize)); // 替换为实际的目标URL
 
                 byte[] binaryData = new byte[(int) file.length()];
@@ -110,6 +111,8 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
             }
         }
 
+        VideoDeviceUtil.deleteChunks(devicePath);
+
         //通知上传完成
         JSONObject body = new JSONObject();
         JSONArray parts = new JSONArray();
@@ -122,7 +125,7 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
         body.put("parts", parts);
         String res4 = HttpClientUtil.post(
                 String.format(
-                        "https:%s%s?output=json&name=test.mp4%s&uploadId=%s&biz_id=%s",
+                        BilibiliApiUrl.UPLOAD_FINISHI_URL,
                         endpoint, mp4_upos_uri.substring(mp4_upos_uri.indexOf('/') + 1), put_query.substring(put_query.indexOf('&')), upload_id, biz_id
                 ), body.toString(), header2
         );
@@ -144,7 +147,7 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
         list.add(new BasicNameValuePair("cover", base64Image));
         list.add(new BasicNameValuePair("csrf", csrf));
         UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(list, UTF_8);
-        String res5 = HttpClientUtil.post("https://member.bilibili.com/x/vu/web/cover/up?t=" + LocalTime.now(), urlEncodedFormEntity, header);
+        String res5 = HttpClientUtil.post(BilibiliApiUrl.COVER_UPLOAD_URL + LocalTime.now(), urlEncodedFormEntity, header);
         JSONObject cover = JSONObject.parseObject(res5);
         JSONObject coverData = cover.getJSONObject("data");
         if (coverData == null) return;
@@ -156,12 +159,12 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
         JSONArray videos = new JSONArray();
         subtitle.put("open", 0);
         subtitle.put("lan", "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ");
-        JSONObject video = new JSONObject();
-        video.put("filename", mp4_upos_uri.substring(mp4_upos_uri.lastIndexOf('/') + 1, mp4_upos_uri.indexOf('.')));
-        video.put("title", "test");
-        video.put("desc", "");
-        video.put("cid", biz_id);
-        videos.add(video);
+        JSONObject param_video = new JSONObject();
+        param_video.put("filename", mp4_upos_uri.substring(mp4_upos_uri.lastIndexOf('/') + 1, mp4_upos_uri.indexOf('.')));
+        param_video.put("title", "test");
+        param_video.put("desc", "");
+        param_video.put("cid", biz_id);
+        videos.add(param_video);
         body1.put("act_reserve_create", 0);
         body1.put("copyright", 1);
         body1.put("cover", coverUrl);   //封面
@@ -184,12 +187,13 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
         body1.put("web_os", 1);
         body1.put("subtitle", subtitle);
         body1.put("videos", videos);
-        String res6 = HttpClientUtil.post(String.format("https://member.bilibili.com/x/vu/web/add/v3?t=%s&csrf=%s", LocalTime.now(), csrf), body1.toString(), header);
+        String res6 = HttpClientUtil.post(String.format(BilibiliApiUrl.SEND_MANUSCRIPT_URL, LocalTime.now(), csrf), body1.toString(), header);
         JSONObject res6Obj = JSONObject.parseObject(res6);
         int code = res6Obj.getInteger("code");
         if (code == 0) {
             System.out.println("发布成功");
         } else {
+            System.out.println(res6);
             throw new ChopperBotException("发布失败，请手动发布");
         }
     }

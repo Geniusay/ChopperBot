@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
  * 视频分段工具类
@@ -12,10 +13,10 @@ import java.io.IOException;
  */
 public class VideoDeviceUtil {
     /**
-     * videoPath: 视频存放路径
-     * savePath: 分割后视频存放路径
-     * chunk_size: 每一段大小
-     * 返回值: 分为多少块
+     * @param videoPath: 视频存放路径
+     * @param savePath: 分割后视频存放路径
+     * @param chunk_size: 每一段大小
+     * @return 分为多少块
      */
     public static int device(String videoPath,String savePath,Long chunk_size){
         int chunkNumber = 1;
@@ -38,5 +39,35 @@ public class VideoDeviceUtil {
             return -1;
         }
         return chunkNumber;
+    }
+
+    /**
+     * 删除分段后的视频
+     * @param directoryPath
+     */
+    public static void deleteChunks(String directoryPath){
+        File directory = new File(directoryPath);
+        if (!directory.exists() || !directory.isDirectory()) {
+            System.out.println("目录不存在或不是一个目录。");
+            return;
+        }
+        try{
+            Pattern pattern = Pattern.compile("chunk_\\d+\\.bin");
+
+            File[] files = directory.listFiles((dir, name) -> pattern.matcher(name).matches());
+
+            if (files != null) {
+                for (File file : files) {
+                    if (file.delete()) {
+                        System.out.println("已删除文件: " + file.getName());
+                    } else {
+                        System.out.println("无法删除文件: " + file.getName());
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
