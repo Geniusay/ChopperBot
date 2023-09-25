@@ -59,6 +59,28 @@
             <artifactId>Java-WebSocket</artifactId>
             <version>1.5.1</version> <!-- 使用最新版本 -->
         </dependency>
+        <!-- only this origin -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <!-- add belows for these dependencies version is not 4.0.0 when automatically generated -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>4.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jfree</groupId>
@@ -72,5 +94,13 @@
             <artifactId>jcommon</artifactId>
             <version>1.0.23</version> <!-- 版本号根据你需要的版本进行修改 -->
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.hankcs/hanlp -->
+        <dependency>
+            <groupId>com.hankcs</groupId>
+            <artifactId>hanlp</artifactId>
+            <version>portable-1.7.8</version>
+        </dependency>
+
     </dependencies>
 </project>

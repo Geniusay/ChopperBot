@@ -1,0 +1,61 @@
+{
+	"data":{
+		"task":[
+			{
+				"startTime":"2023-09-11 12:56:40",
+				"endTime":"2023-09-11 12:56:41",
+				"type":"finish",
+				"taskId":"74aa62f7-a273-422f-bf1b-2b4e26bfa912"
+			},
+			{
+				"startTime":"2023-09-11 12:56:41",
+				"endTime":"nil",
+				"type":"running",
+				"taskId":"live_online_bilibili_不期而遇-飞鸟冠_2023-09-11 08:55:56"
+			},
+			{
+				"startTime":"2023-09-11 12:56:41",
+				"endTime":"nil",
+				"type":"running",
+				"taskId":"barrage_online_bilibili_不期而遇-飞鸟冠_2023-09-11 08:55:56"
+			},
+			{
+				"startTime":"2023-09-11 13:12:21",
+				"endTime":"2023-09-11 13:12:22",
+				"type":"finish",
+				"taskId":"7d256ef1-3021-4916-9b83-dd8e7031510a"
+			},
+			{
+				"startTime":"2023-09-11 13:12:22",
+				"endTime":"nil",
+				"type":"running",
+				"taskId":"live_online_bilibili_不期而遇-飞鸟冠_2023-09-11 08:55:56"
+			},
+			{
+				"startTime":"2023-09-11 13:12:22",
+				"endTime":"nil",
+				"type":"running",
+				"taskId":"barrage_online_bilibili_不期而遇-飞鸟冠_2023-09-11 08:55:56"
+			},
+			{
+				"startTime":"2023-09-11 13:20:13",
+				"endTime":"2023-09-11 13:20:14",
+				"type":"finish",
+				"taskId":"7c8f74b1-2921-45a1-9339-7627d1d3e4ec"
+			},
+			{
+				"startTime":"2023-09-11 13:20:14",
+				"endTime":"nil",
+				"type":"running",
+				"taskId":"live_online_bilibili_不期而遇-飞鸟冠_2023-09-11 08:55:56"
+			},
+			{
+				"startTime":"2023-09-11 13:20:14",
+				"endTime":"nil",
+				"type":"running",
+				"taskId":"barrage_online_bilibili_不期而遇-飞鸟冠_2023-09-11 08:55:56"
+			}
+		]
+	},
+	"updateTime":"2023-09-11 13:20:33"
+}

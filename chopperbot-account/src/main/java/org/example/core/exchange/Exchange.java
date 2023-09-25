@@ -16,10 +16,9 @@ public class Exchange {
     }
 
     public void bind(VideoQueue queue, String routingKey) {
-        this.bindings.putIfAbsent(routingKey, new ArrayList());
-       this.bindings.get(routingKey).add(queue);
+        this.bindings.putIfAbsent(routingKey, new ArrayList<>());
+        this.bindings.get(routingKey).add(queue);
     }
-
 
     public void publish(String routingKey, Object message) {
         if (this.bindings.containsKey(routingKey)) {
