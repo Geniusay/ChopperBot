@@ -2,8 +2,6 @@ package org.example.api;
 
 import org.example.core.account.Impl.AccountOperator;
 import org.example.pojo.Account;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,4 +29,8 @@ public class AccountApi {
         return accountOperator.getAllUsers(platformId);
     }
 
+    @PostMapping("/editUser")
+    public void editUser(@RequestBody Account account){
+        accountOperator.editUser(account);
+    }
 }

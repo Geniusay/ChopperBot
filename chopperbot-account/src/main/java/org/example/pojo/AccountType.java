@@ -18,6 +18,6 @@ import java.util.List;
 @TableName(value = "account_type")
 public class AccountType {
 
-    private String uid;
-    private List<VideoType> videoTypes;
+    private Long uid;
+    private String type;
 }

@@ -15,4 +15,5 @@ public interface AccountCenter {
 
     List<Account> getAllUsers(int id);
 
+    void editUser(Account account);
 }

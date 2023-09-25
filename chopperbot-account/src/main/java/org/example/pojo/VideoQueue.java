@@ -1,35 +1,30 @@
 package org.example.pojo;
 
+import lombok.Data;
+import org.openqa.selenium.Cookie;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Description
  * @Author welsir
  * @Date 2023/9/4 22:09
  */
+@Data
 public class VideoQueue {
     private String name;
     private List<Object> messages;
-    private List<VideoType> type;
     private boolean isStrongMatch;
+    private Set<Cookie> cookies;
 
-    public List<VideoType> getType() {
-        return this.type;
-    }
-
-    public void setType(List<VideoType> type) {
-        this.type = type;
-    }
-
-    public VideoQueue() {
-    }
-
-    public VideoQueue(String name, boolean isStrongMatch) {
+    public VideoQueue(String name, boolean isStrongMatch,Set<Cookie> cookies) {
         this.name = name;
         this.messages = new ArrayList<>();
         this.isStrongMatch = isStrongMatch;
+        this.cookies = cookies;
     }
 
     public void enqueue(Object message) {
@@ -42,10 +37,6 @@ public class VideoQueue {
 
     public boolean isEmpty() {
         return this.messages.isEmpty();
-    }
-
-    public boolean shouldReceiveMessage(List<VideoType> videoType) {
-        return (new HashSet(videoType)).equals(new HashSet(this.type));
     }
 
     public String toString() {

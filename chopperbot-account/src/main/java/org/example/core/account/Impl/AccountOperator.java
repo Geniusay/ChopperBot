@@ -5,6 +5,7 @@ import org.example.core.factory.PlatformFactory;
 import org.example.core.mapper.AccountMapper;
 import org.example.pojo.Account;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,6 +27,12 @@ public class AccountOperator implements AccountCenter {
 
     @Override
     public List<Account> getAllUsers(int id) {
-        return accountMapper.getUserByPlatform(id);
+        return accountMapper.selectUserByPlatform(id);
+    }
+
+    @Override
+    public void editUser(Account account) {
+        int i = accountMapper.updateById(account);
+        Assert.isTrue(i==1,"Update user fail!Please try again or check the wrong!");
     }
 }
