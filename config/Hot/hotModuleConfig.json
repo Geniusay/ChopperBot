@@ -1,4 +1,5 @@
 {
+	"updateTime":"2023-09-11 12:56:40",
 	"data":{
 		"LiverFollower":{
 			"checkTime":60000,
@@ -9,6 +10,5 @@
 		"HotGuard":{
 			"GuardNum":10
 		}
-	},
-	"updateTime":"2023-09-10 22:52:40"
+	}
 }

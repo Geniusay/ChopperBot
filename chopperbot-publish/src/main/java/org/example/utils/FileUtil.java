@@ -2,6 +2,7 @@ package org.example.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.regex.Pattern;
 
 /**
  * @author dhx
@@ -10,6 +11,8 @@ import java.io.FileInputStream;
 public class FileUtil {
     /**
      * 获取文件大小
+     * @param filePath 文件路径
+     * @return 文件大小
      */
     public static int getFilesize(String filePath){
         int filesize = 0;
@@ -27,4 +30,6 @@ public class FileUtil {
         }
         return filesize;
     }
+
+
 }

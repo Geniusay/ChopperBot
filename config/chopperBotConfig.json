@@ -11,25 +11,19 @@
 			"Publish":"./config/Publish"
 		},
 		"pluginStart":{
-			"CreeperManager":true,
 			"HotGuard":true,
-			"SectionWorkShop":true,
-			"BarrageConfig":true,
-			"BarrageFileListen":false,
-			"BarrageEvent":true,
-			"InstantSlicing":true,
-			"LiveDownLoadManager":true,
-			"LiveConfig":true,
-			"BarragePopularRange":true,
-			"HotRecommendation":true,
-			"BarrageScoreCurve":true,
+			"CreeperManager":true,
 			"FileCacheManager":true,
 			"LiverFollower":true,
 			"TaskMonitor":true,
 			"HotConfig":true,
+			"BarrageFileListen":true,
 			"TaskCenter":true,
-			"CreeperConfig":true
+			"CreeperConfig":true,
+			"LiveDownLoadManager":true,
+			"LiveConfig":true,
+			"HotRecommendation":true
 		}
 	},
-	"updateTime":"2023-09-20 01:13:06"
+	"updateTime":"2023-09-11 13:20:23"
 }

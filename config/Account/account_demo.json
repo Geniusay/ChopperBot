@@ -1,0 +1,14 @@
+{
+  "Douyu": {
+    "accountInfo": [
+       {"id": "test01",
+        "password": 123456,
+        "VideoType": ["HAPPY","SAD"],
+        "cookies": ""
+      }
+    ]
+  },
+  "Douyin": {
+    "accountInfo": []
+  }
+}

@@ -1,6 +1,7 @@
 package org.example.api;
 
 import org.example.core.publisher.impl.BilibiliVideoPublisher;
+import org.example.pojo.BilibiliUploader;
 
 /**
  * @author dhx
@@ -8,8 +9,9 @@ import org.example.core.publisher.impl.BilibiliVideoPublisher;
  */
 public class BilibiliPublishApi {
     public static void PublishVideo(String videoPath,String devicePath,String Cookie,String coverPath){
+        BilibiliUploader bilibiliUploader = new BilibiliUploader(Cookie,videoPath,coverPath,devicePath);
         BilibiliVideoPublisher bilibiliVideoPublisher = new BilibiliVideoPublisher();
-        bilibiliVideoPublisher.publishVideo(videoPath,devicePath,Cookie,coverPath);
+        bilibiliVideoPublisher.publishVideo(bilibiliUploader);
     }
 
     public static void main(String[] args) {
