@@ -1,0 +1,35 @@
+{
+	"data":{
+		"src":{
+			"Account":"./config/Account",
+			"Creeper":"./config/Creeper",
+			"LiveRecord":"./config/LiveRecord",
+			"SectionWork":"./config/SectionWork",
+			"Hot":"./config/Hot",
+			"Section":"./config/Section",
+			"Barrage":"./config/Barrage",
+			"Publish":"./config/Publish"
+		},
+		"pluginStart":{
+			"CreeperManager":true,
+			"HotGuard":true,
+			"SectionWorkShop":true,
+			"BarrageConfig":true,
+			"BarrageFileListen":false,
+			"BarrageEvent":true,
+			"InstantSlicing":true,
+			"LiveDownLoadManager":true,
+			"LiveConfig":true,
+			"BarragePopularRange":true,
+			"HotRecommendation":true,
+			"BarrageScoreCurve":true,
+			"FileCacheManager":true,
+			"LiverFollower":true,
+			"TaskMonitor":true,
+			"HotConfig":true,
+			"TaskCenter":true,
+			"CreeperConfig":true
+		}
+	},
+	"updateTime":"2023-09-20 01:13:06"
+}

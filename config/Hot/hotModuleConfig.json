@@ -1,0 +1,14 @@
+{
+	"data":{
+		"LiverFollower":{
+			"checkTime":60000,
+			"focusLive":1,
+			"focusRecord":1,
+			"focusBarrage":1
+		},
+		"HotGuard":{
+			"GuardNum":10
+		}
+	},
+	"updateTime":"2023-09-10 22:52:40"
+}
