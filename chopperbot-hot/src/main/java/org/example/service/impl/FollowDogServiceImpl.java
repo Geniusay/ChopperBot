@@ -30,6 +30,11 @@ public class FollowDogServiceImpl extends ServiceImpl<FollowDogMapper, FollowDog
     }
 
     @Override
+    public List<FollowDog> getPlatformDogs(String platform) {
+        return  query().eq("platform",platform).list();
+    }
+
+    @Override
     public boolean addFollowDog(FollowDog dog) {
         return mapper.insert(dog)==1;
     }

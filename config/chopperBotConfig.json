@@ -13,17 +13,23 @@
 		"pluginStart":{
 			"HotGuard":true,
 			"CreeperManager":true,
+			"SectionWorkShop":true,
+			"BarrageConfig":true,
+			"BarrageFileListen":true,
+			"BarrageEvent":true,
+			"InstantSlicing":true,
+			"LiveDownLoadManager":true,
+			"LiveConfig":true,
+			"BarragePopularRange":true,
+			"HotRecommendation":true,
+			"BarrageScoreCurve":true,
 			"FileCacheManager":true,
 			"LiverFollower":true,
 			"TaskMonitor":true,
 			"HotConfig":true,
-			"BarrageFileListen":true,
 			"TaskCenter":true,
-			"CreeperConfig":true,
-			"LiveDownLoadManager":true,
-			"LiveConfig":true,
-			"HotRecommendation":true
+			"CreeperConfig":true
 		}
 	},
-	"updateTime":"2023-09-11 13:20:23"
+	"updateTime":"2023-10-07 23:05:43"
 }

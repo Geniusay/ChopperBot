@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Plugin(moduleName = ModuleName.BARRAGE,
         pluginName = PluginName.INSTANT_SLICING_PLUGIN,
-        pluginName_CN = "即时切片插件，拥有多种算法进行实时快速切片",
+        pluginName_CN = "即时切片插件",
+        pluginDescription = "拥有多种算法进行实时快速切片，提供最新最热门的切片",
         needPlugin = {PluginName.BARRAGE_CONFIG,PluginName.BARRAGE_EVENT_PLUGIN},
         pluginClass= InstantSlicingPlugin.class,
         springBootPlugin = true

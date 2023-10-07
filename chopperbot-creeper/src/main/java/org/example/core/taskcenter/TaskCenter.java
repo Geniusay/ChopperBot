@@ -155,9 +155,12 @@ public class TaskCenter extends SpringGuardPlugin {
     }
     public String request(ReptileRequest request){
         ReptileTask task = getReptileTask(request);
+        if(task==null){
+            this.error(String.format("There are no suitable creeper for this %s group",  request.getCreeperGroup()));
+        }
         String taskId = request(task);
         if(taskId==null){
-            this.error(String.format("There are no suitable creeper for this %s group", request.getCreeperGroup()));
+            this.error(String.format("%s request fail,Perhaps the same task is running!",request.getCreeperGroup()));
         }
         return taskId;
     }

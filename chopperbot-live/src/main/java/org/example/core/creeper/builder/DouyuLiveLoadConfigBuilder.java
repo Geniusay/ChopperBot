@@ -25,7 +25,7 @@ public class DouyuLiveLoadConfigBuilder extends CommonLoadConfigBuilder<DouyuLiv
             String liver = ((DouyuLive) obj).getLiver();
             String path = LiveModuleConstPool.getPlatformLiveSavePath(ConstPool.PLATFORM.DOUYU);
             String showTime = ((DouyuLive) obj).getShowTime();
-            DouyuLiveOnlineConfig douyuLiveOnlineConfig = new DouyuLiveOnlineConfig(liveId, path, null, true);
+            DouyuLiveOnlineConfig douyuLiveOnlineConfig = new DouyuLiveOnlineConfig(liveId, path, null, false);
             douyuLiveOnlineConfig.setShowTime(showTime);
             douyuLiveOnlineConfig.setVideoName(FileNameBuilder.buildVideoFileNameNoSuffix(liver,douyuLiveOnlineConfig.getStartTime()));
             douyuLiveOnlineConfig.setShowDownloadTable(true);

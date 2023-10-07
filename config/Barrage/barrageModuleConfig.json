@@ -3,7 +3,7 @@
 		"InstantSlicing":{
 			"handler":"ScheduleTime",
 			"ScheduleTime":{
-				"duration":1800000
+				"duration":300000
 			}
 		},
 		"barrageScoreCurve":{

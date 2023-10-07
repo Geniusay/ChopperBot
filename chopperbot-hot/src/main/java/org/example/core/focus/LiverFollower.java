@@ -27,10 +27,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -44,6 +41,7 @@ public class LiverFollower extends SpringBootPlugin {
     private FocusLiverService service;
 
     private boolean focusLive = true;
+
     private boolean focusBarrage = true;
     private boolean focusRecord = true;
 
@@ -81,26 +79,36 @@ public class LiverFollower extends SpringBootPlugin {
     }
     private void doFocus(){
         focusLivers.forEach(
-                liver -> {
-                    String function = "focus_check";
-                    String platform = liver.getPlatform();
-                    String groupName = CreeperGroupCenter.getGroupName(platform, function);
-                    CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
-                    assert plugin != null;
-                    LoadTask loadTask = plugin.getLoadTask(groupName, liver);
-                    if(loadTask!=null){
-                        ScheduledFuture<?> schedule = focusPool.scheduleWithFixedDelay(new FollowerEyes(loadTask, platform, liver.getLiver()),0,
-                                checkTime, TimeUnit.MILLISECONDS);
-                        focusFuture.put(liver.getLiver(),schedule);
-                        info(String.format("eyes on the liver:%s", liver.getLiver()));
-                    }else{
-                        error(String.format("cant found platform:%s %s creeper",platform,groupName));
-                    }
-                }
+                this::appendLiverTask
         );
     }
 
+    private void appendLiverTask(FocusLiver liver){
+        String function = "focus_check";
+        String platform = liver.getPlatform();
+        String groupName = CreeperGroupCenter.getGroupName(platform, function);
+        CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
+        assert plugin != null;
+        LoadTask loadTask = plugin.getLoadTask(groupName, liver);
+        if(loadTask!=null){
+            ScheduledFuture<?> schedule = focusPool.scheduleWithFixedDelay(new FollowerEyes(loadTask, platform, liver.getLiver()),0,
+                    checkTime, TimeUnit.MILLISECONDS);
+            focusFuture.put(liver.getLiver(),schedule);
+            info(String.format("eyes on the liver:%s", liver.getLiver()));
+        }else{
+            error(String.format("cant found platform:%s %s creeper",platform,groupName));
+        }
+    }
+    public void addFocusLiver(FocusLiver liver){
+        this.appendLiverTask(liver);
+    }
 
+    public void deleteFocusLiver(String liver){
+        Future task = focusFuture.remove(liver);
+        if(task!=null){
+            task.cancel(true);
+        }
+    }
     class FollowerEyes implements Runnable,Serializable{
 
         private LoadTask checker;
@@ -161,30 +169,4 @@ public class LiverFollower extends SpringBootPlugin {
         super.shutdown();
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(
-                ()->{
-                    System.out.println("hello");
-                    long sum = 0;
-                    Random random = new Random();
-                    for(int i=0;i<100000000;i++){
-                        sum = random.nextInt();
-                    }
-                    for(int i=0;i<100000000;i++){
-                        sum = random.nextInt();
-                    }
-                    for(int i=0;i<100000000;i++){
-                        sum = random.nextInt();
-                    }
-                    for(int i=0;i<1000000000;i++){
-                        sum = random.nextInt();
-                    }
-                    System.out.println(sum);
-                },0,1000,TimeUnit.MILLISECONDS
-        );
-        while(true){
-            System.out.println(666);
-            Thread.sleep(1000);
-        }
-    }
 }

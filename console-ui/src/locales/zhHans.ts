@@ -10,6 +10,7 @@ export default {
     contact: "联系我们",
     tos: "服务条款",
     policy: "隐私政策",
+    platform:"平台",
   },
   login: {
     title: "登录",
@@ -118,6 +119,9 @@ export default {
     plugin_setting: "插件设置",
     creeper_library: "爬虫仓库",
     task_center:"任务中心",
+    hot_guard:"平台热度监控",
+    heat_recommend:"热门直播推荐",
+    live_follow:"关注主播",
     hot_live:"热门直播"
   },
   dashboard: {

@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -42,7 +43,7 @@ import java.util.regex.Pattern;
 public class HeatRecommendation extends SpringBootPlugin {
 
     private static final long serialVersionUID = 4749216808636623354L;
-    private Map<String, List<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
+    private Map<String,CopyOnWriteArrayList<FollowDog>> platformFollowDogMap ;   //每个平台的跟风列表
 
     @Resource
     FollowDogService service;
@@ -61,7 +62,7 @@ public class HeatRecommendation extends SpringBootPlugin {
             modules.forEach(
                     module->{
                         map.put(module.getPlatform(),module);
-                        platformFollowDogMap.put(module.getPlatform(),new ArrayList<>());
+                        platformFollowDogMap.put(module.getPlatform(),new CopyOnWriteArrayList<>());
                     }
             );
 
@@ -69,7 +70,7 @@ public class HeatRecommendation extends SpringBootPlugin {
             for (FollowDog followDog : allDog) {
                 String platform = followDog.getPlatform();
                 if (platformFollowDogMap.containsKey(platform)) {
-                    if(map.get(platform).isFollowDogEnable()){
+                    if(map.get(platform).getFollowDogEnable()){
                         platformFollowDogMap.get(platform).add(followDog);
                     }
                 }
@@ -133,6 +134,53 @@ public class HeatRecommendation extends SpringBootPlugin {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public boolean addFollowDog(FollowDog dog){
+        String platform = dog.getPlatform();
+        if (hotModuleSettingService.getSetting(platform).getFollowDogEnable()) {
+            List<FollowDog> followDogs = platformFollowDogMap.get(platform);
+            if(followDogs==null){
+                return false;
+            }
+            followDogs.add(dog);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeFollowDog(String platform,String dogId){
+        List<FollowDog> followDogs = platformFollowDogMap.get(platform);
+        if(followDogs!=null){
+            return followDogs.removeIf(dog -> {
+                return dog.getDogId().equals(dogId);
+            });
+        }
+        return false;
+    }
+
+    public boolean updateFollowDog(FollowDog dog){
+        List<FollowDog> followDogs = platformFollowDogMap.get(dog.getPlatform());
+        if(followDogs!=null){
+            return followDogs.removeIf(dog1 -> {return dog1.getDogId().equals(dog.getDogId());})&&followDogs.add(dog);
+        }
+        return false;
+    }
+
+    public boolean openPlatformFollowDog(String platform,boolean isOpen){
+        HotModuleSetting setting = new HotModuleSetting();
+        setting.setPlatform(platform);
+        setting.setFollowDogEnable(isOpen);
+        if (hotModuleSettingService.updateSetting(setting)) {
+            if(isOpen){
+                List<FollowDog> platformDogs = service.getPlatformDogs(platform);
+                platformFollowDogMap.get(platform).addAll(platformDogs);
+            }else{
+                platformFollowDogMap.put(platform,new CopyOnWriteArrayList<>());
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

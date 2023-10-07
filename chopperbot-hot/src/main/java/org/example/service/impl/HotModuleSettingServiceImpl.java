@@ -24,6 +24,11 @@ public class HotModuleSettingServiceImpl extends ServiceImpl<HotModuleSettingMap
 
     @Override
     public boolean updateSetting(HotModuleSetting setting) {
-        return update().eq("platform",setting.getPlatform()).update();
+        return update().eq("platform",setting.getPlatform()).update(setting);
+    }
+
+    @Override
+    public HotModuleSetting getSetting(String platform) {
+        return query().eq("platform",platform).one();
     }
 }

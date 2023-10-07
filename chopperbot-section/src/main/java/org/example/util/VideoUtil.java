@@ -13,6 +13,9 @@ import org.bytedeco.javacv.Frame;
 import org.example.constpool.ConstPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ws.schild.jave.Encoder;
+import ws.schild.jave.MultimediaInfo;
+import ws.schild.jave.MultimediaObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -413,6 +416,8 @@ public class VideoUtil {
     }
 
     public static boolean cutVideoByFFMpeg(String inputFilePath,String outputFilePath,String start,String end){
+        long videoTime = getVideoTime(inputFilePath);
+        System.out.println(inputFilePath+"视频时长为:"+videoTime+" "+formatTimeToFFMpeg(videoTime));
         try {
             String ffmpegCmd = FFMPEG_PATH + " -i " + "\""+inputFilePath+"\"" + " -ss " + start + " -to " + end + " -c copy " + "\""+outputFilePath+"\"" +" -y";
 

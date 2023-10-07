@@ -53,11 +53,25 @@ export default [
     name: "app-hot-live",
     component: () =>
       import(
-        /* webpackChunkName: "utility-board" */ "@/views/app/hot/HotLiveView.vue"
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot_live/HotLiveView.vue"
         ),
     meta: {
       requiresAuth: true,
       title: "Hot Live",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
+    path: "/apps/hotGuard",
+    name: "app-hot-guard",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot/hot_guard/HotGuardView.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "Hot Guard",
       layout: "ui",
       category: "APP",
     },

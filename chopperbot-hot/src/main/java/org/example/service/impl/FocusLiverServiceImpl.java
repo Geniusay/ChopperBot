@@ -27,12 +27,19 @@ public class FocusLiverServiceImpl extends ServiceImpl<FocusLiverMapper,FocusLiv
     }
 
     @Override
-    public boolean deleteLivers(String room_id) {
-        return mapper.deleteByMap(Map.of("room_id",room_id))==1;
+    public boolean deleteLivers(String platform,String liver) {
+        return mapper.deleteByMap(
+                Map.of(
+                        "platform",platform,
+                        "liver",liver)
+        )==1;
     }
 
     @Override
     public boolean addLivers(FocusLiver liver) {
+        if(hasLivers(liver.getLiver(),liver.getRoomId())){
+            return false;
+        }
         return mapper.insert(liver)==1;
     }
 

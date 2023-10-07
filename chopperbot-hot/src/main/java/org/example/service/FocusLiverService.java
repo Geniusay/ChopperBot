@@ -9,7 +9,7 @@ public interface FocusLiverService extends IService<FocusLiver> {
 
     List<FocusLiver> getFocusLivers();
 
-    boolean deleteLivers(String room_id);
+    boolean deleteLivers(String platform,String liver);
 
     boolean addLivers(FocusLiver liver);
 }

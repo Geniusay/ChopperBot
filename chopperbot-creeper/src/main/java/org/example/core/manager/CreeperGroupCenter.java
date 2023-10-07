@@ -56,8 +56,9 @@ public class CreeperGroupCenter implements Serializable {
         if(groupMap.containsKey(groupName)){
             AbstractCreeperGroup abstractCreeperGroup = groupMap.get(groupName);
             return abstractCreeperGroup.getFirstConfig();
+        }else{
+            return null;
         }
-        return null;
     }
 
 

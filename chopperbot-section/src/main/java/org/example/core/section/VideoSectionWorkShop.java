@@ -60,7 +60,7 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
         }catch (InterruptedException e){
             return;
         }catch (Exception e){
-
+            e.printStackTrace();
         }
     }
     public long timeBias(long time){

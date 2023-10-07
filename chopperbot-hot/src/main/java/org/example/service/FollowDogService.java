@@ -10,6 +10,8 @@ public interface FollowDogService extends IService<FollowDog> {
 
     List<FollowDog> getAllDog();
 
+    List<FollowDog> getPlatformDogs(String platform);
+
     boolean addFollowDog(FollowDog dog);
 
     boolean updateFollowDog(FollowDog dog);

@@ -18,10 +18,22 @@ export default [
     link: "/apps/taskCenter"
   },
   {
-    icon:"mdi mdi-fire-circle",
-    key:"menu.hot_live",
-    text:"Hot Live",
-    link: "/apps/hotLive"
+    icon:"mdi mdi-monitor-cellphone-star",
+    key:"menu.hot_guard",
+    text:"Hot Guard",
+    link: "/apps/hotGuard"
+  },
+  {
+    icon:"mdi mdi-bird",
+    key:"menu.heat_recommend",
+    text:"Heat Recommend",
+    link: "/apps/heat_recommend"
+  },
+  {
+    icon:"mdi mdi-star-face",
+    key:"menu.live_follow",
+    text:"Live Follow",
+    link: "/apps/live_follow"
   },
   {
     icon: "mdi-forum-outline",

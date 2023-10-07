@@ -31,6 +31,6 @@ public class BilibiliLiverCheckerConfig extends LoadConfig {
         this.url = String.format("https://api.bilibili.com/x/web-interface/wbi/search/type?order=online&keyword=%s&search_type=live",liver);
         this.cookie = new HashMap<>();
         this.cookie.put("buvid3","6BA6EB5A-E197-4F47-A2C4-E4022E98BC85138387infoc");
-        this.cookie.put("SESSDATA","225349b3%2C1710488625%2C80bab%2A91CjA-rMVpeZ4FXvvQSFSrP4D5V7OgxWQcyj6nBD0hu574u6Ri95MNSdhT07KZxVFYC-ISVkdzbWpxR3ZJSFFKekhqU0dLOGNDTWY1UVZudlJzQ3RROGpfYTVoWHEwVDg2V1lac1ZQc0NyblNJaDhyWW1DZmdyTkpxMmZJdTVHYXlxXy1wZ3ZhdTh3IIEC");
+        this.cookie.put("SESSDATA","9481d398%2C1711296621%2C4d8e5%2A91CjB4IXMIVvMxEG4t5eeq6jicEzEbBHPyKRAJcBNLSi7n_-bBq8ik86Cua7JRupYgqPoSVl9pM2tHYllWSURiQmxESDByUExXU0kwV01JckN0dlB4Sks4aHk5V1FTOXBsSG9STkVJNnhwakxoS2VscWV6a0taYm0wa2xPVUxMRk9lZ2R5T19mS3FBIIEC");
     }
 }

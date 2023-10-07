@@ -1,6 +1,12 @@
 export default [
   // users Data
   {
+    icon:"mdi mdi-fire-circle",
+    key:"menu.hot_live",
+    text:"Hot Live",
+    link: "/apps/hotLive"
+  },
+  {
     icon: "mdi-table",
     text: "Users Data",
     link: "/data/users-data",

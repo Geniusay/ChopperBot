@@ -10,6 +10,7 @@ export default {
     contact: "Contact Us",
     tos: "Terms of Service",
     policy: "Privacy Policy",
+    platform:"platform"
   },
   login: {
     title: "Sign In",
@@ -122,6 +123,9 @@ export default {
     plugin_setting:"Plugin Setting",
     creeper_library:"Creeper Library",
     task_center:"Task Center",
+    hot_guard:"Hot Guard",
+    heat_recommend:"Heat Recommend",
+    live_follow:"Live Follow",
     hot_live:"Hot Live"
   },
   monitor:{

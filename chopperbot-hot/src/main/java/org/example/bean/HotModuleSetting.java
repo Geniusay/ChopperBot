@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  **/
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @TableName("hot_module_setting")
 public class HotModuleSetting {
 
@@ -23,16 +25,16 @@ public class HotModuleSetting {
 
     private String platform;         //平台
 
-    private int failRetryTimes;      //失败重试次数
+    private Integer failRetryTimes;      //失败重试次数
 
-    private boolean enableHotModule; //是否开启热门模块爬取
+    private Boolean enableHotModule; //是否开启热门模块爬取
 
-    private boolean enableHotLive;   //是否开启热门直播爬取
+    private Boolean enableHotLive;   //是否开启热门直播爬取
 
-    private boolean followDogEnable; //当开启autoWork时，启用跟风狗模式，跟风狗模式会自动爬取热门直播
+    private Boolean followDogEnable; //当开启autoWork时，启用跟风狗模式，跟风狗模式会自动爬取热门直播
 
-    private long updateHotModuleTimes; //自动更新平台热门模块时间
+    private Long updateHotModuleTimes; //自动更新平台热门模块时间
 
-    private long updateHotLivesTimes; //自动更新平台热门直播时间
+    private Long updateHotLivesTimes; //自动更新平台热门直播时间
 
 }

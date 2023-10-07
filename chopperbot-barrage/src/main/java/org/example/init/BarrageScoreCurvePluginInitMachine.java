@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
  **/
 @Plugin(moduleName = ModuleName.BARRAGE,
         pluginName = PluginName.BARRAGE_SCORE_CURVE_PLUGIN,
-        pluginName_CN = "弹幕评分曲线插件，计算一场直播的整体弹幕曲线",
+        pluginName_CN = "弹幕评分曲线插件",
+        pluginDescription = "计算一场直播的整体弹幕得分曲线",
         needPlugin = {PluginName.BARRAGE_CONFIG},
         pluginClass= BarrageScoreCurvePlugin.class,
         springBootPlugin = true
