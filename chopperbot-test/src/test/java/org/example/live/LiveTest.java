@@ -3,6 +3,7 @@ package org.example.live;
 import org.example.ConsoleApplication;
 import org.example.core.creeper.loadconfig.BilibiliLiveOnlineConfig;
 import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
+import org.example.core.creeper.loadconfig.HuyaLiveOnlineConfig;
 import org.example.core.manager.LiveDownloadManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +42,28 @@ public class LiveTest {
     @Test
     public void BilibiliLive(){
         BilibiliLiveOnlineConfig liveConfig = new BilibiliLiveOnlineConfig("732", "E:\\Project\\ChopperBot\\config\\LiveRecord\\", "猪猪公主",false);
+
+        // 创建下载任务管理器
+        LiveDownloadManager liveDownLoadManager = new LiveDownloadManager(5);
+
+        try {
+            // 向任务管理器中添加任务
+            String taskId = liveDownLoadManager.addTask(liveConfig);  // 获取任务的标识符
+            int cnt = 600;
+            while (cnt > 0) {
+                cnt--;
+                Thread.sleep(1000);
+            }
+
+            liveDownLoadManager.terminateThenSave(liveConfig,taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void HuyaLive(){
+        HuyaLiveOnlineConfig liveConfig = new HuyaLiveOnlineConfig("mumu123456", "C:\\Users\\admin\\Desktop\\douyu\\", "猪猪公主",false);
 
         // 创建下载任务管理器
         LiveDownloadManager liveDownLoadManager = new LiveDownloadManager(5);
