@@ -59,7 +59,20 @@
 # ⚙ Architecture
 ![image](https://github.com/969025903/ChopperBot/assets/77137063/eeca58de-611b-41ee-973f-cd375f98e569)
 
+# 🎥 Preview
+## Plugin Center
+![e6cb59bdbc2db690610d7dec956aed4](https://github.com/969025903/ChopperBot/assets/77137063/ac83fbae-d720-4b98-8701-687436605e97)
+## Task Center
+![Task Center](https://github.com/969025903/ChopperBot/assets/77137063/62ab3560-c5c2-4808-be84-a765349e4c39)
+![Task Monitor](https://github.com/969025903/ChopperBot/assets/77137063/95843e98-fdc3-4ff4-805a-4a0dd8ef28be)
+## Creeper Library
+![02754f052b22234db1081dec379e8fa](https://github.com/969025903/ChopperBot/assets/77137063/5e12b279-ff34-450f-a408-c4b1f2d797d9)
+## Hot Guard
+![9f9a0e3127245ae70e5375c1bf90509](https://github.com/969025903/ChopperBot/assets/77137063/6d8c0f1e-a02f-4d04-a047-f03888358790)
+## Heat Recommend
+![431e8b1880825e528b07f9c11360577](https://github.com/969025903/ChopperBot/assets/77137063/adeab4ae-25fe-4752-a6ce-2a79a6f5703e)
 
+**More pages in development....**
 # 🕹 ChopperBot Module
 | Module | Introduction |
 | :-: | :-: |
