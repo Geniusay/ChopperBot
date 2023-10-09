@@ -1,13 +1,16 @@
 package org.example.api;
 
+import org.example.bean.GuardVO;
 import org.example.bean.HotModuleSetting;
 import org.example.core.guard.Guard;
 import org.example.core.guard.HotModuleGuard;
 import org.example.service.HotModuleSettingService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Genius
@@ -33,7 +36,11 @@ public class HotModuleGuardApi {
         return false;
     }
 
-    public List<Guard> getGuards(){
-        return hotModuleGuard.getGuards();
+    public List<GuardVO> getGuards(){
+        return hotModuleGuard.getGuards().stream().map(guard->{
+            GuardVO guardVO = new GuardVO();
+            BeanUtils.copyProperties(guard,guardVO);
+            return guardVO;
+        }).collect(Collectors.toList());
     }
 }

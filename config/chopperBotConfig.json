@@ -24,12 +24,12 @@
 			"HotRecommendation":true,
 			"BarrageScoreCurve":true,
 			"FileCacheManager":true,
-			"LiverFollower":true,
+			"LiverFollower":false,
 			"TaskMonitor":true,
 			"HotConfig":true,
 			"TaskCenter":true,
 			"CreeperConfig":true
 		}
 	},
-	"updateTime":"2023-10-07 23:05:43"
+	"updateTime":"2023-10-09 22:41:45"
 }

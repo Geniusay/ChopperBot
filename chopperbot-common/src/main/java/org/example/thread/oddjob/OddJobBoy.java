@@ -15,14 +15,15 @@ import java.util.concurrent.*;
 /**
  * ChopperBot系统中专门用来处理异步事件的类
  */
-public class OddJobBoy implements ChopperBotGuardianTask {
+public class OddJobBoy {
 
     private static volatile OddJobBoy Instance;
 
-    private BlockingQueue<OddJob> oddjobs;
+
+    private ExecutorService pool;
 
     private OddJobBoy(){
-        oddjobs = new ArrayBlockingQueue<>(1024);
+        pool = Executors.newCachedThreadPool(new NamedThreadFactory("oddjob"));
     }
 
     public static OddJobBoy Boy(){
@@ -37,20 +38,6 @@ public class OddJobBoy implements ChopperBotGuardianTask {
     }
 
     public void addWork(OddJob job) throws InterruptedException {
-        oddjobs.put(job);
-    }
-
-
-    @Override
-    public void threadTask() {
-        while(true){
-            try {
-                OddJob job = oddjobs.take();
-                ChopperLogFactory.getLogger(LoggerType.System).info("<OddJobBoy> boy get a odd job:{},Processing...",job);
-                job.doJob();
-            }catch (InterruptedException e){
-
-            }
-        }
+        pool.submit(job::doJob);
     }
 }

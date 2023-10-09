@@ -81,7 +81,7 @@ public class HotController {
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotGuard/guard")
     public Result hotGuards(){
-        List<Guard> guards = hotModuleService.hotModuleGuardApi().getGuards();
+        List<GuardVO> guards = hotModuleService.hotModuleGuardApi().getGuards();
         return Result.success(
                 Map.of("list",guards)
         );
@@ -126,10 +126,15 @@ public class HotController {
     @CheckPlugin(needPlugin = {PluginName.HOT_RECOMMENDATION_PLUGIN})
     @PostMapping("/hotRecommendation/add")
     public Result addFollowDogs(@RequestBody FollowDog dog){
+        dog.setId(null);
         boolean success = hotModuleService.heatRecommendApi().addFollowDog(dog);
-        return Result.success(
-                Map.of("success",success)
-        );
+        if(success){
+            return Result.success(
+                    Map.of("add",dog)
+            );
+        }else{
+            return Result.error("403","添加失败");
+        }
     }
 
     @CheckPlugin(needPlugin = {PluginName.HOT_RECOMMENDATION_PLUGIN})

@@ -19,7 +19,7 @@ public class BarrageUtil {
                 List<Barrage> list = ((JSONArray) barrages).toJavaList(Barrage.class);
                 list = list.stream().sorted(Comparator.comparing(Barrage::getTimeReal)).collect(Collectors.toList());
                 if(list.isEmpty()){
-                    return false;
+                    JsonFileUtil.writeJsonFile(outputFilePath,Map.of("data",list,"updateTime",TimeUtil.getNowTime_YMDHMS()));
                 }else{
                     long startTime = list.get(0).getTimeReal() + start;
                     long endTime = list.get(0).getTimeReal() + end;

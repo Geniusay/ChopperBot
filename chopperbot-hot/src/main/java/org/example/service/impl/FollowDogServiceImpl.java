@@ -36,7 +36,7 @@ public class FollowDogServiceImpl extends ServiceImpl<FollowDogMapper, FollowDog
 
     @Override
     public boolean addFollowDog(FollowDog dog) {
-        return mapper.insert(dog)==1;
+        return save(dog);
     }
 
     @Override

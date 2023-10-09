@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Genius
@@ -22,6 +23,7 @@ public class HeatRecommendApi {
     HeatRecommendation heatRecommendation;
 
     public boolean addFollowDog(FollowDog dog){
+        dog.setDogId(UUID.randomUUID().toString());
         if (followDogService.addFollowDog(dog)) {
             return heatRecommendation.addFollowDog(dog);
         }

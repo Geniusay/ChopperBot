@@ -13,6 +13,7 @@ import org.example.log.ResultLogger;
 import org.example.plugin.PluginCheckAndDo;
 import org.slf4j.Logger;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -34,11 +35,14 @@ public class Guard<T extends HotModuleLoadTask> implements Runnable, ResultLogge
     private long delayTime;
 
     private int failRetryTimes;
+
+    private LocalDateTime preGuardTime;
     @Override
     public void run() {
 
         int retryTimes = 0;
         Object data = task.start();
+        preGuardTime = LocalDateTime.now();
         if(task.isFinish() == HotModuleLoadTask.FinishFlag.FINISH){
             successLog();
         }else{

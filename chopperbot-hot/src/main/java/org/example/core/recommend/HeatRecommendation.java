@@ -28,6 +28,7 @@ import org.example.plugin.SpringBootPlugin;
 import org.example.service.FollowDogService;
 import org.example.service.HotModuleSettingService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -146,25 +147,26 @@ public class HeatRecommendation extends SpringBootPlugin {
             followDogs.add(dog);
             return true;
         }
-        return false;
+        return true;
     }
 
     public boolean removeFollowDog(String platform,String dogId){
         List<FollowDog> followDogs = platformFollowDogMap.get(platform);
         if(followDogs!=null){
-            return followDogs.removeIf(dog -> {
+            followDogs.removeIf(dog -> {
                 return dog.getDogId().equals(dogId);
             });
         }
-        return false;
+        return true;
     }
 
     public boolean updateFollowDog(FollowDog dog){
         List<FollowDog> followDogs = platformFollowDogMap.get(dog.getPlatform());
         if(followDogs!=null){
-            return followDogs.removeIf(dog1 -> {return dog1.getDogId().equals(dog.getDogId());})&&followDogs.add(dog);
+            followDogs.removeIf(dog1 -> {return dog1.getDogId().equals(dog.getDogId());});
+            followDogs.add(dog);
         }
-        return false;
+        return true;
     }
 
     public boolean openPlatformFollowDog(String platform,boolean isOpen){
@@ -222,12 +224,12 @@ public class HeatRecommendation extends SpringBootPlugin {
     }
 
     private List<String> getBanList(String banLiver){
-        if(banLiver==null){
-            return  new ArrayList<>();
-        }else{
+        if(StringUtils.hasText(banLiver)){
             String s = banLiver.substring(1, banLiver.length() - 1);
             String[] ss = s.split(",");
             return List.of(ss);
+        }else{
+            return  new ArrayList<>();
         }
     }
 }

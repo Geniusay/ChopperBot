@@ -9,7 +9,12 @@ export const useHotGuardStore = defineStore({
   id: "hotGuard",
   state:()=>({
     settings: ref<Setting[]>([]),
-    guards:[]
+    guards:[],
+    fieldLabelList: ref<string[]>([
+      "设置",
+      "监控守卫"
+    ]),
+
   }),
 
   getters:{

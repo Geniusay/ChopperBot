@@ -27,7 +27,6 @@ public class WorldInitMachine extends ModuleInitMachine{
     @Override
     public boolean init() {
         ChopperBotGuardPool.init();
-        OddJobBoy.Boy().guardian();
         try {
             initMachines = PluginUtil.getAllModuleInit();
             return initLogger(()->{

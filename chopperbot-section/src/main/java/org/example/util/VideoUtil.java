@@ -11,6 +11,7 @@ import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.*;
 import org.bytedeco.javacv.Frame;
 import org.example.constpool.ConstPool;
+import org.example.thread.oddjob.OddJobBoy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ws.schild.jave.Encoder;
@@ -20,8 +21,10 @@ import ws.schild.jave.MultimediaObject;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
@@ -416,17 +419,44 @@ public class VideoUtil {
     }
 
     public static boolean cutVideoByFFMpeg(String inputFilePath,String outputFilePath,String start,String end){
-        long videoTime = getVideoTime(inputFilePath);
-        System.out.println(inputFilePath+"视频时长为:"+videoTime+" "+formatTimeToFFMpeg(videoTime));
         try {
             String ffmpegCmd = FFMPEG_PATH + " -i " + "\""+inputFilePath+"\"" + " -ss " + start + " -to " + end + " -c copy " + "\""+outputFilePath+"\"" +" -y";
-
+            System.out.println(ffmpegCmd);
             // 执行FFmpeg命令
             Process process = Runtime.getRuntime().exec(ffmpegCmd);
-
             // 等待命令执行完成
-            int exitCode = process.waitFor();
 
+            OddJobBoy.Boy().addWork(()->{
+                BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                try {
+                    while ((in.readLine()) != null) {}
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            OddJobBoy.Boy().addWork(()->{
+                BufferedReader err = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                try {
+                    while ((err.readLine()) != null) {}
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        err.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            int exitCode = process.waitFor();
             if (exitCode == 0) {
                 System.out.printf("in:%s 视频分割完成。 out:%s\n",inputFilePath, outputFilePath);
                 return true;

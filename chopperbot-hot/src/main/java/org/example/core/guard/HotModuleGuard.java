@@ -85,7 +85,7 @@ public class HotModuleGuard extends SpringBootPlugin {
             if(loadTask!=null){
                 addGuard(new Guard(this.logger,groupName,loadTask,
                         hotModuleSetting.getUpdateHotModuleTimes(),
-                        hotModuleSetting.getFailRetryTimes()));
+                        hotModuleSetting.getFailRetryTimes(),null));
             }else{
                 this.error(String.format("Unable to listen %s hot module,cause: invalid loadTask!", groupName));
                 return false;
@@ -99,7 +99,7 @@ public class HotModuleGuard extends SpringBootPlugin {
             if(loadTask!=null){
                 addGuard(new Guard(this.logger,groupName,loadTask,
                         hotModuleSetting.getUpdateHotLivesTimes(),
-                        hotModuleSetting.getFailRetryTimes()));
+                        hotModuleSetting.getFailRetryTimes(),null));
             }else{
                 this.error(String.format("Unable to listen %s hot live,cause: invalid loadTask!", groupName));
                 return false;

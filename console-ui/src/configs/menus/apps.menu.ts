@@ -27,7 +27,7 @@ export default [
     icon:"mdi mdi-bird",
     key:"menu.heat_recommend",
     text:"Heat Recommend",
-    link: "/apps/heat_recommend"
+    link: "/apps/heatRecommend"
   },
   {
     icon:"mdi mdi-star-face",

@@ -39,23 +39,25 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
     public void start() {
         try {
             SectionRequest request = requests.poll(1000, TimeUnit.SECONDS);
-            long videoStartTime = TimeUtil.getTimeNaos(request.getDate());
-            long start = (timeBias(request.getStartTime())-videoStartTime)/1000;
-            start = start<0?0:start;
-            long end = (timeBias(request.getEndTime())-videoStartTime)/1000;
+            if(request!=null){
+                long videoStartTime = TimeUtil.getTimeNaos(request.getDate());
+                long start = (timeBias(request.getStartTime())-videoStartTime)/1000;
+                start = start<0?0:start;
+                long end = (timeBias(request.getEndTime())-videoStartTime)/1000;
 
-            String root = Paths.get(liveRoot,request.getAction(),request.getPlatform()).toString();
-            String startTime = VideoUtil.formatTimeToFFMpeg(start);
-            String endTime = VideoUtil.formatTimeToFFMpeg(end);
-            String videoName = request.getVideoName();
-            String[] split = videoName.split("\\.");
-            String oldPath = Paths.get(root,videoName).toString();
-            String liver = request.getLiver();
-            String date = request.getDate();
-            String newVideoName = FileNameBuilder.buildVideoFileNameNoSuffix(liver, date)+"_section("+ FileUtil.convertTimeToFile(startTime) +"-"+FileUtil.convertTimeToFile(endTime)+")."+split[1];
-            String newPath = Paths.get(root,newVideoName).toString();
-            if (VideoUtil.cutVideoByFFMpeg(oldPath,newPath,startTime,endTime)) {
-                VideoSection videoSection = new VideoSection(newVideoName,request.getTag(),request.getLiver(),request.getPlatform());
+                String root = Paths.get(liveRoot,request.getAction(),request.getPlatform()).toString();
+                String startTime = VideoUtil.formatTimeToFFMpeg(start);
+                String endTime = VideoUtil.formatTimeToFFMpeg(end);
+                String videoName = request.getVideoName();
+                String[] split = videoName.split("\\.");
+                String oldPath = Paths.get(root,videoName).toString();
+                String liver = request.getLiver();
+                String date = request.getDate();
+                String newVideoName = FileNameBuilder.buildVideoFileNameNoSuffix(liver, date)+"_section("+ FileUtil.convertTimeToFile(startTime) +"-"+FileUtil.convertTimeToFile(endTime)+")."+split[1];
+                String newPath = Paths.get(root,newVideoName).toString();
+                if (VideoUtil.cutVideoByFFMpeg(oldPath,newPath,startTime,endTime)) {
+                    VideoSection videoSection = new VideoSection(newVideoName,request.getTag(),request.getLiver(),request.getPlatform());
+                }
             }
         }catch (InterruptedException e){
             return;

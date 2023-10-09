@@ -11,6 +11,7 @@ import org.example.core.bgevnet.bgscore.BarragePoint;
 import org.example.core.bgevnet.bgscore.BarrageScoreCurvePlugin;
 import org.example.core.section.SectionRequest;
 import org.example.core.section.VideoSectionWorkShop;
+import org.example.init.InitPluginRegister;
 import org.example.plugin.PluginCheckAndDo;
 import org.example.plugin.SpringBootPlugin;
 import org.example.bean.Barrage;
@@ -83,6 +84,7 @@ public class BarrageEventCenter extends SpringBootPlugin {
                         return ((BarragePopularRangePlugin) plugin).findRange(points);
                     }, PluginName.BARRAGE_POPULAR_RANGE_PLUGIN, List.class
             );
+
             if(popularRanges!=null){
                 PluginCheckAndDo.CheckAndDo(plugin -> {
                     for (PopularRange popularRange : popularRanges) {
@@ -100,5 +102,6 @@ public class BarrageEventCenter extends SpringBootPlugin {
             }
             //TODO 弹幕标签插件
         }
+
     }
 }

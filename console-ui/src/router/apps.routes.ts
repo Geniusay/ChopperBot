@@ -3,6 +3,7 @@ import todoRoutes from "@/views/app/todo/todoRoutes";
 import emailRoutes from "@/views/app/email/emailRoutes";
 import chatRoutes from "@/views/app/chat/chatRoutes";
 import taskRoutes from "@/views/app/taskcenter/taskRoutes";
+import hotGuardRoutes from "@/views/app/hot/hot_guard/hotGuardRoutes";
 
 export default [
   {
@@ -69,9 +70,24 @@ export default [
       import(
         /* webpackChunkName: "utility-board" */ "@/views/app/hot/hot_guard/HotGuardView.vue"
         ),
+    children: [...hotGuardRoutes],
     meta: {
       requiresAuth: true,
       title: "Hot Guard",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
+    path: "/apps/heatRecommend",
+    name: "app-heat-recommend",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot/heat_recommend/HeatRecommendationView.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "Heat Recommend",
       layout: "ui",
       category: "APP",
     },
