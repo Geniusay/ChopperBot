@@ -3,7 +3,7 @@ package org.example.core.creeper.loadconfig;
 import lombok.Data;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
-import org.example.core.creeper.loadtask.DouyuLiveOnlineLoadTask;
+import org.example.core.creeper.loadtask.HuyaLiveOnlineLoadTask;
 import org.example.core.manager.Creeper;
 
 /**
@@ -12,7 +12,7 @@ import org.example.core.manager.Creeper;
  */
 @Data
 @Creeper(creeperName = "虎牙直播爬虫",
-        loadTask = DouyuLiveOnlineLoadTask.class,
+        loadTask = HuyaLiveOnlineLoadTask.class,
         creeperDescription = "虎牙直播爬取(包含监控器)",
         priority = 10,
         group = ConstGroup.LIVE_ONLINE,
