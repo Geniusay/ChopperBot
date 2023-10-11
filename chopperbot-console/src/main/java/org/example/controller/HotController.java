@@ -120,13 +120,21 @@ public class HotController {
                                            @RequestParam(required = false) Integer focusBarrage,
                                            @RequestParam(required = false) Long checkTime){
         hotModuleService.liverFollowApi().changeSetting(
-                Map.of("focusList",focusLive,
+                Map.of("focusLive",focusLive,
                         "focusBarrage",focusBarrage,
                         "checkTime",checkTime
                 )
         );
         return Result.success(
                 Map.of("success",true)
+        );
+    }
+
+    @CheckPlugin(needPlugin = {PluginName.HOT_LIVER_FOLLOWER})
+    @GetMapping("/liveFollow/setting")
+    public Result changeLiverFollowSetting(){
+        return Result.success(
+                Map.of("setting",hotModuleService.liverFollowApi().getSetting())
         );
     }
 

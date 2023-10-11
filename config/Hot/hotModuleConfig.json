@@ -1,14 +1,14 @@
 {
-	"updateTime":"2023-09-11 12:56:40",
 	"data":{
-		"LiverFollower":{
-			"checkTime":60000,
-			"focusLive":1,
-			"focusRecord":1,
-			"focusBarrage":1
-		},
 		"HotGuard":{
 			"GuardNum":10
+		},
+		"LiverFollower":{
+			"checkTime":120000,
+			"focusRecord":1,
+			"focusLive":1,
+			"focusBarrage":1
 		}
-	}
+	},
+	"updateTime":"2023-10-12 01:51:20"
 }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {allCreeper} from "@/api/creeperApi";
-import {useCreeperStore} from "@/views/app/creeper/creeperStore";
+import {followList} from "@/api/hot/liveFollowApi";
+import {useLiveFollowStore} from "@/views/app/hot/live_follow/liveFollowStore";
 import LiveFollowCard from "@/views/app/hot/live_follow/component/LiveFollowCard.vue";
-const creeperStore = useCreeperStore();
 
+const liveFollowStore = useLiveFollowStore();
 onMounted(async()=>{
-  await allCreeper().then(res=>{
-    creeperStore.creeperList = res.data['list']
+  await followList().then(res=>{
+    liveFollowStore.liveFollowList = res.data['list']
   })
 })
 
@@ -14,7 +14,7 @@ onMounted(async()=>{
 
 <template>
   <div class="app-container">
-    <LiveFollowCard :creepers="creeperStore.creeperList"></LiveFollowCard>
+    <LiveFollowCard :liveFollows="liveFollowStore.liveFollowList"></LiveFollowCard>
   </div>
 </template>
 

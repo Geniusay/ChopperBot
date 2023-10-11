@@ -56,6 +56,11 @@ onMounted(async()=>{
   })
 })
 
+setInterval(()=>{
+  getGuards().then(res=>{
+    hotGuardStore.guards = res.data['list']
+  })
+},30000)
 
 </script>
 

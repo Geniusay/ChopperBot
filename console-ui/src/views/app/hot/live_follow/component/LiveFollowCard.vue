@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import CopyLabel from "@/components/common/CopyLabel.vue";
-import {Creeper} from "../creeperTypes"
+import {useLiveFollowStore} from "@/views/app/hot/live_follow/liveFollowStore";
+import LiveFollowSetting from "@/views/app/hot/live_follow/component/LiveFollowSetting.vue";
+import AddFormDiaLog from "@/views/app/hot/live_follow/component/AddFormDiaLog.vue";
+import {FocusLiver} from "@/views/app/hot/live_follow/focusLiverTypes";
 
-
+const liveFollowStore = useLiveFollowStore();
 const props = defineProps<{
-  creepers: Creeper[];
+  liveFollows: FocusLiver[];
 }>();
-
-const dialog = ref(false)
-const notifications = false
-const sound = true
-const widgets = false
-
 const loading = ref(true);
 
 const headers = [
@@ -20,6 +17,7 @@ const headers = [
   { text: "主播昵称", value: "author" },
   { text: "房间号", value: "group" },
   { text: "标签", value: "priority" },
+  { text: "操作", value: "option" },
 ];
 
 const open = (item) => {};
@@ -30,39 +28,15 @@ onMounted(() => {
   }, 1000);
 });
 
-const searchKey = ref("")
 const keys = ["group","name"]
 
-const search = computed(()=> {
-  for (let i = 0; i < keys.length; i++) {
-    let key = keys[i]
-    if (searchKey.value.startsWith(key + ":")) {
-      let param = searchKey.value.split(key + ":")
-      if (param.length >= 2) {
-        return props.creepers.filter((creeper) => {
-          return creeper[key].includes(param[1].toLowerCase())
-        })
-      }
-    }
-  }
-  return props.creepers
-})
 
-const priorityColor = (priority:Number)=>{
-  if(priority<3){
-    return "green"
-  }else if(priority<5){
-    return "secondary"
-  }else if(priority<8){
-    return "orange"
-  }else{
-    return "red"
-  }
-}
 </script>
 
 <template>
   <!-- loading spinner -->
+  <LiveFollowSetting></LiveFollowSetting>
+  <AddFormDiaLog></AddFormDiaLog>
   <div
     v-if="loading"
     class="h-full d-flex flex-grow-1 align-center justify-center"
@@ -75,76 +49,22 @@ const priorityColor = (priority:Number)=>{
         <span>Live Follow</span>
         <v-spacer></v-spacer>
         <v-btn
+          style="margin-right: 20px"
+          color="success"
+          @click="liveFollowStore.addDialog = true"
+        >
+          <v-icon start icon="mdi mdi-plus-box"></v-icon>
+          关注主播
+        </v-btn>
+        <v-btn
           color="primary"
           dark
           v-bind="props"
-          @click=""
+          @click="liveFollowStore.dialog = true"
         >
           <v-icon start icon="mdi mdi-cog"></v-icon>
           Setting
         </v-btn>
-        <v-dialog
-          v-model="dialog"
-          fullscreen
-          :scrim="false"
-          transition="dialog-bottom-transition"
-        >
-
-          <v-card>
-            <v-toolbar
-              dark
-              color="primary"
-            >
-              <v-btn
-                icon
-                dark
-                @click="dialog = false"
-              >
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-              <v-toolbar-title>Settings</v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-toolbar-items>
-                <v-btn
-                  variant="text"
-                  @click="dialog = false"
-                >
-                  Save
-                </v-btn>
-              </v-toolbar-items>
-            </v-toolbar>
-            <v-list
-              lines="two"
-              subheader
-            >
-              <v-list-subheader>User Controls</v-list-subheader>
-              <v-list-item title="Content filtering" subtitle="Set the content filtering level to restrict apps that can be downloaded"></v-list-item>
-              <v-list-item title="Password" subtitle="Require password for purchase or use password to restrict purchase"></v-list-item>
-            </v-list>
-            <v-divider></v-divider>
-            <v-list
-              lines="two"
-              subheader
-            >
-              <v-list-subheader>General</v-list-subheader>
-              <v-list-item title="Notifications" subtitle="Notify me about updates to apps or games that I downloaded">
-                <template v-slot:prepend>
-                  <v-checkbox v-model="notifications"></v-checkbox>
-                </template>
-              </v-list-item>
-              <v-list-item title="Sound" subtitle="Auto-update apps at any time. Data charges may apply">
-                <template v-slot:prepend>
-                  <v-checkbox v-model="sound"></v-checkbox>
-                </template>
-              </v-list-item>
-              <v-list-item title="Auto-add widgets" subtitle="Automatically add home screen widgets">
-                <template v-slot:prepend>
-                  <v-checkbox v-model="widgets"></v-checkbox>
-                </template>
-              </v-list-item>
-            </v-list>
-          </v-card>
-        </v-dialog>
       </v-card-title>
       <v-table class="pa-3">
         <thead>
@@ -155,23 +75,25 @@ const priorityColor = (priority:Number)=>{
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in search" :key="item.name">
+        <tr v-for="(item,index) in liveFollows" :key="item.id">
           <td class="font-weight-bold">
             <copy-label :text="`# ${index}`" />
           </td>
           <td>
-            <copy-label :text="item.name" />
+            <copy-label :text="item.platform" />
           </td>
-          <td>{{ item.description }}</td>
-          <td>{{ item.author }}</td>
+          <td>{{ item.liver }}</td>
+          <td>{{ item.roomId }}</td>
           <td>
             <v-chip
-              class="ma-2"
               color="cyan"
               label>
               <v-icon start icon="mdi mdi-earth-box"></v-icon>
-              {{ item.group }}
+              {{ item.tag }}
             </v-chip>
+          </td>
+          <td>
+            <v-btn density="comfortable" color="red" icon="mdi mdi-trash-can"></v-btn>
           </td>
         </tr>
         </tbody>
@@ -182,10 +104,7 @@ const priorityColor = (priority:Number)=>{
 </template>
 
 <style lang="scss" scoped>
-.dialog-bottom-transition-enter-active,
-.dialog-bottom-transition-leave-active {
-  transition: transform .2s ease-in-out;
-}
+
 .v-table {
   table {
     padding: 4px;

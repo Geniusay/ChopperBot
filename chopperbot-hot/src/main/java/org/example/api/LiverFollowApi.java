@@ -52,10 +52,10 @@ public class LiverFollowApi {
     }
 
     public void changeSetting(Map<String,Object> settings){
-        ConfigFileUtil.changeSetting(settings,HotModuleConfig.getFullFilePath(),"liverFollower");
+        ConfigFileUtil.changeSetting(settings,HotModuleConfig.getFullFilePath(),"LiverFollower");
     }
 
     public Object getSetting(){
-        return ConfigFileUtil.getSetting(HotModuleConfig.getFullFilePath(),"liverFollower");
+        return ConfigFileUtil.getSetting(HotModuleConfig.getFullFilePath(),"LiverFollower");
     }
 }

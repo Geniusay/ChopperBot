@@ -30,7 +30,14 @@ export function unFollow(platform:string,liver:string){
   });
 }
 
-export function changeSetting(checkTime:number,focusLive:string,focusBarrage:string){
+export function getSetting(){
+  return request({
+    url: '/hot/liveFollow/setting',
+    method: 'get',
+  })
+}
+
+export function changeSetting(checkTime:number,focusLive:number,focusBarrage:number){
     return request({
       url: '/hot/liveFollow/changeSetting',
       method: 'get',
