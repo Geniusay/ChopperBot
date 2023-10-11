@@ -22,10 +22,22 @@ export function addFollow(liver:FocusLiver){
 export function unFollow(platform:string,liver:string){
   return request({
     url: '/hot/liveFollow/delete',
-    method: 'Get',
+    method: 'get',
     params: {
       platform:platform,
       liver:liver
     }
   });
+}
+
+export function changeSetting(checkTime:number,focusLive:string,focusBarrage:string){
+    return request({
+      url: '/hot/liveFollow/changeSetting',
+      method: 'get',
+      params: {
+        checkTime: checkTime,
+        focusLive: focusLive,
+        focusBarrage: focusBarrage
+      }
+    })
 }

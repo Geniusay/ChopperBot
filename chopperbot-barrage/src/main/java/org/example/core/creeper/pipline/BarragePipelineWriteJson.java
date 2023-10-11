@@ -3,6 +3,7 @@ package org.example.core.creeper.pipline;
 import org.example.bean.Barrage;
 import org.example.cache.FileCache;
 import org.example.constpool.PluginName;
+import org.example.core.BarrageFileCache;
 import org.example.core.BarrageTaskMonitor;
 import org.example.core.creeper.file.BarrageSaveFile;
 import org.example.core.creeper.loadconfig.LoadBarrageConfig;
@@ -33,7 +34,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class BarragePipelineWriteJson<T extends Barrage> implements Pipeline {
 
-    private FileCache filecache;
+    private BarrageFileCache filecache;
     private final ConcurrentLinkedQueue<T> cache;
     LoadBarrageConfig loadBarrageConfig;
 
@@ -53,7 +54,7 @@ public class BarragePipelineWriteJson<T extends Barrage> implements Pipeline {
             this.loadBarrageConfig = loadBarrageConfig;
             this.cache = new ConcurrentLinkedQueue<>();
             this.barrageSaveFile = new BarrageSaveFile(loadBarrageConfig, cache);
-            this.filecache = new FileCache(barrageSaveFile, 0, 10 * 1024);
+            this.filecache = new BarrageFileCache(barrageSaveFile);
 
         } catch (FileCacheException e) {
             throw new RuntimeException(e);

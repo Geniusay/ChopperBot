@@ -3,6 +3,7 @@ package org.example.core.creeper.loadtask;
 import org.example.bean.barrage.DouyuBarrage;
 import org.example.cache.FileCache;
 import org.example.constpool.PluginName;
+import org.example.core.BarrageFileCache;
 import org.example.core.BarrageTaskMonitor;
 import org.example.core.creeper.file.BarrageSaveFile;
 import org.example.core.creeper.loadconfig.DouyuLiveBarrageLoadConfig;
@@ -38,7 +39,7 @@ public class DouyuLiveBarrageLoadTask extends WebSocketLoadTask<List<DouyuBarrag
     public DouyuLiveBarrageLoadTask(DouyuLiveBarrageLoadConfig loadConfig) throws FileCacheException {
         super(loadConfig);
         roomId = loadConfig.getRoomId();
-        fileCache = new FileCache(new BarrageSaveFile<>(loadConfig,new ConcurrentLinkedQueue<>()));
+        fileCache = new BarrageFileCache(new BarrageSaveFile<>(loadConfig,new ConcurrentLinkedQueue<>()));
     }
 
     @Override
@@ -93,7 +94,7 @@ public class DouyuLiveBarrageLoadTask extends WebSocketLoadTask<List<DouyuBarrag
             if(douyuBarrage.getTimeReal()==0){
                 long now = System.currentTimeMillis();
                 douyuBarrage.setTimeReal(now);
-                douyuBarrage.setTimeReal(now-startTime);
+                douyuBarrage.setTimeIndex(now-startTime);
             }
             list.add(douyuBarrage);
             try {

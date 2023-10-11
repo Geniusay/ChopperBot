@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class bilibiliTest {
 
     public static void getcookies() throws Exception {
-
         System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.setBinary("C:\\Program Files (x86)\\Chromebrowser\\Chrome.exe");

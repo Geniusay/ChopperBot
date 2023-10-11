@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.pojo.vo.ConfigVO;
+import org.example.util.Result;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface FileService {
 
     //获取所有文件
     List<ConfigVO> getAllConfigs();
+
 }

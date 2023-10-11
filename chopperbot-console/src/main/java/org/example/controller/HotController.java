@@ -114,19 +114,36 @@ public class HotController {
         );
     }
 
-    @CheckPlugin(needPlugin = {PluginName.HOT_RECOMMENDATION_PLUGIN})
-    @GetMapping("/hotRecommendation/list")
-    public Result followDogs(){
-        List<FollowDog> followDog = hotModuleService.heatRecommendApi().getFollowDog();
+    @CheckPlugin(needPlugin = {PluginName.HOT_LIVER_FOLLOWER})
+    @GetMapping("/liveFollow/changeSetting")
+    public Result changeLiverFollowSetting(@RequestParam(required = false) Integer focusLive,
+                                           @RequestParam(required = false) Integer focusBarrage,
+                                           @RequestParam(required = false) Long checkTime){
+        hotModuleService.liverFollowApi().changeSetting(
+                Map.of("focusList",focusLive,
+                        "focusBarrage",focusBarrage,
+                        "checkTime",checkTime
+                )
+        );
         return Result.success(
-                Map.of("list",followDog)
+                Map.of("success",true)
         );
     }
 
     @CheckPlugin(needPlugin = {PluginName.HOT_RECOMMENDATION_PLUGIN})
+    @GetMapping("/hotRecommendation/list")
+    public Result getFollowDogs(){
+        return Result.success(
+                Map.of(
+                        "list",hotModuleService.heatRecommendApi().getFollowDog()
+                )
+        );
+    }
+    @CheckPlugin(needPlugin = {PluginName.HOT_RECOMMENDATION_PLUGIN})
     @PostMapping("/hotRecommendation/add")
     public Result addFollowDogs(@RequestBody FollowDog dog){
         dog.setId(null);
+
         boolean success = hotModuleService.heatRecommendApi().addFollowDog(dog);
         if(success){
             return Result.success(
@@ -136,6 +153,8 @@ public class HotController {
             return Result.error("403","添加失败");
         }
     }
+
+
 
     @CheckPlugin(needPlugin = {PluginName.HOT_RECOMMENDATION_PLUGIN})
     @PostMapping("/hotRecommendation/update")
