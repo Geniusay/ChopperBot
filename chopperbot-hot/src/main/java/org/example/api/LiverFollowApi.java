@@ -36,6 +36,9 @@ public class LiverFollowApi {
     }
 
     public boolean follow(FocusLiver focusLiver){
+        if(focusLiverService.hasLiver(focusLiver.getPlatform(),focusLiver.getLiver())){
+            return false;
+        }
         if (focusLiverService.addLivers(focusLiver)) {
             liverFollower.addFocusLiver(focusLiver);
             return true;

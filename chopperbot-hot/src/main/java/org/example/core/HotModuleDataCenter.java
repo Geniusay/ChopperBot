@@ -175,8 +175,8 @@ public class HotModuleDataCenter{
     }
 
     //根据平台的模块ID获取某模块
-    public HotModule getModule(String platform,int moduleId){
-        return this.getModuleList(platform).findHotModule(moduleId);
+    public HotModule getModuleById(String platform,String moduleId){
+        return this.getModuleList(platform).findHotModuleById(moduleId);
     }
 
     public boolean init() {

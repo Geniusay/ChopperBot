@@ -16,6 +16,12 @@ export const useLiveFollowStore = defineStore({
   },
 
   actions:{
-
+    deleteLiveFollow(liver:FocusLiver){
+      // this.liveFollowList.value = this.liveFollowList.value.filter(item=>item.id!==liver.id)
+      this.liveFollowList = this.liveFollowList.filter(item=>item.liver!==liver.liver)
+    },
+    addLiveFollow(liver:FocusLiver){
+      this.liveFollowList.push(liver)
+    },
   }
 })

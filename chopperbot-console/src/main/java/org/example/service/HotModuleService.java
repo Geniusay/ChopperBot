@@ -13,7 +13,7 @@ import java.util.List;
 public interface HotModuleService {
 
 
-    HotModule getModuleHotLives(String platform, int moduleId);
+    HotModule getModuleHotLives(String platform, String moduleId);
 
     LiverFollowApi liverFollowApi();
 

@@ -4,7 +4,7 @@ export default [
     icon:"mdi mdi-fire-circle",
     key:"menu.hot_live",
     text:"Hot Live",
-    link: "/apps/hotLive"
+    link: "/data/hotLive"
   },
   {
     icon: "mdi-table",

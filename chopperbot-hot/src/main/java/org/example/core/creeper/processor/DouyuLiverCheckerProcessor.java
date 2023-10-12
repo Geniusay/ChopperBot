@@ -33,7 +33,7 @@ public class DouyuLiverCheckerProcessor extends AbstractProcessor {
             Integer moduleId = live.getInteger("cate_id");
             String moduleName = "未知模块";
             try {
-                HotModule module = HotModuleDataCenter.DataCenter().getModule(ConstPool.DOUYU,moduleId);
+                HotModule module = HotModuleDataCenter.DataCenter().getModuleById(ConstPool.DOUYU,String.valueOf(moduleId));
                 moduleName = module==null?"未知模块":module.getTagName();
             }catch (Exception e){
                 throw new RuntimeException(e);

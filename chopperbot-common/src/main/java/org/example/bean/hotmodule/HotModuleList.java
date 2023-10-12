@@ -28,13 +28,14 @@ public class HotModuleList {
         return null;
     }
 
-    public HotModule findHotModule(int hotModuleId){
+    public HotModule findHotModuleById(String hotModuleId){
         for (HotModule hotModule : hotModuleList) {
-            if(hotModule.getTagId().equals(String.valueOf(hotModuleId))){
+            if(hotModule.getTagId().equals(hotModuleId)){
                 return hotModule;
             }
         }
         return null;
     }
+
 
 }
