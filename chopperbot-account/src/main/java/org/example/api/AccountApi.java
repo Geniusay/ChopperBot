@@ -1,8 +1,8 @@
 package org.example.api;
 
 import org.example.core.account.Impl.AccountOperator;
-import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
+import org.example.core.pojo.Account;
+import org.example.core.pojo.AccountVO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 

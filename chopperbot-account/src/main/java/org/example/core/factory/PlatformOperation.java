@@ -8,6 +8,6 @@ package org.example.core.factory;
 
 public interface PlatformOperation {
 
-    void operation(int id);
+    void login(int id,String account,String password);
 
 }
