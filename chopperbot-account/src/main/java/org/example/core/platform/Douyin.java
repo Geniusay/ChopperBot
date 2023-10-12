@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
 import org.example.core.factory.PlatformOperation;
-import org.example.core.mapper.AccountMapper;
+import org.example.mapper.AccountMapper;
 import org.example.core.pojo.Account;
 import org.openqa.selenium.Cookie;
 

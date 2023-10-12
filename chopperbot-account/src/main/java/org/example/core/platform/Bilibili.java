@@ -1,10 +1,7 @@
 package org.example.core.platform;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.example.core.factory.PlatformOperation;
-import org.example.core.mapper.AccountMapper;
+import org.example.mapper.AccountMapper;
 
 import org.example.core.pojo.Account;
 import org.openqa.selenium.By;
@@ -14,9 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 

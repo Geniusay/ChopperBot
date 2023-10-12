@@ -1,4 +1,4 @@
-package org.example.core.mapper;
+package org.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;

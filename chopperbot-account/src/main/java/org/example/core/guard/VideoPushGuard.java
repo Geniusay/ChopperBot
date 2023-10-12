@@ -3,7 +3,7 @@ package org.example.core.guard;
 import org.example.core.exchange.Exchange;
 import org.example.mapper.AccountMapper;
 import org.example.plugin.GuardPlugin;
-import org.example.pojo.*;
+import org.example.core.pojo.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,9 +35,9 @@ public class VideoPushGuard extends GuardPlugin {
         exchange = new Exchange();
         List<Account> accountList = accountMapper.selectList(null);
         for (Account account : accountList) {
-            List<AccountType> accountTypes = accountMapper.selectTypeByUid(account.getUid());
+            List<AccountType> accountTypes = accountMapper.selectTypeByUid(account.getId());
             for (AccountType accountType : accountTypes) {
-                exchange.bind(new VideoQueue(PlatformType.getPlatform(account.getPlatformId()) + "-" + account.getUid(), account.isCompleteMatch(),account.getCookie()), accountType.getType());
+                exchange.bind(new VideoQueue(PlatformType.getPlatform(account.getPlatformId()) + "-" + account.getId(), account.isCompleteMatch(),account.getCookies()), accountType.getType());
             }
         }
         receiveVideo = new ArrayBlockingQueue<>(1024);
