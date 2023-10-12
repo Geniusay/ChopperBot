@@ -71,6 +71,8 @@
 ![9f9a0e3127245ae70e5375c1bf90509](https://github.com/969025903/ChopperBot/assets/77137063/6d8c0f1e-a02f-4d04-a047-f03888358790)
 ## Heat Recommend
 ![431e8b1880825e528b07f9c11360577](https://github.com/969025903/ChopperBot/assets/77137063/adeab4ae-25fe-4752-a6ce-2a79a6f5703e)
+## Hot Live
+![T4)XK652SFQ1FH7BF53~1 J](https://github.com/969025903/ChopperBot/assets/77137063/6fe79608-6724-4768-8b39-3f4b9b2483c2)
 
 **More pages in development....**
 # 🕹 ChopperBot Module

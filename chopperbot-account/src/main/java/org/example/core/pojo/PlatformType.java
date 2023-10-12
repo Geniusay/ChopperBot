@@ -1,4 +1,4 @@
-package org.example.pojo;
+package org.example.core.pojo;
 
 /**
  * @Description
