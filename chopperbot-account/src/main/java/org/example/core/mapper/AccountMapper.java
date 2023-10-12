@@ -1,9 +1,10 @@
-package org.example.mapper;
+package org.example.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
-import org.example.pojo.Account;
-import org.example.pojo.AccountType;
+import org.example.core.pojo.Account;
+import org.example.core.pojo.AccountType;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @Author welsir
  * @Date 2023/9/23 14:15
  */
+@Component
 public interface AccountMapper extends BaseMapper<Account> {
 
     @Select("select * from account a join platform pf on a.platformId=pf.id where pf.id = #{id}")
@@ -19,5 +21,6 @@ public interface AccountMapper extends BaseMapper<Account> {
 
     @Select("select * from account_type where uid=#{id}")
     List<AccountType> selectTypeByUid(Long id);
+
 
 }

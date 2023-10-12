@@ -1,12 +1,9 @@
-package org.example.pojo;
+package org.example.core.pojo;
 
 import lombok.Data;
-import org.openqa.selenium.Cookie;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Description
@@ -18,9 +15,9 @@ public class VideoQueue {
     private String name;
     private List<Object> messages;
     private boolean isStrongMatch;
-    private Set<Cookie> cookies;
+    private String cookies;
 
-    public VideoQueue(String name, boolean isStrongMatch,Set<Cookie> cookies) {
+    public VideoQueue(String name, boolean isStrongMatch,String cookies) {
         this.name = name;
         this.messages = new ArrayList<>();
         this.isStrongMatch = isStrongMatch;

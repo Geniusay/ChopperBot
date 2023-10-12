@@ -1,7 +1,8 @@
-package org.example.mapper;
+package org.example.core.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.example.pojo.AccountType;
+import org.example.core.pojo.AccountType;
+
 
 /**
  * @Description
