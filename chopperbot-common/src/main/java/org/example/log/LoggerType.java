@@ -11,6 +11,7 @@ public enum LoggerType {
     Hot("HotModule  "),
     Barrage("Barrage    "),
     LiveRecord("LiveRecord "),
+    Account("Account    "),
     Section("Section    ");
     private String loggerName;
 

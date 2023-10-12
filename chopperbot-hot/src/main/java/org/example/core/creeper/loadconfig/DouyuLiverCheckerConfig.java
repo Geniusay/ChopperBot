@@ -27,4 +27,9 @@ public class DouyuLiverCheckerConfig extends LoadConfig {
         this.roomId = roomId;
         this.url = "https://www.douyu.com/betard/"+roomId;
     }
+
+    @Override
+    public String getTaskId() {
+        return super.getTaskId()+"_"+roomId;
+    }
 }

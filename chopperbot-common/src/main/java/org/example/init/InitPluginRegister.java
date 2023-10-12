@@ -151,12 +151,17 @@ public class InitPluginRegister {
                         throw PluginDependOnException.MissingFatherPlugin(needPlugin,pluginName);
                     }
                 }
-                if (initMachine.init()) {
-                    registerPluginTable.put(pluginName,initMachine);
-                    initMachine.afterInit();
-                    return true;
-                }else{
-                    return false;
+                try {
+                    if (initMachine.init()) {
+                        registerPluginTable.put(pluginName,initMachine);
+                        initMachine.afterInit();
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }catch (Exception e){
+                    ChopperLogFactory.getLogger(LoggerType.System)
+                            .error(String.format("❌ %s plugin start failed ! error:%s", pluginName,e.getMessage()));
                 }
             }else{
                 return false;

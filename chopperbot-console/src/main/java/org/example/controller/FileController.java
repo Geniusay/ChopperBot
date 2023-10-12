@@ -5,6 +5,7 @@ import org.example.service.FileService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -33,4 +34,6 @@ public class FileController {
     public Result getAllConfigFiles(){
         return Result.success(fileService.getAllConfigs());
     }
+
+
 }

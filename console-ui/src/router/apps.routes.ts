@@ -93,6 +93,20 @@ export default [
     },
   },
   {
+    path: "/apps/liveFollow",
+    name: "app-live-follow",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot/live_follow/LiveFollowPage.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "Live Follow",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
     path: "/apps/email",
     meta: {
       requiresAuth: true,

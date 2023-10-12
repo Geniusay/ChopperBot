@@ -2,7 +2,7 @@ package org.example.core.account.Impl;
 
 import org.example.core.account.AccountCenter;
 import org.example.core.factory.PlatformFactory;
-import org.example.core.mapper.AccountMapper;
+import org.example.mapper.AccountMapper;
 import org.example.pojo.Account;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;

@@ -33,7 +33,7 @@ export default [
     icon:"mdi mdi-star-face",
     key:"menu.live_follow",
     text:"Live Follow",
-    link: "/apps/live_follow"
+    link: "/apps/liveFollow"
   },
   {
     icon: "mdi-forum-outline",

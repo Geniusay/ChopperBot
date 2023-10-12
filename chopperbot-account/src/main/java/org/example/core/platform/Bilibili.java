@@ -1,7 +1,7 @@
 package org.example.core.platform;
 
 import org.example.core.factory.PlatformOperation;
-import org.example.core.mapper.AccountMapper;
+import org.example.mapper.AccountMapper;
 import org.example.pojo.Account;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeDriver;

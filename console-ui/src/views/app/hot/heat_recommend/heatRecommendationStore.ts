@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import {useSnackbarStore} from "@/stores/snackbarStore";
 import {FollowDog} from "@/views/app/hot/heat_recommend/FollowDogTypes";
 
 
