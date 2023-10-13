@@ -24,7 +24,6 @@
     <bytecodeTargetLevel>
       <module name="AccountModule" target="11" />
       <module name="BarrageModule" target="11" />
-      <module name="chopperbot-test" target="11" />
       <module name="common" target="11" />
       <module name="console" target="11" />
       <module name="CreeperModule" target="11" />

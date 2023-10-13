@@ -1,7 +1,7 @@
 package org.example.core.creeper.protocl;
 
 import com.qq.tars.protocol.tars.TarsOutputStream;
-import org.example.util.HttpClientUtil;
+//import org.example.util.HttpClientUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +31,8 @@ public class HuyaProtocol {
         Map<String, String> header = new HashMap<>();
         header.put("user-agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Mobile Safari/537.36");
         header.put("Content-Type", "application/x-www-form-urlencoded");
-        String roomPage = HttpClientUtil.get(url, header);
+        //String roomPage = HttpClientUtil.get(url, header);
+        String roomPage = "HttpClientUtil.get(url, header)";
         Pattern pattern = Pattern.compile("lYyid\":([0-9]+)");
         Matcher matcher = pattern.matcher(roomPage);
         String ayyuid = "";
