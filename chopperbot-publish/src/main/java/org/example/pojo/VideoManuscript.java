@@ -15,9 +15,8 @@ public class VideoManuscript {
     //简介
     protected String desc;
 
-    public VideoManuscript(String title, String coverUrl, String desc) {
+    public VideoManuscript(String title, String desc) {
         this.title = title;
-        this.coverUrl = coverUrl;
         this.desc = desc;
     }
 

@@ -12,7 +12,10 @@ public class BilibiliUploader extends Uploader{
 
     private String deviceVideoPath;
 
-    public BilibiliUploader(String cookie, String videoPath, String coverPath, String deviceVideoPath) {
+
+    private BilibiliVideoManuscript bilibiliVideoManuscript;
+
+    public BilibiliUploader(String cookie, String videoPath, String coverPath, String deviceVideoPath,BilibiliVideoManuscript bilibiliVideoManuscript) {
         super(cookie, videoPath, coverPath);
         this.deviceVideoPath = deviceVideoPath;
         Map<String,String> header = new HashMap<>();
@@ -20,6 +23,15 @@ public class BilibiliUploader extends Uploader{
         header.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.69");
         header.put("Referer", "https://member.bilibili.com/platform/upload/video/frame?spm_id_from=333.1007.top_bar.upload");
         this.header = header;
+        this.bilibiliVideoManuscript = bilibiliVideoManuscript;
+    }
+
+    public BilibiliVideoManuscript getBilibiliVideoManuscript() {
+        return bilibiliVideoManuscript;
+    }
+
+    public void setBilibiliVideoManuscript(BilibiliVideoManuscript bilibiliVideoManuscript) {
+        this.bilibiliVideoManuscript = bilibiliVideoManuscript;
     }
 
     public Map<String, String> getHeader2() {

@@ -2,6 +2,10 @@ package org.example.api;
 
 import org.example.core.publisher.impl.BilibiliVideoPublisher;
 import org.example.pojo.BilibiliUploader;
+import org.example.pojo.BilibiliVideoManuscript;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author dhx
@@ -9,7 +13,11 @@ import org.example.pojo.BilibiliUploader;
  */
 public class BilibiliPublishApi {
     public static void PublishVideo(String videoPath,String devicePath,String Cookie,String coverPath){
-        BilibiliUploader bilibiliUploader = new BilibiliUploader(Cookie,videoPath,coverPath,devicePath);
+        List<String>list = new ArrayList<>();
+        list.add("音乐");
+        list.add("助眠");
+        BilibiliVideoManuscript bilibiliVideoManuscript = new BilibiliVideoManuscript("test","没有简介",130,list);
+        BilibiliUploader bilibiliUploader = new BilibiliUploader(Cookie,videoPath,coverPath,devicePath,bilibiliVideoManuscript);
         BilibiliVideoPublisher bilibiliVideoPublisher = new BilibiliVideoPublisher();
         bilibiliVideoPublisher.publishVideo(bilibiliUploader);
     }

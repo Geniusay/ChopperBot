@@ -23,8 +23,8 @@ public class BilibiliVideoManuscript extends VideoManuscript {
     //精选评论
     private boolean selection_reply = false;
 
-    public BilibiliVideoManuscript(String title, String coverUrl, String synopsis, int tid, List<String> tag) {
-        super(title, coverUrl, synopsis);
+    public BilibiliVideoManuscript(String title, String desc, int tid, List<String> tag) {
+        super(title, desc);
         this.tid = tid;
         this.tag = tag;
     }
