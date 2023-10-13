@@ -93,3 +93,13 @@
 👉 [项目开发指南](https://969025903.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
 
 👉 [更新日志](https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md)
+
+# 💬联系我们
+- Email: 969025903@qq.com | geniusssbg@gmail.com
+- QQ
+<img src="https://github.com/969025903/ChopperBot/assets/77137063/4b18e405-4fd9-43f0-8665-04d3914abbfa" width="25%" height="25%">
+
+- Wechat
+<img src="https://github.com/969025903/ChopperBot/assets/77137063/1e728690-7565-48c7-9d6f-313cd3409f9b" width="25%" height="25%">
+
+
