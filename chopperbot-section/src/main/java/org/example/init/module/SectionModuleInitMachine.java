@@ -5,6 +5,7 @@ import org.example.constpool.ModuleName;
 import org.example.init.ModuleInitMachine;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.plugin.annotation.Module;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author welsir
  * @date 2023/7/31 10:11
  */
-
+@Module
 public class SectionModuleInitMachine extends ModuleInitMachine {
 
     public SectionModuleInitMachine() {

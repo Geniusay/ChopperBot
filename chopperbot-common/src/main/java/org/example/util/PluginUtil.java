@@ -2,11 +2,14 @@ package org.example.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.example.constpool.ConstPool;
 import org.example.exception.InitException;
 import org.example.init.CommonInitMachine;
 import org.example.init.InitMachine;
 import org.example.init.InitPluginRegister;
 import org.example.init.ModuleInitMachine;
+import org.example.plugin.annotation.Module;
+import org.example.plugin.annotation.Plugin;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -33,10 +36,10 @@ public class PluginUtil {
     }
 
     public static List<CommonInitMachine> getAllModuleInit() throws Exception {
-        List<String> classes = ClassUtil.getClassesInPackage("org.example.init.module");
+        Set<Class<?>> classes = ClassUtil.getAnnotationClass(ConstPool.PROJECT_PATH + ".init", Module.class);
         List<CommonInitMachine> list = new ArrayList<>();
-        for (String aClass : classes) {
-            list.add((CommonInitMachine) Class.forName(aClass).getDeclaredConstructor().newInstance());
+        for (Class aClass : classes) {
+            list.add((CommonInitMachine) aClass.getDeclaredConstructor().newInstance());
         }
         return sortModuleInit(list);
     }
