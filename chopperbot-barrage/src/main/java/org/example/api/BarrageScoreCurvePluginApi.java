@@ -38,13 +38,6 @@ public class BarrageScoreCurvePluginApi {
         return curveVOList;
     }
 
-    public BarrageCurveVO generateCurve(String filePath){
-        BarrageEvent event = new BarrageEvent();
-        event.setFileName(filePath);
-        List<BarragePoint> points = barrageScoreCurvePlugin.generateCurve(event);
-        return new BarrageCurveVO(filePath,points);
-    }
-
     public BarrageCurveVO generateCurve(String filePath,String liver){
         BarrageEvent event = new BarrageEvent();
         event.setFileName(filePath);
