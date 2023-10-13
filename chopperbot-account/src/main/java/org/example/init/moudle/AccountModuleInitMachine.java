@@ -1,4 +1,4 @@
-package org.example.core.init.moudle;
+package org.example.init.moudle;
 
 import org.example.constpool.ConstPool;
 import org.example.constpool.ModuleName;

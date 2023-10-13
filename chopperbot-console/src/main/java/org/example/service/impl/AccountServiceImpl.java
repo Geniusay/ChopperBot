@@ -2,6 +2,8 @@ package org.example.service.impl;
 
 import org.example.api.AccountApi;
 
+import org.example.api.GPTApi;
+import org.example.core.gpt.ChatGPTPlugin;
 import org.example.core.pojo.Account;
 
 import org.example.core.pojo.AccountVO;
@@ -20,6 +22,9 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
     @Resource
     AccountApi accountApi;
+
+    @Resource
+    GPTApi gptApi;
     @Override
     public List<AccountVO> getAllUser(int id) {
         return accountApi.getAllUsers(id);
@@ -38,5 +43,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void edit(Account account) {
         accountApi.editUser(account);
+    }
+
+    @Override
+    public GPTApi chatGptPlugin() {
+        return gptApi;
     }
 }

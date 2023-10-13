@@ -26,5 +26,4 @@ import java.util.List;
 @Component
 public class HotGuardInitMachine extends SpringPlugInitMachine{
 
-
 }
