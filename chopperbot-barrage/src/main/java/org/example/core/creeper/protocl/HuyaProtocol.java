@@ -25,7 +25,6 @@ public class HuyaProtocol {
             0x52, 0x02, 0x60, 0x5c, 0x60, 0x01, 0x7c, (byte) 0x82, 0x00, 0x0b, (byte) 0xb0, 0x1f, (byte) 0x9c,
             (byte) 0xac, 0x0b, (byte) 0x8c, (byte) 0x98, 0x0c, (byte) 0xa8, 0x0c};
     private static final int heartbeatInterval = 60;
-
     public static String getWsInfo(String url) throws IOException {
         ArrayList<byte[]> regDatas = new ArrayList<>();
         url = "https://m.huya.com/" + url.substring(url.lastIndexOf('/') + 1);
