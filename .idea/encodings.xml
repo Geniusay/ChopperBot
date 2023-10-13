@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
-    <file url="file://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-parent/2.3.9.RELEASE/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-account/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-barrage/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/chopperbot-barrage/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-console/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-creeper/src/main/java" charset="UTF-8" />
@@ -17,7 +15,6 @@
     <file url="file://$PROJECT_DIR$/chopperbot-section-work/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-section/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chopperbot-test/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/doc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />

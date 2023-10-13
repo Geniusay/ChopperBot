@@ -42,7 +42,6 @@ public abstract class ConfigInitMachine extends CommonInitMachine{
         }catch (Exception e){
             return fail(e.getMessage());
         }
-
     }
 
     @Override
@@ -57,6 +56,4 @@ public abstract class ConfigInitMachine extends CommonInitMachine{
         );
         logger.info("[\uD83C\uDD96] {} close success",path);
     }
-
-
 }

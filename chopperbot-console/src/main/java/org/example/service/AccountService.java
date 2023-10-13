@@ -2,6 +2,8 @@ package org.example.service;
 
 
 
+import org.example.api.GPTApi;
+import org.example.core.gpt.ChatGPTPlugin;
 import org.example.core.pojo.Account;
 import org.example.core.pojo.AccountVO;
 
@@ -22,4 +24,5 @@ public interface AccountService {
 
     void edit(Account account);
 
+    GPTApi chatGptPlugin();
 }
