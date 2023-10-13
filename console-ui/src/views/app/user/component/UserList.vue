@@ -1,30 +1,30 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
-import { useTodoStore } from "../todoStore";
-import { Todo } from "../todoTypes";
+import { useUserStore } from "../userStore";
+import { User } from "../userTypes";
 
 const props = defineProps<{
-  tasks: Todo[];
+  tasks: User[];
 }>();
 
-const todoStore = useTodoStore();
+const userStore = useUserStore();
 const searchKey = ref("");
 
 const getLabelColor = (id: string) => {
   // Find the label by id from the labels array
-  const label = todoStore.labels.find((l) => l.id === id);
+  const label = userStore.labels.find((l) => l.id === id);
   // Return the color for that label, or an empty string
   return label ? label.color : "";
 };
 
-// filterdTodoList is a computed value that will filter the todoList based on the searchKey value
-const filterdTodoList = computed(() => {
-  return props.tasks.filter((todo) => {
-    return todo.title.toLowerCase().includes(searchKey.value.toLowerCase());
+// filterdUserList is a computed value that will filter the userList based on the searchKey value
+const filterdUserList = computed(() => {
+  return props.tasks.filter((user) => {
+    return user.username.toLowerCase().includes(searchKey.value.toLowerCase());
   });
 });
 </script>
@@ -47,15 +47,15 @@ const filterdTodoList = computed(() => {
     <!-- ---------------------------------------------- -->
     <!-- List -->
     <!-- ---------------------------------------------- -->
-    <perfect-scrollbar class="todo-list">
+    <perfect-scrollbar class="user-list">
       <transition-group name="fade">
-        <div v-for="todo in filterdTodoList" :key="todo.id">
-          <div class="todo-item d-flex align-center pa-5">
-            <v-checkbox-btn
-              v-model="todo.completed"
+        <div v-for="user in filterdUserList" :key="user.id">
+          <div class="user-item d-flex align-center pa-5">
+            <!--<v-checkbox-btn
+              v-model="user.completed"
               color="primary"
               class="pe-2"
-            ></v-checkbox-btn>
+            ></v-checkbox-btn>-->
             <v-avatar size="40">
               <v-img
                 src="https://avatars.githubusercontent.com/u/35951244?v=4"
@@ -65,33 +65,32 @@ const filterdTodoList = computed(() => {
             <div class="flex-1 mx-5">
               <div
                 class="font-weight-bold"
-                :class="todo.completed ? 'text-decoration-line-through' : ''"
+                :class="user.completed ? 'text-decoration-line-through' : ''"
               >
-                {{ todo.title }}
+                {{ user.username }}
               </div>
-              <div
-                :class="todo.completed ? 'text-decoration-line-through' : ''"
-              >
-                {{ todo.detail }}
-              </div>
+
               <div>
                 <v-chip
                   size="x-small"
                   variant="outlined"
                   class="mr-1 mt-1"
                   :color="getLabelColor(tag)"
-                  v-for="tag in todo.tags"
+                  v-for="tag in user.typeList"
                 >
-                  {{ tag }}
+                  {{ tag.type }}
                 </v-chip>
               </div>
             </div>
-            <v-btn
+            <div class="flex-1 mx-5">
+              {{user.password}}
+            </div>
+            <!--<v-btn
               size="small"
               icon="mdi-delete-outline"
               variant="text"
-              @click="todoStore.deleteTodoById(todo.id)"
-            ></v-btn>
+              @click="userStore.deleteUserById(user.id)"
+            ></v-btn>-->
           </div>
         </div>
       </transition-group>
@@ -100,10 +99,10 @@ const filterdTodoList = computed(() => {
 </template>
 
 <style scoped lang="scss">
-.todo-list {
+.user-list {
   height: 100%;
   overflow: scroll;
-  .todo-item {
+  .user-item {
     transition: all 0.3s;
     border-bottom: 1px solid #eee;
     &:hover {

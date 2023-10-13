@@ -1,16 +1,16 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import { useCustomizeThemeStore } from "@/stores/customizeTheme";
 import ToolbarLanguage from "@/components/toolbar/ToolbarLanguage.vue";
 import ToolbarNotifications from "./ToolbarNotifications.vue";
 import ToolbarUser from "./ToolbarUser.vue";
-import { useTodoStore } from "@/views/app/todo/todoStore";
+import { useUserStore } from "@/views/app/user/userStore";
 
-const todoStore = useTodoStore();
+const userStore = useUserStore();
 const customizeTheme = useCustomizeThemeStore();
 const showMobileSearch = ref(false);
 </script>
@@ -60,8 +60,8 @@ const showMobileSearch = ref(false);
         </v-badge>
       </v-btn>
 
-      <v-btn to="/apps/todo" class="text-none" stacked>
-        <v-badge :content="`${todoStore.getTodoList.length} +`" color="error">
+      <v-btn class="text-none" stacked to="/apps/user">
+        <v-badge :content="`${userStore.getUserList.length} +`" color="error">
           <v-icon>mdi-calendar-check</v-icon>
         </v-badge>
       </v-btn>

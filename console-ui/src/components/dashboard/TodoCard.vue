@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useTodoStore } from "@/views/app/todo/todoStore";
-const todoStore = useTodoStore();
+import { useUserStore } from "@/views/app/user/userStore";
+const userStore = useUserStore();
 
 const loading = ref(true);
 onMounted(() => {
@@ -10,15 +10,15 @@ onMounted(() => {
 });
 
 const searchKey = ref("");
-const filterdTodoList = computed(() => {
-  return todoStore.getTodoList.filter((todo) => {
-    return todo.title.toLowerCase().includes(searchKey.value.toLowerCase());
+const filterdUserList = computed(() => {
+  return userStore.getUserList.filter((user) => {
+    return user.title.toLowerCase().includes(searchKey.value.toLowerCase());
   });
 });
 
 const getLabelColor = (id: string) => {
   // Find the label by id from the labels array
-  const label = todoStore.labels.find((l) => l.id === id);
+  const label = userStore.labels.find((l) => l.id === id);
   // Return the color for that label, or an empty string
   return label ? label.color : "";
 };
@@ -42,12 +42,12 @@ const getLabelColor = (id: string) => {
       v-model="searchKey"
     ></v-text-field>
 
-    <perfect-scrollbar class="todo-list">
+    <perfect-scrollbar class="user-list">
       <transition-group name="fade">
-        <div v-for="todo in filterdTodoList" :key="todo.id">
-          <div class="todo-item d-flex align-center pa-5">
+        <div v-for="user in filterdUserList" :key="user.id">
+          <div class="user-item d-flex align-center pa-5">
             <v-checkbox-btn
-              v-model="todo.completed"
+              v-model="user.completed"
               color="primary"
               class="pe-2"
             ></v-checkbox-btn>
@@ -60,14 +60,14 @@ const getLabelColor = (id: string) => {
             <div class="flex-1 mx-5">
               <div
                 class="font-weight-bold"
-                :class="todo.completed ? 'text-decoration-line-through' : ''"
+                :class="user.completed ? 'text-decoration-line-through' : ''"
               >
-                {{ todo.title }}
+                {{ user.title }}
               </div>
               <div
-                :class="todo.completed ? 'text-decoration-line-through' : ''"
+                :class="user.completed ? 'text-decoration-line-through' : ''"
               >
-                {{ todo.detail }}
+                {{ user.detail }}
               </div>
               <div>
                 <v-chip
@@ -75,7 +75,7 @@ const getLabelColor = (id: string) => {
                   variant="outlined"
                   class="mr-1 mt-1"
                   :color="getLabelColor(tag)"
-                  v-for="tag in todo.tags"
+                  v-for="tag in user.tags"
                 >
                   {{ tag }}
                 </v-chip>
@@ -84,7 +84,7 @@ const getLabelColor = (id: string) => {
             <v-btn
               icon="mdi-delete-outline"
               variant="text"
-              @click="todoStore.deleteTodoById(todo.id)"
+              @click="userStore.deleteUserById(user.id)"
             ></v-btn>
           </div>
         </div>
@@ -94,10 +94,10 @@ const getLabelColor = (id: string) => {
 </template>
 
 <style lang="scss" scoped>
-.todo-list {
+.user-list {
   max-height: 400px;
   overflow: scroll;
-  .todo-item {
+  .user-item {
     transition: all 0.3s;
     &:hover {
       transition: all 0.3s;

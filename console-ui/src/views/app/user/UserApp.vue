@@ -4,8 +4,29 @@
 * @Description:
 -->
 <script setup lang="ts">
-import TodoMenu from "@/views/app/todo/component/TodoMenu.vue";
-import TodoCard from "@/views/app/todo/component/TodoCard.vue";
+import UserMenu from "@/views/app/user/component/UserMenu.vue";
+import UserCard from "@/views/app/user/component/UserCard.vue";
+import { useUserStore } from "./userStore";
+import {getUsers} from "@/api/userApi";
+
+const userStore = useUserStore();
+var labels = new Set();
+getUsers().then((res)=>{
+  let users = res.data
+  for(let i = 0;i < users.length;i ++){
+    userStore.addNewUser(users[i])
+    for(let j = 0;j < users[i].typeList.length;j ++){
+      labels.add(users[i].typeList[j].type)
+    }
+  }
+  labels.forEach(value => {
+    userStore.labels.push({
+      id: String(value),
+      title: String(value),
+      color: "black",
+    })
+  });
+});
 </script>
 
 <template>
@@ -14,11 +35,11 @@ import TodoCard from "@/views/app/todo/component/TodoCard.vue";
     <!-- Side Bar -->
     <!-- ---------------------------------------------- -->
     <div class="d-none d-md-block sidebar">
-      <TodoMenu />
+      <UserMenu />
     </div>
 
     <!-- ---------------------------------------------- -->
-    <!--  List Todo-->
+    <!--  List User-->
     <!-- ---------------------------------------------- -->
     <div class="main">
       <router-view v-slot="{ Component }">
@@ -28,7 +49,7 @@ import TodoCard from "@/views/app/todo/component/TodoCard.vue";
       </router-view>
     </div>
 
-    <TodoCard />
+    <UserCard />
   </div>
 </template>
 

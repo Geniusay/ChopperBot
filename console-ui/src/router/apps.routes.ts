@@ -1,5 +1,5 @@
 import unsplashRoutes from "@/views/app/unsplash/UnsplashRoutes";
-import todoRoutes from "@/views/app/todo/todoRoutes";
+import todoRoutes from "@/views/app/user/userRoutes";
 import emailRoutes from "@/views/app/email/emailRoutes";
 import chatRoutes from "@/views/app/chat/chatRoutes";
 import taskRoutes from "@/views/app/taskcenter/taskRoutes";
@@ -128,7 +128,7 @@ export default [
       title: "Todo",
     },
     component: () =>
-      import(/* webpackChunkName: "app-todo" */ "@/views/app/todo/TodoApp.vue"),
+      import(/* webpackChunkName: "app-todo" */ "@/views/app/user/UserApp.vue"),
     children: [...todoRoutes],
   },
   {

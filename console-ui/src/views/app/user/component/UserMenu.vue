@@ -1,11 +1,11 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
-import { useTodoStore } from "@/views/app/todo/todoStore";
-const todoStore = useTodoStore();
+import { useUserStore } from "@/views/app/user/userStore";
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -19,7 +19,7 @@ const todoStore = useTodoStore();
     <v-list nav class="mt-2 pa-0">
       <v-list-item
         prepend-icon="mdi-calendar-check"
-        to="/apps/todo/tasks"
+        to="/apps/user/tasks"
         active-class="text-primary"
         link
         title="Tasks"
@@ -27,14 +27,14 @@ const todoStore = useTodoStore();
         <template v-slot:append>
           <v-badge
             color="primary"
-            :content="todoStore.getTodoList.length"
+            :content="userStore.getUserList.length"
             inline
           ></v-badge>
         </template>
       </v-list-item>
       <v-list-item
         prepend-icon="mdi-check"
-        to="/apps/todo/completed"
+        to="/apps/user/completed"
         active-class="text-primary"
         link
         title="Completed"
@@ -42,7 +42,7 @@ const todoStore = useTodoStore();
         <template v-slot:append>
           <v-badge
             color="primary"
-            :content="todoStore.getCompletedTodos.length"
+            :content="userStore.getCompletedUsers.length"
             inline
           ></v-badge>
         </template>
@@ -51,9 +51,9 @@ const todoStore = useTodoStore();
     <div class="pa-1 mt-2 text-overline text-grey">Labels</div>
     <v-list nav class="mt-2 pa-0">
       <v-list-item
-        v-for="label in todoStore.labels"
+        v-for="label in userStore.labels"
         active-class="text-primary"
-        :to="`/apps/todo/label/${label.id}`"
+        :to="`/apps/user/label/${label.id}`"
         link
         :title="label.title"
       >

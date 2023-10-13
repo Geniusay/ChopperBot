@@ -1,12 +1,12 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
-import { useTodoStore } from "@/views/app/todo/todoStore";
+import { useUserStore } from "@/views/app/user/userStore";
 import EmailCompose from "./EmailCompose.vue";
-const todoStore = useTodoStore();
+const todoStore = useUserStore();
 </script>
 
 <template>

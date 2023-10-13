@@ -4,11 +4,11 @@
 * @Description:
 -->
 <script setup lang="ts">
-import { Todo } from "../todoTypes";
-import { useTodoStore } from "../todoStore";
-const todoStore = useTodoStore();
+import { User } from "../userTypes";
+import { useUserStore } from "../userStore";
+const userStore = useUserStore();
 const dialog = ref(false);
-const loadTask = ref<Todo>({
+const loadTask = ref<User>({
   id: "",
   title: "",
   detail: "",
@@ -24,9 +24,9 @@ const close = () => {
 const save = () => {
   if (loadTask.value) {
     if (isEdit.value) {
-      todoStore.updateTodo(loadTask.value);
+      userStore.updateUser(loadTask.value);
     } else {
-      todoStore.addNewTodo(loadTask.value);
+      userStore.addNewUser(loadTask.value);
     }
   }
   close();
@@ -72,7 +72,7 @@ const save = () => {
         <v-select
           v-model="loadTask.tags"
           class="px-2 my-3"
-          :items="todoStore.labels"
+          :items="userStore.labels"
           placeholder="Labels"
           item-value="id"
           hide-selected
