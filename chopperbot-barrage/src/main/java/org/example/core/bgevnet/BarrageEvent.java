@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.bean.Barrage;
 import org.example.constpool.BarrageModuleConstPool;
 import org.example.constpool.FileNameBuilder;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
  * @date 2023/09/13 18:21
  **/
 @Data
+@NoArgsConstructor
 public class BarrageEvent {
     private String platform;
 
@@ -63,6 +65,9 @@ public class BarrageEvent {
     }
 
     public String getBarrageFilePath(){
+        if(platform==null||action==null){
+            return fileName;
+        }
         return Paths.get(BarrageSaveFile.fileRoot(action,platform), fileName).toString();
     }
 

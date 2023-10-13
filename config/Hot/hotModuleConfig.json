@@ -6,7 +6,7 @@
 		"LiverFollower":{
 			"checkTime":120000,
 			"focusRecord":1,
-			"focusLive":1,
+			"focusLive":0,
 			"focusBarrage":1
 		}
 	},

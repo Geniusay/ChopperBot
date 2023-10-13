@@ -14,6 +14,7 @@ import org.example.core.bgevnet.bgscore.split.SplitStrategyFactory;
 import org.example.plugin.SpringBootPlugin;
 import org.example.service.LiverKeywordService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -55,12 +56,15 @@ public class BarrageScoreCurvePlugin extends SpringBootPlugin {
         String liver = event.getLiver();
         String path = event.getBarrageFilePath();
         long duration = Long.parseLong(fileCache.get("barrageScoreCurve", "duration").toString());
-        List<LiverKeyword> liverKeyWords = service.getLiverKeyWords(liver);
+
+        List<LiverKeyword> liverKeyWords = getKetWords(liver);
+
         Map<String, LiverKeyword> liverKeywordMap = generateKeyMap(liverKeyWords);
 
         String splitType = (String) fileCache.get("barrageScoreCurve", "splitStrategy");
         String scoreType = (String) fileCache.get("barrageScoreCurve", "scoreStrategy");
         AbstractScoreStrategy scoreStrategy = ScoreStrategyFactory.build(scoreType, liverKeywordMap);
+
         if(scoreType!=null){
             AbstractSplitStrategy splitStrategy = SplitStrategyFactory.build(splitType, scoreStrategy, barrages, duration,liverKeywordMap);
             if(splitStrategy!=null){
@@ -111,5 +115,9 @@ public class BarrageScoreCurvePlugin extends SpringBootPlugin {
 
     public static boolean isBan(String barrage,Map<String, LiverKeyword> map){
         return isBan0(barrage,globalKeywordMap)||isBan0(barrage,map);
+    }
+
+    public List<LiverKeyword> getKetWords(String liver){
+        return StringUtils.hasText(liver)?service.getLiverKeyWords(liver):new ArrayList<>();
     }
 }
