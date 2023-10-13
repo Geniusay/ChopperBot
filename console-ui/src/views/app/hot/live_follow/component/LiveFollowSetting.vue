@@ -75,6 +75,7 @@
 import {useLiveFollowStore} from "@/views/app/hot/live_follow/liveFollowStore";
 import {changeSetting, getSetting} from "@/api/hot/liveFollowApi";
 import {useSnackbarStore} from "@/stores/snackbarStore";
+import {timeRules} from "@/utils/validate";
 
 type Setting = {
   focusLive: boolean,
@@ -99,12 +100,6 @@ onMounted(()=>{
   })
 })
 
-
-const timeRules = [
-  (v)=> !!v || "时间必须存在",
-  (v)=> v > 0 || "时间必须大于0",
-  (v)=> v >= 1000 || "时间必须大于1s",
-]
 
 const save = async () =>{
    await changeSetting(setting.value.checkTime,

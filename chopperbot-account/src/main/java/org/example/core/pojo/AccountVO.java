@@ -3,7 +3,7 @@ package org.example.core.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.pojo.AccountType;
+import org.example.core.pojo.AccountType;
 
 import java.util.List;
 

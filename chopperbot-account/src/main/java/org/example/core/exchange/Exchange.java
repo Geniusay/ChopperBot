@@ -1,7 +1,7 @@
 package org.example.core.exchange;
 
 import org.example.api.BilibiliPublishApi;
-import org.example.pojo.VideoQueue;
+import org.example.core.pojo.VideoQueue;
 
 import java.util.*;
 import java.util.concurrent.Executors;

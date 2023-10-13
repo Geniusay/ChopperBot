@@ -4,7 +4,7 @@ import emailRoutes from "@/views/app/email/emailRoutes";
 import chatRoutes from "@/views/app/chat/chatRoutes";
 import taskRoutes from "@/views/app/taskcenter/taskRoutes";
 import hotGuardRoutes from "@/views/app/hot/hot_guard/hotGuardRoutes";
-
+import liveFollowRoutes from "@/views/app/hot/live_follow/liveFollowRoutes";
 export default [
   {
     path: "/apps/board",
@@ -50,20 +50,6 @@ export default [
     },
   },
   {
-    path: "/apps/hotLive",
-    name: "app-hot-live",
-    component: () =>
-      import(
-        /* webpackChunkName: "utility-board" */ "@/views/app/hot_live/HotLiveView.vue"
-        ),
-    meta: {
-      requiresAuth: true,
-      title: "Hot Live",
-      layout: "ui",
-      category: "APP",
-    },
-  },
-  {
     path: "/apps/hotGuard",
     name: "app-hot-guard",
     component: () =>
@@ -97,8 +83,9 @@ export default [
     name: "app-live-follow",
     component: () =>
       import(
-        /* webpackChunkName: "utility-board" */ "@/views/app/hot/live_follow/LiveFollowPage.vue"
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot/live_follow/LiveFollowView.vue"
         ),
+    children: [...liveFollowRoutes],
     meta: {
       requiresAuth: true,
       title: "Live Follow",

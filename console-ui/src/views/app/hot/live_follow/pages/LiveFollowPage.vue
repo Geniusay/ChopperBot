@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import CopyLabel from "@/components/common/CopyLabel.vue";
 import {useLiveFollowStore} from "@/views/app/hot/live_follow/liveFollowStore";
+import {useSnackbarStore} from "@/stores/snackbarStore";
 import LiveFollowSetting from "@/views/app/hot/live_follow/component/LiveFollowSetting.vue";
 import AddFormDiaLog from "@/views/app/hot/live_follow/component/AddFormDiaLog.vue";
+import {followList, unFollow} from "@/api/hot/liveFollowApi";
 import {FocusLiver} from "@/views/app/hot/live_follow/focusLiverTypes";
-
+const snackbarStore = useSnackbarStore();
 const liveFollowStore = useLiveFollowStore();
-const props = defineProps<{
-  liveFollows: FocusLiver[];
-}>();
 const loading = ref(true);
-
 const headers = [
   { text: "id", align: "start", value: "id" },
   { text: "平台", value: "description" },
@@ -21,15 +19,30 @@ const headers = [
 ];
 
 const open = (item) => {};
+const follows = ref<FocusLiver[]>([])
+follows.value =  liveFollowStore.liveFollowList
 
-onMounted(() => {
+onMounted(async () => {
+  await followList().then(res=>{
+    liveFollowStore.liveFollowList = res.data['list']
+  })
   setTimeout(() => {
     loading.value = false;
   }, 1000);
 });
 
 const keys = ["group","name"]
-
+const deleteLive = async (item) =>{
+   await unFollow(item.platform,item.liver).then(res=>{
+      if(res?.data?.success){
+        snackbarStore.showSuccessMessage("删除成功")
+        liveFollowStore.deleteLiveFollow(item)
+        follows.value =  liveFollowStore.liveFollowList
+      }else{
+        snackbarStore.showErrorMessage("删除失败")
+      }
+   })
+}
 
 </script>
 
@@ -59,7 +72,6 @@ const keys = ["group","name"]
         <v-btn
           color="primary"
           dark
-          v-bind="props"
           @click="liveFollowStore.dialog = true"
         >
           <v-icon start icon="mdi mdi-cog"></v-icon>
@@ -75,7 +87,7 @@ const keys = ["group","name"]
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in liveFollows" :key="item.id">
+        <tr v-for="(item,index) in follows" :key="item.id">
           <td class="font-weight-bold">
             <copy-label :text="`# ${index}`" />
           </td>
@@ -89,11 +101,16 @@ const keys = ["group","name"]
               color="cyan"
               label>
               <v-icon start icon="mdi mdi-earth-box"></v-icon>
-              {{ item.tag }}
+              {{ item.tag? item.tag : '暂无' }}
             </v-chip>
           </td>
           <td>
-            <v-btn density="comfortable" color="red" icon="mdi mdi-trash-can"></v-btn>
+            <v-btn
+              density="comfortable"
+              color="red"
+              icon="mdi mdi-trash-can"
+              @click="deleteLive(item)"
+            ></v-btn>
           </td>
         </tr>
         </tbody>

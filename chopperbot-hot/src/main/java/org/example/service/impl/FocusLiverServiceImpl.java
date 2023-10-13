@@ -43,6 +43,11 @@ public class FocusLiverServiceImpl extends ServiceImpl<FocusLiverMapper,FocusLiv
         return mapper.insert(liver)==1;
     }
 
+    @Override
+    public boolean hasLiver(String platform, String liver) {
+        return query().eq("platform",platform).eq("liver",liver).count()==1;
+    }
+
     public boolean hasLivers(String liver,String roomId){
         return query().eq("liver",liver).eq("room_id",roomId).count()==1;
     }

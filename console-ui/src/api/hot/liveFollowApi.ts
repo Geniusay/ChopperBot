@@ -10,13 +10,7 @@ export function followList() {
 }
 
 export function addFollow(liver:FocusLiver){
-  return request({
-    url: '/hot/liveFollow/add',
-    method: 'post',
-    params: {
-      liver
-    }
-  });
+  return request.post('/hot/liveFollow/add',liver)
 }
 
 export function unFollow(platform:string,liver:string){

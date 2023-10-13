@@ -31,33 +31,42 @@ public class HotController {
 
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotLive/live")
-    public Result getDouyuAllHotLive(@RequestParam(defaultValue = "0") int latest,@RequestParam String platform){
+    public Result getAllHotLive(@RequestParam(defaultValue = "0") int latest,@RequestParam String platform){
         List<? extends Live> lives;
         if(latest==1){
             lives = HotModuleApi.getDouyuHotLive();
         }else{
             lives = HotModuleDataCenter.DataCenter().getLiveList(platform);
         }
-        return Result.success(lives);
+        if(lives==null){
+            return Result.error("403","暂无该数据");
+        }
+        return Result.success(Map.of("list",lives));
     }
 
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotLive/module")
-    public Result getDouyuAllHotModule(@RequestParam(defaultValue = "0") int latest,@RequestParam String platform){
+    public Result getAllHotModule(@RequestParam(defaultValue = "0") int latest,@RequestParam String platform){
         HotModuleList hotModuleList;
         if(latest==1){
             hotModuleList = HotModuleApi.getDouyuAllHotModule();
         }else{
             hotModuleList = HotModuleDataCenter.DataCenter().getModuleList(platform);
         }
-        return Result.success(hotModuleList.getHotModuleList());
+        if(hotModuleList==null||hotModuleList.getHotModuleList()==null){
+            return Result.error("403","暂无该数据");
+        }
+        return Result.success(Map.of("list",hotModuleList.getHotModuleList()));
     }
 
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotLive/modelLive")
-    public Result getDouyuHotModuleLives(@RequestParam int moduleId,@RequestParam String platform){
+    public Result getHotModuleLives(@RequestParam String moduleId,@RequestParam String platform){
         HotModule moduleHotLives = hotModuleService.getModuleHotLives(platform, moduleId);
-        return Result.success(moduleHotLives);
+        if(moduleHotLives==null||moduleHotLives.getHotLives()==null){
+            return Result.error("403","暂无该数据");
+        }
+        return Result.success(Map.of("list",moduleHotLives.getHotLives()));
     }
 
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})

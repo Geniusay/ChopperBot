@@ -20,16 +20,14 @@ public class DouyuHotModuleProcessor extends AbstractProcessor {
         HotModuleList douyuHotModuleList = new HotModuleList();
         try {
             JSONObject data = JSON.parseObject(page.getRawText()).getJSONObject("data");
-            JSONArray cateList = data.getJSONArray("cateList");
-            JSONObject recommendAndHotObj = cateList.getJSONObject(1);
-            JSONArray recommendAndHostList = recommendAndHotObj.getJSONArray("list");
+            JSONArray recommendAndHostList = data.getJSONArray("list");
 
             for (Object elem : recommendAndHostList) {
                 if(elem instanceof JSONObject){
                     DouyuHotModule hotModule = new DouyuHotModule(
-                            ((JSONObject) elem).getString("tagId"),
-                            ((JSONObject) elem).getString("name"),
-                            ((JSONObject) elem).getString("url")
+                            ((JSONObject) elem).getString("cid2"),
+                            ((JSONObject) elem).getString("cname2"),
+                            ((JSONObject) elem).getString("cate2Url")
                     );
                     douyuHotModuleList.getHotModuleList().add(hotModule);
                 }

@@ -1,7 +1,9 @@
 package org.example.core.factory;
 
 import org.example.core.platform.Bilibili;
-import org.example.pojo.PlatformType;
+import org.example.core.platform.Douyin;
+import org.example.core.pojo.PlatformType;
+
 
 /**
  * @Description
@@ -10,14 +12,13 @@ import org.example.pojo.PlatformType;
  */
 public class PlatformFactory {
 
-    public static void createPlatformOperation(int platformId) {
+    public static PlatformOperation createPlatformOperation(int platformId) {
         switch (PlatformType.getPlatform(platformId)){
             case BILIBILI:
-                new Bilibili();
-                return;
+                return new Bilibili();
             case DOUYU:
             case DOUYIN:
-                return;
+                return new Douyin();
             default:
                 throw new RuntimeException();
         }

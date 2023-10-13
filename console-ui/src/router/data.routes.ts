@@ -1,6 +1,19 @@
 // users Data Page
 export default [
   {
+    path: "/data/hotLive",
+    name: "data-hot-live",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/data/hot_live/HotLiveView.vue"
+        ),
+    meta: {
+      title: "Hot Live",
+      layout: "ui",
+      category: "data",
+    },
+  },
+  {
     path: "/data/users-data",
     component: () => import("@/views/datatable/UsersDataPage.vue"),
     meta: {

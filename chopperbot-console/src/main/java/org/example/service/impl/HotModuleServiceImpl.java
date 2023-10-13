@@ -35,12 +35,12 @@ public class HotModuleServiceImpl implements HotModuleService {
      * @return
      */
     @Override
-    public HotModule getModuleHotLives(String platform,int moduleId) {
+    public HotModule getModuleHotLives(String platform,String moduleId) {
         HotModuleList moduleList = HotModuleDataCenter.DataCenter().getModuleList(platform);
         if(moduleList==null){
             return null;
         }
-        HotModule hotModule = moduleList.findHotModule(moduleId);
+        HotModule hotModule = moduleList.findHotModuleById(moduleId);
         if(hotModule!=null){
             try {
                 List<? extends Live> moduleLiveList = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, hotModule);

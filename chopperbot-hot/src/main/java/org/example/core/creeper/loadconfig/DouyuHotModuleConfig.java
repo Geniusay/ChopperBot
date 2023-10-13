@@ -19,8 +19,7 @@ import org.example.core.manager.Creeper;
         platform = ConstPool.DOUYU
 )
 public class DouyuHotModuleConfig extends LoadHotModuleConfig {
-
     public DouyuHotModuleConfig() {
-        this.url = "https://www.douyu.com/japi/weblist/apinc/header/cate";
+        this.url = "https://www.douyu.com/japi/weblist/apinc/getC2List?customClassId=3&offset=0&limit=200";
     }
 }

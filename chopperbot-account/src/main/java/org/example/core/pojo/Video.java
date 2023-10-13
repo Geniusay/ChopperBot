@@ -1,6 +1,6 @@
 package org.example.core.pojo;
 
-import org.example.pojo.VideoType;
+import org.example.core.pojo.VideoType;
 
 import java.util.List;
 
