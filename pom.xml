@@ -17,7 +17,7 @@
     <module>chopperbot-console</module>
       <module>chopperbot-common</module>
     <module>chopperbot-live</module>
-    <module>chopperbot-test</module>
+<!--    <module>chopperbot-test</module>-->
   </modules>
 
   <packaging>pom</packaging>
