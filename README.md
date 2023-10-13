@@ -1,4 +1,3 @@
-
 <p align="center">
   <a href="https://github.com/969025903/ChopperBot">
    <img alt="ChopperBot" src="https://github.com/twj666/ChopperBot-Doc/blob/master/img/logo.png?raw=true">
@@ -98,3 +97,13 @@
 👉 [Developer's Guide](https://969025903.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
 
 👉 [CHANGE LOG](https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md)
+
+# 💬Contact Us
+- Email: 969025903@qq.com | geniusssbg@gmail.com
+- QQ
+<img src="https://github.com/969025903/ChopperBot/assets/77137063/4b18e405-4fd9-43f0-8665-04d3914abbfa" width="25%" height="25%">
+
+- Wechat
+<img src="https://github.com/969025903/ChopperBot/assets/77137063/1e728690-7565-48c7-9d6f-313cd3409f9b" width="25%" height="25%">
+
+
