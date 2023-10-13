@@ -61,7 +61,7 @@ public class LiverFollower extends SpringBootPlugin {
             FileCache fileCache = plugin.getFileCache(HotModuleConfig.getFullFilePath());
             focusLive = (Integer)fileCache.get("LiverFollower", "focusLive")==1;
             //focusBarrage = (Integer)fileCache.get("LiverFollower", "focusBarrage")==1;
-            checkTime = Integer.toUnsignedLong((Integer) fileCache.get("LiverFollower", "checkTime"));
+            checkTime = Long.parseLong(fileCache.get("LiverFollower", "checkTime").toString());
             focusRecord = (Integer)fileCache.get("LiverFollower", "focusRecord")==1;
             checkTime = (Integer)fileCache.get("LiverFollower", "checkTime");
             focusLivers = service.getFocusLivers();

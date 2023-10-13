@@ -10,7 +10,6 @@
         <encoder>
             <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %boldMagenta([%logger]) %highlight(%-5level)  - %msg%n</pattern>
             <!--如果线上log日志出现中文乱码,下面这句有关编码设置的要删除或注释掉,原因不明-->
-            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
