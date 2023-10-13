@@ -175,7 +175,6 @@
             <version>2.1.5</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.openjdk.nashorn</groupId>
             <artifactId>nashorn-core</artifactId>
