@@ -4,6 +4,7 @@ import org.example.core.factory.PlatformOperation;
 import org.example.mapper.AccountMapper;
 
 import org.example.core.pojo.Account;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
@@ -50,15 +51,17 @@ public class Bilibili implements PlatformOperation {
             Thread.sleep(3000L);
             WebElement avator = confirmLogin.findElement(By.xpath("/html/body/div[2]/div[2]/div[1]/div[1]/ul[2]/li[1]"));
             if(avator!=null){
-                Account user = new Account();
-                user.setCookies(cookies.toString());
-                user.setPlatformId(1);
-                user.setUsername(username);
-                user.setPassword(password);
-                accountMapper.insert(user);
+//                Account user = new Account();
+//                user.setCookies(cookies.toString());
+//                user.setPlatformId(1);
+//                user.setUsername(username);
+//                user.setPassword(password);
+//                accountMapper.insert(user);
+                System.out.println("登陆成功!");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
