@@ -1,14 +1,17 @@
 package org.example.controller;
 
 
+import org.apache.tools.ant.taskdefs.Get;
 import org.example.core.pojo.Account;
 import org.example.core.pojo.AccountVO;
+import org.example.pojo.GPTKey;
 import org.example.service.AccountService;
 import org.example.util.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description
@@ -43,5 +46,22 @@ public class AccountController {
     public Result edit(@RequestBody Account account){
         accountService.edit(account);
         return  Result.success();
+    }
+
+    @GetMapping(value = "/gpt/key")
+    public Result getGPT(){
+        return Result.success(Map.of("key",accountService.chatGptPlugin().getKey()));
+    }
+
+    @PostMapping(value = "/gpt/add")
+    public Result addGPT(@RequestBody GPTKey key){
+        boolean b = accountService.chatGptPlugin().addKey(key);
+        return Result.success(Map.of("success",b));
+    }
+
+    @PostMapping(value="/gpt/update")
+    public Result updateGPT(@RequestBody GPTKey key){
+        boolean b = accountService.chatGptPlugin().changeKey(key);
+        return Result.success(Map.of("success",b));
     }
 }

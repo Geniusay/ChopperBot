@@ -36,7 +36,10 @@ public class GPTApi {
     }
 
     public boolean addKey(GPTKey key){
-        return mapper.insert(key)==1;
+        if (mapper.selectCount(new QueryWrapper<GPTKey>())==0) {
+            return mapper.insert(key)==1;
+        }
+        return false;
     }
 
     public GPTKey getKey(){
