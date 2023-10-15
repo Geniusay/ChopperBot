@@ -1,10 +1,12 @@
-package org.example.core.apiUrl;
+package org.example.core.constpool;
 
 /**
- * @author dhx
- * @date 2023/9/25 21:01
+ * @Description
+ * @Author welsir
+ * @Date 2023/10/13 20:07
  */
-public class BilibiliApiUrl {
+public class BilibiliURL {
+
     public final static String VIDEO_PREUPLOAD_URL = "https://member.bilibili.com/preupload?probe_version=20221109&upcdn=bda2&zone=cs&name=test.mp4&r=upos&profile=ugcfx%%2Fbup&ssl=0&version=2.14.0.0&build=2140000&size=%s&webVersion=2.14.0";
 
     public final static String TXT_PREUPLOAD_URL= "https://member.bilibili.com/preupload?name=file_meta.txt&size=2000&r=upos&profile=fxmeta%2Fbup&ssl=0&version=2.14.0.0&build=2140000&webVersion=2.14.0";
@@ -18,4 +20,5 @@ public class BilibiliApiUrl {
     public final static String COVER_UPLOAD_URL = "https://member.bilibili.com/x/vu/web/cover/up?t=";
 
     public final static String SEND_MANUSCRIPT_URL = "https://member.bilibili.com/x/vu/web/add/v3?t=%s&csrf=%s";
+
 }

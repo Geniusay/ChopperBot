@@ -39,36 +39,19 @@ public class BarrageEvent {
     private List<Barrage> barrages;
     private boolean isSort = false;
 
-    public BarrageEvent(String platform, String action, String liver,  String date) {
-        this.action = action;
-        this.platform = platform;
-        this.liver = liver;
-        this.date = date;
-        this.fileName = Paths.get(FileNameBuilder.buildBarrageFileName(liver,date)).toString();
-    }
-
-    public BarrageEvent(String platform, String action, String liver, String date, List<Barrage> barrages) {
-        this.action = action;
-        this.platform = platform;
-        this.liver = liver;
-        this.date = date;
-        this.barrages = barrages;
-        this.fileName = Paths.get(FileNameBuilder.buildBarrageFileName(liver,date)).toString();
-    }
-
-    public BarrageEvent(String platform, String action, String liver, String date, String fileName) {
-        this.platform = platform;
-        this.action = action;
-        this.liver = liver;
-        this.date = date;
-        this.fileName = fileName;
-    }
-
     public String getBarrageFilePath(){
         if(platform==null||action==null){
             return fileName;
         }
         return Paths.get(BarrageSaveFile.fileRoot(action,platform), fileName).toString();
+    }
+
+    private BarrageEvent(Builder builder){
+        this.action = builder.action;
+        this.date = builder.date;
+        this.fileName = builder.fileName;
+        this.liver = builder.liver;
+        this.platform = builder.platform;
     }
 
     public List<Barrage> getBarrages() {
@@ -86,5 +69,64 @@ public class BarrageEvent {
             isSort = true;
         }
         return barrages;
+    }
+    public static class Builder{
+        private String platform;
+
+        private String action;
+        private String liver;
+        private String date;
+
+        private String fileName;
+
+
+        public BarrageEvent build(){
+            return new BarrageEvent(this);
+        }
+
+        public Builder setPlatform(String platform){
+            this.platform = platform;
+            return this;
+        }
+
+        public Builder setAction(String action){
+            this.action = action;
+            return this;
+        }
+
+        public Builder setLiver(String liver){
+            this.liver = liver;
+            return this;
+        }
+
+        public Builder setDate(String date){
+            this.date = date;
+            return this;
+        }
+
+        public Builder setFilename(String fileName){
+            this.fileName = fileName;
+            return this;
+        }
+
+        public String getPlatform() {
+            return platform;
+        }
+
+        public String getAction() {
+            return action;
+        }
+
+        public String getLiver() {
+            return liver;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
     }
 }
