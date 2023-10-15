@@ -97,7 +97,6 @@ public class BarrageEventCenter extends SpringBootPlugin {
                         SectionRequest request = new SectionRequest(fileName, action, popularRange.getStartTime(), popularRange.getEndTime(), liver, platform,date);
                         ((VideoSectionWorkShop)plugin).request(request);
                     }
-
                 },PluginName.VIDEO_SECTION_WORK_SHOP);
             }
             //TODO 弹幕标签插件

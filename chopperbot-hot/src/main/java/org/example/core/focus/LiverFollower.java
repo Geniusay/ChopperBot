@@ -63,7 +63,6 @@ public class LiverFollower extends SpringBootPlugin {
             //focusBarrage = (Integer)fileCache.get("LiverFollower", "focusBarrage")==1;
             checkTime = Long.parseLong(fileCache.get("LiverFollower", "checkTime").toString());
             focusRecord = (Integer)fileCache.get("LiverFollower", "focusRecord")==1;
-            checkTime = (Integer)fileCache.get("LiverFollower", "checkTime");
             focusLivers = service.getFocusLivers();
             info(String.format("Find %s following anchors", focusLivers.size()));
             focusFuture = new HashMap<>();

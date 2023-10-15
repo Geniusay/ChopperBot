@@ -15,7 +15,7 @@
     <module>chopperbot-hot</module>
     <module>chopperbot-publish</module>
     <module>chopperbot-console</module>
-      <module>chopperbot-common</module>
+    <module>chopperbot-common</module>
     <module>chopperbot-live</module>
     <module>chopperbot-test</module>
   </modules>

@@ -35,4 +35,12 @@ public class GPTApi {
         return false;
     }
 
+    public boolean addKey(GPTKey key){
+        return mapper.insert(key)==1;
+    }
+
+    public GPTKey getKey(){
+        return mapper.selectOne(new QueryWrapper<GPTKey>());
+    }
+
 }

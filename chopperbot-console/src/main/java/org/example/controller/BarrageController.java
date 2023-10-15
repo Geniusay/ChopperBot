@@ -56,6 +56,7 @@ public class BarrageController {
                 barrageService.barrageScoreCurvePluginApi().deleteKeyWord(liver,keyWord)));
     }
 
+
     @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
     @PostMapping("/barrageScoreCurve/add")
     public Result addKeyWords(@RequestBody LiverKeyword keyword) {
