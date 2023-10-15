@@ -235,15 +235,15 @@ const description = ref("");
 const editDialog = ref(false);
 
 onMounted(async () => {
-  await initFollowDog();
+  cards.value = await initFollowDog();
   initColumns();
-  cards.value =  hotRecommendStore.followDogs;
   parseCards(hotRecommendStore.followDogs);
 });
 // Init 模块类型
 const initFollowDog = async()=>{
-  await getFollowDogs().then(res=>{
+  return await getFollowDogs().then(res=>{
      hotRecommendStore.followDogs = res.data['list'];
+     return res.data['list'];
   })
 }
 // Init 配置文件

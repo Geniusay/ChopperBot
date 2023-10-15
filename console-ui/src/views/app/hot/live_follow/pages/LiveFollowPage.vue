@@ -25,6 +25,7 @@ follows.value =  liveFollowStore.liveFollowList
 onMounted(async () => {
   await followList().then(res=>{
     liveFollowStore.liveFollowList = res.data['list']
+    follows.value =  liveFollowStore.liveFollowList
   })
   setTimeout(() => {
     loading.value = false;
