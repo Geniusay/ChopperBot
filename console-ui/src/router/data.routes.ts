@@ -1,4 +1,5 @@
 // users Data Page
+import userRoutes from "@/views/app/user/userRoutes";
 export default [
   {
     path: "/data/hotLive",
@@ -12,6 +13,20 @@ export default [
       layout: "ui",
       category: "data",
     },
+  },
+
+  {
+    path: "/data/account",
+    name: "data-account",
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+      category: "data",
+      title: "Account",
+    },
+    component: () =>
+      import(/* webpackChunkName: "app-todo" */ "@/views/app/user/UserApp.vue"),
+    children: [...userRoutes],
   },
   {
     path: "/data/users-data",

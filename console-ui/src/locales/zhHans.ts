@@ -108,7 +108,7 @@ export default {
     echartOthers: "Echart Others ",
     apexChart: "ApexChart ",
     data: {
-      usersDataPage: "用户数据",
+      account: "视频平台账号",
       photosDataPage: "照片数据",
       collectionsDataPage: "集合数据",
       topicsDataPage: "主题数据",
@@ -122,6 +122,7 @@ export default {
     hot_guard:"平台热度监控",
     heat_recommend:"热门直播推荐",
     live_follow:"关注主播",
+    barrage_curve:"弹幕得分曲线",
     hot_live:"热门直播"
   },
   dashboard: {

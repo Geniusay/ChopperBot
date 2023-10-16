@@ -41,12 +41,11 @@ public class LiveAndBarrageHandlerObserver extends AbstractTaskCenterObserver {
                 Object param = task.getRequest().getParam();
 
                 if(param instanceof Live){
-                    BarrageEvent event = new BarrageEvent(
-                            ((Live) param).getPlatform(),
-                            "online",
-                            ((Live) param).getLiver(),
-                            task.getLoadConfig().getStartTime()
-                    );
+                    BarrageEvent event = new BarrageEvent.Builder()
+                            .setAction("online")
+                            .setPlatform(((Live) param).getPlatform())
+                            .setLiver(((Live) param).getLiver())
+                            .setDate(task.getLoadConfig().getStartTime()).build();
                     event.setSuffix(task.getLoadConfig().getSuffix());
                     ((BarrageEventCenter)plugin).event(event);
                 }

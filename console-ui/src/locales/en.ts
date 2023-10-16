@@ -112,7 +112,7 @@ export default {
     echartOthers: "Echart Others ",
     apexChart: "ApexChart ",
     data: {
-      usersDataPage: "Users Data",
+      account: "Account",
       photosDataPage: "Photos Data",
       collectionsDataPage: "Collections Data",
       topicsDataPage: "Topics Data",
@@ -126,6 +126,7 @@ export default {
     hot_guard:"Hot Guard",
     heat_recommend:"Heat Recommend",
     live_follow:"Live Follow",
+    barrage_curve:"Barrage Curve",
     hot_live:"Hot Live"
   },
   monitor:{

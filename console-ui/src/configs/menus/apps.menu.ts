@@ -36,6 +36,12 @@ export default [
     link: "/apps/liveFollow"
   },
   {
+    icon:"mdi mdi-chart-line",
+    key:"menu.barrage_curve",
+    text:"Barrage Curve",
+    link: "/apps/barrageCurve"
+  },
+  {
     icon: "mdi-forum-outline",
     key: "menu.chat",
     text: "Chat",

@@ -1,7 +1,7 @@
 export default [
   {
     path: "",
-    redirect: "/apps/todo/tasks",
+    redirect: "/data/account/tasks",
   },
   {
     path: "tasks",

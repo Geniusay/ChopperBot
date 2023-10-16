@@ -85,7 +85,12 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
                                     Path.of(barrageRoot,newBarrageFileName).toString(),startNaos,endNaos)) {
                                 if(spiltVideoFile(Path.of(videoRoot,oldVideoFileName).toString(),
                                         Path.of(videoRoot,newVideoFileName).toString(),startNaos/1000,endNaos/1000)){
-                                    BarrageEvent event = new BarrageEvent(platform, "online", liver, startTime, newBarrageFileName);
+                                    BarrageEvent event = new BarrageEvent.Builder()
+                                                        .setAction("online")
+                                                        .setPlatform(platform)
+                                                        .setLiver(liver)
+                                                        .setFilename(newBarrageFileName)
+                                                        .setDate(startTime).build();
                                     event.setSuffix(task.getLoadConfig().getSuffix());
                                     center.event(event);
                                 }

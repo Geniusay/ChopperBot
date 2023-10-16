@@ -1,7 +1,6 @@
 import unsplashRoutes from "@/views/app/unsplash/UnsplashRoutes";
-import todoRoutes from "@/views/app/user/userRoutes";
+
 import emailRoutes from "@/views/app/email/emailRoutes";
-import chatRoutes from "@/views/app/chat/chatRoutes";
 import taskRoutes from "@/views/app/taskcenter/taskRoutes";
 import hotGuardRoutes from "@/views/app/hot/hot_guard/hotGuardRoutes";
 import liveFollowRoutes from "@/views/app/hot/live_follow/liveFollowRoutes";
@@ -108,28 +107,19 @@ export default [
     children: [...emailRoutes],
   },
   {
-    path: "/apps/chat",
+    path: "/apps/barrageCurve",
+    name: "app-barrage-curve",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/hot/live_follow/LiveFollowView.vue"
+        ),
+    children: [...liveFollowRoutes],
     meta: {
       requiresAuth: true,
+      title: "Barrage Curve",
       layout: "ui",
       category: "APP",
-      title: "Chat",
     },
-    component: () =>
-      import(/* webpackChunkName: "app-chat" */ "@/views/app/chat/ChatApp.vue"),
-    children: [...chatRoutes],
-  },
-  {
-    path: "/apps/todo",
-    meta: {
-      requiresAuth: true,
-      layout: "ui",
-      category: "APP",
-      title: "Todo",
-    },
-    component: () =>
-      import(/* webpackChunkName: "app-todo" */ "@/views/app/user/UserApp.vue"),
-    children: [...todoRoutes],
   },
   {
     path: "/apps/nitori",

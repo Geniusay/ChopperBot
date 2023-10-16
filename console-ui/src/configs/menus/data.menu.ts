@@ -7,10 +7,10 @@ export default [
     link: "/data/hotLive"
   },
   {
-    icon: "mdi-table",
-    text: "Users Data",
-    link: "/data/users-data",
-    key: "menu.data.usersDataPage",
+    icon: "mdi mdi-account-box",
+    text: "Account",
+    link: "/data/account",
+    key: "menu.data.account",
   },
   // photos Data
   {
