@@ -1,13 +1,13 @@
 package org.example.core.publisher.impl;
 
-import org.example.core.pojo.VideoToPublish;
 import org.example.core.publisher.PlatformVideoPublisher;
+import org.example.pojo.VideoToPublish;
+import org.example.utils.GetScriptPath;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.util.GetScriptPath.getScriptPath;
 
 /**
  * @Description
@@ -23,7 +23,7 @@ public class DouyinVideoPublisher implements PlatformVideoPublisher {
         try {
             List<String> command = new ArrayList<>();
             command.add("python"); // Python 解释器
-            command.add(getScriptPath(DOUYIN_PUBLISH_VIDEO).toString()); // 要运行的 Python 脚本文件名
+            command.add(GetScriptPath.getScriptPath(DOUYIN_PUBLISH_VIDEO).toString()); // 要运行的 Python 脚本文件名
             //目前默认只有三个参数
             command.add(video.getCookies());
             command.add(video.getVideoPath());

@@ -3,10 +3,9 @@ package org.example.service.impl;
 import org.example.api.AccountApi;
 
 import org.example.api.GPTApi;
-import org.example.core.gpt.ChatGPTPlugin;
-import org.example.core.pojo.Account;
+import org.example.pojo.Account;
 
-import org.example.core.pojo.AccountVO;
+import org.example.pojo.AccountVO;
 import org.example.service.AccountService;
 import org.springframework.stereotype.Service;
 

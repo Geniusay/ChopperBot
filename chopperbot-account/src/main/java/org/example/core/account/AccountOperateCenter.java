@@ -1,8 +1,8 @@
 package org.example.core.account;
 
 
-import org.example.core.pojo.Account;
-import org.example.core.pojo.AccountVO;
+import org.example.pojo.Account;
+import org.example.pojo.AccountVO;
 
 import java.util.List;
 

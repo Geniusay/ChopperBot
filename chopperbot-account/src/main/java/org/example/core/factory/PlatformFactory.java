@@ -2,7 +2,7 @@ package org.example.core.factory;
 
 import org.example.core.platform.Bilibili;
 import org.example.core.platform.Douyin;
-import org.example.core.pojo.PlatformType;
+import org.example.pojo.PlatformType;
 
 
 /**

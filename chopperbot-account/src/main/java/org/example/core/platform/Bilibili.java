@@ -3,8 +3,6 @@ package org.example.core.platform;
 import org.example.core.factory.PlatformOperation;
 import org.example.mapper.AccountMapper;
 
-import org.example.core.pojo.Account;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;

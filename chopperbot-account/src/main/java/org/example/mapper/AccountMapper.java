@@ -2,8 +2,8 @@ package org.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Select;
-import org.example.core.pojo.Account;
-import org.example.core.pojo.AccountType;
+import org.example.pojo.Account;
+import org.example.pojo.AccountType;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

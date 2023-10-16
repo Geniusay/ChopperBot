@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
 import org.example.core.factory.PlatformOperation;
-import org.example.core.pojo.Account;
+import org.example.pojo.Account;
 import org.example.mapper.AccountMapper;
 import org.openqa.selenium.Cookie;
 
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.example.util.GetScriptPath.getScriptPath;
+import static org.example.utils.GetScriptPath.getScriptPath;
 
 /**
  * @Description

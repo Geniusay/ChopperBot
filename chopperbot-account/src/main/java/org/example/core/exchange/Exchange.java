@@ -1,12 +1,13 @@
 package org.example.core.exchange;
 
-import org.example.api.BilibiliPublishApi;
-import org.example.core.pojo.VideoQueue;
+import org.example.api.VedioPublishApi;
+import org.example.pojo.VideoQueue;
+import org.example.pojo.VideoToPublish;
 
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,7 +37,7 @@ public class Exchange {
                 for (VideoQueue queue : queues) {
                     Object message = queue.dequeue();
                     if (message != null) {
-                        BilibiliPublishApi.PublishVideo("xxx","xxx",queue.getCookies().toString(),"xxx");
+                        VedioPublishApi.publishVideo(new VideoToPublish.Buider(message.toString(),queue.getCookies(),1).build());
                     }
                 }
             }

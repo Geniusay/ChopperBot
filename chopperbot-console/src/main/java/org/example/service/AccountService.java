@@ -3,9 +3,8 @@ package org.example.service;
 
 
 import org.example.api.GPTApi;
-import org.example.core.gpt.ChatGPTPlugin;
-import org.example.core.pojo.Account;
-import org.example.core.pojo.AccountVO;
+import org.example.pojo.Account;
+import org.example.pojo.AccountVO;
 
 import java.util.List;
 

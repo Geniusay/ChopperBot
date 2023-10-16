@@ -11,11 +11,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.example.core.constpool.BilibiliURL;
-import org.example.core.pojo.VideoToPublish;
 import org.example.core.publisher.PlatformVideoPublisher;
 import org.example.exception.ChopperBotException;
-import org.example.pojo.BilibiliUploader;
 
+import org.example.pojo.VideoToPublish;
 import org.example.utils.CookieUtil;
 import org.example.utils.FileUtil;
 import org.example.utils.HttpClientUtil;

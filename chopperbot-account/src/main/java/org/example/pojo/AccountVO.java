@@ -1,9 +1,8 @@
-package org.example.core.pojo;
+package org.example.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.core.pojo.AccountType;
 
 import java.util.List;
 

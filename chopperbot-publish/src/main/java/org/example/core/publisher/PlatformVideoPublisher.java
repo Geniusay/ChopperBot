@@ -1,6 +1,7 @@
 package org.example.core.publisher;
 
-import org.example.core.pojo.VideoToPublish;
+
+import org.example.pojo.VideoToPublish;
 
 /**
  * @author dhx

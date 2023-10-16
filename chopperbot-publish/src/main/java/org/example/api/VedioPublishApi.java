@@ -1,8 +1,8 @@
 package org.example.api;
 
 import org.example.core.factory.platformSelectionFactory;
-import org.example.core.pojo.VideoToPublish;
 import org.example.core.publisher.PlatformVideoPublisher;
+import org.example.pojo.VideoToPublish;
 
 /**
  * @Description

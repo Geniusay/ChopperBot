@@ -8,9 +8,9 @@ import org.example.core.factory.PlatformOperation;
 
 import org.example.mapper.AccountMapper;
 import org.example.mapper.AccountTypeMapper;
-import org.example.core.pojo.Account;
-import org.example.core.pojo.AccountType;
-import org.example.core.pojo.AccountVO;
+import org.example.pojo.Account;
+import org.example.pojo.AccountType;
+import org.example.pojo.AccountVO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 

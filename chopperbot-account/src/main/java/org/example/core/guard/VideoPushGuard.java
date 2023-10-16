@@ -3,7 +3,7 @@ package org.example.core.guard;
 import org.example.core.exchange.Exchange;
 import org.example.mapper.AccountMapper;
 import org.example.plugin.GuardPlugin;
-import org.example.core.pojo.*;
+import org.example.pojo.*;
 
 import javax.annotation.Resource;
 import java.util.List;
