@@ -6,6 +6,7 @@ import lombok.Data;
 import org.example.core.taskcenter.task.serializer.TaskStatusEnumDeserializer;
 import org.example.core.taskcenter.task.serializer.TaskStatusEnumSerializer;
 import org.example.exception.taskcenter.TaskSerializationException;
+import org.example.util.ExceptionUtil;
 
 
 import java.io.ByteArrayInputStream;
@@ -51,7 +52,7 @@ public class TaskRecord {
             oos.writeObject(reptileTask);
             return baos.toByteArray();
         }catch (Exception e){
-            throw new TaskSerializationException(reptileTask.getTaskId(),e.getMessage());
+            throw new TaskSerializationException(reptileTask.getTaskId(), ExceptionUtil.getCause(e));
         }
     }
 

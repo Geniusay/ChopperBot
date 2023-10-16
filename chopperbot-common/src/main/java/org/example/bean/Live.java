@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 public abstract class Live implements Serializable {
+
     private int watcherNum;  //直播间观众数目
     private String liveId;      //直播间ID
     private String liveName; //直播间名字
@@ -32,6 +33,9 @@ public abstract class Live implements Serializable {
     private String showTime = TimeUtil.getNowTime_YMDHMS();
 
     private String roomPic;
+
+    public Live() {
+    }
 
     public Live(int watcherNum, String liveId, String liveName, String description) {
         this.watcherNum = watcherNum;
@@ -67,5 +71,6 @@ public abstract class Live implements Serializable {
         this.moduleId = moduleId;
         this.moduleName = moduleName;
     }
+
 
 }

@@ -1,6 +1,8 @@
 package org.example.core.component;
 
 import lombok.Data;
+import org.example.constpool.PluginName;
+import org.example.log.ChopperLogFactory;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,6 +35,7 @@ public class LiveStreamTask {
                 f.parseStream(in, taskId, fileIO);
             }
         } catch (Exception e) {
+            ChopperLogFactory.getLogger(PluginName.LIVE_MANAGER_PLUGIN).error("LiveStreamTask start error:", e);
             return;
         }
     }

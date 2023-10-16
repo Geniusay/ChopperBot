@@ -8,6 +8,7 @@ package org.example.init;
 import org.example.log.ResultLogger;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
+import org.example.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
                 return fail();
             }
         }catch (Exception e){
-            return fail(e.getMessage());
+            return fail(ExceptionUtil.getCause(e));
         }
     }
 

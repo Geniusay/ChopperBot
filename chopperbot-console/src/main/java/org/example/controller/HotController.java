@@ -32,12 +32,7 @@ public class HotController {
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotLive/live")
     public Result getAllHotLive(@RequestParam(defaultValue = "0") int latest,@RequestParam String platform){
-        List<? extends Live> lives;
-        if(latest==1){
-            lives = HotModuleApi.getDouyuHotLive();
-        }else{
-            lives = HotModuleDataCenter.DataCenter().getLiveList(platform);
-        }
+        List<? extends Live> lives = hotModuleService.hotModuleApi().getHotLiveList(platform);
         if(lives==null){
             return Result.error("403","暂无该数据");
         }
@@ -47,12 +42,7 @@ public class HotController {
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotLive/module")
     public Result getAllHotModule(@RequestParam(defaultValue = "0") int latest,@RequestParam String platform){
-        HotModuleList hotModuleList;
-        if(latest==1){
-            hotModuleList = HotModuleApi.getDouyuAllHotModule();
-        }else{
-            hotModuleList = HotModuleDataCenter.DataCenter().getModuleList(platform);
-        }
+        HotModuleList hotModuleList = hotModuleService.hotModuleApi().getAllHotModule(platform);
         if(hotModuleList==null||hotModuleList.getHotModuleList()==null){
             return Result.error("403","暂无该数据");
         }
@@ -62,7 +52,7 @@ public class HotController {
     @CheckPlugin(needPlugin = {PluginName.HOT_GUARD_PLUGIN})
     @GetMapping("/hotLive/modelLive")
     public Result getHotModuleLives(@RequestParam String moduleId,@RequestParam String platform){
-        HotModule moduleHotLives = hotModuleService.getModuleHotLives(platform, moduleId);
+        HotModule moduleHotLives = hotModuleService.hotModuleApi().getModuleList(platform, moduleId);
         if(moduleHotLives==null||moduleHotLives.getHotLives()==null){
             return Result.error("403","暂无该数据");
         }

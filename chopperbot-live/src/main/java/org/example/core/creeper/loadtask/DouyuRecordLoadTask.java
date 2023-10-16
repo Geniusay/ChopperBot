@@ -8,6 +8,7 @@ import org.example.core.parser.impl.DouyuFlvUrlParser;
 import org.example.core.parser.impl.DouyuM3u8UrlParser;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 /**
@@ -37,7 +38,7 @@ public class DouyuRecordLoadTask extends CommonLoadTask<String> {
                     douyuRecordConfig.getVideoPath(),
                     douyuRecordConfig.getVideoName());
         }catch (Exception e){
-            logger.info("{} 录播爬取失败,error:{}",douyuRecordConfig.getVideoName(),e.getMessage());
+            logger.info("{} 录播爬取失败,error:{}",douyuRecordConfig.getVideoName(), ExceptionUtil.getCause(e));
         }
         return url;
     }

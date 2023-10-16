@@ -2,6 +2,7 @@ package org.example.api;
 
 import org.example.constpool.ConstPool;
 import org.example.constpool.GlobalFileCache;
+import org.example.util.ExceptionUtil;
 
 import java.io.File;
 import java.util.*;
@@ -45,7 +46,7 @@ public class VideoApi {
                 return false;
             }
         }catch (SecurityException e) {
-            System.out.println("删除文件时发生安全异常: " + e.getMessage());
+            System.out.println("删除文件时发生安全异常: " +  ExceptionUtil.getCause(e));
             return false;
         }
     }

@@ -4,6 +4,7 @@ import org.example.core.loadtask.WebMagicLoadTask;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.core.loadconfig.LoadConfig;
+import org.example.util.ExceptionUtil;
 
 /**
  * @author Genius
@@ -27,7 +28,7 @@ public abstract class HotModuleLoadTask<T> extends WebMagicLoadTask<T> {
 
     protected void fail(Exception e){
         finishFlag = FinishFlag.FAIL;
-        ChopperLogFactory.getLogger(LoggerType.Hot).error("loadTask{} finish fail Error:{}",this.getClass().getName(),e.getMessage());
+        ChopperLogFactory.getLogger(LoggerType.Hot).error("loadTask{} finish fail Error:{}",this.getClass().getName(), ExceptionUtil.getCause(e));
     }
 
     protected void success(){

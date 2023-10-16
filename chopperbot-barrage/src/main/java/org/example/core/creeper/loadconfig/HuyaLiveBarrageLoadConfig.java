@@ -23,7 +23,7 @@ public class HuyaLiveBarrageLoadConfig extends LoadBarrageConfig{
     private String roomId;
 
     public HuyaLiveBarrageLoadConfig(String anchorName,String roomId) {
-        super(ConstPool.DOUYU, CreeperModuleConstPool.ACTION_LIVE, anchorName);
+        super(ConstPool.HUYA, CreeperModuleConstPool.ACTION_LIVE, anchorName);
         this.roomId = roomId;
         this.url = "wss://cdnws.api.huya.com/";
     }

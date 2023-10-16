@@ -299,7 +299,7 @@ public class VideoUtil {
             }
             logger.info("转码完成，视频帧:{}，音频帧:{}，数据帧:{}", videoFrameNum, audioFrameNum, dataFrameNum);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error( ExceptionUtil.getCause(e));
             return "error";
         } finally {
             if (recorder != null) {
@@ -394,7 +394,7 @@ public class VideoUtil {
                 i++;
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error( ExceptionUtil.getCause(e));
             return "error";
         }finally {
             if (recorder != null) {

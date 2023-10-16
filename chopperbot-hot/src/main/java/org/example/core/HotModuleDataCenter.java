@@ -10,6 +10,7 @@ import org.example.bean.hotmodule.HotModuleList;
 import org.example.constpool.ConstGroup;
 import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
+import org.example.core.creeper.loadtask.HotModuleLoadTask;
 import org.example.core.loadtask.LoadTask;
 import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
@@ -25,7 +26,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -159,14 +162,15 @@ public class HotModuleDataCenter{
     }
 
     private List<? extends Live> checkPlatformAndGetList(String platform,HotModule hotModule){
-        List<? extends Live> lives = new ArrayList<>();
-        if(ConstPool.PLATFORM.DOUYU.getName().equals(platform)){
-            lives = HotModuleApi.getDouyuHotLive(Integer.parseInt(hotModule.getTagId()));
-        }else if (ConstPool.PLATFORM.BILIBILI.getName().equals(platform)){
-            BilibiliHotModule temp = (BilibiliHotModule) hotModule;
-            lives = HotModuleApi.getBiliBiliHotLive(temp.getParent_id(),temp.getTagId(),1);
-        }
-        return lives;
+        SafeBag<List<? extends Live>> bag = new SafeBag<>();
+        Optional.ofNullable(InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class))
+        .ifPresent(
+                (plugin)->{
+                    HotModuleLoadTask<List<? extends Live>> loadTask = plugin.getLoadTask(CreeperGroupCenter.getGroupName(platform, ConstGroup.HOT_LIVE), hotModule);
+                    bag.setData((loadTask.start()));
+                }
+        );
+        return bag.getData();
     }
 
     //根据平台的模块名获取某模块

@@ -11,6 +11,7 @@ import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.annotation.Plugin;
 import org.example.util.ClassUtil;
+import org.example.util.ExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -73,7 +74,7 @@ public class InitWorld implements CommandLineRunner {
                 close();
             }
         }catch (Exception e){
-            ChopperLogFactory.getLogger(LoggerType.System).error("Init Plugins Error:{}",e.getMessage());
+            ChopperLogFactory.getLogger(LoggerType.System).error("Init Plugins Error:{}",ExceptionUtil.getCause(e));
             close();
         }
 

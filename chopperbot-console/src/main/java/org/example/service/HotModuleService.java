@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.api.HeatRecommendApi;
+import org.example.api.HotModuleApi;
 import org.example.api.HotModuleGuardApi;
 import org.example.api.LiverFollowApi;
 import org.example.bean.HotModule;
@@ -13,8 +14,8 @@ import java.util.List;
 public interface HotModuleService {
 
 
-    HotModule getModuleHotLives(String platform, String moduleId);
 
+    HotModuleApi hotModuleApi();
     LiverFollowApi liverFollowApi();
 
     HotModuleGuardApi hotModuleGuardApi();

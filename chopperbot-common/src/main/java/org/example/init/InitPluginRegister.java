@@ -13,6 +13,7 @@ import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.util.ClassUtil;
+import org.example.util.ExceptionUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -161,7 +162,7 @@ public class InitPluginRegister {
                     }
                 }catch (Exception e){
                     ChopperLogFactory.getLogger(LoggerType.System)
-                            .error(String.format("❌ %s plugin start failed ! error:%s", pluginName,e.getMessage()));
+                            .error(String.format("❌ %s plugin start failed ! error:%s", pluginName, ExceptionUtil.getCause(e)));
                 }
             }else{
                 return false;

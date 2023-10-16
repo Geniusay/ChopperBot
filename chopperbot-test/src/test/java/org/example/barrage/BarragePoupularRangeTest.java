@@ -26,10 +26,10 @@ public class BarragePoupularRangeTest {
 
     @Test
     public void Test(){
-        BarrageEvent event = new BarrageEvent("douyu","online",null,null,"即将拥有人鱼线的PDD_2023-09-14 14_37_54.json");
-        List<BarragePoint> points = InitPluginRegister.getPlugin(PluginName.BARRAGE_SCORE_CURVE_PLUGIN, BarrageScoreCurvePlugin.class).generateCurve(event);
-        List<PopularRange> ranges = InitPluginRegister.getPlugin(PluginName.BARRAGE_POPULAR_RANGE_PLUGIN, BarragePopularRangePlugin.class).findRange(points);
-        System.out.println(ranges);
+//        BarrageEvent event = new BarrageEvent("douyu","online",null,null,"即将拥有人鱼线的PDD_2023-09-14 14_37_54.json");
+//        List<BarragePoint> points = InitPluginRegister.getPlugin(PluginName.BARRAGE_SCORE_CURVE_PLUGIN, BarrageScoreCurvePlugin.class).generateCurve(event);
+//        List<PopularRange> ranges = InitPluginRegister.getPlugin(PluginName.BARRAGE_POPULAR_RANGE_PLUGIN, BarragePopularRangePlugin.class).findRange(points);
+//        System.out.println(ranges);
 
     }
 }

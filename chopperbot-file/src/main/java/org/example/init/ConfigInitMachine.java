@@ -7,6 +7,7 @@ import org.example.plugin.CommonPlugin;
 import org.example.plugin.PluginCheckAndDo;
 import org.example.plugin.annotation.Plugin;
 import org.example.util.ConfigFileUtil;
+import org.example.util.ExceptionUtil;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,7 +41,7 @@ public abstract class ConfigInitMachine extends CommonInitMachine{
                 return false;
             }
         }catch (Exception e){
-            return fail(e.getMessage());
+            return fail( ExceptionUtil.getCause(e));
         }
     }
 

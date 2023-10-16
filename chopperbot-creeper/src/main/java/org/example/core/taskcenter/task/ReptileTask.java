@@ -12,6 +12,7 @@ import org.example.init.InitPluginRegister;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.util.ExceptionUtil;
 import org.example.util.TimeUtil;
 
 import java.io.Serializable;
@@ -50,8 +51,8 @@ public class ReptileTask implements Serializable {
     }
 
     public void reptile(){
+        TaskCenter plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN,TaskCenter.class);
         try {
-            TaskCenter plugin = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN,TaskCenter.class);
             assert plugin != null;
             //开始任务
             this.startTime = TimeUtil.getNowTime_YMDHMS();
@@ -63,15 +64,17 @@ public class ReptileTask implements Serializable {
             Object res = loadTask.start();
             request.response(res); //让请求响应结果
 
+        }catch (Exception e){
+            ChopperLogFactory.getLogger(LoggerType.Creeper).info("[{}] {} stop, Error:{}",
+                    PluginName.TASK_CENTER_PLUGIN,taskId, ExceptionUtil.getCause(e));
+        }finally {
+            assert plugin != null;
             //完成任务
             plugin.finishTask(taskId);
             plugin.info(String.format("%s end reptile!", taskId));
             this.type = TaskStatus.Finish;
             this.endTime = TimeUtil.getNowTime_YMDHMS();
             plugin.getTaskCenterLogger().setEndTime(taskId,endTime);
-        }catch (Exception e){
-            ChopperLogFactory.getLogger(LoggerType.Creeper).info("[{}] {} stop, Error:{}",
-                    PluginName.TASK_CENTER_PLUGIN,taskId,e.getCause());
         }
     }
 

@@ -17,6 +17,7 @@ import org.example.core.taskmonitor.Monitor;
 import org.example.core.taskmonitor.MonitorCenter;
 import org.example.exception.FileCacheException;
 import org.example.plugin.PluginCheckAndDo;
+import org.example.util.ExceptionUtil;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.io.UnsupportedEncodingException;
@@ -44,14 +45,6 @@ public class HuyaLiveBarrageLoadTask extends WebSocketLoadTask<List<HuyaBarrage>
         super(loadConfig);
         roomId = loadConfig.getRoomId();
         fileCache = new BarrageFileCache(new BarrageSaveFile<>(loadConfig,new ConcurrentLinkedQueue<>()));
-    }
-
-    public static String stringToHex(String input) {
-        StringBuilder hexString = new StringBuilder();
-        for (char c : input.toCharArray()) {
-            hexString.append(String.format("%02X ", (int) c));
-        }
-        return hexString.toString();
     }
 
     @Override
@@ -100,7 +93,15 @@ public class HuyaLiveBarrageLoadTask extends WebSocketLoadTask<List<HuyaBarrage>
 
     @Override
     public void onMessage(ByteBuffer buffer) {
-        HuyaBarrage huyaBarrage = wrapperBarrage(buffer,0);
+        HuyaBarrage huyaBarrage = wrapperBarrage(buffer);
+        if(huyaBarrage!=null){
+            list.add(huyaBarrage);
+            try {
+                fileCache.append(huyaBarrage,"-1");
+            }catch (FileCacheException | InterruptedException e){
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -111,13 +112,13 @@ public class HuyaLiveBarrageLoadTask extends WebSocketLoadTask<List<HuyaBarrage>
     @Override
     public void onError(Exception e) {
         client.close();
-        this.logger.error("Huya Live Barrage Error:{}",e.getMessage());
+        this.logger.error("Huya Live Barrage Error:{}", ExceptionUtil.getCause(e));
     }
 
-    public HuyaBarrage wrapperBarrage(ByteBuffer buffer, long startTime){
-        String name = "";
+    public HuyaBarrage wrapperBarrage(ByteBuffer buffer){
         String content = "";
         TarsInputStream tarsInputStream = new TarsInputStream(buffer);
+        long nowTime = System.currentTimeMillis();
         int int32 = 0;
         long int64 = 0L;
         byte[] bytes = null;
@@ -125,18 +126,13 @@ public class HuyaLiveBarrageLoadTask extends WebSocketLoadTask<List<HuyaBarrage>
             tarsInputStream = new TarsInputStream(tarsInputStream.read(bytes,1,false));
             if(tarsInputStream.read(int64,1,false)==1400){
                 tarsInputStream = new TarsInputStream(tarsInputStream.read(bytes,2,false));
-//                name = tarsInputStream.read("",0,false);
+                tarsInputStream.setServerEncoding("utf-8");
                 content = tarsInputStream.read("", 3, true);
                 try {
-                    System.out.println(new String(content.getBytes("GBK")));
-                    System.out.println(stringToHex(content));
-                    System.out.println(new String(content.replaceAll("\uFFFD", "").getBytes("GBK")));
-                    System.out.println(stringToHex(new String(content.getBytes("GBK"))));
-                } catch (UnsupportedEncodingException e) {
+                    return new HuyaBarrage("",nowTime,nowTime-startTime,content);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println(name);
-
             }
         }
         return null;

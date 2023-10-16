@@ -1,6 +1,7 @@
 package org.example.service.impl;
 
 import org.example.api.HeatRecommendApi;
+import org.example.api.HotModuleApi;
 import org.example.api.HotModuleGuardApi;
 import org.example.api.LiverFollowApi;
 import org.example.bean.Live;
@@ -22,6 +23,8 @@ import java.util.List;
 public class HotModuleServiceImpl implements HotModuleService {
 
     @Resource
+    HotModuleApi hotModuleApi;
+    @Resource
     LiverFollowApi liverFollowApi;
 
     @Resource
@@ -34,24 +37,10 @@ public class HotModuleServiceImpl implements HotModuleService {
      * @param moduleId
      * @return
      */
+
     @Override
-    public HotModule getModuleHotLives(String platform,String moduleId) {
-        HotModuleList moduleList = HotModuleDataCenter.DataCenter().getModuleList(platform);
-        if(moduleList==null){
-            return null;
-        }
-        HotModule hotModule = moduleList.findHotModuleById(moduleId);
-        if(hotModule!=null){
-            try {
-                List<? extends Live> moduleLiveList = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, hotModule);
-                hotModule.setHotLives(moduleLiveList);
-                return hotModule;
-            }catch (Exception e){
-                //TODO 交给Spring全局异常处理器
-                return null;
-            }
-        }
-        return null;
+    public HotModuleApi hotModuleApi() {
+        return hotModuleApi;
     }
 
     @Override

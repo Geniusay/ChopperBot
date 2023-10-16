@@ -30,4 +30,6 @@ public class FocusLiver implements Serializable {
     private String platform;
 
     private String tag;
+
+    private Boolean isAuto;
 }

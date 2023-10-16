@@ -75,16 +75,11 @@ public class HuyaProtocol {
             regDatas = wscmd.toByteArray();
             return regDatas;
         }catch (Exception e){
-            e.printStackTrace();
+            throw new RuntimeException("解析失败");
         }
-        return null;
     }
     public static byte[] getHeartbeat(){
         return heartbeat;
-    }
-    public static void main(String[] args) throws IOException {
-        String roomId = "dank1ng";
-        System.out.println(HexUtil.encodeHex(getWsInfo(roomId)));
     }
 
 }

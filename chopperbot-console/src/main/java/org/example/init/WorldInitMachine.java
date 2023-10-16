@@ -4,6 +4,7 @@ import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.thread.oddjob.OddJobBoy;
+import org.example.util.ExceptionUtil;
 import org.example.util.PluginUtil;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class WorldInitMachine extends ModuleInitMachine{
 
             });
         } catch (Exception e) {
-            return fail(e.getMessage());
+            return fail( ExceptionUtil.getCause(e));
         }
     }
 

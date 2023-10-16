@@ -1,6 +1,7 @@
 package org.example.api;
 
 
+import org.example.bean.HotModule;
 import org.example.bean.Live;
 import org.example.bean.live.BiliBiliLive;
 import org.example.bean.live.DouyuLive;
@@ -35,19 +36,23 @@ public class HotModuleApi {
        return HotModuleDataCenter.DataCenter().getLiveList(platform);
     }
 
-    public static HotModuleList getDouyuAllHotModule(){
-        return new DouyuHotModuleLoadTask(new DouyuHotModuleConfig()).start();
+    public HotModule getModuleList(String platform,String moduleId){
+        HotModuleList moduleList = HotModuleDataCenter.DataCenter().getModuleList(platform);
+        if(moduleList==null){
+            return null;
+        }
+        HotModule hotModule = moduleList.findHotModuleById(moduleId);
+        if(hotModule!=null){
+            try {
+                List<? extends Live> moduleLiveList = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, hotModule);
+                hotModule.setHotLives(moduleLiveList);
+                return hotModule;
+            }catch (Exception e){
+                //TODO 交给Spring全局异常处理器
+                return null;
+            }
+        }
+        return null;
     }
 
-    public static List<DouyuLive> getDouyuHotLive(){
-        return new DouyuHotLiveLoadTask(new DouyuHotLiveConfig()).start();
-    }
-
-    public static List<DouyuLive> getDouyuHotLive(int moduleId){
-        return new DouyuHotLiveLoadTask(new DouyuHotLiveConfig(moduleId)).start();
-    }
-
-    public static List<BiliBiliLive> getBiliBiliHotLive(String parentId,String areaId,int page){
-        return new BiliBiliHotLiveLoadTask(new BilibiliHotLiveConfig(parentId,areaId,page)).start();
-    }
 }

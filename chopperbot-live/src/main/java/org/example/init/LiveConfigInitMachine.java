@@ -7,6 +7,7 @@ import org.example.constpool.PluginName;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
 import org.example.pool.LiveModuleConstPool;
+import org.example.util.ExceptionUtil;
 import org.example.util.FileUtil;
 
 import java.nio.file.Files;
@@ -56,7 +57,7 @@ public class LiveConfigInitMachine extends ConfigInitMachine{
                 }
             }
         }catch (Exception e){
-            return fail(e.getMessage());
+            return fail( ExceptionUtil.getCause(e));
         }
         return super.init();
     }

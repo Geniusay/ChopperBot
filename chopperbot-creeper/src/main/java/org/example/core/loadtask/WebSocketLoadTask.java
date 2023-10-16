@@ -2,6 +2,7 @@ package org.example.core.loadtask;
 
 import org.example.bean.barrage.DouyuBarrage;
 import org.example.core.loadconfig.LoadConfig;
+import org.example.util.ExceptionUtil;
 import org.example.ws.Draft_6455;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -58,7 +59,7 @@ public abstract class WebSocketLoadTask<T> extends CommonLoadTask<T>{
             client.setSocketFactory(sslSocketFactory);
             client.connectBlocking(60, TimeUnit.SECONDS);
         }catch (URISyntaxException | InterruptedException e){
-            this.logger.error("Websocket creeper error:{}",e.getMessage());
+            this.logger.error("Websocket creeper error:{}", ExceptionUtil.getCause(e));
             return null;
         }
         if(client==null){

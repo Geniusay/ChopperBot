@@ -1,12 +1,14 @@
 package org.example.core.manager;
 
 import lombok.Data;
+import org.example.constpool.ConstGroup;
 import org.example.core.loadconfig.LoadConfig;
 import org.example.util.ClassUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -25,10 +27,25 @@ public class CreeperGroupCenter implements Serializable {
 
     @Autowired
     public CreeperGroupCenter(ApplicationContext context){
-        Map<String, AbstractCreeperGroup> beans = context.getBeansOfType(AbstractCreeperGroup.class);
-        beans.forEach((k,v)->{
-            groupMap.put(v.getGroupName(),v);
-        });
+        Set<Class<?>> creepers = ClassUtil.getAnnotationClass(PROJECT_PATH + ".core.creeper.loadconfig", Creeper.class);
+        for (Class<?> creeper : creepers) {
+            Creeper annotation = creeper.getAnnotation(Creeper.class);
+            String name = annotation.creeperName();
+            boolean discard = annotation.discard();
+            String platform = annotation.platform();
+            String groupName = StringUtils.hasText(platform)?CreeperGroupCenter.getGroupName(platform,annotation.group()):annotation.group();
+            int priority = annotation.priority();
+
+            AbstractCreeperGroup.CreeperMember member = new AbstractCreeperGroup.CreeperMember(priority, (Class<? extends LoadConfig>) creeper, discard, name);
+            if (CreeperGroupCenter.GroupMap().containsKey(groupName)) {
+                AbstractCreeperGroup group = CreeperGroupCenter.GroupMap().get(groupName);
+                group.addMember(member);
+            }else{
+                AbstractCreeperGroup group = new AbstractCreeperGroup();
+                groupMap.put(groupName,group);
+                group.addMember(member);
+            }
+        }
     }
 
     public static Map<String,AbstractCreeperGroup> GroupMap(){

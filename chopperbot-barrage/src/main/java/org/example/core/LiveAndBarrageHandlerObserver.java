@@ -9,6 +9,7 @@ import org.example.core.bgevnet.BarrageEventCenter;
 import org.example.core.bgevnet.instantslicing.InstantSlicingPlugin;
 import org.example.core.section.SectionRequest;
 import org.example.core.section.VideoSectionWorkShop;
+import org.example.core.taskcenter.TaskCenter;
 import org.example.core.taskcenter.observer.AbstractTaskCenterObserver;
 import org.example.core.taskcenter.task.ReptileTask;
 import org.example.init.InitPluginRegister;
@@ -36,6 +37,7 @@ public class LiveAndBarrageHandlerObserver extends AbstractTaskCenterObserver {
 
     @Override
     public void onFinish(ReptileTask task) {
+        taskCenter.stopTask(task.getTaskId().replace("live","barrage"));
         if(!InitPluginRegister.isRegister(PluginName.INSTANT_SLICING_PLUGIN)){
             PluginCheckAndDo.CheckAndDo((plugin)->{
                 Object param = task.getRequest().getParam();

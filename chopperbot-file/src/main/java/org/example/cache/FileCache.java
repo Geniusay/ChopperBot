@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.example.bean.ConfigFile;
 import org.example.bean.FileType;
 import org.example.exception.FileCacheException;
+import org.example.util.ExceptionUtil;
 import org.example.util.JsonFileUtil;
 import org.example.util.TimeUtil;
 import org.slf4j.Logger;
@@ -259,7 +260,7 @@ public class FileCache <T extends ConfigFile>{
         try {
             syncChannel.put(temp);
         } catch (InterruptedException e) {
-            logger.error("自动刷入失败,Error:{}",e.getMessage());
+            logger.error("自动刷入失败,Error:{}", ExceptionUtil.getCause(e));
         }
     }
 

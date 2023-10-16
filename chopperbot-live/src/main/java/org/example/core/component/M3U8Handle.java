@@ -3,6 +3,7 @@ package org.example.core.component;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.pool.LiveModuleConstPool;
+import org.example.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 import java.io.BufferedReader;
@@ -50,7 +51,7 @@ public class M3U8Handle {
             int exitCode = process.waitFor();
             logger.error("Exit code: {}",exitCode);
         } catch (IOException | InterruptedException e) {
-            logger.error("Error during video processing: {}",e.getMessage());
+            logger.error("Error during video processing: {}", ExceptionUtil.getCause(e));
             e.printStackTrace();
         }
     }

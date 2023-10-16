@@ -21,7 +21,7 @@ import java.util.List;
  **/
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ConsoleApplication.class)
+@SpringBootTest(classes = ConsoleApplication.class,webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class BarrageCreeperTest {
 
     @Test
@@ -33,7 +33,7 @@ public class BarrageCreeperTest {
 
     @Test
     public void testHuyaBarrageCreeper(){
-        HuyaLiveBarrageLoadConfig config = new HuyaLiveBarrageLoadConfig("123","lwz6038");
+        HuyaLiveBarrageLoadConfig config = new HuyaLiveBarrageLoadConfig("123", "243547");
         try {
             List<HuyaBarrage> start = new HuyaLiveBarrageLoadTask(config).start();
         } catch (FileCacheException e) {

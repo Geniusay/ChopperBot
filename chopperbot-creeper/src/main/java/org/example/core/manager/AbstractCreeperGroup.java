@@ -17,7 +17,7 @@ import java.util.TreeSet;
  * @date 2023/09/07 14:54
  **/
 @Component
-public abstract class AbstractCreeperGroup implements Serializable  {
+public class AbstractCreeperGroup implements Serializable  {
 
     private final Set<CreeperMember> creeperMember;
 
@@ -51,9 +51,13 @@ public abstract class AbstractCreeperGroup implements Serializable  {
         return null;
     }
 
-    public abstract String getPlatform();
+    public String getPlatform(){
+        return null;
+    }
 
-    public abstract String getFunctionName();
+    public String getFunctionName(){
+        return null;
+    }
 
     public String getGroupName(){
         return getPlatform()+"_"+getFunctionName();

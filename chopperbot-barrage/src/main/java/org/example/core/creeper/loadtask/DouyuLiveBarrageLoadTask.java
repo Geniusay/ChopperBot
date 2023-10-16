@@ -13,6 +13,7 @@ import org.example.core.taskmonitor.Monitor;
 import org.example.core.taskmonitor.MonitorCenter;
 import org.example.exception.FileCacheException;
 import org.example.plugin.PluginCheckAndDo;
+import org.example.util.ExceptionUtil;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.nio.ByteBuffer;
@@ -113,7 +114,7 @@ public class DouyuLiveBarrageLoadTask extends WebSocketLoadTask<List<DouyuBarrag
     @Override
     public void onError(Exception e) {
         client.close();
-        this.logger.error("Douyu Live Barrage Error:{}",e.getMessage());
+        this.logger.error("Douyu Live Barrage Error:{}", ExceptionUtil.getCause(e));
     }
 
     public DouyuBarrage wrapperBarrage(ByteBuffer buffer, long startTime){

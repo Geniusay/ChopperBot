@@ -1,5 +1,6 @@
 package org.example.init;
 
+import org.example.util.ExceptionUtil;
 import org.example.util.PluginUtil;
 import org.slf4j.Logger;
 
@@ -50,7 +51,7 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
                 }
             }
         } catch (Exception e) {
-            return fail(e.getMessage());
+            return fail( ExceptionUtil.getCause(e));
         }
 
         return initLogger(()->{

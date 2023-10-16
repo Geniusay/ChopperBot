@@ -15,9 +15,7 @@ import org.example.init.InitPluginRegister;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.thread.NamedThreadFactory;
-import org.example.util.BarrageUtil;
-import org.example.util.TimeUtil;
-import org.example.util.VideoUtil;
+import org.example.util.*;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -103,18 +101,24 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
                     }
                 }
             }catch (Exception e){
-                ChopperLogFactory.getLogger(LoggerType.Barrage).error("Error:{}",e.toString());
+                ChopperLogFactory.getLogger(LoggerType.Barrage).error("Error:{}", ExceptionUtil.getCause(e));
             }
         }
     }
 
 
     private boolean splitBarrageFile(String oldPath,String newPath,long startTime,long endTime){
-        return BarrageUtil.cutBarrageFile(oldPath,newPath,startTime,endTime);
+        if(FileUtil.isFileExist(oldPath)){
+            return BarrageUtil.cutBarrageFile(oldPath,newPath,startTime,endTime);
+        }
+        return false;
     }
 
     private boolean spiltVideoFile(String oldPath,String newPath,long startSecond,long endSecond){
-        return VideoUtil.cutVideoByFFMpeg(oldPath,newPath,startSecond,endSecond);
+        if(FileUtil.isFileExist(oldPath)){
+            return VideoUtil.cutVideoByFFMpeg(oldPath,newPath,startSecond,endSecond);
+        }
+       return false;
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.example.constpool.PluginName;
 import org.example.core.loadtask.LoadTask;
 import org.example.plugin.CommonPlugin;
 import org.example.thread.NamedThreadFactory;
+import org.example.util.ExceptionUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +53,7 @@ public class MonitorCenter extends CommonPlugin {
                 this.info(String.format("%s no setting monitor", taskId));
             }
         }catch (Exception e){
-            this.error(String.format("Error:%s",e.getMessage()));
+            this.error(String.format("Error:%s", ExceptionUtil.getCause(e)));
         }
     }
 

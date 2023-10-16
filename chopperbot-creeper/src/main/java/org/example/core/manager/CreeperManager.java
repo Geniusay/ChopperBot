@@ -39,11 +39,6 @@ public class CreeperManager extends CommonPlugin {
             String groupName = CreeperGroupCenter.getGroupName(annotation.platform(),annotation.group());
             int priority = annotation.priority();
 
-            if (CreeperGroupCenter.GroupMap().containsKey(groupName)) {
-                AbstractCreeperGroup group = CreeperGroupCenter.GroupMap().get(groupName);
-                group.addMember(new AbstractCreeperGroup.CreeperMember(priority, (Class<? extends LoadConfig>) creeper,discard,name));
-            }
-
             creeperBeans.add(new CreeperBean(name,description,author,groupName,discard,priority));
         }
         return true;

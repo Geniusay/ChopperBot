@@ -7,6 +7,7 @@ import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
+import org.example.util.ExceptionUtil;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class FileCacheManagerInitMachine extends CommonInitMachine{
                 return fail();
             }
         }catch (Exception e){
-            return fail(e.getMessage());
+            return fail(ExceptionUtil.getCause(e));
         }
     }
 
