@@ -63,7 +63,7 @@ public class LiveTest {
 
     @Test
     public void HuyaLive(){
-        HuyaLiveOnlineConfig liveConfig = new HuyaLiveOnlineConfig("mumu123456", "C:\\Users\\admin\\Desktop\\douyu\\", "猪猪公主",false);
+        HuyaLiveOnlineConfig liveConfig = new HuyaLiveOnlineConfig("294359", "C:\\Users\\admin\\Desktop\\douyu\\", "猪猪公主",false);
 
         // 创建下载任务管理器
         LiveDownloadManager liveDownLoadManager = new LiveDownloadManager(5);
