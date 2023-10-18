@@ -60,7 +60,7 @@ public class InitPluginRegister {
                             .getDeclaredConstructor(List.class,boolean.class,String.class,String.class,Class.class)
                             .newInstance(needPlugins,autoStart,moduleName,pluginName,ano.pluginClass());
                 }
-
+                initMachine.setIgnore(ano.ignore());
                 initMachine.setPluginName_CN(pluginName_CN);
                 initMachine.setPluginDescription(pluginDescription);
                 pluginStartSetting.put(pluginName,autoStart);

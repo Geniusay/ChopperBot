@@ -24,7 +24,6 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
 
     private String moduleName;
 
-
     @Override
     public boolean checkNeedPlugin() {
         for (String needPlugin : needPlugins) {
@@ -57,13 +56,25 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
         return initLogger(()->{
             if(checkNeedPlugin()){
                     for (CommonInitMachine initMachine : initMachines) {
-
                             if (initMachine.checkNeedPlugin()) {
                                 initMachine.setLogger(logger);
-                                if(!initMachine.init()){
-                                    return fail();
+                                try {
+                                    if(!initMachine.init()){
+                                        if(initMachine.isIgnore()){
+                                            fail();
+                                        }else{
+                                            return fail();
+                                        }
+                                    }else{
+                                        initMachine.registerPlugin();
+                                    }
+                                }catch (Exception e){
+                                    if(initMachine.isIgnore()){
+                                        fail(ExceptionUtil.getCause(e));
+                                    }else{
+                                        return  fail(ExceptionUtil.getCause(e));
+                                    }
                                 }
-                                initMachine.registerPlugin();
                             }else{
                                 return false;
                             }

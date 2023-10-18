@@ -33,6 +33,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
 
     protected String pluginName_CN;
     protected String pluginDescription;
+    protected boolean ignore = false;
 
     public CommonInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name,Class<? extends CommonPlugin> clazz) {
         this.needPlugins = needPlugins;
@@ -83,6 +84,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
             plugin =  ano.pluginClass()
                     .getDeclaredConstructor(String.class,String.class,List.class,boolean.class)
                     .newInstance(moduleName,pluginName,needPlugins,isAutoStart);
+            plugin.setIgnore(ano.ignore());
             plugin.setLogger(this.logger);
             if (plugin.init()) {
                 return success();
@@ -172,6 +174,14 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
     }
     public void setPluginDescription(String pluginDescription) {
         this.pluginDescription = pluginDescription;
+    }
+
+    public boolean isIgnore() {
+        return ignore;
+    }
+
+    public void setIgnore(boolean ignore) {
+        this.ignore = ignore;
     }
 
     public Class<? extends CommonPlugin> getPluginClass() {

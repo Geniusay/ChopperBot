@@ -23,14 +23,16 @@
 			"BarragePopularRange":true,
 			"HotRecommendation":true,
 			"BarrageScoreCurve":true,
+			"EmotionAnalysis":true,
 			"FileCacheManager":true,
 			"LiverFollower":true,
 			"ChatGPT":true,
 			"TaskMonitor":true,
+			"VideoPush":true,
 			"HotConfig":true,
 			"TaskCenter":true,
 			"CreeperConfig":true
 		}
 	},
-	"updateTime":"2023-10-17 02:15:29"
+	"updateTime":"2023-10-18 14:32:00"
 }

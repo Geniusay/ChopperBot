@@ -16,7 +16,7 @@ public abstract class CommonPlugin implements ChopperBotPlugin{
     protected List<String> needPlugins;
     protected boolean isAutoStart;
     protected Logger logger;
-
+    protected boolean ignore = false;
     @Override
     public boolean init() {
         return true;

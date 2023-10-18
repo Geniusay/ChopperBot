@@ -1,4 +1,4 @@
-package org.example.core.init;
+package org.example.init;
 
 import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
@@ -19,7 +19,9 @@ import java.util.List;
         pluginName_CN = "视频推送插件",
         pluginDescription = "用于将切片好的视频自动推送至对应类型账号",
         needPlugin = {},
-        pluginClass= VideoPushGuard.class )
+        pluginClass= VideoPushGuard.class,
+        ignore = true
+)
 public class VideoPushGuardInitMachine extends CommonInitMachine {
     public VideoPushGuardInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
         super(needPlugins, isAutoStart, moduleName, name, clazz);
