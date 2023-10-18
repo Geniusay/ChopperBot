@@ -1,12 +1,9 @@
 package org.example.util;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import org.apache.commons.lang3.StringUtils;
+
 import org.bytedeco.ffmpeg.avcodec.AVCodecParameters;
 import org.bytedeco.ffmpeg.avformat.AVFormatContext;
 import org.bytedeco.ffmpeg.avformat.AVStream;
-import org.bytedeco.ffmpeg.avutil.AVRational;
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.*;
 import org.bytedeco.javacv.Frame;
@@ -14,9 +11,6 @@ import org.example.constpool.ConstPool;
 import org.example.thread.oddjob.OddJobBoy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ws.schild.jave.Encoder;
-import ws.schild.jave.MultimediaInfo;
-import ws.schild.jave.MultimediaObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,9 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.List;
 

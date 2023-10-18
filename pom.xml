@@ -31,20 +31,120 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <chopperbot.common.version>1.0-SNAPSHOT</chopperbot.common.version>
+    <chopperbot.console.version>1.0-SNAPSHOT</chopperbot.console.version>
+    <chopperbot.file.version>1.0-SNAPSHOT</chopperbot.file.version>
+    <chopperbot.account.version>1.0-SNAPSHOT</chopperbot.account.version>
+    <chopperbot.barrage.version>1.0-SNAPSHOT</chopperbot.barrage.version>
+    <chopperbot.liver.version>1.0-SNAPSHOT</chopperbot.liver.version>
+    <chopperbot.section.version>1.0-SNAPSHOT</chopperbot.section.version>
+    <chopperbot.creeper.version>1.0-SNAPSHOT</chopperbot.creeper.version>
+    <chopperbot.publish.version>1.0-SNAPSHOT</chopperbot.publish.version>
+    <chopperbot.hot.version>1.0-SNAPSHOT</chopperbot.hot.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
-    <mysql.version>5.1.47</mysql.version>
-    <mybatis.version>2.1.1</mybatis.version>
+    <mysql.version>8.0.28</mysql.version>
+    <mybatis.version>3.5.1</mybatis.version>
+    <mybatis-generator.version>3.5.1</mybatis-generator.version>
+    <mybatis-plus-annotation.version>3.5.1</mybatis-plus-annotation.version>
+    <sqlite.version>3.36.0.3</sqlite.version>
+
     <spring-boot-test.version>2.3.9.RELEASE</spring-boot-test.version>
+    <selenium.version>4.0.0</selenium.version>
+    <selenium-devtools-v115.version>4.11.0</selenium-devtools-v115.version>
+    <httpcilent.version>4.5.14</httpcilent.version>
+    <webmagic.version>0.8.0</webmagic.version>
   </properties>
   <dependencyManagement>
 
     <dependencies>
+      <!--chopper-bot-->
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-console</artifactId>
+        <version>${chopperbot.console.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-file</artifactId>
+        <version>${chopperbot.file.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-common</artifactId>
+        <version>${chopperbot.common.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-barrage</artifactId>
+        <version>${chopperbot.barrage.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-hot</artifactId>
+        <version>${chopperbot.hot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-creeper</artifactId>
+        <version>${chopperbot.creeper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-live</artifactId>
+        <version>${chopperbot.liver.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-account</artifactId>
+        <version>${chopperbot.account.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-section</artifactId>
+        <version>${chopperbot.section.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-section-work</artifactId>
+        <version>${chopperbot.section.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.example</groupId>
+        <artifactId>chopperbot-publish</artifactId>
+        <version>${chopperbot.publish.version}</version>
+     </dependency>
       <!--mybatis-->
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot-starter</artifactId>
         <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-annotation</artifactId>
+        <version>${mybatis-plus-annotation.version}</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-generator</artifactId>
+        <version>${mybatis-generator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.xerial</groupId>
+        <artifactId>sqlite-jdbc</artifactId>
+        <version>${sqlite.version}</version>
       </dependency>
       <!--springboot测试依赖-->
       <dependency>
@@ -52,14 +152,70 @@
         <artifactId>spring-boot-starter-test</artifactId>
         <version>${spring-boot-test.version}</version>
       </dependency>
+      <!--      selenium-->
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-remote-driver</artifactId>
+        <version>${selenium.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-api</artifactId>
+        <version>${selenium.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>${selenium.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-devtools-v115</artifactId>
+        <version>${selenium-devtools-v115.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-chrome-driver</artifactId>
+        <version>${selenium.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-support</artifactId>
+        <version>${selenium.version}</version>
+      </dependency>
+    <!--http-->
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${httpcilent.version}</version>
+      </dependency>
+    <!--web magic-->
+      <dependency>
+        <groupId>us.codecraft</groupId>
+        <artifactId>webmagic-core</artifactId>
+        <version>${webmagic.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>us.codecraft</groupId>
+        <artifactId>webmagic-extension</artifactId>
+        <version>${webmagic.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -70,7 +226,20 @@
           <groupId>com.akamai.edgegrid</groupId>
           <artifactId>edgegrid-signer-core</artifactId>
           <version>5.0.0</version>
-      </dependency>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.26</version>
+    </dependency>
   </dependencies>
 
   <build>

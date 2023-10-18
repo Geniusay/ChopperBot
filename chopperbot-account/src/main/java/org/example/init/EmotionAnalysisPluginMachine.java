@@ -14,10 +14,11 @@ import org.springframework.stereotype.Component;
 @Plugin(moduleName = ModuleName.ACCOUNT,
         pluginName = PluginName.EMOTION_ANALYSIS,
         pluginName_CN = "情感分析插件",
+        pluginDescription = "根据弹幕内容，分析其情感倾向，并给出对应的情感标签",
         needPlugin = {PluginName.CHAT_GPT},
         pluginClass= EmotionAnalysisPlugin.class,
         springBootPlugin = true,
-        ignore = true
+        ignore=true
 )
 @Component
 public class EmotionAnalysisPluginMachine extends SpringPlugInitMachine{

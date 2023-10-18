@@ -46,15 +46,11 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>chopperbot-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>chopperbot-file</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
         <!--  ========== 优化依赖 ffmpeg-platform-gpl javacv-platform 只导入windows liunx平台 ==============  -->
@@ -117,16 +113,5 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.akamai.edgegrid</groupId>
-            <artifactId>edgegrid-signer-core</artifactId>
-            <version>5.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ws.schild</groupId>
-            <artifactId>jave-core</artifactId>
-            <version>2.4.0</version> <!-- 替换为你下载的JAR文件的版本 -->
-        </dependency>
     </dependencies>
 </project>

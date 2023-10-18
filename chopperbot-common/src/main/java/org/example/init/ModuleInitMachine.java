@@ -150,7 +150,7 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
 
     @Override
     public boolean fail(String failCause) {
-        failLog(String.format("⛔ <%s> init error! Execption:%s",moduleName,failCause));
+        failLog(String.format("⛔ <%s> init error! Exception:%s",moduleName,failCause));
         return false;
     }
 
