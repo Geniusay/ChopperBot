@@ -26,24 +26,24 @@ public class AccountController {
 
     @GetMapping(value = "/getUser/{platformId}")
     public Result getAllUser(@PathVariable int platformId){
-        List<AccountVO> list = accountService.getAllUser(platformId);
+        List<AccountVO> list = accountService.accountPlugin().getAllUsers(platformId);
         return Result.success(list);
     }
 
     @GetMapping(value = "/getUser")
     public Result getAllUser(){
-        return Result.success(accountService.getAllUser());
+        return Result.success(accountService.accountPlugin().getAllUsers());
     }
 
     @PostMapping(value = "/login/{platformId}")
-    public Result login(@RequestBody String username, @RequestBody String password, @PathVariable int platformId){
-        accountService.login(platformId,username,password);
+    public Result login(@RequestParam String username, @PathVariable int platformId){
+        accountService.accountPlugin().addAccountSaveCookie(platformId,username);
         return Result.success();
     }
 
     @PostMapping(value = "/edit")
     public Result edit(@RequestBody Account account){
-        accountService.edit(account);
+        accountService.accountPlugin().editUser(account);
         return  Result.success();
     }
 

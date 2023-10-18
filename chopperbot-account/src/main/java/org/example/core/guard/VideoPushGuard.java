@@ -1,5 +1,6 @@
 package org.example.core.guard;
 
+import org.example.core.account.AccountOperateCenter;
 import org.example.core.exchange.Exchange;
 import org.example.mapper.AccountMapper;
 import org.example.plugin.GuardPlugin;
@@ -23,7 +24,8 @@ public class VideoPushGuard extends GuardPlugin {
 
     @Resource
     private AccountMapper accountMapper;
-
+    @Resource
+    AccountOperateCenter operateCenter;
 
     public VideoPushGuard(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
         super(module, pluginName, needPlugins, isAutoStart);
@@ -37,7 +39,7 @@ public class VideoPushGuard extends GuardPlugin {
         for (Account account : accountList) {
             List<AccountType> accountTypes = accountMapper.selectTypeByUid(account.getId());
             for (AccountType accountType : accountTypes) {
-                exchange.bind(new VideoQueue(PlatformType.getPlatform(account.getPlatformId()) + "-" + account.getId(), account.isCompleteMatch(),account.getCookies()), accountType.getType());
+                exchange.bind(new VideoQueue(PlatformType.getPlatform(account.getPlatform_id()) + "-" + account.getId(), account.is_complete_match(),account.getCookies()), accountType.getType());
             }
         }
         receiveVideo = new ArrayBlockingQueue<>(1024);

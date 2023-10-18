@@ -10,6 +10,5 @@ import org.springframework.stereotype.Component;
  * @Author welsir
  * @Date 2023/9/24 16:08
  */
-@Component
 public interface AccountTypeMapper extends BaseMapper<AccountType> {
 }

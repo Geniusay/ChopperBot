@@ -1,5 +1,6 @@
 package org.example.account;
 
+import org.junit.Test;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -18,7 +19,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class bilibiliTest {
 
-    public static void getcookies() throws Exception {
+    @Test
+    public void getcookies() throws Exception {
         System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.setBinary("C:\\Program Files (x86)\\Chromebrowser\\Chrome.exe");
@@ -32,8 +34,15 @@ public class bilibiliTest {
         scanner.next();
 //        获取cookie,再通过baocun函数进行序列化操作
         Set<Cookie> cookies = webDriver.manage().getCookies();
-        System.out.println(cookies);
-        baocun(cookies);
+        webDriver.quit();
+        ChromeDriver chromeDriver = new ChromeDriver(options);
+        chromeDriver.get(url);
+        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        chromeDriver.manage().deleteAllCookies();
+        for (Cookie cookie : cookies) {
+            chromeDriver.manage().addCookie(cookie);
+        }
+        chromeDriver.navigate().refresh();
     }
 
     //把登录后得到的cookie序列化到硬盘中
@@ -62,7 +71,6 @@ public class bilibiliTest {
 //        // 与浏览器同步非常重要，必须等待浏览器加载完毕
 //        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //        webDriver.navigate().refresh();
-        getcookies();
     }
 
     //读取硬盘cookie的操作

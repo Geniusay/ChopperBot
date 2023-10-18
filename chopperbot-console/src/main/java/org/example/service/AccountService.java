@@ -2,6 +2,7 @@ package org.example.service;
 
 
 
+import org.example.api.AccountApi;
 import org.example.api.GPTApi;
 import org.example.pojo.Account;
 import org.example.pojo.AccountVO;
@@ -15,13 +16,7 @@ import java.util.List;
  */
 public interface AccountService {
 
-    List<AccountVO> getAllUser(int id);
-
-    List<AccountVO> getAllUser();
-
-    void login(int platformId,String username,String password);
-
-    void edit(Account account);
+    AccountApi accountPlugin();
 
     GPTApi chatGptPlugin();
 }

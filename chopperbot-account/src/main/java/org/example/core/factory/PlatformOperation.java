@@ -1,5 +1,9 @@
 package org.example.core.factory;
 
+import org.openqa.selenium.Cookie;
+
+import java.util.Set;
+
 /**
  * @Description
  * @Author welsir
@@ -8,6 +12,6 @@ package org.example.core.factory;
 
 public interface PlatformOperation {
 
-    void login(int id,String account,String password);
+    Set<Cookie> login(int id, String account);
 
 }

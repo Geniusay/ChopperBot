@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface AccountOperateCenter {
 
-    void insertAccount(int platformId,String username,String password);
+    void insertAccount(int platformId,String username);
 
     List<AccountVO> getAllUsers();
 

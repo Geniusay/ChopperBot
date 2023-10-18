@@ -1,6 +1,7 @@
 package org.example.core.account.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.core.account.AccountOperateCenter;
 import org.example.core.constpool.ConstPool;
 import org.example.core.factory.PlatformFactory;
@@ -11,6 +12,8 @@ import org.example.mapper.AccountTypeMapper;
 import org.example.pojo.Account;
 import org.example.pojo.AccountType;
 import org.example.pojo.AccountVO;
+import org.openqa.selenium.Cookie;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -18,6 +21,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -26,16 +30,21 @@ import java.util.stream.Collectors;
  * @Date 2023/9/23 14:04
  */
 @Service
-public class AccountOperator implements AccountOperateCenter {
+public class AccountOperator extends ServiceImpl<AccountMapper,Account> implements AccountOperateCenter {
 
     @Resource
-    private AccountMapper accountMapper;
+    AccountMapper accountMapper;
     @Resource
     AccountTypeMapper accountTypeMapper;
     @Override
-    public void insertAccount(int platformId,String username,String password) {
+    public void insertAccount(int platformId,String username) {
         PlatformOperation platformOperation = PlatformFactory.createPlatformOperation(platformId);
-        platformOperation.login(platformId,username,password);
+        Set<Cookie> cookies = platformOperation.login(platformId, username);
+        Account account = new Account();
+        account.setPlatform_id(platformId);
+        account.setCookies(cookies.toString());
+        account.setUsername(username);
+        accountMapper.insert(account);
     }
 
     @Override
@@ -69,8 +78,7 @@ public class AccountOperator implements AccountOperateCenter {
                 accountVO.setTypeList(types);
                 accountVO.setUid(account.getId());
                 accountVO.setUsername(account.getUsername());
-                accountVO.setPassword(account.getPassword());
-                accountVO.setPlatform(ConstPool.AccountPlatForm.fromId(account.getPlatformId()));
+                accountVO.setPlatform(ConstPool.AccountPlatForm.fromId(account.getPlatform_id()));
                 accountVOList.add(accountVO);
             }
         }

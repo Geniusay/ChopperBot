@@ -20,12 +20,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Account implements Serializable {
 
-    @TableId(value = "uid", type = IdType.ASSIGN_UUID)
+    @TableId(value = "uid", type = IdType.ASSIGN_ID)
     private Long id;
     private String username;
-    private String password;
     private String cookies;
-    private boolean isCompleteMatch;
-    private int platformId;
+    private boolean is_complete_match;
+    private int platform_id;
 
 }

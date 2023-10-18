@@ -24,24 +24,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Resource
     GPTApi gptApi;
-    @Override
-    public List<AccountVO> getAllUser(int id) {
-        return accountApi.getAllUsers(id);
-    }
 
     @Override
-    public List<AccountVO> getAllUser() {
-        return accountApi.getAllUsers();
-    }
-
-    @Override
-    public void login(int platformId,String username, String password) {
-        accountApi.addAccountSaveCookie(platformId,username,password);
-    }
-
-    @Override
-    public void edit(Account account) {
-        accountApi.editUser(account);
+    public AccountApi accountPlugin() {
+        return accountApi;
     }
 
     @Override

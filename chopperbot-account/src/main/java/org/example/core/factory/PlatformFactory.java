@@ -16,7 +16,6 @@ public class PlatformFactory {
         switch (PlatformType.getPlatform(platformId)){
             case BILIBILI:
                 return new Bilibili();
-            case DOUYU:
             case DOUYIN:
                 return new Douyin();
             default:

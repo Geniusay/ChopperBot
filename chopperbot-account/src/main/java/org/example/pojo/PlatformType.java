@@ -7,9 +7,8 @@ package org.example.pojo;
  */
 public enum PlatformType {
 
-    DOUYU(1),
-    BILIBILI(2),
-    DOUYIN(3);
+    BILIBILI(1),
+    DOUYIN(2);
     private final int index;
 
     public int getId() {

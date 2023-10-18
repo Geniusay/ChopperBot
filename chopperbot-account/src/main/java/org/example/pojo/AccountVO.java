@@ -17,7 +17,6 @@ import java.util.List;
 public class AccountVO {
     private Long uid;
     private String username;
-    private String password;
     private String platform;
     List<AccountType> typeList;
 }

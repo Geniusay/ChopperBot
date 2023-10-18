@@ -10,10 +10,7 @@ import org.openqa.selenium.Cookie;
 
 import javax.annotation.Resource;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static org.example.utils.GetScriptPath.getScriptPath;
 
@@ -31,7 +28,7 @@ public class Douyin implements PlatformOperation {
     @Resource
     AccountMapper accountMapper;
     @Override
-    public void login(int id,String username,String password) {
+    public Set<Cookie> login(int id, String username) {
         try {
             List<String> command = new ArrayList<>();
             command.add("python"); // Python 解释器
@@ -62,11 +59,7 @@ public class Douyin implements PlatformOperation {
                 int exitCode = process1.waitFor();
                 if (exitCode == 0) {
                     System.out.println("抖音登录成功!");
-                    Account account = new Account();
-                    account.setUsername(username);
-                    account.setCookies(loadCookiesFromFile(FILE_PATH).toString());
-                    account.setPlatformId(2);
-                    accountMapper.insert(account);
+
                 }
             }else{
                 throw new RuntimeException("登陆失败!");
@@ -74,6 +67,7 @@ public class Douyin implements PlatformOperation {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     //从本地文件获取cookie

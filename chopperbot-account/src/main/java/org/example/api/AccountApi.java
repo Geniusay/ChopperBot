@@ -1,5 +1,6 @@
 package org.example.api;
 
+import org.example.core.account.AccountOperateCenter;
 import org.example.core.account.Impl.AccountOperator;
 import org.example.pojo.Account;
 import org.example.pojo.AccountVO;
@@ -18,7 +19,7 @@ import java.util.List;
 public class AccountApi {
 
     @Resource
-    private AccountOperator accountOperator;
+    AccountOperateCenter accountOperator;
 
     /*
      * 第一次登陆调用此方法将账号对应cookie存入数据库中
@@ -27,8 +28,8 @@ public class AccountApi {
      * 抖音登录默认为验证码登录
      * b站登录默认为账号密码登录
      */
-    public void addAccountSaveCookie(int platformId, @RequestBody String username, @RequestBody String password){
-        accountOperator.insertAccount(platformId,username,password);
+    public void addAccountSaveCookie(int platformId,  String username){
+        accountOperator.insertAccount(platformId,username);
     }
 
     /*
