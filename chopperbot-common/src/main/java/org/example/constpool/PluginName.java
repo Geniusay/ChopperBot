@@ -44,6 +44,8 @@ public class PluginName {
 
     public static final String CHAT_GPT = "ChatGPT";
 
+    public static final String EMOTION_ANALYSIS = "EmotionAnalysis";
+
 
 
     public static final String LIVE_CONFIG_PLUGIN= "LiveConfig";
