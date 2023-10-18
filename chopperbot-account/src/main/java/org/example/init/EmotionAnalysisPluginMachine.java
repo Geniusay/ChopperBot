@@ -16,7 +16,8 @@ import org.springframework.stereotype.Component;
         pluginName_CN = "情感分析插件",
         needPlugin = {PluginName.CHAT_GPT},
         pluginClass= EmotionAnalysisPlugin.class,
-        springBootPlugin = true
+        springBootPlugin = true,
+        ignore = true
 )
 @Component
 public class EmotionAnalysisPluginMachine extends SpringPlugInitMachine{

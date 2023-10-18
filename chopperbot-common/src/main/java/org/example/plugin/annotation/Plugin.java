@@ -24,4 +24,6 @@ public @interface Plugin {
     boolean autoStart() default true;
 
     boolean springBootPlugin() default false;           //兼容springboot的插件
+
+    boolean ignore() default false;
 }
