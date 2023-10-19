@@ -1,10 +1,14 @@
 package org.example.core.guard;
 
-import org.example.core.account.AccountOperateCenter;
 import org.example.core.exchange.Exchange;
 import org.example.mapper.AccountMapper;
+import org.example.mapper.GPTKeyMapper;
+import org.example.plugin.ChopperBotPlugin;
 import org.example.plugin.GuardPlugin;
+import org.example.plugin.SpringBootPlugin;
+import org.example.plugin.SpringGuardPlugin;
 import org.example.pojo.*;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,19 +21,14 @@ import java.util.concurrent.TimeUnit;
  * @Author welsir
  * @Date 2023/9/4 22:10
  */
-public class VideoPushGuard extends GuardPlugin {
+@Component
+public class VideoPushGuard extends SpringGuardPlugin {
 
     private Exchange exchange;
     private BlockingQueue<Object> receiveVideo;
 
     @Resource
     private AccountMapper accountMapper;
-    @Resource
-    AccountOperateCenter operateCenter;
-
-    public VideoPushGuard(String module, String pluginName, List<String> needPlugins, boolean isAutoStart) {
-        super(module, pluginName, needPlugins, isAutoStart);
-    }
 
     @Override
     public boolean init() {
@@ -46,7 +45,6 @@ public class VideoPushGuard extends GuardPlugin {
         return true;
     }
 
-    @Override
     public void start() {
         try {
             Object videoMsg = receiveVideo.poll(5, TimeUnit.SECONDS);
