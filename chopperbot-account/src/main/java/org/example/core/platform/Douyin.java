@@ -4,26 +4,25 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONReader;
 import org.example.core.factory.PlatformOperation;
-import org.example.pojo.Account;
-import org.example.mapper.AccountMapper;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import javax.annotation.Resource;
-import java.io.*;
-import java.util.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import static org.example.utils.GetScriptPath.getScriptPath;
 
 /**
  * @Description
  * @Author welsir
  * @Date 2023/10/9 17:09
  */
+
 public class Douyin implements PlatformOperation {
 
     final String FILE_PATH = "D:\\Douyincookies.txt";
@@ -31,10 +30,8 @@ public class Douyin implements PlatformOperation {
 
     final String CONFIRM_LOGIN_SCRIPT_PATH = "org/example/core/script/douyin/ConfirmLogin.py";
     final String URL ="https://www.douyin.com/";
-    @Resource
-    AccountMapper accountMapper;
     @Override
-    public Set<Cookie> login(int id, String username) {
+    public Set<org.openqa.selenium.Cookie> login(int id, String username) {
         try {
             System.setProperty("webdriver.chrome.driver", "D:\\downLoad\\chromedriver_win32\\chromedriver.exe");
             ChromeOptions options = new ChromeOptions();
@@ -42,7 +39,7 @@ public class Douyin implements PlatformOperation {
             ChromeDriver loginwebDriver = new ChromeDriver(options);
             loginwebDriver.get(URL); //
             loginwebDriver.manage().deleteAllCookies();
-            Thread.sleep(40000L);
+            Thread.sleep(45000L);
             Set<Cookie> cookies = loginwebDriver.manage().getCookies();
             loginwebDriver.quit();
             ChromeDriver confirmLogin = new ChromeDriver(options);
@@ -50,7 +47,9 @@ public class Douyin implements PlatformOperation {
             confirmLogin.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             confirmLogin.manage().deleteAllCookies();
             for (Cookie cookie : cookies) {
-                System.out.println(cookie);
+                if("".equals(cookie.getName())||cookie.getName()==null){
+                    continue;
+                }
                 confirmLogin.manage().addCookie(cookie);
             }
             confirmLogin.navigate().refresh();
