@@ -15,18 +15,21 @@ import org.example.bean.FollowDog;
 import org.example.config.HotModuleConfig;
 import org.example.bean.HotModuleSetting;
 import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
 import org.example.core.HotModuleDataCenter;
 import org.example.core.guard.HotModuleGuard;
 import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.init.InitPluginRegister;
+import org.example.mapper.FocusLiverMapper;
 import org.example.mapper.FollowDogMapper;
 import org.example.plugin.CommonPlugin;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.plugin.SpringBootPlugin;
 import org.example.service.FollowDogService;
 import org.example.service.HotModuleSettingService;
+import org.example.sql.annotation.SQLInit;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -232,5 +235,23 @@ public class HeatRecommendation extends SpringBootPlugin {
         }else{
             return  new ArrayList<>();
         }
+    }
+
+    @Override
+    @SQLInit(table = "follow_dog",tableSQL = "CREATE TABLE \"follow_dog\" (\n" +
+            "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
+            "\t\"dog_id\"\tTEXT,\n" +
+            "\t\"platform\"\tTEXT NOT NULL,\n" +
+            "\t\"module_name\"\tTEXT NOT NULL DEFAULT 'all',\n" +
+            "\t\"top\"\tINTEGER DEFAULT 5,\n" +
+            "\t\"ban_liver\"\tTEXT,\n" +
+            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+            ")",mapper = FollowDogMapper.class)
+    public List<FollowDog> sqlInit() {
+        ArrayList<FollowDog> dogs = new ArrayList<>();
+        for (ConstPool.PLATFORM platform : ConstPool.PLATFORM.values()) {
+            dogs.add(new FollowDog(null,UUID.randomUUID().toString(),platform.getName(),"all",1,null));
+        }
+        return dogs;
     }
 }

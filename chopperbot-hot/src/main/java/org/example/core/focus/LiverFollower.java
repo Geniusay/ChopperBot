@@ -1,27 +1,21 @@
 package org.example.core.focus;
 
-import lombok.AllArgsConstructor;
 import org.example.bean.FocusLiver;
-import org.example.bean.Live;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManager;
 import org.example.config.HotModuleConfig;
 import org.example.constpool.ConstGroup;
-import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
-import org.example.core.loadconfig.LoadConfig;
 import org.example.core.loadtask.LoadTask;
-import org.example.core.manager.AbstractCreeperGroup;
-import org.example.core.manager.CreeperBuilder;
 import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
 import org.example.core.taskcenter.TaskCenter;
 import org.example.core.taskcenter.request.ReptileRequest;
 import org.example.init.InitPluginRegister;
-import org.example.plugin.CommonPlugin;
-import org.example.plugin.PluginCheckAndDo;
+import org.example.mapper.FocusLiverMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.service.FocusLiverService;
+import org.example.sql.annotation.SQLInit;
 import org.example.thread.NamedThreadFactory;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +29,7 @@ import java.util.concurrent.*;
  * @date 2023/09/09 23:20
  **/
 @Component
-public class LiverFollower extends SpringBootPlugin {
+public class LiverFollower extends SpringBootPlugin{
 
     @Resource
     private FocusLiverService service;
@@ -109,6 +103,7 @@ public class LiverFollower extends SpringBootPlugin {
             task.cancel(true);
         }
     }
+
     class FollowerEyes implements Runnable,Serializable{
 
         private LoadTask checker;
@@ -169,4 +164,18 @@ public class LiverFollower extends SpringBootPlugin {
         super.shutdown();
     }
 
+    @Override
+    @SQLInit(table = "focus_liver",tableSQL = "CREATE TABLE \"focus_liver\" (\n" +
+            "\t\"id\"\tINTEGER UNIQUE,\n" +
+            "\t\"liver\"\tTEXT NOT NULL UNIQUE,\n" +
+            "\t\"room_id\"\tTEXT NOT NULL UNIQUE,\n" +
+            "\t\"platform\"\tTEXT NOT NULL,\n" +
+            "\t\"tag\"\tTEXT,\n" +
+            "\t\"avatar\"\tTEXT,\n" +
+            "\t\"is_auto\"\tINTEGER NOT NULL DEFAULT 1,\n" +
+            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+            ")",mapper = FocusLiverMapper.class)
+    public List<FocusLiver> sqlInit() {
+        return null;
+    }
 }

@@ -1,10 +1,14 @@
 package org.example.init;
 
+
 import org.example.constpool.GlobalFileCache;
 import org.example.exception.FileCacheException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.mapper.FocusLiverMapper;
 import org.example.plugin.annotation.Plugin;
+import org.example.sql.SQLInitHelper;
+import org.example.sql.SQLInitMachine;
 import org.example.util.ClassUtil;
 import org.example.util.ExceptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;;
 import java.util.Set;
 
 import static org.example.constpool.ConstPool.PROJECT_PATH;
@@ -28,6 +33,14 @@ public class InitWorld implements CommandLineRunner {
     @Autowired
     ChopperBotConfigFileInitMachine moduleSrcConfigFileInitMachine;
 
+    @Autowired
+    SQLInitHelper sqlInitHelper;
+
+    @Resource
+    WorldInitMachine world;
+
+    @Resource
+    DatabaseInitMachine databaseInitMachine;
 
     private ApplicationContext ctx;
 
@@ -65,21 +78,20 @@ public class InitWorld implements CommandLineRunner {
             ChopperLogFactory.getLogger(LoggerType.System).error("Init Plugins Error:{}",ExceptionUtil.getCause(e));
             close();
         }
-
         if(moduleSrcConfigFileInitMachine.isInitFlag()){
-            WorldInitMachine world = null;
             try {
+                databaseInitMachine.sqlInit();
                 initPluginStartSetting();
-                world = new WorldInitMachine();
+                if (world.init()) {
+                    world.afterInit();
+                    return;
+                }else{
+                    world.shutdown();
+                }
             } catch (Exception e) {
+                ChopperLogFactory.getLogger(LoggerType.System).error("Init World Error:{}",ExceptionUtil.getCause(e));
                 close();
                 return;
-            }
-            if (world.init()) {
-                world.afterInit();
-                return;
-            }else{
-                world.shutdown();
             }
         }
         close();

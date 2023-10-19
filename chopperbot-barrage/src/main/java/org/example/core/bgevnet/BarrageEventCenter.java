@@ -11,12 +11,10 @@ import org.example.core.bgevnet.bgscore.BarragePoint;
 import org.example.core.bgevnet.bgscore.BarrageScoreCurvePlugin;
 import org.example.core.section.SectionRequest;
 import org.example.core.section.VideoSectionWorkShop;
-import org.example.init.InitPluginRegister;
 import org.example.plugin.PluginCheckAndDo;
 import org.example.plugin.SpringBootPlugin;
 import org.example.bean.Barrage;
 import org.example.thread.NamedThreadFactory;
-import org.example.util.TimeUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

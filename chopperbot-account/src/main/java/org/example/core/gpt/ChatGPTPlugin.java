@@ -4,12 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import okhttp3.*;
-import okhttp3.internal.http2.Header;
-import org.example.core.config.GPTConfig;
 import org.example.core.msgbuilder.MsgBuilder;
 import org.example.mapper.GPTKeyMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.GPTKey;
+import org.example.sql.annotation.SQLInit;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -35,7 +34,7 @@ public class ChatGPTPlugin extends SpringBootPlugin {
     public boolean init(){
         choseKey();
         buildHeader(key.getKey());
-       return super.init();
+        return super.init();
     }
 
     public JSONObject reqGPT(MsgBuilder builder){
@@ -81,4 +80,15 @@ public class ChatGPTPlugin extends SpringBootPlugin {
                 .build();
     }
 
+    @Override
+    @SQLInit(table = "gpt_key",tableSQL = "CREATE TABLE \"gpt_key\" (\n" +
+            "  \"key\" TEXT NOT NULL,\n" +
+            "  \"url\" TEXT NOT NULL,\n" +
+            "  \"model\" TEXT NOT NULL\n" +
+            ")",mapper = GPTKeyMapper.class)
+    public List<GPTKey> sqlInit() {
+        return List.of(new GPTKey("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"
+                ,"https://api.misakanetwork.com.cn/v1/chat/completions"
+                ,"gpt-3.5-turbo-16k-0613"));
+    }
 }

@@ -2,12 +2,10 @@ package org.example.core.guard;
 
 import org.example.core.exchange.Exchange;
 import org.example.mapper.AccountMapper;
-import org.example.mapper.GPTKeyMapper;
-import org.example.plugin.ChopperBotPlugin;
-import org.example.plugin.GuardPlugin;
-import org.example.plugin.SpringBootPlugin;
+import org.example.mapper.AccountTypeMapper;
 import org.example.plugin.SpringGuardPlugin;
 import org.example.pojo.*;
+import org.example.sql.SQLInitHelper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -32,6 +30,7 @@ public class VideoPushGuard extends SpringGuardPlugin {
 
     @Override
     public boolean init() {
+
         //两件事情    一注册队列;二启动队列监听
         exchange = new Exchange();
         List<Account> accountList = accountMapper.selectList(null);

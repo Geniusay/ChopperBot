@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 /**
@@ -23,6 +24,8 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
     protected List<CommonInitMachine> allInitMachines;
 
     private String moduleName;
+
+    protected AtomicInteger startNum = new AtomicInteger(0);
 
     @Override
     public boolean checkNeedPlugin() {
@@ -66,13 +69,14 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
                                             return fail();
                                         }
                                     }else{
+                                        startNum.getAndIncrement();
                                         initMachine.registerPlugin();
                                     }
                                 }catch (Exception e){
                                     if(initMachine.isIgnore()){
-                                        fail(ExceptionUtil.getCause(e));
+                                         fail(String.format("%s plugin init error, ignore it!", initMachine.getPlugin()));
                                     }else{
-                                        return  fail(ExceptionUtil.getCause(e));
+                                        return fail(ExceptionUtil.getCause(e));
                                     }
                                 }
                             }else{
@@ -118,7 +122,7 @@ public abstract class ModuleInitMachine extends CommonInitMachine{
 
     @Override
     public void successLog() {
-        successLog(String.format("✅ <%s> init success! init %s plugins ! ",moduleName,initMachines.size()));
+        successLog(String.format("✅ <%s> init success! total plugins:%s  , success init:%s !",moduleName,initMachines.size(),startNum.get()));
     }
 
     @Override

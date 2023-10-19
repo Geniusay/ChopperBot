@@ -7,6 +7,7 @@ import org.example.log.notice.Notice;
 import org.example.log.notice.NoticeHorn;
 import org.example.log.notice.NoticePlugin;
 import org.example.log.notice.NoticeType;
+import org.example.sql.SQLInitMachine;
 import org.slf4j.Logger;
 
 import java.util.List;

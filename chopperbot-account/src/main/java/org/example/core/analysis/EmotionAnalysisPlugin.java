@@ -9,6 +9,7 @@ import org.example.core.gpt.ChatGPTPlugin;
 import org.example.mapper.AnalysisSchemeMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.AnalysisScheme;
+import org.example.sql.annotation.SQLInit;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -83,5 +84,19 @@ public class EmotionAnalysisPlugin extends SpringBootPlugin {
         }
 
         return "";
+    }
+
+    @Override
+    @SQLInit(table = "analysis_scheme",tableSQL = "CREATE TABLE \"analysis_scheme\" (\n" +
+            "  \"id\" integer NOT NULL,\n" +
+            "  \"labels\" TEXT NOT NULL,\n" +
+            "  \"system\" text NOT NULL,\n" +
+            "  \"comment\" TEXT,\n" +
+            "  PRIMARY KEY (\"id\")\n" +
+            ")",mapper = AnalysisSchemeMapper.class)
+    public List<AnalysisScheme> sqlInit() {
+        return List.of(new AnalysisScheme(null,"搞笑,秀操作,破防,泪目",
+                "请你作为一个专门看直播的观众，对下列的观众发送的弹幕内容进行分析，然后根据弹幕内容返回从以下几个标签返回给我最合适的一个标签来形容这段内容",
+                "方案一"));
     }
 }

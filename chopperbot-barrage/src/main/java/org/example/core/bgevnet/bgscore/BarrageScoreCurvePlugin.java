@@ -11,8 +11,10 @@ import org.example.core.bgevnet.bgscore.score.AbstractScoreStrategy;
 import org.example.core.bgevnet.bgscore.score.ScoreStrategyFactory;
 import org.example.core.bgevnet.bgscore.split.AbstractSplitStrategy;
 import org.example.core.bgevnet.bgscore.split.SplitStrategyFactory;
+import org.example.mapper.LiverKeywordMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.service.LiverKeywordService;
+import org.example.sql.annotation.SQLInit;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -119,5 +121,19 @@ public class BarrageScoreCurvePlugin extends SpringBootPlugin {
 
     public List<LiverKeyword> getKetWords(String liver){
         return StringUtils.hasText(liver)?service.getLiverKeyWords(liver):new ArrayList<>();
+    }
+
+    @Override
+    @SQLInit(table = "liver_keyword",tableSQL = "CREATE TABLE \"liver_keyword\" (\n" +
+            "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
+            "\t\"liver\"\tTEXT NOT NULL,\n" +
+            "\t\"barrage\"\tTEXT NOT NULL,\n" +
+            "\t\"score\"\tINTEGER NOT NULL,\n" +
+            "\t\"type\"\tTEXT,\n" +
+            "\t\"is_ban\"\tINTEGER NOT NULL DEFAULT 0,\n" +
+            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+            ")",mapper = LiverKeywordMapper.class)
+    public List<LiverKeyword> sqlInit() {
+        return null;
     }
 }

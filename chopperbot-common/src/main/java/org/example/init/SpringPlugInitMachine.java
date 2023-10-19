@@ -3,6 +3,7 @@ package org.example.init;
 import org.example.log.ChopperLogFactory;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.SpringBootPlugin;
+import org.example.util.ExceptionUtil;
 
 import java.util.List;
 
@@ -34,10 +35,15 @@ public abstract class SpringPlugInitMachine extends CommonInitMachine{
 
     @Override
     public boolean init(){
-        if (plugin.init()) {
-            return success();
-        }else{
-            return fail();
+        ((SpringBootPlugin) plugin).sqlInit();
+        try {
+            if (plugin.init()) {
+                return success();
+            }else{
+                return fail();
+            }
+        }catch (Exception e){
+            return fail(ExceptionUtil.getCause(e));
         }
     }
 }

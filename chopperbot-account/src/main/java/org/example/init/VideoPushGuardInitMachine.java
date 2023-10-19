@@ -19,6 +19,7 @@ import java.util.List;
         pluginName = PluginName.VIDEO_PUSH_PLUGIN,
         pluginName_CN = "视频推送插件",
         pluginDescription = "用于将切片好的视频自动推送至对应类型账号",
+        needPlugin = {PluginName.ACCOUNT_MANAGER},
         pluginClass= VideoPushGuard.class,
         springBootPlugin = true,
         ignore = true

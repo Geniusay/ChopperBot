@@ -7,6 +7,7 @@ package org.example.init;
 
 import org.example.log.ResultLogger;
 import org.example.plugin.CommonPlugin;
+import org.example.plugin.SpringBootPlugin;
 import org.example.plugin.annotation.Plugin;
 import org.example.util.ExceptionUtil;
 import org.slf4j.Logger;
@@ -86,6 +87,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
                     .newInstance(moduleName,pluginName,needPlugins,isAutoStart);
             plugin.setIgnore(ano.ignore());
             plugin.setLogger(this.logger);
+            //代理调用初始化
             if (plugin.init()) {
                 return success();
             }else{
@@ -114,7 +116,7 @@ public abstract class CommonInitMachine implements ComponentInitMachine, ResultL
     }
     @Override
     public boolean fail(String failCause) {
-        failLog(String.format("[❌] {%s} init error! Execption:{%s}",pluginName,failCause));
+        failLog(String.format("[❌] [%s] init error! Exception:{%s}",pluginName,failCause));
         return false;
     }
     @Override

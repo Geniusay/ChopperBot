@@ -7,20 +7,21 @@ import org.example.cache.FileCacheManagerInstance;
 import org.example.config.HotModuleConfig;
 import org.example.bean.HotModuleSetting;
 import org.example.constpool.ConstGroup;
+import org.example.constpool.ConstPool;
 import org.example.constpool.PluginName;
 import org.example.core.creeper.loadtask.HotModuleLoadTask;
 import org.example.core.manager.CreeperGroupCenter;
 import org.example.core.manager.CreeperManager;
 import org.example.init.InitPluginRegister;
-import org.example.plugin.CommonPlugin;
+import org.example.mapper.HotModuleSettingMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.service.HotModuleSettingService;
+import org.example.sql.annotation.SQLInit;
 import org.example.thread.NamedThreadFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -37,8 +38,10 @@ public class HotModuleGuard extends SpringBootPlugin {
     private Map<String,ScheduledFuture> runningGuards;      // 运行的热度监控守卫
 
     private CreeperManager creeperManagerPlugin;
+
     @Resource
     HotModuleSettingService service;
+
     @Override
     public boolean init(){
         try {
@@ -139,5 +142,24 @@ public class HotModuleGuard extends SpringBootPlugin {
         return hotModuleGuardPool.isShutdown();
     }
 
-
+    @Override
+    @SQLInit(table = "hot_module_setting",tableSQL = "CREATE TABLE \"hot_module_setting\" (\n" +
+            "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
+            "\t\"platform\"\tTEXT NOT NULL UNIQUE,\n" +
+            "\t\"fail_retry_times\"\tINTEGER NOT NULL DEFAULT 2,\n" +
+            "\t\"enable_hot_module\"\tINTEGER NOT NULL DEFAULT 1,\n" +
+            "\t\"enable_hot_live\"\tINTEGER NOT NULL DEFAULT 1,\n" +
+            "\t\"follow_dog_enable\"\tINTEGER NOT NULL DEFAULT 0,\n" +
+            "\t\"update_hot_module_times\"\tINTEGER NOT NULL DEFAULT 86400000,\n" +
+            "\t\"update_hot_lives_times\"\tINTEGER NOT NULL DEFAULT 300000,\n" +
+            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+            ")",mapper = HotModuleSettingMapper.class)
+    public List<HotModuleSetting> sqlInit() {
+        ArrayList<HotModuleSetting> settings = new ArrayList<>();
+        for (ConstPool.PLATFORM platform : ConstPool.PLATFORM.values()) {
+            settings.add(new HotModuleSetting(null,platform.getName(),2,true,
+                    true,false,86400000L,30000L));
+        }
+        return settings;
+    }
 }

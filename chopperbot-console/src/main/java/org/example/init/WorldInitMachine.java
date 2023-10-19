@@ -2,10 +2,12 @@ package org.example.init;
 
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.sql.annotation.SQLInit;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.thread.oddjob.OddJobBoy;
 import org.example.util.ExceptionUtil;
 import org.example.util.PluginUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.function.Supplier;
  * @author Genius
  * @date 2023/07/22 17:52
  **/
+@Component
 public class WorldInitMachine extends ModuleInitMachine{
 
     private static final String githubUrl = "https://github.com/969025903/ChopperBot";
