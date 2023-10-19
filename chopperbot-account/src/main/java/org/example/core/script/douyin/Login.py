@@ -37,7 +37,7 @@ class dy(object):
         cook = self.browser.get_cookies()
         # 保存cook
         f = open('D:\\Douyincookies.txt', 'w')
-        f.write(json.dumps(cook, ensure_ascii=True))  # 格式转化，这不管你是学的那种语言都必须要知道的
+        f.write(json.dumps(cook, ensure_ascii=True))
         f.close()
         print("success")
 

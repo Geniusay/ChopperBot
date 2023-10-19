@@ -3,13 +3,13 @@
 		"InstantSlicing":{
 			"handler":"ScheduleTime",
 			"ScheduleTime":{
-				"duration":600000
+				"duration":1200000
 			}
 		},
 		"barrageScoreCurve":{
 			"splitStrategy":"ORDER",
 			"scoreStrategy":"SCORING",
-			"duration":5000,
+			"duration":30000,
 			"basicBarrageScore":5
 		},
 		"popularRange":{}

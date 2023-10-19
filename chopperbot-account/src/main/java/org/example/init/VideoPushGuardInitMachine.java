@@ -6,6 +6,7 @@ import org.example.core.guard.VideoPushGuard;
 import org.example.init.CommonInitMachine;
 import org.example.plugin.CommonPlugin;
 import org.example.plugin.annotation.Plugin;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -18,12 +19,11 @@ import java.util.List;
         pluginName = PluginName.VIDEO_PUSH_PLUGIN,
         pluginName_CN = "视频推送插件",
         pluginDescription = "用于将切片好的视频自动推送至对应类型账号",
-        needPlugin = {},
         pluginClass= VideoPushGuard.class,
+        springBootPlugin = true,
         ignore = true
 )
-public class VideoPushGuardInitMachine extends CommonInitMachine {
-    public VideoPushGuardInitMachine(List<String> needPlugins, boolean isAutoStart, String moduleName, String name, Class<? extends CommonPlugin> clazz) {
-        super(needPlugins, isAutoStart, moduleName, name, clazz);
-    }
+@Component
+public class VideoPushGuardInitMachine extends SpringPlugInitMachine {
+
 }
