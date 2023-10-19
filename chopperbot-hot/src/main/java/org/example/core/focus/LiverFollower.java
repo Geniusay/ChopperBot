@@ -84,7 +84,7 @@ public class LiverFollower extends SpringBootPlugin {
     }
 
     private void appendLiverTask(FocusLiver liver){
-        String function = "focus_check";
+        String function = ConstGroup.LIVER_CHECKER;
         String platform = liver.getPlatform();
         String groupName = CreeperGroupCenter.getGroupName(platform, function);
         CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
@@ -94,7 +94,7 @@ public class LiverFollower extends SpringBootPlugin {
             ScheduledFuture<?> schedule = focusPool.scheduleWithFixedDelay(new FollowerEyes(loadTask, platform, liver.getLiver()),0,
                     checkTime, TimeUnit.MILLISECONDS);
             focusFuture.put(liver.getLiver(),schedule);
-            info(String.format("eyes on the liver:%s", liver.getLiver()));
+            this.info(String.format("eyes on the liver:%s", liver.getLiver()));
         }else{
             error(String.format("cant found platform:%s %s creeper",platform,groupName));
         }
@@ -130,7 +130,8 @@ public class LiverFollower extends SpringBootPlugin {
             if(!alreadyFocus()){
                 Object live = checker.start();
                 if(live!=null){
-                    info(String.format("The %s is starting to live!!!!!!", liver));
+                    LiverFollower plugin = InitPluginRegister.getPlugin(PluginName.HOT_LIVER_FOLLOWER, LiverFollower.class);
+                    plugin.info(String.format("主播：%s 开播啦！！！！", liver),true);
                     doLiveCreeper(live);
                 }
             }
@@ -141,7 +142,6 @@ public class LiverFollower extends SpringBootPlugin {
             if(focusLive){
                 String groupName = CreeperGroupCenter.getGroupName(platform, ConstGroup.LIVE_ONLINE);
                 liveTaskId = taskCenter.request( new ReptileRequest((t)->{
-                    System.out.printf("主播%s直播结束\n", liver);
                     liveTaskId = null;
                 },groupName,obj));
             }

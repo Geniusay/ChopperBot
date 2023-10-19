@@ -9,7 +9,8 @@ package org.example.constpool;
  * ChopperBot 插件名称
  */
 public class PluginName {
-
+    //Chopper Bot
+    public static final String NOTICE_PLUGIN = "NoticePlugin";
     //File
     public static final String CHOPPER_BOT_CONFIG_PLUGIN = "ChopperBotConfig";
     public static final String FILE_CACHE_PLUGIN = "FileCacheManager";

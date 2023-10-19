@@ -85,11 +85,11 @@ export const lineAreaChartSpline = {
   series: [
     {
       name: "Open Rate",
-      data: [0, 5, 6, 8, 25, 9, 8, 24],
+      data: [0, 5, 6, 8, 25, 9, 8, 24,5,4,3,2,6,1,2,3,4,5,12,3],
     },
     {
       name: "Recurring Payments",
-      data: [0, 3, 1, 2, 8, 1, 5, 1],
+      data: [0, 3, 1, 2, 8, 1, 5, 1,5,4,3,2,6,1,2,3,4,5,12,3],
     },
   ],
 
@@ -127,7 +127,7 @@ export const lineAreaChartSpline = {
       opacity: ["0.1", "0.1"],
     },
     xaxis: {
-      categories: ["1", "2", "3", "4", "5", "6", "7", "8"],
+      categories: ["1", "2", "3", "4", "5", "6", "7", "8","9","10","11","12","13","14","15","16","17","18","19","20"],
       labels: {
         style: {
           cssClass: "grey--text lighten-2--text fill-color",

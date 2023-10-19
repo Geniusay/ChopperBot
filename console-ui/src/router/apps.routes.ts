@@ -111,9 +111,8 @@ export default [
     name: "app-barrage-curve",
     component: () =>
       import(
-        /* webpackChunkName: "utility-board" */ "@/views/app/hot/live_follow/LiveFollowView.vue"
+        /* webpackChunkName: "utility-board" */ "@/views/app/barrage/curve/BarrageCurveView.vue"
         ),
-    children: [...liveFollowRoutes],
     meta: {
       requiresAuth: true,
       title: "Barrage Curve",

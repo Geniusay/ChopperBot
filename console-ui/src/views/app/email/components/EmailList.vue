@@ -1,7 +1,7 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import { useEmailStore } from "../emailStore";
@@ -77,7 +77,7 @@ const filterdEmailList = computed(() => {
             ></v-btn>
             <div class="flex-1 mx-5">
               <div class="font-weight-bold">
-                {{ email.title }}
+                {{ email.title}}
               </div>
               <div>
                 {{ email.content }}

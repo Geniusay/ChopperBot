@@ -24,6 +24,7 @@
     <bytecodeTargetLevel>
       <module name="AccountModule" target="11" />
       <module name="BarrageModule" target="11" />
+      <module name="chopperbot-test" target="11" />
       <module name="common" target="11" />
       <module name="console" target="11" />
       <module name="CreeperModule" target="11" />
@@ -38,7 +39,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ChopperBot" options="-parameters" />
+      <module name="ChopperBot" options="" />
       <module name="chopperbot-account" options="-parameters" />
       <module name="chopperbot-barrage" options="-parameters" />
       <module name="chopperbot-common" options="-parameters" />

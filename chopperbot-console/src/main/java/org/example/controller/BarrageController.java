@@ -31,7 +31,11 @@ public class BarrageController {
 
     @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
     @GetMapping("/barrageScoreCurve/generate")
-    public Result generateCurve(@RequestParam String filePath,@RequestParam(required = false) String liver){
+    public Result generateCurve(@RequestParam(required = false) String filePath,@RequestParam(required = false) String liver){
+        if(!StringUtils.hasText(filePath)){
+            filePath = "E:\\Project\\ChopperBot\\config\\Barrage\\online\\huya\\Uzi_2023-10-18 21_22_57.json";
+            liver = "Uzi";
+        }
         BarrageCurveVO barrageCurveVO = barrageService.barrageScoreCurvePluginApi().generateCurve(filePath, liver);
         if(barrageCurveVO==null){
             return Result.error("403","生成失败");

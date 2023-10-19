@@ -1,9 +1,19 @@
 <!--
 * @Component: ToolbarNotifications
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
+
+import WebSocketClient from "@/utils/ws/webSocket";
+
+const webSocket = new WebSocketClient(()=>{
+  webSocket.sendMsg(webSocket.encodeMsg("notice","666"))
+},(event)=>{
+  let dataMap = webSocket.decodeMsg(event.data)
+  console.log(dataMap)
+});
+
 const messages = [
   {
     title: "Brunch this weekend?",

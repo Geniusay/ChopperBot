@@ -10,6 +10,7 @@ import org.example.exception.plugin.PluginDependOnException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
 import org.example.plugin.CommonPlugin;
+import org.example.plugin.annotation.CheckPlugin;
 import org.example.plugin.annotation.Plugin;
 import org.example.thread.ChopperBotGuardPool;
 import org.example.util.ClassUtil;
@@ -40,6 +41,7 @@ public class InitPluginRegister {
     public static ConcurrentHashMap<String,CommonInitMachine> registerPluginTable = new ConcurrentHashMap<>();
 
     public static Map<String,Boolean> pluginStartSetting;
+
 
     public static boolean initPluginRegister(ApplicationContext ctx){
         Set<Class<?>> initMachineClasses = ClassUtil.getAnnotationClass(ConstPool.PROJECT_PATH + ".init", Plugin.class);
@@ -116,6 +118,7 @@ public class InitPluginRegister {
 
                     }
             );
+
             AtomicBoolean res = new AtomicBoolean(true);
             InitPluginRegister.allPlugins.forEach(
                     (k,v)->{

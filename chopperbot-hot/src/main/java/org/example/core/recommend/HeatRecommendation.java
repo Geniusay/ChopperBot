@@ -90,7 +90,7 @@ public class HeatRecommendation extends SpringBootPlugin {
         try {
             if(platform!=null){
                 List<FollowDog> followDogList;
-                logger.info("[{}] {} Hotspot event detected.",platform, PluginName.HOT_RECOMMENDATION_PLUGIN);
+                this.info(String.format("%s Hotspot event detected.", platform),true);
                 if(platformFollowDogMap.containsKey(platform)
                         &&(followDogList=platformFollowDogMap.get(platform)).size()>0){
                     //发送给爬虫队列
@@ -101,30 +101,31 @@ public class HeatRecommendation extends SpringBootPlugin {
                         if(!FollowDog.ALL_LIVES.equals(moduleName)){
                             HotModule module = HotModuleDataCenter.DataCenter().getModule(platform, moduleName);
                             if(module==null){
-                                logger.error("[{}] {} not exist the {} module!",PluginName.HOT_RECOMMENDATION_PLUGIN,platform,moduleName);
+                                this.error(String.format("%s not exist the %s module!",platform,moduleName));
                                 continue;
                             }
                             tempLives = HotModuleDataCenter.DataCenter().getModuleLiveList(platform, module);
                         }
                         if(tempLives==null){
-                            logger.error("[{}] cannot found {} {} hot lives",PluginName.HOT_RECOMMENDATION_PLUGIN,platform,moduleName);
+                            this.error(String.format("cannot found %s %s hot lives", platform,moduleName));
                             break;
                         }
                         for (Live live : needRecommend(tempLives, getBanList(followDog.getBanLiver()), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
-                            this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()));
+                            this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",
+                                    tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()),true);
                             String checkGroup = CreeperGroupCenter.getGroupName(platform, ConstGroup.LIVER_CHECKER);
                             String liveGroup = CreeperGroupCenter.getGroupName(platform,ConstGroup.LIVE_ONLINE);
                             TaskCenter taskCenter = InitPluginRegister.getPlugin(PluginName.TASK_CENTER_PLUGIN, TaskCenter.class);
                             if (CreeperGroupCenter.getFirstConfig(checkGroup)==null) {
                                 taskCenter.request(new ReptileRequest((t)->{
-                                    System.out.println(String.format("%s 直播爬取完毕", live.getLiver()));
+
                                 },liveGroup,live));
                             }else{
                                 taskCenter.request(new ReptileRequest((obj -> {
                                     obj = obj==null?live:obj;
                                     taskCenter.request(new ReptileRequest((t)->{
-                                        System.out.println(String.format("%s 直播爬取完毕", live.getLiver()));
+
                                     },liveGroup,obj));
                                 }),checkGroup,live));
                             }
