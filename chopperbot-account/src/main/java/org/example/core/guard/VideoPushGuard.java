@@ -24,7 +24,6 @@ public class VideoPushGuard extends SpringGuardPlugin {
 
     private Exchange exchange;
     private BlockingQueue<Object> receiveVideo;
-
     @Resource
     private AccountMapper accountMapper;
 
