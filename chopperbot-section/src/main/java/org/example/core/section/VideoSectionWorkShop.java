@@ -56,6 +56,7 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
                 String newVideoName = FileNameBuilder.buildVideoFileNameNoSuffix(liver, date)+"_section("+ FileUtil.convertTimeToFile(startTime) +"-"+FileUtil.convertTimeToFile(endTime)+")."+split[1];
                 String newPath = Paths.get(root,newVideoName).toString();
                 if (VideoUtil.cutVideoByFFMpeg(oldPath,newPath,startTime,endTime)) {
+                    this.info("切片生成", String.format("产生切片文件%s 主播:%s", newVideoName,liver),true);
                     VideoSection videoSection = new VideoSection(newVideoName,request.getTag(),request.getLiver(),request.getPlatform());
                 }
             }

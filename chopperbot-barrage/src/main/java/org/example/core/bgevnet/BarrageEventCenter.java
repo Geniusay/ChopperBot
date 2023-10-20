@@ -46,7 +46,7 @@ public class BarrageEventCenter extends SpringBootPlugin {
 
 
     public boolean event(BarrageEvent event){
-        this.info(String.format("accept a event:%s", event.getLiver()));
+        this.info(String.format("accept %s barrage event", event.getLiver()));
         List<Barrage> barrages = event.getBarrages();
         if(barrages==null)return false;
         String filePath = event.getBarrageFilePath();

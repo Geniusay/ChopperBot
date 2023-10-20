@@ -15,7 +15,6 @@ const props = defineProps<{
 }>();
 
 
-
 const searchKey = ref("");
 const avatar = "/src/assets/images/img/Creeper.png"
 const snackbar = ref(false)
@@ -111,47 +110,47 @@ const headers = [
         <template v-slot:item="{ item }">
           <tr>
             <td class="font-weight-bold">
-              <CopyLabel :text="item.columns.taskId" />
+              <CopyLabel :text="item.taskId" />
             </td>
             <td>
               <v-avatar size="30">
                 <img :src="avatar" alt="alt" />
               </v-avatar>
             </td>
-            <td>{{ item.columns.startTime=="nil"?"未开始":item.columns.startTime }}</td>
+            <td>{{ item.startTime==="nil"?"未开始":item.startTime }}</td>
 
-            <td>{{ item.columns.endTime=="nil"?"未结束":item.columns.endTime }}</td>
+            <td>{{ item.endTime==="nil"?"未结束":item.endTime }}</td>
 
             <td class="text-center">
               <v-chip
                 size="small"
-                :color="getLabelColor(item.columns.status)"
+                :color="getLabelColor(item.status)"
                 class="font-weight-bold"
               >
                 <v-icon
                   start
-                  :icon="getLabelIcon(item.columns.status)"
+                  :icon="getLabelIcon(item.status)"
                 ></v-icon>
                 {{
-                  item.columns.status
+                  item.status
                 }}</v-chip
               >
             </td>
             <td>
-              <v-btn @click="startMonitor(item.columns)">
-                  <v-icon v-if="item.columns.hasMonitor===1" color="success">mdi mdi-monitor</v-icon>
+              <v-btn @click="startMonitor(item)">
+                  <v-icon v-if="item.hasMonitor===1" color="success">mdi mdi-monitor</v-icon>
                   <v-icon v-else color="warning">mdi mdi-monitor</v-icon>
               </v-btn>
             </td>
             <td>
-              <v-btn size="x-small" rounded="xl" elevation="8" prepend-icon="mdi mdi-pause" @click="stopTask(item.columns)">
+              <v-btn size="x-small" rounded="xl" elevation="8" prepend-icon="mdi mdi-pause" @click="stopTask(item)">
                 Pause
               </v-btn>
               <v-snackbar
                 v-model="snackbar"
                 location="center"
               >
-                无法暂停，因为改爬虫并没有运行!
+                无法暂停，因为该爬虫并没有运行!
 
                 <template v-slot:actions>
                   <v-btn @click="closeSnackbar">Close</v-btn>

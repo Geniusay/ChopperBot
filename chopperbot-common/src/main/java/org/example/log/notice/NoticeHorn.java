@@ -8,4 +8,9 @@ public interface NoticeHorn {
 
     void warn(String msg,boolean isNotice);
 
+    void info(String title,String msg,boolean isNotice);
+
+    void error(String title,String msg,boolean isNotice);
+
+    void warn(String title,String msg,boolean isNotice);
 }

@@ -96,33 +96,48 @@ public abstract class CommonPlugin implements ChopperBotPlugin, NoticeHorn {
 
     @Override
     public void info(String msg, boolean isNotice) {
-        this.info(msg);
-        if(isNotice){
-            Optional.ofNullable(InitPluginRegister.getPlugin(PluginName.NOTICE_PLUGIN, NoticePlugin.class))
-                    .ifPresent(plugin->{
-                        plugin.notice(new Notice().info().title(pluginName).from(pluginName).content(msg));
-                    });
-        }
+        info(pluginName,msg,isNotice);
     }
 
     @Override
     public void error(String msg, boolean isNotice) {
-        this.error(msg);
+        error(pluginName,msg,isNotice);
+    }
+
+    @Override
+    public void warn(String msg, boolean isNotice) {
+        warn(pluginName,msg,isNotice);
+    }
+
+    @Override
+    public void info(String title, String msg, boolean isNotice) {
+        this.info(msg);
         if(isNotice){
             Optional.ofNullable(InitPluginRegister.getPlugin(PluginName.NOTICE_PLUGIN, NoticePlugin.class))
                     .ifPresent(plugin->{
-                        plugin.notice( new Notice().error().title(pluginName).from(pluginName).content(msg));
+                        plugin.notice(new Notice().info().title(title).from(pluginName).content(msg));
                     });
         }
     }
 
     @Override
-    public void warn(String msg, boolean isNotice) {
+    public void error(String title, String msg, boolean isNotice) {
+        this.error(msg);
+        if(isNotice){
+            Optional.ofNullable(InitPluginRegister.getPlugin(PluginName.NOTICE_PLUGIN, NoticePlugin.class))
+                    .ifPresent(plugin->{
+                        plugin.notice(new Notice().error().title(title).from(pluginName).content(msg));
+                    });
+        }
+    }
+
+    @Override
+    public void warn(String title, String msg, boolean isNotice) {
         this.warn(msg);
         if(isNotice){
             Optional.ofNullable(InitPluginRegister.getPlugin(PluginName.NOTICE_PLUGIN, NoticePlugin.class))
                     .ifPresent(plugin->{
-                        plugin.notice(new Notice().warn().title(pluginName).from(pluginName).content(msg));
+                        plugin.notice(new Notice().warn().title(title).from(pluginName).content(msg));
                     });
         }
     }

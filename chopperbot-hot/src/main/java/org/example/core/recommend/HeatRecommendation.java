@@ -93,7 +93,7 @@ public class HeatRecommendation extends SpringBootPlugin {
         try {
             if(platform!=null){
                 List<FollowDog> followDogList;
-                this.info(String.format("%s Hotspot event detected.", platform),true);
+                this.info(String.format("%s Hotspot event detected.", platform));
                 if(platformFollowDogMap.containsKey(platform)
                         &&(followDogList=platformFollowDogMap.get(platform)).size()>0){
                     //发送给爬虫队列
@@ -115,7 +115,7 @@ public class HeatRecommendation extends SpringBootPlugin {
                         }
                         for (Live live : needRecommend(tempLives, getBanList(followDog.getBanLiver()), followDog.getTop())) {
                             String tempPlatform = live.getPlatform();
-                            this.info(String.format("推荐请求:平台 %s,分区 %s,直播间 %s,主播 %s",
+                            this.info("主播推荐",String.format("平台 %s,分区 %s,直播间 %s,主播 %s",
                                     tempPlatform,live.getModuleName(),live.getLiveId(),live.getLiver()),true);
                             String checkGroup = CreeperGroupCenter.getGroupName(platform, ConstGroup.LIVER_CHECKER);
                             String liveGroup = CreeperGroupCenter.getGroupName(platform,ConstGroup.LIVE_ONLINE);
@@ -166,7 +166,7 @@ public class HeatRecommendation extends SpringBootPlugin {
 
     public boolean updateFollowDog(FollowDog dog){
         List<FollowDog> followDogs = platformFollowDogMap.get(dog.getPlatform());
-        if(followDogs!=null){
+        if(followDogs!=null&&!followDogs.isEmpty()){
             followDogs.removeIf(dog1 -> {return dog1.getDogId().equals(dog.getDogId());});
             followDogs.add(dog);
         }

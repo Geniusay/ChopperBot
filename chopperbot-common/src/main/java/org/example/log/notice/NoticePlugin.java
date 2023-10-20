@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,6 +26,8 @@ public class NoticePlugin extends SpringBootPlugin {
     @Resource
     private NoticeHandler handler;
 
+    private Set<String> blackList;
+
     private ExecutorService pool;
 
     @Override
@@ -31,13 +35,16 @@ public class NoticePlugin extends SpringBootPlugin {
         if(handler==null){
             throw new RuntimeException("Notice Handler is null");
         }
+        blackList = new TreeSet<>();
         pool = Executors.newSingleThreadExecutor();
         return super.init();
     }
 
     public void notice(Notice notice) {
         pool.submit(()->{
-            handler.doHandler(notice);
+            if(!isBlack(notice.getFrom())){
+                handler.doHandler(notice);
+            }
         });
     }
 
@@ -49,4 +56,11 @@ public class NoticePlugin extends SpringBootPlugin {
         notice(new Notice(type,form,content));
     }
 
+    public void addBlack(String from){
+        blackList.add(from);
+    }
+
+    public boolean isBlack(String from){
+        return blackList.contains(from);
+    }
 }

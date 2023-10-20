@@ -4,58 +4,30 @@
 * @Description:
 -->
 <script setup lang="ts">
-
+import {Notice} from "@/views/app/email/NoticeTypes"
 import WebSocketClient from "@/utils/ws/webSocket";
+
+import {useNoticeStore} from "@/views/app/email/noticeStore";
+const noticeStore = useNoticeStore()
+
+const unCheckNotice = ref<Notice[]>(noticeStore.getUnConfirmNoticeBox)
 
 const webSocket = new WebSocketClient(()=>{
   webSocket.sendMsg(webSocket.encodeMsg("notice","666"))
 },(event)=>{
   let dataMap = webSocket.decodeMsg(event.data)
-  console.log(dataMap)
+  let data = JSON.parse(dataMap.get("data"))
+  const notice: Notice = {...data,ago:'',color:'',icon:'',confirm:false };
+  noticeStore.sendNotice(notice)
+  unCheckNotice.value = noticeStore.getUnConfirmNoticeBox
 });
 
-const messages = [
-  {
-    title: "Brunch this weekend?",
-    color: "primary",
-    icon: "mdi-account-circle",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, repudiandae?",
-    time: "3 min",
-  },
-  {
-    title: "Summer BBQ",
-    color: "success",
-    icon: "mdi-email-outline",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, repudiandae?",
-    time: "3 min",
-  },
-  {
-    title: "Oui oui",
-    color: "teal lighten-1",
-    icon: "mdi-airplane-landing",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, repudiandae?",
-    time: "4 min",
-  },
-  {
-    title: "Disk capacity is at maximum",
-    color: "teal accent-3",
-    icon: "mdi-server",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, repudiandae?",
-    time: "3 hr",
-  },
-  {
-    title: "Recipe to try",
-    color: "blue-grey lighten-2",
-    icon: "mdi-noodles",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint, repudiandae?",
-    time: "8 hr",
-  },
-];
+
+const confirmNotice = (index:number) =>{
+  unCheckNotice.value.splice(index, 1);
+  noticeStore.confirmNotice(index);
+}
+
 </script>
 
 <template>
@@ -65,14 +37,15 @@ const messages = [
     <!-- ---------------------------------------------- -->
     <template v-slot:activator="{ props }">
       <v-btn icon v-bind="props" class="text-none">
-        <v-badge content="2" color="error">
+        <v-badge v-if="unCheckNotice.length!==0" :content="unCheckNotice.length" color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
+        <v-icon v-else>mdi-bell-outline</v-icon>
       </v-btn>
     </template>
-    <v-list elevation="1" lines="three" density="compact" max-width="400">
+    <v-list elevation="1" lines="three" density="compact" width="400">
       <v-list-subheader>Notifications</v-list-subheader>
-      <v-list-item v-for="(message, i) in messages" :key="i" @click="">
+      <v-list-item v-for="(message, i) in unCheckNotice" :key="i" @click="confirmNotice(i)">
         <!-- ---------------------------------------------- -->
         <!-- Prepend-->
         <!-- ---------------------------------------------- -->
@@ -86,7 +59,7 @@ const messages = [
         <!-- ---------------------------------------------- -->
         <template v-slot:append>
           <div class="full-h d-flex align-center">
-            <span class="text-body-2 text-grey"> {{ message.time }}</span>
+            <span class="text-body-2 text-grey"> {{ message.ago }}</span>
           </div>
         </template>
         <!-- ---------------------------------------------- -->
@@ -96,7 +69,8 @@ const messages = [
           <v-list-item-title class="font-weight-bold text-primary">{{
             message.title
           }}</v-list-item-title>
-          <v-list-item-subtitle>{{ message.subtitle }}</v-list-item-subtitle>
+          <v-list-item-subtitle><strong>来源：</strong>{{ message.from }}</v-list-item-subtitle>
+          <v-list-item-subtitle><strong>内容：</strong>{{ message.content }}</v-list-item-subtitle>
         </div>
       </v-list-item>
       <!-- ---------------------------------------------- -->

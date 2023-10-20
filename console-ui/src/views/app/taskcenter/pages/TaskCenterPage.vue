@@ -9,6 +9,7 @@ const taskStore = useTaskStore();
 onMounted(async()=>{
   await allTask().then(res=>{
     taskStore.taskList = res.data["list"]
+    console.log(taskStore.taskList)
     taskStore.loading = false
   })
 })

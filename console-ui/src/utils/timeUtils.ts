@@ -37,3 +37,26 @@ export function isoStrToNormal(isoString: string): string {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
 }
+
+export function getTimeAgo(input: string): string {
+  const currentTime = new Date();
+  const inputTime = new Date(input);
+
+  const timeDiff = currentTime.getTime() - inputTime.getTime();
+  const seconds = Math.floor(timeDiff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (days > 0) {
+    return days === 1 ? '1 day ago' : `${days} days ago`;
+  } else if (hours > 0) {
+    return hours === 1 ? '1 hr ago' : `${hours} hrs ago`;
+  } else if (minutes > 0) {
+    return minutes === 1 ? '1 min ago' : `${minutes} min ago`;
+  } else if (seconds > 0) {
+    return seconds === 1 ? '1 sec ago' : `${seconds} sec ago`;
+  } else {
+    return 'now';
+  }
+}

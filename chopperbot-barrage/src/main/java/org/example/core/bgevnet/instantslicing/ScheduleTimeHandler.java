@@ -56,6 +56,7 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
 
     private void monitorTask(){
         long now = System.currentTimeMillis();
+        InstantSlicingPlugin plugin = InitPluginRegister.getPlugin(PluginName.INSTANT_SLICING_PLUGIN, InstantSlicingPlugin.class);
         for (Map.Entry<String, ReptileTask> entry : taskTimeMap.entrySet()) {
             ReptileTask task = entry.getValue();
             try {
@@ -64,6 +65,7 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
                     Long time = TimeUtil.getTimeNaos(entry.getValue().getStartTime());
                     Integer times = taskSplitTimes.get(task.getTaskId()).get();
                     if(now - time >= splitTime*(times+1) || status == TaskStatus.Finish){
+                        plugin.info("即时切片",String.format("爬虫任务 %s 触发即时切片，正在切片中...",task.getTaskId()),true);
                         taskSplitTimes.get(task.getTaskId()).incrementAndGet();
                         Object live = task.getRequest().getParam();
                         if (live instanceof Live) {
@@ -101,6 +103,7 @@ public class ScheduleTimeHandler implements InstantSlicingHandler {
                     }
                 }
             }catch (Exception e){
+                plugin.error("即时切片失败",String.format("爬虫任务 %s 即时切片失败，原因:%s",task.getTaskId(),ExceptionUtil.getCause(e)),true);
                 ChopperLogFactory.getLogger(LoggerType.Barrage).error("Error:{}", ExceptionUtil.getCause(e));
             }
         }

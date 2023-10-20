@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 //
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @TableName("follow_dog")
 public class FollowDog {
     public final static String ALL_LIVES = "all";

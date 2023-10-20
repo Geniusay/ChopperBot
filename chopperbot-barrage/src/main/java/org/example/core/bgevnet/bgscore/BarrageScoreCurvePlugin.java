@@ -71,6 +71,7 @@ public class BarrageScoreCurvePlugin extends SpringBootPlugin {
             AbstractSplitStrategy splitStrategy = SplitStrategyFactory.build(splitType, scoreStrategy, barrages, duration,liverKeywordMap);
             if(splitStrategy!=null){
                 List<BarragePoint> split = splitStrategy.split();
+                this.info(String.format("%s主播弹幕曲线生成成功，文件名:%s", event.getLiver(),event.getFileName()),true);
                 barragePointMap.put(path,split==null?new ArrayList<>():split);
                 return split;
             }

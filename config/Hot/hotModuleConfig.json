@@ -4,11 +4,11 @@
 			"GuardNum":10
 		},
 		"LiverFollower":{
-			"checkTime":120000,
+			"checkTime":60000,
 			"focusRecord":1,
 			"focusLive":0,
 			"focusBarrage":1
 		}
 	},
-	"updateTime":"2023-10-15 23:32:10"
+	"updateTime":"2023-10-20 15:34:44"
 }

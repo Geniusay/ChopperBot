@@ -8,6 +8,8 @@ import App from "./App.vue";
 
 // Composables
 import { createApp } from "vue";
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css'
 import vuetify from "./plugins/vuetify";
 import { VueMasonryPlugin } from "vue-masonry";
 import MasonryWall from "@yeger/vue-masonry-wall";
@@ -26,6 +28,7 @@ const pinia = createPinia();
 pinia.use(piniaPersist);
 const app = createApp(App);
 
+app.use(ElementPlus);
 app.use(router);
 app.use(PerfectScrollbar);
 app.use(VueMasonryPlugin);
