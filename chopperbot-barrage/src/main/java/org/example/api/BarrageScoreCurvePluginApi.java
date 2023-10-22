@@ -9,11 +9,14 @@ import org.example.core.bgevnet.bgscore.BarrageScoreCurvePlugin;
 import org.example.service.LiverKeywordService;
 import org.example.util.ConfigFileUtil;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.example.constpool.BarrageModuleConstPool.GLOBAL_KEY_WORD;
 
 /**
  * @author Genius
@@ -47,7 +50,13 @@ public class BarrageScoreCurvePluginApi {
     }
 
     public List<LiverKeyword> getKeyWords(String anchor){
-        return barrageScoreCurvePlugin.getKetWords(anchor);
+        if(anchor.equals(GLOBAL_KEY_WORD)){
+            return  keywordService.getGlobalKeyWords();
+        }else if(StringUtils.hasText(anchor)){
+            return keywordService.getLiverKeyWords(anchor);
+        }else{
+            return keywordService.getLiverKeyWords();
+        }
     }
 
     public List<LiverKeyword> getKeyWords(){

@@ -18,13 +18,11 @@ public class AnalysisScheme {
     @TableId(value = "id")
     private Long id;
 
-    private String labels;
-
     private String system;
 
     private String comment;
 
-    public String getSystem(){
-        return system + " 标签：[" + labels + "]";
+    public String getSystem(String labels){
+        return system + " 标签：" + labels;
     }
 }

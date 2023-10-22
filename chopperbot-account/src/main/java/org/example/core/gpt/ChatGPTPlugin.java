@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Date 2023/10/12
@@ -56,6 +58,15 @@ public class ChatGPTPlugin extends SpringBootPlugin {
         return null;
     }
 
+    public String getCommonRes(JSONObject resp){
+        Pattern pattern = Pattern.compile("\\[(.*?)]");
+
+        Matcher matcher = pattern.matcher(resp.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
+
+        if (matcher.find()) return matcher.group(1);
+        return "";
+    }
+
     private RequestBody buildBody(String msg){
         return  RequestBody.create(msg, MediaType.parse("application/json"));
     }
@@ -87,8 +98,8 @@ public class ChatGPTPlugin extends SpringBootPlugin {
             "  \"model\" TEXT NOT NULL\n" +
             ")",mapper = GPTKeyMapper.class)
     public List<GPTKey> sqlInit() {
-        return List.of(new GPTKey("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"
-                ,"https://api.misakanetwork.com.cn/v1/chat/completions"
-                ,"gpt-3.5-turbo-16k-0613"));
+        return List.of(new GPTKey("sk-xgUDtOdRgQLigz2D0e4cA665441e4287AfCf8458B1C21b0f"
+                ,"https://oneapi.a9.gay/v1/chat/completions"
+                ,"gpt-3.5-turbo"));
     }
 }

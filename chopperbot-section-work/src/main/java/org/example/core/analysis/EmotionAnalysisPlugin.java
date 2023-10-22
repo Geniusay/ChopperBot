@@ -4,12 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import org.example.bean.Barrage;
+import org.example.constpool.PluginName;
 import org.example.core.gpt.ChatGPTMsgBuilder;
 import org.example.core.gpt.ChatGPTPlugin;
+import org.example.core.label.LabelManagerPlugin;
+import org.example.init.InitPluginRegister;
 import org.example.mapper.AnalysisSchemeMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.AnalysisScheme;
+import org.example.pojo.VideoLabel;
 import org.example.sql.annotation.SQLInit;
+import org.example.util.ExceptionUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -64,38 +69,30 @@ public class EmotionAnalysisPlugin extends SpringBootPlugin {
     public String analysis(List<Barrage> barrages){
         try {
             barrage = List.of(barrages.stream().map(Barrage::getContent).collect(Collectors.toList())).toString();
-
+            List<String> list = InitPluginRegister.getPlugin(PluginName.LABEL_MANAGER, LabelManagerPlugin.class).labelStrList();
             ChatGPTMsgBuilder builder = new ChatGPTMsgBuilder().model(chatGPTPlugin.getKey().getModel())
-                    .system(this.scheme.getSystem())
+                    .system(this.scheme.getSystem(list.toString()))
                     .user("弹幕：" + barrage)
                     .stream(false);
 
             JSONObject object = chatGPTPlugin.reqGPT(builder);
 
-//            System.out.println(object.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
-
-            Pattern pattern = Pattern.compile("\\[(.*?)]");
-
-            Matcher matcher = pattern.matcher(object.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
-
-            if (matcher.find()) return matcher.group(1);
+            return chatGPTPlugin.getCommonRes(object);
         } catch (Exception e){
-            throw new RuntimeException("analysis failed!please check or try again!");
+            this.error("标题生成失败", String.format("标题生成失败,原因:%s", ExceptionUtil.getCause(e)),true);
+            return "";
         }
-
-        return "";
     }
 
     @Override
     @SQLInit(table = "analysis_scheme",tableSQL = "CREATE TABLE \"analysis_scheme\" (\n" +
             "  \"id\" integer NOT NULL,\n" +
-            "  \"labels\" TEXT NOT NULL,\n" +
             "  \"system\" text NOT NULL,\n" +
             "  \"comment\" TEXT,\n" +
             "  PRIMARY KEY (\"id\")\n" +
             ")",mapper = AnalysisSchemeMapper.class)
     public List<AnalysisScheme> sqlInit() {
-        return List.of(new AnalysisScheme(null,"搞笑,秀操作,破防,泪目",
+        return List.of(new AnalysisScheme(null,
                 "请你作为一个专门看直播的观众，对下列的观众发送的弹幕内容进行分析，然后根据弹幕内容返回从以下几个标签返回给我最合适的一个标签来形容这段内容",
                 "方案一"));
     }

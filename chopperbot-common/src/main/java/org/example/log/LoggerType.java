@@ -12,7 +12,8 @@ public enum LoggerType {
     Barrage("Barrage    "),
     LiveRecord("LiveRecord "),
     Account("Account    "),
-    Section("Section    ");
+    Section("Section    "),
+    SectionWork("SectionWork");
     private String loggerName;
 
     LoggerType(String name){

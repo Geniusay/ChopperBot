@@ -23,6 +23,11 @@ public class LiverKeywordServiceImpl extends ServiceImpl<LiverKeywordMapper, Liv
     private LiverKeywordMapper mapper;
 
     @Override
+    public List<LiverKeyword> getLiverKeyWords() {
+        return query().list();
+    }
+
+    @Override
     public List<LiverKeyword> getLiverKeyWords(String liver) {
         return query().eq("liver",liver).list();
     }

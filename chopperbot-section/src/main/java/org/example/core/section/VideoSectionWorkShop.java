@@ -7,12 +7,14 @@ import org.example.constpool.ConstPool;
 import org.example.constpool.FileNameBuilder;
 import org.example.constpool.GlobalFileCache;
 import org.example.plugin.SpringGuardPlugin;
+import org.example.sql.annotation.SQLInit;
 import org.example.util.FileUtil;
 import org.example.util.TimeUtil;
 import org.example.util.VideoUtil;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -82,10 +84,18 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
         }
     }
 
-    public static void main(String[] args) {
-        String s1 = "2023-09-20 00:22:45";
-        long timeNaos = TimeUtil.getTimeNaos(s1);
-        String s = VideoUtil.formatTimeToFFMpeg((1695140913000L-timeNaos)/1000);
-        System.out.println(s);
+    @Override
+    @SQLInit(table = "section_parking",tableSQL = "CREATE TABLE \"section_parking\" (\n" +
+            "\t\"id\"\tINTEGER NOT NULL,\n" +
+            "\t\"video_name\"\tTEXT NOT NULL,\n" +
+            "\t\"liver\"\tTEXT NOT NULL,\n" +
+            "\t\"barrages\"\tTEXT NOT NULL,\n" +
+            "\t\"tag\"\tTEXT NOT NULL,\n" +
+            "\t\"date\"\tTEXT NOT NULL,\n" +
+            "\t\"platform\"\tTEXT,\n" +
+            "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+            ")")
+    public List<?> sqlInit() {
+        return null;
     }
 }

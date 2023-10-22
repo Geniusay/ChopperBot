@@ -17,6 +17,7 @@ export const showNotice = (notice:Notice) => {
 export const useNoticeStore = defineStore({
   id: "notice",
   state: () => ({
+    noticeOpen:ref(true),
     noticeBox: ref<Notice[]>([]),
     NoticeType:{
       "info":{type:"success",icon:'mdi mdi-email-alert-outline',color:'green'},
@@ -61,6 +62,10 @@ export const useNoticeStore = defineStore({
 
     confirmNotice(index:number){
       this.noticeBox[index].confirm = true;
-    }
+    },
+
+    switchOpen(open:boolean){
+      this.noticeOpen = open;
+    },
   },
 });

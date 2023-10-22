@@ -6,6 +6,7 @@ package org.example.util;
  **/
 
 import org.example.method.FileCondition;
+import org.example.pojo.vo.FileVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,9 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 文件工具类
@@ -164,5 +168,46 @@ public class FileUtil {
 
     public static String convertTimeToFile(String time){
         return time.replace(":", "_");
+    }
+
+    public static List<FileVO> listFiles(String dirPath,List<FileVO> fileVOS){
+        return listFiles(new File(dirPath),fileVOS);
+    }
+    public static List<FileVO> listFiles(File folder,List<FileVO> fileVOS) {
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        // 处理文件
+                        FileVO fileVO;
+                        if ((fileVO=processFile(file))!=null) {
+                            fileVOS.add(fileVO);
+                        }
+                    } else if (file.isDirectory()) {
+                        // 递归处理子文件夹
+                        listFiles(file,fileVOS);
+                    }
+                }
+            }
+        }
+        return fileVOS;
+    }
+
+    public static FileVO processFile(File file) {
+        if (file.isFile()) {
+            String fileName = file.getName();
+            long fileSize = file.length();
+            String createTime = TimeUtil.getFormatDate(file.lastModified());
+            return new FileVO(fileName, file.getPath(), createTime, fileSize);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        List<FileVO> fileVOS = FileUtil.listFiles("./config/LiveRecord/", new ArrayList<>());
+        System.out.println(fileVOS.stream().filter(fileVO -> {
+            return fileVO.getFileName().endsWith(".flv");
+        }).collect(Collectors.toList()));
     }
 }

@@ -18,4 +18,6 @@ public class ModuleName {
     public static final String LIVE = ConstPool.LIVE_RECORD;
     public static final String SECTION = ConstPool.SECTION;
     public static final String ACCOUNT = ConstPool.ACCOUNT;
+
+    public static final String SECTION_WORK = ConstPool.SECTION_WORK;
 }

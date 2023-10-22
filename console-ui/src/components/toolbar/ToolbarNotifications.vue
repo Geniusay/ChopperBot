@@ -17,9 +17,11 @@ const webSocket = new WebSocketClient(()=>{
 },(event)=>{
   let dataMap = webSocket.decodeMsg(event.data)
   let data = JSON.parse(dataMap.get("data"))
-  const notice: Notice = {...data,ago:'',color:'',icon:'',confirm:false };
-  noticeStore.sendNotice(notice)
-  unCheckNotice.value = noticeStore.getUnConfirmNoticeBox
+  if(data!=null){
+    const notice: Notice = {...data,ago:'',color:'',icon:'',confirm:false };
+    noticeStore.sendNotice(notice)
+    unCheckNotice.value = noticeStore.getUnConfirmNoticeBox
+  }
 });
 
 
@@ -27,6 +29,19 @@ const confirmNotice = (index:number) =>{
   unCheckNotice.value.splice(index, 1);
   noticeStore.confirmNotice(index);
 }
+
+const timeMap = new Map()
+
+const hoverConfirm = (index:number) =>{
+  timeMap.set(index,setTimeout(()=>{
+    confirmNotice(index)
+  },500));
+}
+
+const unHoverConfirm = (index:number) =>{
+  timeMap.get(index)&& clearTimeout(timeMap.get(index))
+}
+
 
 </script>
 
@@ -46,17 +61,12 @@ const confirmNotice = (index:number) =>{
     <v-list elevation="1" lines="three" density="compact" width="400">
       <v-list-subheader>Notifications</v-list-subheader>
       <v-list-item v-for="(message, i) in unCheckNotice" :key="i" @click="confirmNotice(i)">
-        <!-- ---------------------------------------------- -->
-        <!-- Prepend-->
-        <!-- ---------------------------------------------- -->
         <template v-slot:prepend>
           <v-avatar size="40" :color="message.color">
             <v-icon color="white">{{ message.icon }}</v-icon>
           </v-avatar>
         </template>
-        <!-- ---------------------------------------------- -->
-        <!-- Append-->
-        <!-- ---------------------------------------------- -->
+
         <template v-slot:append>
           <div class="full-h d-flex align-center">
             <span class="text-body-2 text-grey"> {{ message.ago }}</span>

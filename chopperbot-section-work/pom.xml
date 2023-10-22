@@ -18,6 +18,35 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>chopperbot-common</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>chopperbot-account</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

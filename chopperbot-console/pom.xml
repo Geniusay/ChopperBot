@@ -58,6 +58,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>chopperbot-section-work</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.github.969025903</groupId>
             <artifactId>assistant</artifactId>
             <version>1.0.6</version>

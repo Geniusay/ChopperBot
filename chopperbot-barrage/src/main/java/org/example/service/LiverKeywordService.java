@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface LiverKeywordService extends IService<LiverKeyword> {
 
+    List<LiverKeyword> getLiverKeyWords();
+
     List<LiverKeyword> getLiverKeyWords(String liver);
 
     List<LiverKeyword> getGlobalKeyWords();

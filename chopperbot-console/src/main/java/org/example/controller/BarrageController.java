@@ -46,11 +46,7 @@ public class BarrageController {
     @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
     @GetMapping("/barrageScoreCurve/keywords")
     public Result getKeyWords(@RequestParam(required = false) String liver) {
-        if (StringUtils.hasText(liver)) {
-            return Result.success(Map.of("list", barrageService.barrageScoreCurvePluginApi().getKeyWords(liver)));
-        } else {
-            return Result.success(Map.of("list", barrageService.barrageScoreCurvePluginApi().getKeyWords()));
-        }
+        return Result.success(Map.of("list", barrageService.barrageScoreCurvePluginApi().getKeyWords(liver)));
     }
 
     @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})

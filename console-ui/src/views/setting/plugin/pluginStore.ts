@@ -8,7 +8,7 @@ const snackbarStore = useSnackbarStore();
 export const usePluginStore = defineStore({
   id: "plugin",
   state:()=>({
-    pluginList: [],
+    pluginList: ref([]),
     currentLabel: "running",
     labels:[
       {

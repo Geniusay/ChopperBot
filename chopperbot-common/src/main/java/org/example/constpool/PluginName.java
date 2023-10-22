@@ -49,6 +49,7 @@ public class PluginName {
 
     public static final String ACCOUNT_MANAGER = "AccountManager";
 
+    public static final String LABEL_MANAGER = "LabelManager";
 
 
     public static final String LIVE_CONFIG_PLUGIN= "LiveConfig";

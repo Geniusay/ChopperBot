@@ -2,6 +2,8 @@ package org.example.core.section;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author Genius
  * @date 2023/09/19 19:37
@@ -14,6 +16,7 @@ public class SectionRequest {
     private long startTime;
     private long endTime;
 
+    private List<String> barrages;
     private String platform;
 
     private String liver;

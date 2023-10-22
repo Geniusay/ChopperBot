@@ -3,7 +3,6 @@ package org.example.core.analysis;
 import lombok.Data;
 import org.example.bean.Barrage;
 import org.example.pojo.AnalysisScheme;
-import org.jdom2.output.EscapeStrategy;
 
 import java.util.List;
 
@@ -18,10 +17,6 @@ public class AnalysisSchemeBuilder {
 
     private List<Barrage> barrages;
 
-    public AnalysisSchemeBuilder labels(String msg){
-        scheme.setLabels(msg);
-        return this;
-    }
 
     public AnalysisSchemeBuilder system(String msg){
         scheme.setSystem(msg);

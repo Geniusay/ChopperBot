@@ -1,5 +1,6 @@
 package org.example.service.impl;
 
+import org.example.api.SystemFileApi;
 import org.example.cache.FileCache;
 import org.example.cache.FileCacheManagerInstance;
 import org.example.bean.FileType;
@@ -42,5 +43,10 @@ public class FileServiceImpl implements FileService {
                     ,runnableFileCache.getFileType().getName()));
         }
         return configVOList;
+    }
+
+    @Override
+    public SystemFileApi systemFileApi() {
+        return null;
     }
 }
