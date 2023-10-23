@@ -49,7 +49,7 @@ export default {
     unsplash: "Unsplash",
     booking: "Booking",
     ikea: "IKEA",
-
+    label:"Label Manager",
 
     board: "Task Board",
     users: "Users",

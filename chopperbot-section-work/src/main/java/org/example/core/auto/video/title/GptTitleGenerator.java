@@ -22,7 +22,7 @@ import java.util.List;
 public class GptTitleGenerator implements TitleGenerator{
 
     @Resource
-    TitleSchemeMapper titleSchemeMapper;
+    TitleSchemeMapper mapper;
     private List<TitleScheme> schemeList;
 
     public GptTitleGenerator() {
@@ -46,7 +46,7 @@ public class GptTitleGenerator implements TitleGenerator{
             throw PluginDependOnException.MissingFatherPlugin(PluginName.CHAT_GPT,"");
         }
         try {
-            schemeList = titleSchemeMapper.selectList(new QueryWrapper<>());
+            schemeList = mapper.selectList(new QueryWrapper<>());
         }catch (Exception e){
             throw new RuntimeException("读取title_scheme表失败");
         }

@@ -35,7 +35,7 @@ public class PluginAspect {
 
         for (String plugin : annotation.needPlugin()) {
             if(!InitPluginRegister.isRegister(plugin)){
-                throw new PluginNotRegisterException();
+                throw new PluginNotRegisterException(annotation.needPlugin());
             }
         }
     }

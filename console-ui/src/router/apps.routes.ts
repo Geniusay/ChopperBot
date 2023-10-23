@@ -121,6 +121,20 @@ export default [
     },
   },
   {
+    path: "/apps/label",
+    name: "app-label-manage",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/label/LabelManageView.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "Label Manage",
+      layout: "ui",
+      category: "APP",
+    },
+  },
+  {
     path: "/apps/nitori",
     meta: {
       requiresAuth: true,

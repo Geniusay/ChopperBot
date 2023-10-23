@@ -123,7 +123,8 @@ export default {
     heat_recommend:"热门直播推荐",
     live_follow:"关注主播",
     barrage_curve:"弹幕得分曲线",
-    hot_live:"热门直播"
+    hot_live:"热门直播",
+    label:"标签管理"
   },
   dashboard: {
     activity: "活动",

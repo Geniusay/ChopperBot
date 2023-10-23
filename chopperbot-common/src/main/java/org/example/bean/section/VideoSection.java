@@ -1,4 +1,4 @@
-package org.example.core.section;
+package org.example.bean.section;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

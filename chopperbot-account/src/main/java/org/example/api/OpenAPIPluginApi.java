@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Date 2023/10/12
@@ -22,6 +23,9 @@ public class OpenAPIPluginApi {
         return plugin.getMapper().update(newKey, new QueryWrapper<GPTKey>().eq("function", newKey.getFunction())) == 1;
     }
 
+    public boolean deleteKey(String function){
+        return plugin.getMapper().deleteByMap(Map.of("function",function))==1;
+    }
     public boolean addKey(GPTKey key){
         return plugin.getMapper().insert(key)==1;
     }
