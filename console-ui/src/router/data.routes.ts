@@ -1,5 +1,5 @@
 // users Data Page
-import userRoutes from "@/views/app/user/userRoutes";
+import userRoutes from "@/views/data/user/userRoutes";
 export default [
   {
     path: "/data/hotLive",
@@ -25,7 +25,7 @@ export default [
       title: "Account",
     },
     component: () =>
-      import(/* webpackChunkName: "app-todo" */ "@/views/app/user/UserApp.vue"),
+      import(/* webpackChunkName: "app-todo" */ "@/views/data/user/UserApp.vue"),
     children: [...userRoutes],
   },
   {

@@ -188,4 +188,18 @@ export default [
       ),
     children: [...unsplashRoutes],
   },
+  {
+    path: "/apps/tool",
+    name: "tools",
+    component: () =>
+      import(
+        /* webpackChunkName: "utility-board" */ "@/views/app/tool/ToolApp.vue"
+        ),
+    meta: {
+      requiresAuth: true,
+      title: "Tools",
+      layout: "ui",
+      category: "APP",
+    },
+  },
 ];

@@ -8,7 +8,7 @@ import { useCustomizeThemeStore } from "@/stores/customizeTheme";
 import ToolbarLanguage from "@/components/toolbar/ToolbarLanguage.vue";
 import ToolbarNotifications from "./ToolbarNotifications.vue";
 import ToolbarUser from "./ToolbarUser.vue";
-import { useUserStore } from "@/views/app/user/userStore";
+import { useUserStore } from "@/views/data/user/userStore";
 
 const userStore = useUserStore();
 const customizeTheme = useCustomizeThemeStore();

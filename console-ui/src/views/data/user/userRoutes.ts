@@ -8,7 +8,7 @@ export default [
     name: "apps-todo-tasks",
     component: () =>
       import(
-        /* webpackChunkName: "apps-todo-tasks" */ "@/views/app/user/pages/TasksPage.vue"
+        /* webpackChunkName: "apps-todo-tasks" */ "@/views/data/user/pages/TasksPage.vue"
       ),
   },
   {
@@ -16,7 +16,7 @@ export default [
     name: "apps-todo-completed",
     component: () =>
       import(
-        /* webpackChunkName: "apps-todo-completed" */ "@/views/app/user/pages/CompletedPage.vue"
+        /* webpackChunkName: "apps-todo-completed" */ "@/views/data/user/pages/CompletedPage.vue"
       ),
   },
   {
@@ -24,7 +24,7 @@ export default [
     name: "apps-todo-label",
     component: () =>
       import(
-        /* webpackChunkName: "apps-todo-label" */ "@/views/app/user/pages/LabelPage.vue"
+        /* webpackChunkName: "apps-todo-label" */ "@/views/data/user/pages/LabelPage.vue"
       ),
   },
 ];

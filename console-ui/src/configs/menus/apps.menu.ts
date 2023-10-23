@@ -96,4 +96,10 @@ export default [
     text: "Email",
     link: "/apps/email",
   },
+  {
+    icon: "mdi-bookmark-plus",
+    key: "menu.tool",
+    text: "Tool",
+    link: "/apps/tool",
+  },
 ];

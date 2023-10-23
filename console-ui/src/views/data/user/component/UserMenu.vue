@@ -4,7 +4,7 @@
 * @Description:
 -->
 <script setup lang="ts">
-import { useUserStore } from "@/views/app/user/userStore";
+import { useUserStore } from "@/views/data/user/userStore";
 const userStore = useUserStore();
 </script>
 
