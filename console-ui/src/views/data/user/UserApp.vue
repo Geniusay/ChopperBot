@@ -4,8 +4,8 @@
 * @Description:
 -->
 <script setup lang="ts">
-import UserMenu from "@/views/app/user/component/UserMenu.vue";
-import UserCard from "@/views/app/user/component/UserCard.vue";
+import UserMenu from "@/views/data/user/component/UserMenu.vue";
+import UserCard from "@/views/data/user/component/UserCard.vue";
 import { useUserStore } from "./userStore";
 import {getUsers} from "@/api/userApi";
 

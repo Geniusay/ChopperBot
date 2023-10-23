@@ -31,6 +31,9 @@ const filterdUserList = computed(() => {
 
 <template>
   <v-card height="100%">
+    <v-alert border color="#C51162" icon="mdi-material-design" theme="dark">
+      正在施工中...
+    </v-alert>
     <!-- ---------------------------------------------- -->
     <!-- Filter Input -->
     <!-- ---------------------------------------------- -->
