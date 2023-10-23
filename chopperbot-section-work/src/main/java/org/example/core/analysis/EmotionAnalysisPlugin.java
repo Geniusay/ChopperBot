@@ -6,21 +6,19 @@ import lombok.Data;
 import org.example.bean.Barrage;
 import org.example.constpool.PluginName;
 import org.example.core.gpt.ChatGPTMsgBuilder;
-import org.example.core.gpt.ChatGPTPlugin;
+import org.example.core.gpt.OpenAPIPlugin;
 import org.example.core.label.LabelManagerPlugin;
 import org.example.init.InitPluginRegister;
 import org.example.mapper.AnalysisSchemeMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.AnalysisScheme;
-import org.example.pojo.VideoLabel;
+import org.example.pojo.GPTKey;
 import org.example.sql.annotation.SQLInit;
 import org.example.util.ExceptionUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +33,7 @@ public class EmotionAnalysisPlugin extends SpringBootPlugin {
     AnalysisSchemeMapper mapper;
 
     @Resource
-    ChatGPTPlugin chatGPTPlugin;
+    OpenAPIPlugin openAPIPlugin;
 
     String barrage;
 
@@ -70,14 +68,15 @@ public class EmotionAnalysisPlugin extends SpringBootPlugin {
         try {
             barrage = List.of(barrages.stream().map(Barrage::getContent).collect(Collectors.toList())).toString();
             List<String> list = InitPluginRegister.getPlugin(PluginName.LABEL_MANAGER, LabelManagerPlugin.class).labelStrList();
-            ChatGPTMsgBuilder builder = new ChatGPTMsgBuilder().model(chatGPTPlugin.getKey().getModel())
+            GPTKey gptKey = openAPIPlugin.choseKey(OpenAPIPlugin.APIFunc.CHAT_GPT);
+            ChatGPTMsgBuilder builder = new ChatGPTMsgBuilder().model(gptKey.getModel())
                     .system(this.scheme.getSystem(list.toString()))
                     .user("弹幕：" + barrage)
                     .stream(false);
 
-            JSONObject object = chatGPTPlugin.reqGPT(builder);
+            JSONObject object = openAPIPlugin.reqGPT(builder, OpenAPIPlugin.APIFunc.CHAT_GPT);
 
-            return chatGPTPlugin.getCommonRes(object);
+            return openAPIPlugin.getCommonRes(object);
         } catch (Exception e){
             this.error("标题生成失败", String.format("标题生成失败,原因:%s", ExceptionUtil.getCause(e)),true);
             return "";

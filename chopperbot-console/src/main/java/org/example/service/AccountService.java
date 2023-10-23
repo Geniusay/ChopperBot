@@ -3,11 +3,7 @@ package org.example.service;
 
 
 import org.example.api.AccountApi;
-import org.example.api.GPTApi;
-import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
-
-import java.util.List;
+import org.example.api.OpenAPIPluginApi;
 
 /**
  * @Description
@@ -18,5 +14,5 @@ public interface AccountService {
 
     AccountApi accountPlugin();
 
-    GPTApi chatGptPlugin();
+    OpenAPIPluginApi chatGptPlugin();
 }

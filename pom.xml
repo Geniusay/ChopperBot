@@ -54,6 +54,8 @@
     <selenium-devtools-v115.version>4.11.0</selenium-devtools-v115.version>
     <httpcilent.version>4.5.14</httpcilent.version>
     <webmagic.version>0.8.0</webmagic.version>
+    <okio.version>3.2.0</okio.version>
+    <okhttp.version>4.9.0</okhttp.version>
   </properties>
   <dependencyManagement>
 
@@ -210,6 +212,24 @@
         <groupId>us.codecraft</groupId>
         <artifactId>webmagic-extension</artifactId>
         <version>${webmagic.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>${okhttp.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okio</groupId>
+        <artifactId>okio</artifactId>
+        <version>${okio.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

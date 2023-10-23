@@ -6,8 +6,6 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.example.log.ChopperLogFactory;
-import org.example.log.LoggerType;
 import org.example.sql.SQLInitHelper;
 import org.example.sql.annotation.SQLInit;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.List;
 
 /**

@@ -12,29 +12,31 @@
 		},
 		"pluginStart":{
 			"HotGuard":true,
-			"CreeperManager":true,
 			"SectionWorkShop":true,
 			"BarrageConfig":true,
 			"BarrageFileListen":true,
 			"BarrageEvent":true,
-			"InstantSlicing":true,
-			"LiveDownLoadManager":true,
 			"LiveConfig":true,
-			"BarragePopularRange":true,
-			"HotRecommendation":true,
 			"BarrageScoreCurve":true,
 			"EmotionAnalysis":true,
 			"FileCacheManager":true,
 			"LiverFollower":true,
-			"NoticePlugin":true,
 			"ChatGPT":true,
 			"TaskMonitor":true,
-			"VideoPush":true,
 			"HotConfig":true,
 			"TaskCenter":true,
+			"CreeperManager":true,
+			"InstantSlicing":true,
+			"LiveDownLoadManager":true,
+			"BarragePopularRange":true,
+			"HotRecommendation":true,
+			"NoticePlugin":true,
+			"VideoPush":true,
 			"AccountManager":true,
-			"CreeperConfig":true
+			"LabelManager":true,
+			"CreeperConfig":true,
+			"OpenAPI":true
 		}
 	},
-	"updateTime":"2023-10-20 17:36:40"
+	"updateTime":"2023-10-23 15:10:01"
 }

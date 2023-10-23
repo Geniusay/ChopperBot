@@ -1,4 +1,4 @@
-package org.example.account;
+package org.example.sectionwork;
 
 import org.example.ConsoleApplication;
 import org.example.bean.Barrage;

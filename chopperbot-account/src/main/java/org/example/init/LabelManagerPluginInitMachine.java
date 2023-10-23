@@ -2,9 +2,7 @@ package org.example.init;
 
 import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
-import org.example.core.gpt.ChatGPTPlugin;
 import org.example.core.label.LabelManagerPlugin;
-import org.example.plugin.SpringBootPlugin;
 import org.example.plugin.annotation.Plugin;
 import org.springframework.stereotype.Component;
 

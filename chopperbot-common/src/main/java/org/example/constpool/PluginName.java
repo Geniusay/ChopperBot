@@ -43,7 +43,7 @@ public class PluginName {
     //Account
     public static final String VIDEO_PUSH_PLUGIN = "VideoPush";
 
-    public static final String CHAT_GPT = "ChatGPT";
+    public static final String CHAT_GPT = "OpenAPI";
 
     public static final String EMOTION_ANALYSIS = "EmotionAnalysis";
 

@@ -2,15 +2,12 @@ package org.example.service.impl;
 
 import org.example.api.AccountApi;
 
-import org.example.api.GPTApi;
-import org.example.pojo.Account;
+import org.example.api.OpenAPIPluginApi;
 
-import org.example.pojo.AccountVO;
 import org.example.service.AccountService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @Description
@@ -23,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
     AccountApi accountApi;
 
     @Resource
-    GPTApi gptApi;
+    OpenAPIPluginApi openAPIPluginApi;
 
     @Override
     public AccountApi accountPlugin() {
@@ -31,7 +28,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public GPTApi chatGptPlugin() {
-        return gptApi;
+    public OpenAPIPluginApi chatGptPlugin() {
+        return openAPIPluginApi;
     }
 }

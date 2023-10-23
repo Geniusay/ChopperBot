@@ -3,104 +3,52 @@ package org.example.sectionwork;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
-import org.junit.Test;
-import ws.schild.jave.Encoder;
-import ws.schild.jave.MultimediaObject;
-import ws.schild.jave.encode.AudioAttributes;
-import ws.schild.jave.encode.EncodingAttributes;
-import ws.schild.jave.encode.VideoAttributes;
+import okhttp3.*;
+
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Genius
  * @date 2023/10/22 23:50
  **/
 public class VoiceToTextTest {
-    public static boolean videoToVideo(String videoSource, String videoTarget) {
-//        Date time = new Date();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-//        System.out.println(simpleDateFormat.format(time));
+    public static final MediaType MEDIA_TYPE_WAV = MediaType.parse("audio/wav");
 
-        long start = System.currentTimeMillis();
+    public static void main(String... args) throws IOException {
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 7890));
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).connectTimeout(60, TimeUnit.SECONDS).build();
 
-        File source = new File(videoSource);
-        File target = new File(videoTarget);
+        // 音频文件
+        File audioFile = new File("E:\\Project\\chopperbot-1.0\\audioTest.mp3");
 
-        AudioAttributes audio = new AudioAttributes();
-        audio.setCodec("aac");
-        audio.setBitRate(236000 / 2);
-        audio.setChannels(2);
-        audio.setSamplingRate(8000);
+        // 请求体
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", "audioTest.mp3",
+                        RequestBody.create(MediaType.parse("video/mp4"), audioFile))
+                .addFormDataPart("model", "whisper-1")
+                .addFormDataPart("response_format", "srt")
+                .build();
 
-        VideoAttributes video = new VideoAttributes();
-        video.setCodec("h264");
-        video.setBitRate(1000000);
-        video.setFrameRate(25);
-        video.setQuality(4);
-//        video.setSize(new VideoSize(720, 480));
+        // 请求
+        Request request = new Request.Builder()
+                .addHeader("Authorization", "Bearer " + "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")
+                .url("https://api.openai.com/v1/audio/transcriptions")
+                .post(requestBody)
+                .build();
 
-        EncodingAttributes attrs = new EncodingAttributes();
-        attrs.setOutputFormat("mp4");
-        attrs.setAudioAttributes(audio);
-        attrs.setVideoAttributes(video);
+        // 发送请求
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-
-        Encoder encoder = new Encoder();
-        try {
-            encoder.encode(new MultimediaObject(source), target, attrs);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(encoder.getUnhandledMessages());
-            return false;
-        }finally {
-//            time = new Date();
-//            System.out.println(simpleDateFormat.format(time));
-            long end = System.currentTimeMillis();
-            System.out.println("总耗时："+ (end-start) +"ms");
-        }
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        videoToAudio("E:\\Project\\chopperbot-1.0\\1.mp4","E:\\Project\\chopperbot-1.0\\audioTest.mp3");
-        Configuration configuration = new Configuration();
-        configuration.setAcousticModelPath("resource:/zh_cn.cd_cont_5000");
-        configuration.setDictionaryPath("resource:/zh_cn.dic");
-        configuration.setLanguageModelPath("resource:/zh_cn.lm.bin");
-        StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
-        InputStream stream = new FileInputStream("E:\\Project\\chopperbot-1.0\\audioTest.mp3");
-        recognizer.startRecognition(stream);
-        SpeechResult result;
-        while ((result = recognizer.getResult()) != null) {
-            System.out.format("识别内容: %s\n", result.getHypothesis());
-        }
-    }
-
-    public static boolean videoToAudio(String videoPath, String audioPath){
-        File fileMp4 = new File(videoPath);
-        File fileMp3 = new File(audioPath);
-
-        AudioAttributes audio = new AudioAttributes();
-        audio.setCodec("libmp3lame");
-        audio.setBitRate(128000);
-        audio.setChannels(2);
-        audio.setSamplingRate(44100);
-
-        EncodingAttributes attrs = new EncodingAttributes();
-        attrs.setOutputFormat("mp3");
-        attrs.setAudioAttributes(audio);
-        Encoder encoder = new Encoder();
-        MultimediaObject mediaObject = new MultimediaObject(fileMp4);
-        try{
-            encoder.encode(mediaObject,fileMp3,attrs);
-            return true;
-        }catch (Exception e){
-            return false;
+            System.out.println(response.body().string());
         }
     }
 

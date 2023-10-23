@@ -19,4 +19,6 @@ public class GPTKey {
     private String url;
 
     private String model;
+
+    private String function;
 }

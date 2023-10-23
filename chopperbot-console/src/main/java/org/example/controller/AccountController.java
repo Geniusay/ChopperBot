@@ -49,7 +49,7 @@ public class AccountController {
 
     @GetMapping(value = "/gpt/key")
     public Result getGPT(){
-        return Result.success(Map.of("key",accountService.chatGptPlugin().getKey()));
+        return Result.success(Map.of("list",accountService.chatGptPlugin().getKeys()));
     }
 
     @PostMapping(value = "/gpt/add")

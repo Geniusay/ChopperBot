@@ -24,7 +24,7 @@ public class SQLInitHelper {
     public boolean initTable(String tableName,String sql){
         if(!hasTable(tableName)){
             if (sqlInitFunc.createTable(sql)) {
-                ChopperLogFactory.getLogger(LoggerType.System).info(tableName+" table create success!");
+                ChopperLogFactory.getLogger(LoggerType.System).info("[📦SQL] "+tableName+" table create success!");
                 return true;
             }
         }
