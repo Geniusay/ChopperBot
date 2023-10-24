@@ -5,7 +5,9 @@
 -->
 <script setup lang="ts">
 import { useUserStore } from "@/views/data/user/userStore";
+import AddAccountDialog from "@/views/data/user/component/AddAccountDialog.vue";
 const userStore = useUserStore();
+var addAccountDialog = false
 </script>
 
 <template>
@@ -13,8 +15,8 @@ const userStore = useUserStore();
     <!-- ---------------------------------------------- -->
     <!-- Add Task Dialog -->
     <!-- ---------------------------------------------- -->
-
-    <v-btn color="primary" block size="large" class="mb-3">Add Task</v-btn>
+    <AddAccountDialog v-if="this.addAccountDialog"></AddAccountDialog>
+    <v-btn block class="mb-3" color="primary" size="large" @click="this.addAccountDialog = true">添加账号</v-btn>
 
     <v-list nav class="mt-2 pa-0">
       <v-list-item
