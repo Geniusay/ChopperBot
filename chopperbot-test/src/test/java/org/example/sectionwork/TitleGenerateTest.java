@@ -3,12 +3,15 @@ package org.example.sectionwork;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.ConsoleApplication;
+import org.example.bean.section.VideoSection;
+import org.example.core.auto.video.title.TitleGeneratePlugin;
 import org.example.util.JsonFileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,6 +24,8 @@ import java.util.stream.Collectors;
 @SpringBootTest(classes = ConsoleApplication.class,webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class TitleGenerateTest {
 
+    @Resource
+    TitleGeneratePlugin plugin;
     @Test
     public void test(){
         Map<String, Object> map = JsonFileUtil.readJsonFile("E:\\Project\\ChopperBot\\config\\Barrage\\online\\huya\\Uzi_2023-10-18 21_22_57.json");
@@ -32,7 +37,11 @@ public class TitleGenerateTest {
                 }
                 return "";
             }).collect(Collectors.toList());
-            System.out.println(content);
+            VideoSection videoSection = new VideoSection();
+            videoSection.setBarrages(content);
+            videoSection.setTag("英雄联盟");
+            videoSection.setLiver("大司马");
+            System.out.println(plugin.process(videoSection));
         }
     }
 }

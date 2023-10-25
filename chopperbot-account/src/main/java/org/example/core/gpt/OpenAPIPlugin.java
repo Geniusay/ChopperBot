@@ -10,6 +10,7 @@ import org.example.mapper.GPTKeyMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.GPTKey;
 import org.example.sql.annotation.SQLInit;
+import org.example.util.ExceptionUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -68,10 +69,13 @@ public class OpenAPIPlugin extends SpringBootPlugin {
         try (Response response = client.newCall(request).execute()){
             if (response.body() != null) {
                 String content = response.body().string();
+                if(content.contains("error")){
+                    this.error("OpenAI API 调用错误",String.format("OpenAI API 调用错误，原因：%s", content),true);
+                }
                 return JSONObject.parseObject(content);
             }
         } catch (IOException e) {
-            this.error(String.format("Error: api request fail,Cause:%s", e.getCause()));
+            this.error(String.format("Error: api request fail,Cause:%s", ExceptionUtil.getCause(e)));
         }
         return null;
     }
@@ -107,6 +111,7 @@ public class OpenAPIPlugin extends SpringBootPlugin {
     private Headers buildHeader(String key){
         return new Headers.Builder()
                 .add("content-type", "application/json")
+                .add("scheme","https")
                 .add("Authorization", "Bearer " + key)
                 .build();
     }

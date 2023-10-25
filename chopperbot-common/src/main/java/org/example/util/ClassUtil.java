@@ -1,12 +1,12 @@
 package org.example.util;
 
+import org.example.bean.section.VideoSection;
 import org.reflections.Reflections;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.*;
 
 /**
  * @author Genius
@@ -70,5 +70,56 @@ public class ClassUtil {
 //        Class[] objects = (Class[]) set.toArray();
 //        return List.of(objects);
         return set;
+    }
+
+    public static Map<String, Object> toMap(Object obj) throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
+        Class<?> clazz = obj.getClass();
+
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            map.put(field.getName(), field.get(obj));
+        }
+
+        return map;
+    }
+
+    public static Map<String, Object> toDeepMap(Object obj) throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
+        Class<?> clazz = obj.getClass();
+
+        // 获取当前类的字段
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            map.put(field.getName(), field.get(obj));
+        }
+
+        // 如果有父类且不是 Object 类，递归调用获取父类的字段
+        Class<?> superClass = clazz.getSuperclass();
+        if (superClass != null && !superClass.equals(Object.class)) {
+            try {
+                Object superObj = superClass.getDeclaredConstructor().newInstance();
+                copyFields(superObj, obj, superClass);
+                map.putAll(toDeepMap(superObj));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return map;
+    }
+
+    private static void copyFields(Object dest, Object source, Class<?> clazz) throws IllegalAccessException {
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            Field destField;
+            try {
+                destField = dest.getClass().getDeclaredField(field.getName());
+                destField.setAccessible(true);
+                destField.set(dest, field.get(source));
+            } catch (NoSuchFieldException e) {
+                // 忽略字段不存在的异常
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ public class VideoSection {
 
     private String barrageFile;
     @TableField(exist = false)
-    private List<Barrage> barrages;
+    private List<String> barrages;
     private String platform;
 
     public VideoSection(String videoPath, String tag, String liver, String platform) {
