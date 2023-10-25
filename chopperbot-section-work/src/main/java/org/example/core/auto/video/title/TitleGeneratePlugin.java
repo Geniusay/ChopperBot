@@ -4,6 +4,7 @@ import org.example.bean.section.PackageSection;
 import org.example.bean.section.VideoSection;
 import org.example.core.auto.AbstractGeneratePlugin;
 import org.example.core.auto.SectionPipeline;
+import org.example.core.auto.video.description.DescGenerator;
 import org.example.plugin.SpringBootPlugin;
 import org.example.util.StringUtil;
 import org.springframework.context.ApplicationContext;
@@ -22,8 +23,12 @@ import java.util.stream.Collectors;
  **/
 @Component
 public class TitleGeneratePlugin extends AbstractGeneratePlugin<TitleGenerator> {
+
+    @Resource
+    Map<String, TitleGenerator> titleGeneratorMap;
     @Override
     public boolean init() {
+        this.generatorMap = titleGeneratorMap;
         this.type = StringUtil.lowerCaseFirstLetter(GptTitleGenerator.class.getSimpleName());
         return super.init();
     }

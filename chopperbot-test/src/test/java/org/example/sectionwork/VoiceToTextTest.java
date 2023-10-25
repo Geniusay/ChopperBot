@@ -22,8 +22,8 @@ public class VoiceToTextTest {
     public static final MediaType MEDIA_TYPE_WAV = MediaType.parse("audio/wav");
 
     public static void main(String... args) throws IOException {
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 7890));
-        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).connectTimeout(60, TimeUnit.SECONDS).build();
+//        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 7890));
+        OkHttpClient client = new OkHttpClient.Builder().connectTimeout(120, TimeUnit.SECONDS).readTimeout(120,TimeUnit.SECONDS).writeTimeout(60,TimeUnit.SECONDS).build();
 
         long l = System.currentTimeMillis();
         // 音频文件
@@ -40,8 +40,10 @@ public class VoiceToTextTest {
 
         // 请求
         Request request = new Request.Builder()
-                .addHeader("Authorization", "Bearer " + "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")
-                .url("https://api.openai.com/v1/audio/transcriptions")
+                .addHeader("Authorization", "Bearer " + "sk-xgUDtOdRgQLigz2D0e4cA665441e4287AfCf8458B1C21b0f")
+//                .url("https://api.openai.com/v1/audio/transcriptions")
+                //.url("https://oneapi.a9.gay/v1/audio/transcriptions")
+                .url(" https://oneapi.a9.gay/openai/deployments/whisper-1/audio/transcriptions?api-version=2023-09-01-preview")
                 .post(requestBody)
                 .build();
 

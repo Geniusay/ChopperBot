@@ -2,6 +2,7 @@ package org.example.core.auto;
 
 import org.example.bean.section.VideoSection;
 import org.example.plugin.SpringBootPlugin;
+import org.example.util.ExceptionUtil;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -41,7 +42,13 @@ public abstract class AbstractGeneratePlugin<G extends SectionGenerator<?>> exte
     @Override
     public <T extends VideoSection, V extends VideoSection> T process(V section) {
         generator.preGenerate();
-        return generator.generator(section);
+        try {
+            return generator.generator(section);
+        }catch (Exception e){
+            this.info("生成失败", String.format("生成失败，原因：%s", ExceptionUtil.getCause(e)),true);
+            return (T) section;
+        }
+
     }
 
     public boolean changeType(String type){

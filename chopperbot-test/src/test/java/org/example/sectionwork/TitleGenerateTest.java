@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.example.ConsoleApplication;
 import org.example.bean.section.VideoSection;
+import org.example.core.auto.video.description.DescGeneratorPlugin;
 import org.example.core.auto.video.title.TitleGeneratePlugin;
 import org.example.util.JsonFileUtil;
 import org.junit.Test;
@@ -26,6 +27,9 @@ public class TitleGenerateTest {
 
     @Resource
     TitleGeneratePlugin plugin;
+
+    @Resource
+    DescGeneratorPlugin descGeneratorPlugin;
     @Test
     public void test(){
         Map<String, Object> map = JsonFileUtil.readJsonFile("E:\\Project\\ChopperBot\\config\\Barrage\\online\\huya\\Uzi_2023-10-18 21_22_57.json");
@@ -38,10 +42,13 @@ public class TitleGenerateTest {
                 return "";
             }).collect(Collectors.toList());
             VideoSection videoSection = new VideoSection();
-            videoSection.setBarrages(content);
+            videoSection.setBarrages(content.subList(0,100));
             videoSection.setTag("英雄联盟");
-            videoSection.setLiver("大司马");
-            System.out.println(plugin.process(videoSection));
+            videoSection.setLiver("UZI");
+            VideoSection process = plugin.process(videoSection);
+            System.out.println(process);
+            VideoSection process1 = descGeneratorPlugin.process(process);
+            System.out.println(process1);
         }
     }
 }

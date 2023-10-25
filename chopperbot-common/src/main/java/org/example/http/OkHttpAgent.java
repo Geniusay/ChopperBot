@@ -19,11 +19,16 @@ public class OkHttpAgent implements ProxyAgent<OkHttpClient>{
 
     @Override
     public OkHttpClient agentClient() {
+        OkHttpClient.Builder builder;
         if(httpProxy.isEnable()){
             Proxy proxy = httpProxy.httpProxy();
-            return new OkHttpClient.Builder().proxy(proxy).connectTimeout(60, TimeUnit.SECONDS).build();
+            builder = new OkHttpClient.Builder().proxy(proxy);
         }else{
-            return new OkHttpClient.Builder().build();
+            builder =  new OkHttpClient.Builder();
         }
+        return builder.connectTimeout(120,TimeUnit.SECONDS)
+                .readTimeout(60,TimeUnit.SECONDS)
+                .writeTimeout(60,TimeUnit.SECONDS)
+                .build();
     }
 }

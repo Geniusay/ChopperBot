@@ -14,6 +14,7 @@ import org.example.pojo.DescScheme;
 import org.example.pojo.GPTKey;
 import org.example.pojo.TitleScheme;
 import org.example.sql.annotation.SQLInit;
+import org.example.util.ExceptionUtil;
 import org.example.util.MapUtil;
 import org.springframework.stereotype.Component;
 
@@ -43,9 +44,9 @@ public class GptDescGenerator extends DescGenerator {
             "\t\"system\"\tTEXT NOT NULL,\n" +
             "\t\"type\"\tTEXT,\n" +
             "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
-            ")",mapper = TitleSchemeMapper.class)
+            ")",mapper = DescSchemeMapper.class)
     public List<?> sqlInit() {
-        return List.of(new TitleScheme(null,"作为一个资深的直播运营人员，请你根据我提供给你的直播弹幕内容，标签和主播来叙述一下该段直播发生了什么事情，叙述过程要有趣符合当前短视频快节奏和吸引眼球的风格，生成一个即可，不需要任何标识和说明"
+        return List.of(new DescScheme(null,"作为一个资深的直播运营人员，请你根据我提供给你的直播弹幕内容，标签和主播来叙述一下该段直播发生了什么事情，叙述过程要有趣符合当前短视频快节奏和吸引眼球的风格，生成一个即可，不需要任何标识和说明，字数不超过100字"
                 ,"global"));
     }
 
@@ -67,20 +68,24 @@ public class GptDescGenerator extends DescGenerator {
         try {
            return PluginCheckAndDo.CheckAndGet((plugin)->{
                 String liver = MapUtil.getString(data,"liver");
-                String barrages = MapUtil.getString(data,"barrages");
+               Object barrages = data.get("barrages");
+               String barrageStr = "";
+               if(barrages instanceof List){
+                   barrageStr = OpenAPIPlugin.zipContent(OpenAPIPlugin.zipContent((List) barrages).toString());
+               }
                 String content = MapUtil.getString(data,"content");
                 GPTKey gptKey = ((OpenAPIPlugin) plugin).choseKey(OpenAPIPlugin.APIFunc.CHAT_GPT);
                 DescScheme scheme = schemeList.get(0);
                 if(gptKey==null)return "";
                 ChatGPTMsgBuilder builder = new ChatGPTMsgBuilder().model(gptKey.getModel())
                         .system(scheme.getSystem())
-                        .user(String.format("主播：%s\n内容：%s\n直播弹幕：%s", liver,content,barrages))
+                        .user(String.format("主播：%s\n内容：%s\n直播弹幕：%s", liver,content,barrageStr))
                         .stream(false);
                 JSONObject object = ((OpenAPIPlugin) plugin).reqGPT(builder, OpenAPIPlugin.APIFunc.CHAT_GPT);
                 return ((OpenAPIPlugin) plugin).getCommonRes(object);
             },PluginName.CHAT_GPT,String.class);
         } catch (Exception e){
-            return "";
+            throw new RuntimeException(ExceptionUtil.getCause(e));
         }
     }
 }
