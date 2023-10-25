@@ -37,6 +37,7 @@ public class FocusLiverServiceImpl extends ServiceImpl<FocusLiverMapper,FocusLiv
 
     @Override
     public boolean addLivers(FocusLiver liver) {
+        liver.setId(null);
         if(hasLivers(liver.getLiver(),liver.getRoomId())){
             return false;
         }

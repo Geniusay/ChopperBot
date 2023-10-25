@@ -1,9 +1,16 @@
 package org.example.bean.section;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.bean.Barrage;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +20,15 @@ import java.util.List;
  **/
 @Data
 @TableName("section_parking")
+@NoArgsConstructor
+@AllArgsConstructor
 public class VideoSection {
     private String videoPath;
     private String tag;
     private String liver;
 
+    private String barrageFile;
+    @TableField(exist = false)
     private List<Barrage> barrages;
     private String platform;
 

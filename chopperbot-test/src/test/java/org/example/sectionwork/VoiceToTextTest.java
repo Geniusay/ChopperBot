@@ -25,6 +25,7 @@ public class VoiceToTextTest {
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 7890));
         OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).connectTimeout(60, TimeUnit.SECONDS).build();
 
+        long l = System.currentTimeMillis();
         // 音频文件
         File audioFile = new File("E:\\Project\\chopperbot-1.0\\audioTest.mp3");
 
@@ -39,7 +40,7 @@ public class VoiceToTextTest {
 
         // 请求
         Request request = new Request.Builder()
-                .addHeader("Authorization", "Bearer " + "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")
+                .addHeader("Authorization", "Bearer " + "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")
                 .url("https://api.openai.com/v1/audio/transcriptions")
                 .post(requestBody)
                 .build();
@@ -49,6 +50,7 @@ public class VoiceToTextTest {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
             System.out.println(response.body().string());
+            System.out.println((System.currentTimeMillis() - l)/1000);
         }
     }
 

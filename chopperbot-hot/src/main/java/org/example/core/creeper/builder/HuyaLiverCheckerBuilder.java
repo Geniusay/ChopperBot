@@ -17,7 +17,7 @@ public class HuyaLiverCheckerBuilder extends CommonLoadConfigBuilder<HuyaLiverCh
     @Override
     public HuyaLiverCheckerConfig build(Object obj) {
         if(obj instanceof FocusLiver){
-            return new HuyaLiverCheckerConfig(((HuyaLive) obj).getLiveId());
+            return new HuyaLiverCheckerConfig(((FocusLiver) obj).getRoomId());
         }else if(obj instanceof HuyaLive){
             return new HuyaLiverCheckerConfig(((HuyaLive) obj).getLiveId());
         }
