@@ -64,4 +64,4 @@ postList: none
 
 
 ### 友情链接
-- [genius blog](https://969025903.github.io/)
+- [genius blog](https://Geniusay.github.io/)

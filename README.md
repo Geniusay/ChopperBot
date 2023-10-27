@@ -13,7 +13,7 @@
 </audio>
 
 <p align="center">
-  <a href="https://969025903.github.io/ChopperBot-Doc/">
+  <a href="https://Geniusay.github.io/ChopperBot-Doc/">
     <img src="https://img.shields.io/badge/文档-简体中文-blue.svg" alt="简体中文文档" />
   </a>
 
@@ -25,7 +25,7 @@
         <img src="https://img.shields.io/badge/JDK-11+-green.svg" />
     </a>
   <a target="_blank" href='https://github.com/Geniusay/ChopperBot'>
-        <img src="https://img.shields.io/github/stars/969025903/ChopperBot.svg" alt="github stars"/>
+        <img src="https://img.shields.io/github/stars/Geniusay/ChopperBot.svg" alt="github stars"/>
    </a>
 
    <a target="_blank" href=''>
@@ -92,14 +92,14 @@
 ![Alt](https://repobeats.axiom.co/api/embed/0ae23655bb105addf8d90a999df36f690d615af7.svg "Repobeats analytics image")
 
 # 🔗 Links
-👉 [Document](https://969025903.github.io/ChopperBot-Doc/)
+👉 [Document](https://Geniusay.github.io/ChopperBot-Doc/)
 
-👉 [Developer's Guide](https://969025903.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
+👉 [Developer's Guide](https://Geniusay.github.io/ChopperBot-Doc/pages/779a67/#chopperbot%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84)
 
 👉 [CHANGE LOG](https://github.com/Geniusay/ChopperBot/blob/master/CHANGELOG.md)
 
 # 💬Contact Us
-- Email: 969025903@qq.com | geniusssbg@gmail.com
+- Email: Geniusay@qq.com | geniusssbg@gmail.com
 - QQ
 <img src="https://github.com/Geniusay/ChopperBot/assets/77137063/4b18e405-4fd9-43f0-8665-04d3914abbfa" width="25%" height="25%">
 
