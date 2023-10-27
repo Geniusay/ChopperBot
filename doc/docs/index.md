@@ -22,7 +22,7 @@ postList: none
   <a class="become-sponsor" href="/pages/4fedc2">支持这个项目</a>
 </p>
 <p align="center">
-<a class="become-sponsor" href="https://github.com/969025903/ChopperBot">这个项目还在开发中，请加入我们一起开发</a>
+<a class="become-sponsor" href="https://github.com/Geniusay/ChopperBot">这个项目还在开发中，请加入我们一起开发</a>
 </p>
 <style>
   .become-sponsor{
@@ -39,7 +39,7 @@ postList: none
 
 ### 🤡开发人员
 
-[Genius🤡](https://github.com/969025903)
+[Genius🤡](https://github.com/Geniusay)
 [twj666🤡](https://github.com/tmlgenius)
 [welsir🤡](https://github.com/tmlgenius)
 [masteryf🤡](https://github.com/masteryf)
@@ -48,19 +48,19 @@ postList: none
 
 ### TML生态圈
 
-- [ChopperBot](https://github.com/969025903/ChopperBot) - 一款后端开发小助手，快速生成代码，快速完成业务。
-- [Assistant](https://github.com/969025903/Assistant) - 一款后端开发小助手，快速生成代码，快速完成业务。
+- [ChopperBot](https://github.com/Geniusay/ChopperBot) - 一款后端开发小助手，快速生成代码，快速完成业务。
+- [Assistant](https://github.com/Geniusay/Assistant) - 一款后端开发小助手，快速生成代码，快速完成业务。
 
 ### 代码托管
 
-> **[Gitee](https://gitee.com/sbg-genius/ChopperBot)** | **[Github](https://github.com/969025903/ChopperBot)**
+> **[Gitee](https://gitee.com/sbg-genius/ChopperBot)** | **[Github](https://github.com/Geniusay/ChopperBot)**
 
 ### 参与贡献
 
 欢迎各路好汉一起来参与完善 ChopperBot，我们期待你的 PR！
 
-- 贡献代码：代码地址 [ChopperBot](https://github.com/969025903/ChopperBot) ，欢迎提交 Issue 或者 Pull Requests
-- 维护文档：文档地址 [ChopperBot-Doc](https://github.com/969025903/ChopperBot-Doc/) ，欢迎参与翻译和修订
+- 贡献代码：代码地址 [ChopperBot](https://github.com/Geniusay/ChopperBot) ，欢迎提交 Issue 或者 Pull Requests
+- 维护文档：文档地址 [ChopperBot-Doc](https://github.com/Geniusay/ChopperBot-Doc/) ，欢迎参与翻译和修订
 
 
 ### 友情链接

@@ -12,7 +12,7 @@ const customizeTheme = useCustomizeThemeStore();
 const navigation = ref(configs.navigation);
 
 const openGithubSite = () => {
-  window.open("https://github.com/969025903/ChopperBot", "_blank");
+  window.open("https://github.com/Geniusay/ChopperBot", "_blank");
 };
 </script>
 

@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 @Component
 public class WorldInitMachine extends ModuleInitMachine{
 
-    private static final String githubUrl = "https://github.com/969025903/ChopperBot";
+    private static final String githubUrl = "https://github.com/Geniusay/ChopperBot";
 
     public WorldInitMachine() throws Exception {
         super("ChopperBot",ChopperLogFactory.getLogger(LoggerType.System));

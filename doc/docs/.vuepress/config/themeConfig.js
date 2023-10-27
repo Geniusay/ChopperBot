@@ -29,7 +29,7 @@ module.exports = {
 
   author: {
     name: "Genius",
-    href: "https://github.com/969025903"
+    href: "https://github.com/Geniusay"
   },
 
   social: {
@@ -37,7 +37,7 @@ module.exports = {
       {
         iconClass: "icon-github",
         title: "GitHub",
-        link: "https://github.com/969025903"
+        link: "https://github.com/Geniusay"
       },
       {
         iconClass: "icon-gitee",

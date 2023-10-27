@@ -23,5 +23,5 @@ module.exports = [
     text: "🚀起飞诶~~起飞",
     link: "/pages/1fedc1/",
   },
-  { text: "更新日志", link: "https://github.com/969025903/ChopperBot/blob/master/CHANGELOG.md" },
+  { text: "更新日志", link: "https://github.com/Geniusay/ChopperBot/blob/master/CHANGELOG.md" },
 ];

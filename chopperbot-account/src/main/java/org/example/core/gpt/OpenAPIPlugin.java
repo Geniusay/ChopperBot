@@ -69,7 +69,7 @@ public class OpenAPIPlugin extends SpringBootPlugin {
             if (response.body() != null) {
                 String content = response.body().string();
                 if(content.contains("error")){
-                    this.error("OpenAI API 调用错误",String.format("OpenAI API 调用错误，原因：%s", content),true);
+                    this.error("OpenAI API 调用错误!",String.format("OpenAI API 调用错误，原因：%s", content),true);
                 }
                 return JSONObject.parseObject(content);
             }
