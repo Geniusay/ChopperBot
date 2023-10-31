@@ -1,6 +1,7 @@
 package org.example.core.label;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.Data;
 import org.example.mapper.LabelMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.VideoLabel;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
  * @date 2023/10/23 00:10
  **/
 @Component
+@Data
 public class LabelManagerPlugin extends SpringBootPlugin {
 
     @Resource
@@ -31,32 +34,19 @@ public class LabelManagerPlugin extends SpringBootPlugin {
     @Override
     @SQLInit(table = "video_label",tableSQL = "CREATE TABLE \"video_label\" (\n" +
             "\t\"id\"\tINTEGER NOT NULL,\n" +
+            "\t\"label_id\"\tTEXT NOT NULL UNIQUE,\n" +
             "\t\"label\"\tTEXT NOT NULL UNIQUE,\n" +
             "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
             ")",mapper = LabelMapper.class)
     public List<?> sqlInit() {
-        return List.of(new VideoLabel(null,"搞笑"),
-                new VideoLabel(null,"破防"),new VideoLabel(null,"泪目"),
-                new VideoLabel(null,"精彩操作"));
+        return List.of(new VideoLabel(null, UUID.randomUUID().toString(),"搞笑"),
+                new VideoLabel(null, UUID.randomUUID().toString(),"破防"),
+                new VideoLabel(null, UUID.randomUUID().toString(),"泪目"),
+                new VideoLabel(null, UUID.randomUUID().toString(),"精彩操作"));
     }
 
     public List<String> labelStrList(){
         return mapper.selectList(new QueryWrapper<>()).stream().map(VideoLabel::getLabel).collect(Collectors.toList());
     }
 
-    public List<VideoLabel> labelList(){
-        return mapper.selectList(new QueryWrapper<>());
-    }
-
-    public boolean addLabel(VideoLabel label){
-        return mapper.insert(label)>0;
-    }
-
-    public boolean deleteLabel(String label){
-        return mapper.deleteByMap(Map.of("label",label))>0;
-    }
-
-    public boolean updateLabel(VideoLabel label){
-        return mapper.update(label,new QueryWrapper<VideoLabel>().eq("id",label.getId()))>0;
-    }
 }

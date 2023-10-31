@@ -3,6 +3,7 @@ package org.example.service;
 
 
 import org.example.api.AccountApi;
+import org.example.api.LabelManagerPluginApi;
 import org.example.api.OpenAPIPluginApi;
 
 /**
@@ -15,4 +16,6 @@ public interface AccountService {
     AccountApi accountPlugin();
 
     OpenAPIPluginApi chatGptPlugin();
+
+    LabelManagerPluginApi labelManagerPlugin();
 }

@@ -35,6 +35,7 @@ public class ChatGPTMsgBuilder extends AbstractMsgBuilder {
 
     @Override
     public String done() {
+       build("temperature",1);
         this.map.put("messages", List.of(system,user));
         return super.done();
     }

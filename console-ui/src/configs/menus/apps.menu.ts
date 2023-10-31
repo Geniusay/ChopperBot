@@ -6,40 +6,53 @@ export default [
     link: "/apps/board",
   },
   {
-    icon:"mdi mdi-ladybug",
-    key:"menu.creeper_library",
-    text:"Creeper Library",
-    link: "/apps/creeperLibrary"
+    icon: "mdi mdi-ladybug",
+    key: "menu.creeper_library",
+    text: "Creeper Library",
+    link: "/apps/creeperLibrary",
+    plugin: "CreeperManager",
   },
   {
-    icon:"mdi mdi-account-hard-hat-outline",
-    key:"menu.task_center",
-    text:"Task Center",
-    link: "/apps/taskCenter"
+    icon: "mdi mdi-account-hard-hat-outline",
+    key: "menu.task_center",
+    text: "Task Center",
+    link: "/apps/taskCenter",
+    plugin: "TaskCenter",
   },
   {
-    icon:"mdi mdi-monitor-cellphone-star",
-    key:"menu.hot_guard",
-    text:"Hot Guard",
-    link: "/apps/hotGuard"
+    icon: "mdi mdi-monitor-cellphone-star",
+    key: "menu.hot_guard",
+    text: "Hot Guard",
+    link: "/apps/hotGuard",
+    plugin: "HotGuard",
   },
   {
-    icon:"mdi mdi-bird",
-    key:"menu.heat_recommend",
-    text:"Heat Recommend",
-    link: "/apps/heatRecommend"
+    icon: "mdi mdi-bird",
+    key: "menu.heat_recommend",
+    text: "Heat Recommend",
+    link: "/apps/heatRecommend",
+    plugin: "HotRecommendation",
   },
   {
-    icon:"mdi mdi-star-face",
-    key:"menu.live_follow",
-    text:"Live Follow",
-    link: "/apps/liveFollow"
+    icon: "mdi mdi-star-face",
+    key: "menu.live_follow",
+    text: "Live Follow",
+    link: "/apps/liveFollow",
+    plugin: "LiverFollower",
   },
   {
-    icon:"mdi mdi-chart-line",
-    key:"menu.barrage_curve",
-    text:"Barrage Curve",
-    link: "/apps/barrageCurve"
+    icon: "mdi mdi-chart-line",
+    key: "menu.barrage_curve",
+    text: "Barrage Curve",
+    link: "/apps/barrageCurve",
+    plugin: "BarrageScoreCurve",
+  },
+  {
+    icon: "mdi mdi-tag-faces",
+    key: "menu.label",
+    text: "Label Manage",
+    link: "/apps/label",
+    plugin: "LabelManager",
   },
   {
     icon: "mdi-forum-outline",

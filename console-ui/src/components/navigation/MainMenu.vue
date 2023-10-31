@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useCustomizeThemeStore } from "@/stores/customizeTheme";
+import { usePluginStore } from "@/views/setting/plugin/pluginStore";
+const pluginStore = usePluginStore();
 const customizeTheme = useCustomizeThemeStore();
-
 const props = defineProps({
   // Data
   menu: {
@@ -10,7 +11,20 @@ const props = defineProps({
   },
 });
 
-onMounted(() => {});
+onMounted(async () => {
+  await pluginStore.initList;
+  console.log(pluginStore.pluginList);
+});
+
+const isRegister = (item: any) => {
+  if (item?.plugin) {
+    const plugin = pluginStore.pluginList.find(
+      (plugin) => plugin.pluginName === item.plugin
+    );
+    return plugin && plugin.register;
+  }
+  return true;
+};
 </script>
 <template>
   <v-list nav dense color="primary">
@@ -25,7 +39,7 @@ onMounted(() => {});
         <template v-for="menuItem in menuArea.items" :key="menuItem.key">
           <!-- menu level 1 -->
           <v-list-item
-            v-if="!menuItem.items"
+            v-if="!menuItem.items && isRegister(menuItem)"
             :to="menuItem.link"
             :prepend-icon="menuItem.icon || 'mdi-circle-medium'"
             :active-class="`active-nav-${customizeTheme.primaryColor.colorName}`"
@@ -35,7 +49,10 @@ onMounted(() => {});
               v-text="menuItem.key ? $t(menuItem.key) : menuItem.text"
             ></v-list-item-title>
           </v-list-item>
-          <v-list-group v-else :value="menuItem.items">
+          <v-list-group
+            v-else-if="isRegister(menuItem)"
+            :value="menuItem.items"
+          >
             <!-- subMenu activator -->
             <template v-slot:activator="{ props }">
               <v-list-item

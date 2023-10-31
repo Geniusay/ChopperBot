@@ -2,6 +2,7 @@ package org.example.service.impl;
 
 import org.example.api.AccountApi;
 
+import org.example.api.LabelManagerPluginApi;
 import org.example.api.OpenAPIPluginApi;
 
 import org.example.service.AccountService;
@@ -22,6 +23,9 @@ public class AccountServiceImpl implements AccountService {
     @Resource
     OpenAPIPluginApi openAPIPluginApi;
 
+    @Resource
+    LabelManagerPluginApi labelManagerPluginApi;
+
     @Override
     public AccountApi accountPlugin() {
         return accountApi;
@@ -30,5 +34,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public OpenAPIPluginApi chatGptPlugin() {
         return openAPIPluginApi;
+    }
+
+    @Override
+    public LabelManagerPluginApi labelManagerPlugin() {
+        return labelManagerPluginApi;
     }
 }

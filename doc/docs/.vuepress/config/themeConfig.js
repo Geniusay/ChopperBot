@@ -6,11 +6,11 @@ module.exports = {
   nav,
   sidebarDepth: 2,
   logo: "/img/logo.svg",
-  repo: "969025903/ChopperBot",
+  repo: "Geniusay/ChopperBot",
   searchMaxSuggestions: 10,
   lastUpdated: "上次更新",
 
-  docsRepo: "/969025903/Chopper-Doc",
+  docsRepo: "/Geniusay/Chopper-Doc",
   docsDir: "docs",
   docsBranch: "master",
   editLinks: true,
@@ -29,7 +29,7 @@ module.exports = {
 
   author: {
     name: "Genius",
-    href: "https://github.com/969025903"
+    href: "https://github.com/Geniusay"
   },
 
   social: {
@@ -37,7 +37,7 @@ module.exports = {
       {
         iconClass: "icon-github",
         title: "GitHub",
-        link: "https://github.com/969025903"
+        link: "https://github.com/Geniusay"
       },
       {
         iconClass: "icon-gitee",
@@ -55,13 +55,13 @@ module.exports = {
   footer: {
     createYear: 2016,
     copyrightInfo: [
-      '<a href="https://969025903.github.io/" target="_blank" style="font-weight:bold">TimeMachine Lab</a>',
+      '<a href="https://Geniusay.github.io/" target="_blank" style="font-weight:bold">TimeMachine Lab</a>',
       ' | ',
       'Sponsored by <a href="https://www.jetbrains.com" target="_blank" style="font-weight:bold">JetBrains</a>',
       ' | ',
       '<a href="http://beian.miit.gov.cn/" target=_blank>渝ICP备2021000141号-1</a>',
       '<p>友情链接：',
-      '<a href="https://969025903.github.io/" target="_blank" style="font-weight:bold">GeniusBlog</a>',
+      '<a href="https://Geniusay.github.io/" target="_blank" style="font-weight:bold">GeniusBlog</a>',
       '</p>'
     ].join('')
   },

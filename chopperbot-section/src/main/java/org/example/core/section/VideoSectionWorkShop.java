@@ -1,18 +1,19 @@
 package org.example.core.section;
 
-import org.apache.coyote.Request;
 import org.example.bean.Live;
-import org.example.cache.FileCache;
+import org.example.bean.section.VideoSection;
 import org.example.constpool.ConstPool;
 import org.example.constpool.FileNameBuilder;
 import org.example.constpool.GlobalFileCache;
 import org.example.plugin.SpringGuardPlugin;
 import org.example.sql.annotation.SQLInit;
+import org.example.util.ExceptionUtil;
 import org.example.util.FileUtil;
 import org.example.util.TimeUtil;
 import org.example.util.VideoUtil;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -30,6 +31,9 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
 
     private String liveRoot;
 
+    @Resource
+    SectionParking sectionParking;
+
     @Override
     public boolean init() {
         requests = new LinkedBlockingQueue<>(1000);
@@ -41,12 +45,23 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
     public void start() {
         try {
             SectionRequest request = requests.poll(1000, TimeUnit.SECONDS);
+            VideoSection videoSection = generateSection(request);
+            sectionParking.parking(videoSection);
+        }catch (InterruptedException e){
+            return;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private VideoSection generateSection(SectionRequest request){
+        try {
             if(request!=null){
                 long videoStartTime = TimeUtil.getTimeNaos(request.getDate());
                 long start = (timeBias(request.getStartTime())-videoStartTime)/1000;
                 start = start<0?0:start;
                 long end = (timeBias(request.getEndTime())-videoStartTime)/1000;
-
+                List<String> barrages = request.getBarrages();
                 String root = Paths.get(liveRoot,request.getAction(),request.getPlatform()).toString();
                 String startTime = VideoUtil.formatTimeToFFMpeg(start);
                 String endTime = VideoUtil.formatTimeToFFMpeg(end);
@@ -59,14 +74,15 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
                 String newPath = Paths.get(root,newVideoName).toString();
                 if (VideoUtil.cutVideoByFFMpeg(oldPath,newPath,startTime,endTime)) {
                     this.info("切片生成", String.format("产生切片文件%s 主播:%s", newVideoName,liver),true);
-                    VideoSection videoSection = new VideoSection(newVideoName,request.getTag(),request.getLiver(),request.getPlatform());
+                    VideoSection videoSection = new VideoSection(newVideoName, request.getTag(), request.getLiver(), request.getPlatform());
+                    videoSection.setBarrages(barrages);
+                    return videoSection;
                 }
             }
-        }catch (InterruptedException e){
-            return;
         }catch (Exception e){
-            e.printStackTrace();
+            this.error("切片生成失败", String.format("切片生成失败，原因:%s", ExceptionUtil.getCause(e)),true);
         }
+        return null;
     }
     public long timeBias(long time){
         return time+8*1000;
@@ -89,12 +105,12 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
             "\t\"id\"\tINTEGER NOT NULL,\n" +
             "\t\"video_name\"\tTEXT NOT NULL,\n" +
             "\t\"liver\"\tTEXT NOT NULL,\n" +
-            "\t\"barrages\"\tTEXT NOT NULL,\n" +
+            "\t\"barrage_file\"\tTEXT NOT NULL,\n" +
             "\t\"tag\"\tTEXT NOT NULL,\n" +
             "\t\"date\"\tTEXT NOT NULL,\n" +
             "\t\"platform\"\tTEXT,\n" +
             "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
-            ")")
+            ");")
     public List<?> sqlInit() {
         return null;
     }

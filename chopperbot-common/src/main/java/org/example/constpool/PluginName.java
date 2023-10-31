@@ -45,8 +45,6 @@ public class PluginName {
 
     public static final String CHAT_GPT = "OpenAPI";
 
-    public static final String EMOTION_ANALYSIS = "EmotionAnalysis";
-
     public static final String ACCOUNT_MANAGER = "AccountManager";
 
     public static final String LABEL_MANAGER = "LabelManager";
@@ -56,4 +54,9 @@ public class PluginName {
     public static final String LIVE_MANAGER_PLUGIN= "LiveDownLoadManager";
 
     public static final String VIDEO_SECTION_WORK_SHOP = "SectionWorkShop";
+
+    public static final String EMOTION_ANALYSIS = "EmotionAnalysis";
+
+    public static final String TITLE_GENERATE = "TitleGenerate";
+    public static final String DESC_GENERATE = "DescriptionGenerate";
 }

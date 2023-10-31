@@ -8,3 +8,8 @@ export const timeRules = [
   (v)=> v > 0 || "时间必须大于0",
   (v)=> v >= 1000 || "时间必须大于1s",
 ]
+
+
+export const validate = (rules: [], data: any) =>{
+  return rules.some((rule) => typeof rule(data) === "string")
+}

@@ -18,7 +18,6 @@ const headers = [
   { text: "操作", value: "option" },
 ];
 
-const open = (item) => {};
 const follows = ref<FocusLiver[]>([])
 follows.value =  liveFollowStore.liveFollowList
 
@@ -32,7 +31,6 @@ onMounted(async () => {
   }, 1000);
 });
 
-const keys = ["group","name"]
 const deleteLive = async (item) =>{
    await unFollow(item.platform,item.liver).then(res=>{
       if(res?.data?.success){

@@ -93,11 +93,14 @@ public class BarrageEventCenter extends SpringBootPlugin {
                         String fileName = event.getFileName().split("\\.")[0]+suffix;
                         String date = event.getDate();
                         SectionRequest request = new SectionRequest(fileName, action, popularRange.getStartTime(), popularRange.getEndTime(), liver, platform,date);
+                        for (BarragePoint point : popularRange.getList()) {
+                            List<String> barrages = point.getBarrages();
+                            request.getBarrages().addAll(barrages);
+                        }
                         ((VideoSectionWorkShop)plugin).request(request);
                     }
                 },PluginName.VIDEO_SECTION_WORK_SHOP);
             }
-            //TODO 弹幕标签插件
         }
 
     }

@@ -1,9 +1,11 @@
 package org.example.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.pojo.Account;
 import org.example.pojo.AccountVO;
 import org.example.pojo.GPTKey;
+import org.example.pojo.VideoLabel;
 import org.example.service.AccountService;
 import org.example.util.Result;
 import org.springframework.web.bind.annotation.*;
@@ -47,9 +49,14 @@ public class AccountController {
         return  Result.success();
     }
 
-    @GetMapping(value = "/gpt/key")
+    @GetMapping(value = "/gpt/keys")
     public Result getGPT(){
         return Result.success(Map.of("list",accountService.chatGptPlugin().getKeys()));
+    }
+
+    @GetMapping(value = "/gpt/delete")
+    public Result deleteGPT(@RequestParam String function){
+        return Result.success(Map.of("success",accountService.chatGptPlugin().deleteKey(function)));
     }
 
     @PostMapping(value = "/gpt/add")
@@ -62,5 +69,33 @@ public class AccountController {
     public Result updateGPT(@RequestBody GPTKey key){
         boolean b = accountService.chatGptPlugin().changeKey(key);
         return Result.success(Map.of("success",b));
+    }
+
+    @GetMapping(value = "/gpt/functions")
+    public Result getFunctions(){
+        return Result.success(Map.of("list",accountService.chatGptPlugin().functions()));
+    }
+
+    @GetMapping(value = "/label/list")
+    public Result labelList(){
+        return Result.success(Map.of("list",accountService.labelManagerPlugin().labelList()));
+    }
+
+    @PostMapping(value = "/label/add")
+    public Result addLabel(@RequestBody VideoLabel label){
+        if (accountService.labelManagerPlugin().addLabel(label)==null) {
+            return Result.error("添加失败");
+        }
+        return Result.success(Map.of("data",label));
+    }
+
+    @GetMapping(value = "/label/delete")
+    public Result deleteLabel(@RequestParam String label){
+        return Result.success(Map.of("success",accountService.labelManagerPlugin().deleteLabel(label)));
+    }
+
+    @PostMapping(value = "/label/update")
+    public Result updateLabel(@RequestBody VideoLabel label){
+        return Result.success(Map.of("success",accountService.labelManagerPlugin().updateLabel(label)));
     }
 }

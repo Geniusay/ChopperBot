@@ -15,5 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VideoLabel {
     private Integer id;
+    private String labelId;
     private String label;
 }

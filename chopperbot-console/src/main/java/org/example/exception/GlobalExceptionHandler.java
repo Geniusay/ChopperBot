@@ -7,6 +7,7 @@ import org.example.exception.plugin.PluginException;
 import org.example.exception.plugin.PluginNotRegisterException;
 import org.example.log.ChopperLogFactory;
 import org.example.log.LoggerType;
+import org.example.util.ExceptionUtil;
 import org.example.util.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +33,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(PluginException.class)
     public Result handlerPluginException(HttpServletRequest request,PluginException ex){
-        logger.error("Handle Exception Request Url:{},Exception:{}", request.getRequestURL(), ex);
+        logger.error("Handle Exception Request Url:{},Exception:{}", request.getRequestURL(), ExceptionUtil.getCause(ex));
         if(ex instanceof PluginNotRegisterException){
             PluginNotRegisterException exception = (PluginNotRegisterException) ex;
-            return Result.error(exception.getResultCode());
+            return Result.error(exception.getResultCode(),ExceptionUtil.getCause(ex));
         }else if(ex instanceof PluginDependOnException){
             PluginDependOnException exception = (PluginDependOnException) ex;
             String msg = "[%s] plugin depend on [%s]!";

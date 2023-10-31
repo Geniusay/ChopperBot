@@ -52,20 +52,6 @@ public class LiveAndBarrageHandlerObserver extends AbstractTaskCenterObserver {
                     ((BarrageEventCenter)plugin).event(event);
                 }
             },PluginName.BARRAGE_EVENT_PLUGIN);
-        } else{
-            PluginCheckAndDo.CheckAndDo(plugin -> {
-                Object param = task.getRequest().getParam();
-
-                if(param instanceof Live){
-                    SectionRequest request = ((VideoSectionWorkShop)plugin).wrapperReq((Live)param,task.getLoadConfig().getSuffix()
-                            ,"online",
-                            task.getLoadConfig().getStartTime(),
-                            0,TimeUtil.getTimeNaos(task.getEndTime())
-                            );
-                    ((VideoSectionWorkShop)plugin).request(request);
-                }
-
-            },PluginName.VIDEO_SECTION_WORK_SHOP);
         }
     }
 

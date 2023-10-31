@@ -10,12 +10,12 @@ import org.example.mapper.GPTKeyMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.GPTKey;
 import org.example.sql.annotation.SQLInit;
+import org.example.util.ExceptionUtil;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -68,22 +68,20 @@ public class OpenAPIPlugin extends SpringBootPlugin {
         try (Response response = client.newCall(request).execute()){
             if (response.body() != null) {
                 String content = response.body().string();
+                if(content.contains("error")){
+                    this.error("OpenAI API 调用错误!",String.format("OpenAI API 调用错误，原因：%s", content),true);
+                }
                 return JSONObject.parseObject(content);
             }
         } catch (IOException e) {
-            this.error(String.format("Error: api request fail,Cause:%s", e.getCause()));
+            this.error(String.format("Error: api request fail,Cause:%s", ExceptionUtil.getCause(e)));
         }
         return null;
     }
 
 
     public String getCommonRes(JSONObject resp){
-        Pattern pattern = Pattern.compile("\\[(.*?)]");
-
-        Matcher matcher = pattern.matcher(resp.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content"));
-
-        if (matcher.find()) return matcher.group(1);
-        return "";
+        return resp.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content");
     }
 
     private RequestBody buildBody(String msg){
@@ -115,6 +113,17 @@ public class OpenAPIPlugin extends SpringBootPlugin {
         return Arrays.stream(APIFunc.values()).map(APIFunc::funcName).collect(Collectors.toList());
     }
 
+    public static List<String> zipContent(List<String> contents){
+        Set<String> zipContent = new TreeSet<>(contents);
+        return new ArrayList<>(zipContent);
+    }
+
+    public static String zipContent(String contents){
+        if(contents.length()>3000){
+            return contents.substring(0,3000);
+        }
+        return contents;
+    }
     @Override
     @SQLInit(table = "gpt_key",tableSQL = "CREATE TABLE \"gpt_key\" (\n" +
             "\t\"key\"\tTEXT NOT NULL,\n" +
@@ -123,6 +132,6 @@ public class OpenAPIPlugin extends SpringBootPlugin {
             "\t\"function\"\tTEXT NOT NULL DEFAULT 'chatgpt' UNIQUE\n" +
             ")",mapper = GPTKeyMapper.class)
     public List<GPTKey> sqlInit() {
-        return List.of(new GPTKey("sk-xgUDtOdRgQLigz2D0e4cA665441e4287AfCf8458B1C21b0f","https://oneapi.a9.gay/v1/chat/completions","gpt-3.5-turbo",APIFunc.CHAT_GPT.funcName()));
+        return List.of(new GPTKey("sk-xgUDtOdRgQLigz2D0e4cA665441e4287AfCf8458B1C21b0f","https://oneapi.a9.gay/v1/chat/completions","gpt-4",APIFunc.CHAT_GPT.funcName()));
     }
 }

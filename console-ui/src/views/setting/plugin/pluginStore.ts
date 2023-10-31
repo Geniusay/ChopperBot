@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { Plugin } from "./pluginTypes"
-import {startPlugin, closePlugin, enablePlugin, disabledPlugin} from "@/api/pluginApi";
+import {startPlugin, closePlugin, enablePlugin, disabledPlugin, allPlugins} from "@/api/pluginApi";
 import { useSnackbarStore } from "@/stores/snackbarStore";
 
-const snackbarStore = useSnackbarStore();
+
 
 export const usePluginStore = defineStore({
   id: "plugin",
@@ -35,6 +35,12 @@ export const usePluginStore = defineStore({
   }),
 
   getters:{
+    async initList(){
+        await allPlugins().then(res=>{
+          this.pluginList = res.data
+        })
+      return this.pluginList
+    },
     getAllList(){
       return this.pluginList
     },
@@ -65,7 +71,8 @@ export const usePluginStore = defineStore({
   actions:{
 
     startPlugin(plugin: Plugin){
-       startPlugin(plugin.pluginName).then(res => {
+      startPlugin(plugin.pluginName).then(res => {
+         const snackbarStore = useSnackbarStore();
          // @ts-ignore
          if(res.code===200){
            plugin.register = true
@@ -81,6 +88,7 @@ export const usePluginStore = defineStore({
 
     closePlugin(plugin: Plugin){
       closePlugin(plugin.pluginName).then(res => {
+        const snackbarStore = useSnackbarStore();
         // @ts-ignore
         if(res.code===200){
           plugin.register = false
@@ -96,6 +104,7 @@ export const usePluginStore = defineStore({
 
     enablePlugin(plugin: Plugin){
       enablePlugin(plugin.pluginName).then(res => {
+        const snackbarStore = useSnackbarStore();
         // @ts-ignore
         if(res.code === 200 && res.data.success === true){
           plugin.start = true
@@ -110,6 +119,7 @@ export const usePluginStore = defineStore({
 
     disabledPlugin(plugin: Plugin){
       disabledPlugin(plugin.pluginName).then(res => {
+        const snackbarStore = useSnackbarStore();
         // @ts-ignore
         if(res.code === 200 && res.data.success === true){
           plugin.start = false
