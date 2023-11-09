@@ -17,7 +17,8 @@ import org.springframework.stereotype.Component;
         needPlugin = {PluginName.CHAT_GPT,PluginName.LABEL_MANAGER},
         pluginClass= EmotionAnalysisPlugin.class,
         springBootPlugin = true,
-        ignore=true
+        ignore=true,
+        autoStart = false
 )
 @Component
 public class EmotionAnalysisPluginMachine extends SpringPlugInitMachine{

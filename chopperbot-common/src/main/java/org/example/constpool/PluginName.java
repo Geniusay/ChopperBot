@@ -59,4 +59,5 @@ public class PluginName {
 
     public static final String TITLE_GENERATE = "TitleGenerate";
     public static final String DESC_GENERATE = "DescriptionGenerate";
+    public static final String LABEL_GENERATE = "LabelGenerate";
 }
