@@ -13,3 +13,8 @@ chopperbot:
     enable: 0
     address: 127.0.0.1
     port: 7890
+  plugin:
+    title-generate-plugin:
+      handler: ${TITLE-GENERATE-PLUGIN-HANDLER:GptTitleGenerator}
+    label-generate-plugin:
+      handler: ${LABEL-GENERATE-PLUGIN-HANDLER:GptLabelGenerator}

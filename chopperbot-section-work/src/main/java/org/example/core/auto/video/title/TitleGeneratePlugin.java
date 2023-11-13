@@ -7,6 +7,7 @@ import org.example.core.auto.SectionPipeline;
 import org.example.core.auto.video.description.DescGenerator;
 import org.example.plugin.SpringBootPlugin;
 import org.example.util.StringUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +27,13 @@ public class TitleGeneratePlugin extends AbstractGeneratePlugin<TitleGenerator> 
 
     @Resource
     Map<String, TitleGenerator> titleGeneratorMap;
+
+    @Value("${chopperbot.plugin.title-generate-plugin.handler}")
+    private String configType;
     @Override
     public boolean init() {
         this.generatorMap = titleGeneratorMap;
-        this.type = StringUtil.lowerCaseFirstLetter(GptTitleGenerator.class.getSimpleName());
+        this.type = StringUtil.lowerCaseFirstLetter(configType);
         return super.init();
     }
 

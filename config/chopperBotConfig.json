@@ -26,11 +26,13 @@
 			"HotConfig":true,
 			"TaskCenter":true,
 			"CreeperManager":true,
+			"DescriptionGenerate":true,
 			"InstantSlicing":true,
 			"LiveDownLoadManager":true,
 			"BarragePopularRange":true,
 			"HotRecommendation":true,
 			"NoticePlugin":true,
+			"TitleGenerate":true,
 			"VideoPush":true,
 			"AccountManager":true,
 			"LabelManager":true,
@@ -38,5 +40,5 @@
 			"OpenAPI":true
 		}
 	},
-	"updateTime":"2023-10-25 15:01:54"
+	"updateTime":"2023-11-06 12:00:41"
 }
