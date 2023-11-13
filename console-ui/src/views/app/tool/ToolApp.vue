@@ -1,21 +1,17 @@
 
 <script>
+import ToolMenu from "./component/ToolMenu";
 export default {
-  name: "ToolApp.vue"
+  name: "ToolApp.vue",
+  components: {ToolMenu}
 }
 </script>
 <template>
   <div class="app-container">
-    <!-- ---------------------------------------------- -->
-    <!-- Side Bar -->
-    <!-- ---------------------------------------------- -->
     <div class="d-none d-md-block sidebar">
-
+      <ToolMenu></ToolMenu>
     </div>
 
-    <!-- ---------------------------------------------- -->
-    <!--  List User-->
-    <!-- ---------------------------------------------- -->
     <div class="main">
       <router-view v-slot="{ Component }">
         <transition name="fade">
@@ -23,8 +19,6 @@ export default {
         </transition>
       </router-view>
     </div>
-
-
   </div>
 </template>
 

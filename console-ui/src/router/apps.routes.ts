@@ -1,5 +1,5 @@
 import unsplashRoutes from "@/views/app/unsplash/UnsplashRoutes";
-
+import toolRoutes from "@/views/app/tool/toolRoutes";
 import emailRoutes from "@/views/app/email/emailRoutes";
 import taskRoutes from "@/views/app/taskcenter/taskRoutes";
 import hotGuardRoutes from "@/views/app/hot/hot_guard/hotGuardRoutes";
@@ -190,11 +190,12 @@ export default [
   },
   {
     path: "/apps/tool",
-    name: "tools",
+    name: "app-tool",
     component: () =>
       import(
         /* webpackChunkName: "utility-board" */ "@/views/app/tool/ToolApp.vue"
         ),
+    children: [...toolRoutes],
     meta: {
       requiresAuth: true,
       title: "Tools",
