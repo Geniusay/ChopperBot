@@ -103,11 +103,11 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
     @Override
     @SQLInit(table = "section_parking",tableSQL = "CREATE TABLE \"section_parking\" (\n" +
             "\t\"id\"\tINTEGER NOT NULL,\n" +
-            "\t\"video_name\"\tTEXT NOT NULL,\n" +
-            "\t\"liver\"\tTEXT NOT NULL,\n" +
-            "\t\"barrage_file\"\tTEXT NOT NULL,\n" +
-            "\t\"tag\"\tTEXT NOT NULL,\n" +
-            "\t\"date\"\tTEXT NOT NULL,\n" +
+            "\t\"video_path\"\tTEXT,\n" +
+            "\t\"liver\"\tTEXT,\n" +
+            "\t\"barrage_file\"\tTEXT,\n" +
+            "\t\"tag\"\tTEXT,\n" +
+            "\t\"date\"\tTEXT,\n" +
             "\t\"platform\"\tTEXT,\n" +
             "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
             ");")

@@ -2,6 +2,7 @@ package org.example.core.section;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,5 +33,6 @@ public class SectionRequest {
         this.action = action;
         this.platform = platform;
         this.date = date;
+        this.barrages = new ArrayList<>();
     }
 }

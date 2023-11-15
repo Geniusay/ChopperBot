@@ -2,6 +2,7 @@ package org.example.core.label;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
+import org.example.constpool.GlobalFileCache;
 import org.example.mapper.LabelMapper;
 import org.example.plugin.SpringBootPlugin;
 import org.example.pojo.VideoLabel;
@@ -42,7 +43,8 @@ public class LabelManagerPlugin extends SpringBootPlugin {
         return List.of(new VideoLabel(null, UUID.randomUUID().toString(),"搞笑"),
                 new VideoLabel(null, UUID.randomUUID().toString(),"破防"),
                 new VideoLabel(null, UUID.randomUUID().toString(),"泪目"),
-                new VideoLabel(null, UUID.randomUUID().toString(),"精彩操作"));
+                new VideoLabel(null, UUID.randomUUID().toString(),"精彩操作"),
+                new VideoLabel(null, UUID.randomUUID().toString(),"迷惑操作"));
     }
 
     public List<String> labelStrList(){

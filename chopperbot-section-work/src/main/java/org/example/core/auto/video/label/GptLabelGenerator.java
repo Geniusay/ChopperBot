@@ -3,8 +3,10 @@ package org.example.core.auto.video.label;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.constpool.PluginName;
+import org.example.core.SafeBag;
 import org.example.core.gpt.ChatGPTMsgBuilder;
 import org.example.core.gpt.OpenAPIPlugin;
+import org.example.core.label.LabelManagerPlugin;
 import org.example.exception.plugin.PluginDependOnException;
 import org.example.init.InitPluginRegister;
 import org.example.mapper.AnalysisSchemeMapper;
@@ -21,6 +23,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class GptLabelGenerator extends LabelGenerator{
@@ -39,7 +42,7 @@ public class GptLabelGenerator extends LabelGenerator{
             ")",mapper = AnalysisSchemeMapper.class)
     public List<AnalysisScheme> sqlInit() {
         return List.of(new AnalysisScheme(null,
-                "请你作为一个专门看直播的观众，对下列的观众发送的弹幕内容进行分析，然后根据弹幕内容返回从以下几个标签返回给我最合适的一个标签来形容这段内容",
+                "请你作为一个专门看直播的观众，对下列的观众发送的弹幕内容进行分析，然后根据弹幕内容返回从以下几个标签返回给我最合适的一个标签来形容这段内容，只需要标签不需要任何其他无关的内容",
                 "方案一"));
     }
 
@@ -47,6 +50,9 @@ public class GptLabelGenerator extends LabelGenerator{
     public void preGenerate() {
         if (!InitPluginRegister.isRegister(PluginName.CHAT_GPT)) {
             throw PluginDependOnException.MissingFatherPlugin(PluginName.CHAT_GPT,"");
+        }
+        if(!InitPluginRegister.isRegister(PluginName.LABEL_MANAGER)){
+            throw PluginDependOnException.MissingFatherPlugin(PluginName.LABEL_MANAGER,"");
         }
         try {
             schemes = mapper.selectList(new QueryWrapper<>());
@@ -58,6 +64,10 @@ public class GptLabelGenerator extends LabelGenerator{
     @Override
     public List<String> generate(Map<String, Object> data) {
         if (schemes.isEmpty())return new ArrayList<>();
+
+        SafeBag<List<String>> bag = new SafeBag<>(new ArrayList<>());
+        Optional.ofNullable(InitPluginRegister.getPlugin(PluginName.LABEL_MANAGER, LabelManagerPlugin.class))
+                .ifPresent((plugin)->{bag.setData(plugin.labelStrList());});
         try {
             return PluginCheckAndDo.CheckAndGet((plugin)->{
                 Object barrages = data.get("barrages");
@@ -70,7 +80,7 @@ public class GptLabelGenerator extends LabelGenerator{
                 if(gptKey==null)return new ArrayList<>();
                 ChatGPTMsgBuilder builder = new ChatGPTMsgBuilder().model(gptKey.getModel())
                         .system(scheme.getSystem())
-                        .user("弹幕：" + barrageStr)
+                        .user("弹幕：" + barrageStr +",标签:"+bag.getData())
                         .stream(false);
                 String liver = MapUtil.getString(data,"liver");
                 String platform = MapUtil.getString(data,"platform");

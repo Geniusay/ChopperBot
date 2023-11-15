@@ -33,6 +33,7 @@
 			"HotRecommendation":true,
 			"NoticePlugin":true,
 			"TitleGenerate":true,
+			"LabelGenerate":true,
 			"VideoPush":true,
 			"AccountManager":true,
 			"LabelManager":true,
@@ -40,5 +41,5 @@
 			"OpenAPI":true
 		}
 	},
-	"updateTime":"2023-11-06 12:00:41"
+	"updateTime":"2023-11-16 00:17:16"
 }
