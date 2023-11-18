@@ -3,6 +3,7 @@ package org.example.core.exchange;
 import org.example.api.VedioPublishApi;
 import org.example.bean.section.PackageSection;
 import org.example.core.route.DefaultRouteRuler;
+import org.example.pojo.Video;
 import org.example.pojo.VideoQueue;
 import org.example.pojo.VideoToPublish;
 
@@ -38,17 +39,13 @@ public class Exchange {
 
     private void checkAndProcessMessages() {
         // 在这里检查消息队列，提取消息并调用publish方法
-        for (String routingKey : bindings.keySet()) {
-            if (bindings.containsKey(routingKey)) {
-                List<VideoQueue> queues = bindings.get(routingKey);
-                for (VideoQueue queue : queues) {
-                    Object message = queue.dequeue();
-                    if (message != null) {
-                        VedioPublishApi.publishVideo(new VideoToPublish.Buider(message.toString(),queue.getCookies(),1).build());
-                    }
-                }
-            }
-        }
+//        for (String channel : channels.keySet()) {
+//            List<PackageSection> packageSections = channels.get(channel);
+//            for (PackageSection packageSection : packageSections) {
+//                VedioPublishApi.publishVideo(VideoToPublish.builder()
+//                        .videoPath(packageSection.getVideoPath()).cookies().build())
+//            }
+//        }
     }
 
     public void publish(String routingKey,PackageSection packageSection) {

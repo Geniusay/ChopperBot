@@ -1,33 +1,22 @@
 package org.example.pojo;
 
-import java.util.List;
+import lombok.*;
+import org.example.bean.section.PackageSection;
+
 
 /**
  * @Description
  * @Author welsir
  * @Date 2023/9/4 22:08
  */
-public class Video {
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Video extends PackageSection {
     private Object message;
     private String videoUrl;
-    private List<VideoType> videoType;
+    private String cookies;
 
-    public Video() {
-    }
-
-    public List<VideoType> getVideoType() {
-        return this.videoType;
-    }
-
-    public void setVideoType(List<VideoType> videoType) {
-        this.videoType = videoType;
-    }
-
-    public Object getMessage() {
-        return this.message;
-    }
-
-    public void setMessage(Object message) {
-        this.message = message;
-    }
 }
