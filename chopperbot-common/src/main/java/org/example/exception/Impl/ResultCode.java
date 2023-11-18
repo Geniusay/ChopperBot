@@ -1,8 +1,4 @@
-package org.example.exception.Impl;/**
- * @description : [描述说明该类的功能]
- * @author : [Welsir]
- * @createTime : [2023/5/19 20:03]
- */
+package org.example.exception.Impl;
 
 /**
  * @author welsir

@@ -1,0 +1,11 @@
+
+`	java:S112'"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
+`	java:S112)"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
+y	java:S116"_Rename this field "DOUYIN_PUBLISH_VIDEO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(άθ­όÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(άθ­όÿÿÿÿ
+Z
+java:S2147("DCombine this catch with the one at line 38, which has the same body.(δ Ή€
+t
+java:S2142("^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(δ Ή€
+N	java:S106$"9Replace this use of System.out or System.err by a logger.(Ϊ±Ζ

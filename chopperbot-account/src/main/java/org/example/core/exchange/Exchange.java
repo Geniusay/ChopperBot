@@ -1,9 +1,12 @@
 package org.example.core.exchange;
 
 import org.example.api.VedioPublishApi;
+import org.example.bean.section.PackageSection;
+import org.example.core.route.DefaultRouteRuler;
 import org.example.pojo.VideoQueue;
 import org.example.pojo.VideoToPublish;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,7 +19,11 @@ import java.util.concurrent.TimeUnit;
  * @Date 2023/9/4 22:07
  */
 public class Exchange {
-    private final Map<String, List<VideoQueue>> bindings = new HashMap<>();
+    private final Map<String, List<PackageSection>> channels = new HashMap<>();
+    private Map<String,String> channelRoute;
+
+    @Resource
+    DefaultRouteRuler defaultRouteRuler;
 
     ScheduledExecutorService task;
     public Exchange() {
@@ -44,25 +51,18 @@ public class Exchange {
         }
     }
 
-    public void bind(VideoQueue queue, String routingKey) {
-        this.bindings.putIfAbsent(routingKey, new ArrayList<>());
-        this.bindings.get(routingKey).add(queue);
-    }
-
-    public void publish(String routingKey, Object message) {
-        if (this.bindings.containsKey(routingKey)) {
-            List<VideoQueue> queues = this.bindings.get(routingKey);
-            for (VideoQueue queue : queues) {
-                queue.enqueue(message);
+    public void publish(String routingKey,PackageSection packageSection) {
+        for (String key : channelRoute.keySet()) {
+            String route = channelRoute.get(key);
+            boolean flag = defaultRouteRuler.matchRoute(routingKey, route);
+            if (flag){
+                if(channels.get(key)==null){
+                    channels.put(key,List.of(packageSection));
+                }else {
+                    List<PackageSection> packageSections = channels.get(key);
+                    packageSections.add(packageSection);
+                }
             }
         }
-    }
-
-    public boolean isEmpty() {
-        return this.bindings.isEmpty();
-    }
-
-    public Map<String, List<VideoQueue>> getBindings() {
-        return this.bindings;
     }
 }

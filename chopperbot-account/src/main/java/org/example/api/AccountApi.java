@@ -1,11 +1,9 @@
 package org.example.api;
 
 import org.example.core.account.AccountOperateCenter;
-import org.example.core.account.Impl.AccountOperator;
 import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
+import org.example.pojo.vo.AccountVO;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;

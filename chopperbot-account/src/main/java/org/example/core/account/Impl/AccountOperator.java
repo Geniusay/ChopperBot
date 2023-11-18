@@ -11,9 +11,8 @@ import org.example.mapper.AccountMapper;
 import org.example.mapper.AccountTypeMapper;
 import org.example.pojo.Account;
 import org.example.pojo.AccountType;
-import org.example.pojo.AccountVO;
+import org.example.pojo.vo.AccountVO;
 import org.openqa.selenium.Cookie;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 

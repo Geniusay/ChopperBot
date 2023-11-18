@@ -1,9 +1,8 @@
 package org.example.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
+import org.example.pojo.vo.AccountVO;
 import org.example.pojo.GPTKey;
 import org.example.pojo.VideoLabel;
 import org.example.service.AccountService;

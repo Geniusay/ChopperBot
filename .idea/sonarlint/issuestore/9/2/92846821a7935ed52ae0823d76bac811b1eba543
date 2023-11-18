@@ -1,0 +1,7 @@
+
+c
+java:S2095"MUse try-with-resources or close this "FileInputStream" in a "finally" clause.(Í»œº
+U
+java:S1118":Add a private constructor to hide the implicit public one.(‡ÛŸÚýÿÿÿÿ
+O
+java:S1128"4Remove this unused import 'java.util.regex.Pattern'.(Ã•…Äúÿÿÿÿ

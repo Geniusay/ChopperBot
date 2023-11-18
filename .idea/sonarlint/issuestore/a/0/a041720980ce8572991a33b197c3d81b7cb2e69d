@@ -1,0 +1,44 @@
+
+g	java:S112<"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8©à™´1
+g	java:S112I"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8©à™´1
+K
+java:S3740$"/Provide the parametrized type for this generic.(şÒ¡v8©à™´1
+Q
+java:S3740&"/Provide the parametrized type for this generic.(¬ŞÜëıÿÿÿÿ8©à™´1
+Q
+java:S37400"/Provide the parametrized type for this generic.(Ÿ­»æıÿÿÿÿ8ªà™´1
+L
+java:S3740A"/Provide the parametrized type for this generic.(ÚÇù8ªà™´1
+L
+java:S3740W"/Provide the parametrized type for this generic.(¥é•ê8ªà™´1
+L
+java:S3740Y"/Provide the parametrized type for this generic.(ºÒ™°8ªà™´1
+L
+java:S3740e"/Provide the parametrized type for this generic.(¥é•ê8ªà™´1
+L
+java:S3740g"/Provide the parametrized type for this generic.(ºÒ™°8ªà™´1
+K
+java:S3740s"/Provide the parametrized type for this generic.(‘øìu8ªà™´1
+R
+java:S3740ƒ"/Provide the parametrized type for this generic.(¨î¯Åüÿÿÿÿ8ªà™´1
+r	java:S1170"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ­»æıÿÿÿÿ8ªà™´1
+E
+java:S5411V"(Use a primitive boolean expression here.(‡†¼Ã8¬à™´1
+E
+java:S5411d"(Use a primitive boolean expression here.(­ƒ‹8¬à™´1
+M
+java:S2160""+Override the "equals" method in this class.(½Şÿöûÿÿÿÿ8¾à™´1
+D
+java:S1948$"(Make "guards" transient or serializable.(şÒ¡v8¿à™´1
+Q
+java:S1948%"4Make "hotModuleGuardPool" transient or serializable.(½ÚÃ8¿à™´1
+Q
+java:S1948&"/Make "runningGuards" transient or serializable.(¬ŞÜëıÿÿÿÿ8¿à™´1
+K
+java:S1948+")Make "service" transient or serializable.(ßµ²ıüÿÿÿÿ8¿à™´1
+8
+java:S1116U"Remove this empty statement.(Íí‘8Çà™´1
+]
+java:S1128";Remove this unused import 'com.alibaba.fastjson.JSONArray'.(ÿÀâ³ùÿÿÿÿ8Íà™´1
+Y
+java:S1128"<Remove this unused import 'com.alibaba.fastjson.JSONObject'.(äıµ8Íà™´1

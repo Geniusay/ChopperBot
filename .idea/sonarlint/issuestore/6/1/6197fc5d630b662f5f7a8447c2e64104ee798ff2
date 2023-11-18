@@ -1,0 +1,11 @@
+
+T
+java:S5993"9Change the visibility of this constructor to "protected".(ôè¡øÿÿÿÿ
+T
+java:S5993"9Change the visibility of this constructor to "protected".(ÅäÃÛÿÿÿÿÿ
+A
+java:S1948"&Make "site" transient or serializable.(»Ö‘üÿÿÿÿ
+t
+java:S3038'"Y"process" is defined in the "PageProcessor" interface and can be removed from this class.(òº‘ïûÿÿÿÿ
+e
+java:S1128"JRemove this unused import 'us.codecraft.webmagic.processor.PageProcessor'.(¼ŒÆˆûÿÿÿÿ

@@ -1,0 +1,11 @@
+
+O
+java:S5993"9Change the visibility of this constructor to "protected".(”£¢–
+C
+java:S1948"(Make "logger" transient or serializable.(º½Ââþÿÿÿÿ
+R
+java:S1128"<Remove this unused import 'com.alibaba.fastjson.JSONObject'.(äýµ
+[
+java:S1128"@Remove this unused import 'com.alibaba.fastjson.util.TypeUtils'.(¦ñðÐûÿÿÿÿ
+^
+java:S1128"HRemove this unused import 'org.example.core.taskcenter.task.TaskRecord'.(æßÎ€

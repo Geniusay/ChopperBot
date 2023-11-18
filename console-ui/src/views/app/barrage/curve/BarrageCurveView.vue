@@ -179,7 +179,6 @@ const lineAreaChartSpline = ref({
     },
   },
 });
-
 onMounted(async ()=>{
   await curveList().then((res=>{
     const points = res?.data?.list[1]

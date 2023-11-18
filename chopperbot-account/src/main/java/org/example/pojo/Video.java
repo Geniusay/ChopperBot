@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class Video {
     private Object message;
+    private String videoUrl;
     private List<VideoType> videoType;
 
     public Video() {

@@ -1,0 +1,15 @@
+
+R
+java:S2629O"7Use the built-in formatting to construct this argument.(½û·©üÿÿÿÿ
+M
+java:S2629R"7Use the built-in formatting to construct this argument.(Ê±ä¼
+O
+java:S5993#"9Change the visibility of this constructor to "protected".(ÚŽÅê
+>
+java:S1948"(Make "needPlugins" private or transient.(û­ì 
+C
+java:S1948"(Make "logger" transient or serializable.(º½Ââþÿÿÿÿ
+\
+java:S3457O"AFormat specifiers should be used instead of string concatenation.(½û·©üÿÿÿÿ
+W
+java:S3457R"AFormat specifiers should be used instead of string concatenation.(Ê±ä¼

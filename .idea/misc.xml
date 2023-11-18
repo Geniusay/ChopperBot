@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ASMPluginConfiguration">
     <asm skipDebug="false" skipFrames="false" skipCode="false" expandFrames="false" />
@@ -11,6 +12,7 @@
         <option value="$PROJECT_DIR$/console/pom.xml" />
         <option value="$PROJECT_DIR$/AccountModule/pom.xml" />
         <option value="$PROJECT_DIR$/chopperbot-account/pom.xml" />
+        <option value="$PROJECT_DIR$/chopperbot-test/pom.xml" />
       </list>
     </option>
   </component>

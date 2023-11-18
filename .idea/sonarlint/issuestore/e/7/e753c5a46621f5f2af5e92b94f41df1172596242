@@ -1,0 +1,10 @@
+
+f	java:S1170"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯ÎÕ×
+s
+java:S1128"XRemove this unused import 'com.baomidou.mybatisplus.core.conditions.query.QueryWrapper'.(ÓÆÂæÿÿÿÿÿ
+S
+java:S1128"8Remove this unused import 'org.example.bean.FocusLiver'.(ÃßÐ³úÿÿÿÿ
+V
+java:S1128"@Remove this unused import 'org.example.mapper.FocusLiverMapper'.(ç´à¤
+]
+java:S1128	"BRemove this unused import 'org.example.service.FocusLiverService'.(ú¯ÎÈøÿÿÿÿ

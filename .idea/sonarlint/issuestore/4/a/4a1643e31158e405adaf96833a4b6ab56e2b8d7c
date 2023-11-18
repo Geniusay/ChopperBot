@@ -1,0 +1,14 @@
+
+d
+java:S2094"BRemove this empty class, write its code or make it an "interface".( ëá˜ÿÿÿÿÿ8ÅŸÎ½³1
+X	java:S125"<This block of commented-out lines of code should be removed.(Ûðžð8ÊŸÎ½³1
+p
+java:S1128"SRemove this unused import 'org.example.core.publisher.impl.BilibiliVideoPublisher'.(µ­±×8ÔŸÎ½³1
+`
+java:S1128">Remove this unused import 'org.example.pojo.BilibiliUploader'.(’·‡Æúÿÿÿÿ8ÔŸÎ½³1
+g
+java:S1128"ERemove this unused import 'org.example.pojo.BilibiliVideoManuscript'.(î«èûúÿÿÿÿ8ÔŸÎ½³1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ÔŸÎ½³1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ÔŸÎ½³1
