@@ -9,6 +9,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -78,6 +80,30 @@ public class bilibiliTest {
         ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("d:\\4.txt"));
         HashSet<Cookie> cookies = (HashSet<Cookie>) objectInputStream.readObject();
         return cookies;
+    }
+
+    @Test
+    public void testFile(){
+        String filePath = "D://file//a.mp4";
+
+        // 使用 Paths.get 方法创建 Path 对象
+        Path path = FileSystems.getDefault().getPath(filePath);
+
+        // 获取文件名
+        String fileName = path.getFileName().toString();
+        System.out.println("File Name: " + fileName);
+
+        // 获取目录路径
+        Path directoryPath = path.getParent();
+        String directory = (directoryPath != null) ? directoryPath.toString() : "No Directory"; // 处理根目录的情况
+        System.out.println("Directory: " + directory);
+
+
+        HashMap<String, List<String>> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.putIfAbsent("123",new ArrayList<>());
+        List<String> strings = objectObjectHashMap.get("123");
+        strings.add("zzzz");
+        System.out.println(objectObjectHashMap.get("123"));
     }
 
 }

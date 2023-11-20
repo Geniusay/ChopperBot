@@ -2,6 +2,8 @@ package org.example.pojo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.example.bean.section.PackageSection;
 
 /**
  * @Description
@@ -9,17 +11,12 @@ import lombok.Data;
  * @Date 2023/10/13 19:02
  */
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@Builder
-public class VideoToPublish {
+public class VideoToPublish extends PackageSection {
 
-    private String videoPath;
     private String cookies;
-    private PlatformType platform;
-    private String coverPath;
-    private String devicePath;
-    private String tag;
     private String title;
-    private String type;
+    private String devicePath;
 
 }

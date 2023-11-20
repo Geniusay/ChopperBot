@@ -1,0 +1,45 @@
+{
+	"data":{
+		"src":{
+			"Account":"./config/Account",
+			"Creeper":"./config/Creeper",
+			"LiveRecord":"./config/LiveRecord",
+			"SectionWork":"./config/SectionWork",
+			"Hot":"./config/Hot",
+			"Barrage":"./config/Barrage",
+			"Section":"./config/Section",
+			"Publish":"./config/Publish"
+		},
+		"pluginStart":{
+			"HotGuard":true,
+			"SectionWorkShop":true,
+			"BarrageConfig":true,
+			"BarrageFileListen":false,
+			"BarrageEvent":true,
+			"channel":true,
+			"LiveConfig":true,
+			"BarrageScoreCurve":true,
+			"EmotionAnalysis":false,
+			"FileCacheManager":true,
+			"LiverFollower":true,
+			"TaskMonitor":true,
+			"HotConfig":true,
+			"TaskCenter":true,
+			"CreeperManager":true,
+			"DescriptionGenerate":true,
+			"InstantSlicing":true,
+			"LiveDownLoadManager":true,
+			"BarragePopularRange":true,
+			"HotRecommendation":true,
+			"NoticePlugin":true,
+			"TitleGenerate":true,
+			"LabelGenerate":true,
+			"VideoPush":true,
+			"AccountManager":true,
+			"LabelManager":true,
+			"CreeperConfig":true,
+			"OpenAPI":true
+		}
+	},
+	"updateTime":"2023-11-20 19:09:52"
+}

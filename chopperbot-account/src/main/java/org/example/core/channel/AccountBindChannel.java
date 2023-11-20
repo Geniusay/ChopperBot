@@ -1,7 +1,9 @@
 package org.example.core.channel;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.example.mapper.AccountChannelMapper;
 import org.example.mapper.AccountMapper;
 import org.example.mapper.ChannelMapper;
 import org.example.plugin.SpringBootPlugin;
@@ -46,9 +48,9 @@ public class AccountBindChannel extends SpringBootPlugin {
         return true;
     }
 
-    public boolean delChannel(String name){
+    public boolean delChannel(String channelId){
         try {
-            channelMapper.delete(new QueryWrapper<Channel>().eq("name",name));
+            channelMapper.deleteById(channelId);
         }catch (RuntimeException e){
             log.debug("删除管道失败!");
             return false;
@@ -59,26 +61,26 @@ public class AccountBindChannel extends SpringBootPlugin {
     public List<Channel> getChannelList(){
         List<Channel> channelList = channelMapper.selectList(null);
         for (Channel channel : channelList) {
-            channelRoute.put(channel.getName(),channel.getRoute());
+            channelRoute.putIfAbsent(channel.getId().toString(),channel.getRoute());
         }
-        return channelMapper.selectList(null);
+        return channelList;
     }
 
-    public List<Account> getAccountList(String name){
-        List<Channel> channels = channelMapper.selectList(new QueryWrapper<Channel>().eq("name", name));
-        Long channelId = channels.get(0).getId();
-        return channelMapper.getChannelAccounts(channelId);
+    public List<Account> getAccountList(String channelId){
+        Channel channel = channelMapper.selectById(channelId);
+        Long id = channel.getId();
+        return channelMapper.getChannelAccounts(id);
     }
 
-    public void bindChannel(String channelId,String accountId){
+    public void bindChannel (String channelId,String accountId){
         try {
-            //todo: 需测试
-            List<Account> accountList = channelAccount.get(channelId);
-            accountList.add(accountMapper.selectById(accountId));
             AccountChannel accountChannel = new AccountChannel();
             accountChannel.setAccountId(accountId);
             accountChannel.setChannelId(channelId);
             channelMapper.bindChannel(accountChannel);
+            channelAccount.putIfAbsent(channelId,new ArrayList<>());
+            List<Account> accountList = channelAccount.get(channelId);
+            accountList.add(accountMapper.selectById(accountId));
         }catch (RuntimeException e){
             log.debug("账号绑定失败:"+e);
         }
@@ -108,22 +110,37 @@ public class AccountBindChannel extends SpringBootPlugin {
     public boolean init() {
         channelAccount = new HashMap<>();
         channelRoute = new HashMap<>();
-        sqlInitHelper.initTable("channel","CREATE TABLE `account_channel`  (\n" +
-                "  `id` bigint NOT NULL,\n" +
-                "  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,\n" +
-                "  `route` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,\n" +
-                "  PRIMARY KEY (`id`) USING BTREE,\n" +
-                "  UNIQUE INDEX `name`(`name` ASC) USING BTREE\n" +
-                ")"+
-                "INSERT INTO `account_channel` (`id`, `name`, `type`) VALUES (1, 'default', '*.*.*');");
-
-        sqlInitHelper.initTable("account_channel","CREATE TABLE `channel`  (\n" +
-                "  `id` bigint NOT NULL,\n" +
-                "  `channel_id` bigint NULL DEFAULT NULL,\n" +
-                "  `account_id` bigint NULL DEFAULT NULL,\n" +
-                "  PRIMARY KEY (`id`) USING BTREE\n" +
+        sqlInitHelper.initTable("channel","CREATE TABLE `channel`  (\n" +
+                "  `id` INTEGER NOT NULL,\n" +
+                "  `name` TEXT NOT NULL,\n" +
+                "  `route` TEXT NOT NULL,\n" +
+                "  PRIMARY KEY (id),\n" +
+                "  UNIQUE (name)\n" +
                 ")");
-
+        ArrayList<Channel> channels = new ArrayList<>();
+        Channel channel = new Channel();
+        channel.setRoute("*.*.*");
+        channel.setName("default");
+        channel.setId(1L);
+        channels.add(channel);
+        sqlInitHelper.initData(channels,channelMapper);
+        sqlInitHelper.initTable("account_channel","CREATE TABLE `account_channel`  (\n" +
+                "  `id` INTEGER NOT NULL,\n" +
+                "  `channel_id` TEXT ,\n" +
+                "  `account_id` TEXT ,\n" +
+                "  PRIMARY KEY (id)\n" +
+                ")");
+        List<Channel> channelList = channelMapper.selectList(null);
+        for (Channel channel1 : channelList) {
+            channelRoute.put(channel1.getId().toString(),channel1.getRoute());
+        }
+        List<AccountChannel> accountChannels = channelMapper.queryAccountChannel();
+        for (AccountChannel accountChannel : accountChannels) {
+            channelAccount.putIfAbsent(accountChannel.getChannelId(),new ArrayList<>());
+            List<Account> accountList = channelAccount.get(accountChannel.getChannelId());
+            Account account = accountMapper.selectById(accountChannel.getAccountId());
+            accountList.add(account);
+        }
         return true;
     }
 

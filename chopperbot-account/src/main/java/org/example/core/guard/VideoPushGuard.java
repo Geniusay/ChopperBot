@@ -1,5 +1,6 @@
 package org.example.core.guard;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.bean.section.PackageSection;
 import org.example.core.exchange.Exchange;
 import org.example.mapper.AccountMapper;
@@ -22,40 +23,41 @@ import java.util.concurrent.TimeUnit;
  * @Date 2023/9/4 22:10
  */
 @Component
+@Slf4j
 public class VideoPushGuard extends SpringGuardPlugin {
 
-    private Exchange exchange;
+
     private BlockingQueue<Object> receiveVideo;
     @Resource
     private AccountMapper accountMapper;
     @Resource
     ChannelMapper channelMapper;
+    @Resource
+    SQLInitHelper sqlInitHelper;
+    @Resource
+    Exchange exchange;
 
     @Override
     public boolean init() {
-        // 两件事情
-        // 一注册队列
-        // 二启动队列监听
-        exchange = new Exchange();
-        //建表
         receiveVideo = new ArrayBlockingQueue<>(1024);
         return true;
     }
 
     public void start() {
         try {
+            log.debug("阻塞队列监听视频...");
             Object videoMsg = receiveVideo.poll(5, TimeUnit.SECONDS);
             if (videoMsg instanceof PackageSection) {
                 PackageSection video = (PackageSection) videoMsg;
                 StringBuilder route = new StringBuilder();
                 for (String label : video.getLabels()) {
-                    if(route.length()!=0)
+                    if(route.length()!=0) {
                         route.append(".");
+                    }
                     route.append(label);
                 }
-                exchange.publish(route.toString(),video);
+                exchange.pushToQueue(route.toString(),video);
             }
-            exchange.startListening();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("account_channel")
+@TableName("channel")
 public class Channel {
 
     @TableId(value = "id", type = IdType.AUTO)

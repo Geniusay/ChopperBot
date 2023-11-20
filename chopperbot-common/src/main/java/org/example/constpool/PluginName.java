@@ -49,6 +49,8 @@ public class PluginName {
 
     public static final String LABEL_MANAGER = "LabelManager";
 
+    public static final String CHANNEL = "channel";
+
 
     public static final String LIVE_CONFIG_PLUGIN= "LiveConfig";
     public static final String LIVE_MANAGER_PLUGIN= "LiveDownLoadManager";

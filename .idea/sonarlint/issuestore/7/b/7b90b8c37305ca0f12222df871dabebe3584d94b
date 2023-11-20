@@ -1,5 +1,9 @@
 
 T
-java:S5993"9Change the visibility of this constructor to "protected".(ÂûïÔıÿÿÿÿ
-Y
-java:S1128">Remove this unused import 'org.example.log.ChopperLogFactory'.(æÁûÿÿÿÿ
+java:S5993"9Change the visibility of this constructor to "protected".(ÂûïÔıÿÿÿÿ
+E
+java:S1185"(Remove this method to simply inherit it.(ËîÅĞ8¯¼şÖ¾1
+H
+java:S1168'"+Return an empty collection instead of null.(¥¹ï8³¼şÖ¾1
+a
+java:S1128"?Remove this unused import 'org.example.sql.annotation.SQLInit'.(ã‘Ô’ıÿÿÿÿ8´¼şÖ¾1

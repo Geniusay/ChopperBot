@@ -12,7 +12,7 @@ import lombok.Data;
  * @Date 2023/11/17 9:20
  */
 @Data
-@TableName(value = "channel")
+@TableName(value = "account_channel")
 public class AccountChannel {
 
     @TableId(value = "id", type = IdType.AUTO)

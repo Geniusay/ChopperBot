@@ -97,4 +97,17 @@ public class AccountController {
     public Result updateLabel(@RequestBody VideoLabel label){
         return Result.success(Map.of("success",accountService.labelManagerPlugin().updateLabel(label)));
     }
+
+    @PostMapping("/bind/{userId}/{channelId}")
+    public Result bindAccount(@PathVariable String channelId, @PathVariable String userId){
+        accountService.accountPlugin().bindChannel(userId,channelId);
+        return Result.success();
+    }
+
+    @DeleteMapping("/bind/{userId}/{channelId}")
+    public Result unBindAccount(@PathVariable String channelId, @PathVariable String userId){
+        accountService.accountPlugin().unBindChannel(userId,channelId);
+        return Result.success();
+    }
+
 }
