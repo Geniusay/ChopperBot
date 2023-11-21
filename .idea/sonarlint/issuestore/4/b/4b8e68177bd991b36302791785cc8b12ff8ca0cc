@@ -1,24 +1,0 @@
-
-g	java:S112?"FDefine and throw a dedicated exception instead of using a generic one.(°–×ıÿÿÿÿ8Âú¸´1
-g	java:S112B"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8î‡ÚÀ´1
-o	java:S116"TRename this field "FILE_PATH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÁÓƒw8‡“õÄ´1
-}	java:S116"\Rename this field "LOGIN_SCRIPT_PATH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄíÙøÿÿÿÿ8‡“õÄ´1
-€	java:S116"dRename this field "CONFIRM_LOGIN_SCRIPT_PATH" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”ú¨8‡“õÄ´1
-o	java:S116 "NRename this field "URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Åªùÿÿÿÿ8‡“õÄ´1
-=
-java:S1170"!Make this final field static too.(ÁÓƒw8‡“õÄ´1
-C
-java:S1170"!Make this final field static too.(ÄíÙøÿÿÿÿ8‡“õÄ´1
->
-java:S1170"!Make this final field static too.(”ú¨8ˆ“õÄ´1
-C
-java:S1170 "!Make this final field static too.(¿Åªùÿÿÿÿ8ˆ“õÄ´1
-]
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(ÁÓƒw8Š“õÄ´1
-{
-java:S2142A"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8ıú¸´1
-X
-java:S1874/"6Remove this use of "implicitlyWait"; it is deprecated.(˜¾ôÙøÿÿÿÿ8‘“õÄ´1
-U	java:S106;"9Replace this use of System.out or System.err by a logger.(ã²¶®8ÆˆÚÀ´1
-U
-java:S1144G"8Remove this unused private "loadCookiesFromFile" method.(ºÚ±À8˜û¸´1

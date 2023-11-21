@@ -1,7 +1,0 @@
-
-f	java:S117
-"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²¶…É
-P
-java:S1118	":Add a private constructor to hide the implicit public one.(µÀÍª
-\
-java:S1128"FRemove this unused import 'org.example.exception.ChopperBotException'.(§ÖˆÏ

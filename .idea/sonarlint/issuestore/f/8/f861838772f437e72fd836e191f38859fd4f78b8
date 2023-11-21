@@ -1,10 +1,0 @@
-
-´
-java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(¼±šåùÿÿÿÿ
-m
-java:S3077"WUse a thread-safe type; adding "volatile" is not enough to make this field thread-safe.(š„ˆ¤
-M
-java:S1135"2Complete the task associated to this TODO comment.(¿úÏÝùÿÿÿÿ
-[
-java:S1124"EReorder the modifiers to comply with the Java Language Specification.(š„ˆ¤
-h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„áÀÝùÿÿÿÿ

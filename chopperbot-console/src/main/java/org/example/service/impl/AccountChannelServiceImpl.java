@@ -1,7 +1,6 @@
 package org.example.service.impl;
 
 import org.example.api.ChannelApi;
-import org.example.controller.AccountChannelApi;
 import org.example.service.AccountChannelService;
 import org.springframework.stereotype.Service;
 

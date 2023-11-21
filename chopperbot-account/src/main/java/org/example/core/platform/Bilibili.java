@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -35,11 +35,19 @@ public class Bilibili implements PlatformOperation {
             Thread.sleep(30000L);
             Set<Cookie> cookies = loginwebDriver.manage().getCookies();
             loginwebDriver.quit();
+            System.out.println(cookies);
             ChromeDriver confirmLogin = new ChromeDriver(options);
             confirmLogin.get(URL);
+            String stringCookie = null;
+            HashSet<Cookie> set = new HashSet<>();
             confirmLogin.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             confirmLogin.manage().deleteAllCookies();
             for (Cookie cookie : cookies) {
+                if("".equals(cookie.getName())||cookie.getName()==null
+                        ||cookie.getValue()==null|| "".equals(cookie.getValue())
+                        ||cookie.getPath()==null||"".equals(cookie.getPath()))
+                    continue;
+                set.add(cookie);
                 confirmLogin.manage().addCookie(cookie);
             }
             confirmLogin.navigate().refresh();
@@ -48,7 +56,7 @@ public class Bilibili implements PlatformOperation {
             if(avator!=null){
                 System.out.println("登陆成功!");
                 confirmLogin.quit();
-                return cookies;
+                return set;
             }else{
                 throw new RuntimeException("登陆失败!");
             }

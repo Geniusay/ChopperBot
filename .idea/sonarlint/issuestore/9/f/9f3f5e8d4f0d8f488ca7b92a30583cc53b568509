@@ -1,9 +1,0 @@
-
-J
-java:S1066"/Merge this if statement with the enclosing one.(À•åıÿÿÿÿ
-M
-java:S2629"7Use the built-in formatting to construct this argument.(ø¨ÍÃ
-T
-java:S3516"9Refactor this method to not always return the same value.(ÄÁªƒøÿÿÿÿ
-W
-java:S3457"AFormat specifiers should be used instead of string concatenation.(ø¨ÍÃ

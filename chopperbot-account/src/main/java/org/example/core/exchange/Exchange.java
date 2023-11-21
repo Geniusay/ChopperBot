@@ -45,7 +45,7 @@ public class Exchange {
         log.info("listen video to push...");
         Map<String, List<Account>> channelAccount = channel.getChannelAccount();
         channels.forEach((k,v)->{
-            if(channels.get(k)==null){
+            if(channels.get(k)==null||channelAccount.get(k)==null){
                 return;
             }
             log.debug("channel:"+k+" videos:"+ Arrays.toString(v.toArray()));

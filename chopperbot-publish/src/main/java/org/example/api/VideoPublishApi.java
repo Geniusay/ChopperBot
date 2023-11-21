@@ -18,7 +18,6 @@ public class VideoPublishApi {
 
     public void publishVideo(VideoToPublish video){
         PlatformVideoPublisher publisher = platformSelectionFactory.creatPlatformPublisher(video.getPlatform());
-
         publisher.publishVideo(video);
     }
 

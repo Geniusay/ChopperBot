@@ -39,10 +39,24 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
     public void insertAccount(int platformId,String username) {
         PlatformOperation platformOperation = PlatformFactory.createPlatformOperation(platformId);
         Set<Cookie> cookies = platformOperation.login(platformId, username);
+        List<StringBuilder> list = new ArrayList<>();
+        for (Cookie cookie : cookies) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("name="+cookie.getName()+",");
+            sb.append("value="+cookie.getValue()+",");
+            sb.append("domain="+cookie.getDomain()+",");
+            sb.append("path="+cookie.getPath()+",");
+            sb.append("isSecure="+cookie.isSecure()+",");
+            sb.append("isHttpOnly="+cookie.isHttpOnly()+",");
+            sb.append("sameSite="+cookie.getSameSite());
+            list.add(sb);
+        }
+        String realCookies = list.toString();
         Account account = new Account();
         account.setPlatform_id(platformId);
-        account.setCookies(cookies.toString());
+        account.setCookies(realCookies);
         account.setUsername(username);
+        System.out.println(account);
         accountMapper.insert(account);
     }
 

@@ -1,7 +1,0 @@
-
-`	java:S112""FDefine and throw a dedicated exception instead of using a generic one.(²ρηςόÿÿÿÿ
-`	java:S1124"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
-M
-java:S1128"7Remove this unused import 'org.sqlite.SQLiteException'.(µ²έχ
-[
-java:S1128"ERemove this unused import 'java.util.concurrent.locks.ReentrantLock'.(ςªψ

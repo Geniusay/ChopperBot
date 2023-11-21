@@ -1,10 +1,0 @@
-
-]	java:S125"<This block of commented-out lines of code should be removed.(ª¹Øçüÿÿÿÿ8à€÷Ã³1
-v	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(îğ8à€÷Ã³1
-M
-java:S1128
-"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ï€÷Ã³1
-O
-java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ï€÷Ã³1
-R
-java:S1068"5Remove this unused "heartbeatInterval" private field.(îğ8ï€÷Ã³1

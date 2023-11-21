@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>chopperbot-console</artifactId>
-
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

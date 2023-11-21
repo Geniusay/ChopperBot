@@ -1,8 +1,0 @@
-
-`	java:S1125"FDefine and throw a dedicated exception instead of using a generic one.(°–×ıÿÿÿÿ
-`	java:S1128"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
-t
-java:S21427"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€
-Q
-java:S1874("6Remove this use of "implicitlyWait"; it is deprecated.(˜¾ôÙøÿÿÿÿ
-N	java:S1061"9Replace this use of System.out or System.err by a logger.(ã²¶®
