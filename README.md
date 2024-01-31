@@ -112,4 +112,3 @@
 - Wechat
 <img src="https://github.com/Geniusay/ChopperBot/assets/77137063/1e728690-7565-48c7-9d6f-313cd3409f9b" width="25%" height="25%">
 
-
