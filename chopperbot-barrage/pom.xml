@@ -57,12 +57,20 @@
             <version>2.11.0</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.11.5</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.969025903</groupId>
+            <artifactId>assistant</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
         <dependency>
             <groupId>com.tencent.tars</groupId>
             <artifactId>tars-client</artifactId>
