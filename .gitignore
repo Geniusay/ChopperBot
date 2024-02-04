@@ -10,3 +10,7 @@
 /LiveRecordModule/target/
 /doc/docs/.vuepress/dist/
 /CreeperModule/target/
+/config/
+/database.db/
+/chopperbot-test/config/
+/chopperbot-test/database.db/
