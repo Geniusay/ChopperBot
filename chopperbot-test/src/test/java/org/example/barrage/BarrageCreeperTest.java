@@ -28,7 +28,6 @@ public class BarrageCreeperTest {
     public void testBilibiliBarrageCreeper(){
         BilibiliLiveLoadBarrageConfig config = new BilibiliLiveLoadBarrageConfig("某幻君", "271744");
         List<BilibiliBarrage> start = new BilibiliLiveBarrageLoadTask(config).start();
-
     }
 
     @Test

@@ -2,6 +2,7 @@ package org.example.service.impl;
 
 import org.example.api.AccountApi;
 
+import org.example.api.ChannelApi;
 import org.example.api.LabelManagerPluginApi;
 import org.example.api.OpenAPIPluginApi;
 
@@ -40,4 +41,5 @@ public class AccountServiceImpl implements AccountService {
     public LabelManagerPluginApi labelManagerPlugin() {
         return labelManagerPluginApi;
     }
+
 }

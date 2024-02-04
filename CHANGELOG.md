@@ -263,7 +263,7 @@
 - 🧹重构: 重构console-ui，使用vue3.0,vite,typescript进行重构
 
 ### FileModule
-- 🎈新增: 新增 `JsonFileUtil` 工具类，用于进行json文件的读写操作
+- 🎈新增: 新增 `JsonFileUtil` 工具类，用于进行json文件的读写操作 
 - 🎈新增: 新增 `FileUtil` 工具类，用于进行文件复制文件删除等操作
 - 🎈新增: 新增 `FileCondition` 方法，用于对文件递归删除进行条件过滤
 - 🎈新增: 新增 `ModuleConfigSrcInit` 初始化模块，用于初始化各个模块的配置文件夹，以及模块配置文件路径管理

@@ -19,10 +19,13 @@ import org.example.utils.CookieUtil;
 import org.example.utils.FileUtil;
 import org.example.utils.HttpClientUtil;
 import org.example.utils.VideoDeviceUtil;
+import org.openqa.selenium.Cookie;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -37,11 +40,16 @@ public class BilibiliVideoPublisher implements PlatformVideoPublisher {
     @Override
     public void publishVideo(VideoToPublish video) {
         Map<String, String> header = new HashMap<>();
+
+        String cookie = video.getCookies().substring(1, video.getCookies().length() - 1);
+        header.put("Cookie", cookie);
+        header.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.69");
+        header.put("Referer", "https://member.bilibili.com/platform/upload/video/frame?spm_id_from=333.1007.top_bar.upload");
         String videoPath = video.getVideoPath();
         String devicePath = video.getDevicePath();
-        String cookie = video.getCookies();
         String coverPath = video.getCoverPath();
         String csrf = CookieUtil.getParam(cookie,"bili_jct");
+        System.out.println(cookie);
         if(csrf == null){
             throw new ChopperBotException("Cookie错误");
         }

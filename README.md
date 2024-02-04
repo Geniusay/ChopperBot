@@ -92,6 +92,8 @@
 [千万播放量B站AI切片账号:麻衣不爱做饭](https://space.bilibili.com/1911063664/?spm_id_from=333.999.0.0) 
 ![image](https://github.com/Geniusay/ChopperBot/assets/77137063/6208838d-61eb-47d6-829d-7c307ef0d3c2)
 
+点个关注呗！
+
 # 📈 Project Activity
 ![Alt](https://repobeats.axiom.co/api/embed/0ae23655bb105addf8d90a999df36f690d615af7.svg "Repobeats analytics image")
 
@@ -109,5 +111,4 @@
 
 - Wechat
 <img src="https://github.com/Geniusay/ChopperBot/assets/77137063/1e728690-7565-48c7-9d6f-313cd3409f9b" width="25%" height="25%">
-
 

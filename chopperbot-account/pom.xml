@@ -38,7 +38,6 @@
             <groupId>org.example</groupId>
             <artifactId>chopperbot-publish</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.hankcs</groupId>
             <artifactId>hanlp</artifactId>

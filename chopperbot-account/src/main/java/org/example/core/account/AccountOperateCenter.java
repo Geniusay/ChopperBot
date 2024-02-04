@@ -2,7 +2,7 @@ package org.example.core.account;
 
 
 import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
+import org.example.pojo.vo.AccountVO;
 
 import java.util.List;
 

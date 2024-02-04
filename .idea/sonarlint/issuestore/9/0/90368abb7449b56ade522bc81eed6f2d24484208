@@ -1,25 +1,0 @@
-
-^
-java:S2094"BRemove this empty class, write its code or make it an "interface".(ì¡¨8³’¾Ûœ1
-R
-java:S1128"6Remove this unused import 'com.alibaba.fastjson.JSON'.(Ö¢å$8²ÍÌœ1
-f
-java:S1128"IRemove this unused import 'org.example.constpool.BarrageModuleConstPool'.(¥’‡ 8²ÍÌœ1
-_
-java:S1128"=Remove this unused import 'org.example.constpool.PluginName'.(•Å’üÿÿÿÿ8²ÍÌœ1
-i
-java:S1128"GRemove this unused import 'org.example.core.listen.BarrageFileMonitor'.(ä±”²ûÿÿÿÿ8²ÍÌœ1
-b
-java:S1128"@Remove this unused import 'org.example.init.InitPluginRegister'.(ÆÎë”ûÿÿÿÿ8²ÍÌœ1
-V
-java:S1128"4Remove this unused import 'org.example.pojo.Anchor'.(¾¬ïßùÿÿÿÿ8²ÍÌœ1
-\
-java:S1128	":Remove this unused import 'org.example.util.JsonFileUtil'.(“øªŒûÿÿÿÿ8²ÍÌœ1
-F
-java:S1128")Remove this unused import 'java.io.File'.(†Ğ¥Å8²ÍÌœ1
-C
-java:S1128"&Remove this unused import 'java.util'.(Î€ŒÙ8²ÍÌœ1
-Z
-java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8À’¾Ûœ1
-Q
-java:S1128"4Remove this unused import 'java.util.stream.Stream'.(ó÷”8Â’¾Ûœ1

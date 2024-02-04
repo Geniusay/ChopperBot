@@ -1,0 +1,18 @@
+{
+	"data":{
+		"popularRange":{},
+		"barrageScoreCurve":{
+			"duration":5000,
+			"scoreStrategy":"SCORING",
+			"splitStrategy":"ORDER",
+			"basicBarrageScore":5
+		},
+		"InstantSlicing":{
+			"ScheduleTime":{
+				"duration":1800000
+			},
+			"handler":"ScheduleTime"
+		}
+	},
+	"updateTime":"2023-11-19 15:26:27"
+}

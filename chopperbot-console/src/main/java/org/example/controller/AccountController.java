@@ -1,9 +1,8 @@
 package org.example.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
+import org.example.pojo.vo.AccountVO;
 import org.example.pojo.GPTKey;
 import org.example.pojo.VideoLabel;
 import org.example.service.AccountService;
@@ -98,4 +97,17 @@ public class AccountController {
     public Result updateLabel(@RequestBody VideoLabel label){
         return Result.success(Map.of("success",accountService.labelManagerPlugin().updateLabel(label)));
     }
+
+    @PostMapping("/bind/{userId}/{channelId}")
+    public Result bindAccount(@PathVariable String channelId, @PathVariable String userId){
+        accountService.accountPlugin().bindChannel(userId,channelId);
+        return Result.success();
+    }
+
+    @DeleteMapping("/bind/{userId}/{channelId}")
+    public Result unBindAccount(@PathVariable String channelId, @PathVariable String userId){
+        accountService.accountPlugin().unBindChannel(userId,channelId);
+        return Result.success();
+    }
+
 }

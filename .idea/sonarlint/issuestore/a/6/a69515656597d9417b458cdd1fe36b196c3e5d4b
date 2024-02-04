@@ -1,20 +1,0 @@
-
-g	java:S112;"FDefine and throw a dedicated exception instead of using a generic one.(ÚÇöøÿÿÿÿ8çœ¢¹›1
-]	java:S125"<This block of commented-out lines of code should be removed.(Æ£’Åøÿÿÿÿ8„¢¹›1
-Z	java:S1068"9Replace this use of System.out or System.err by a logger.(†€¦¬øÿÿÿÿ8†¢¹›1
-]	java:S125H"<This block of commented-out lines of code should be removed.(ò‘ííûÿÿÿÿ8î‹’›1
-R
-java:S1128"6Remove this unused import 'com.alibaba.fastjson.JSON'.(Ö¢å$8ó¯¼µœ1
-]
-java:S1128	"ARemove this unused import 'org.example.config.BarrageFileConfig'.(Ñ‹´"8ó¯¼µœ1
-_
-java:S1128
-"BRemove this unused import 'org.example.config.BarrageScoreConfig'.(Ô¼úÂ8ô¯¼µœ1
-V
-java:S1128"4Remove this unused import 'org.example.pojo.Anchor'.(¾¬ïßùÿÿÿÿ8ô¯¼µœ1
-S
-java:S1128"6Remove this unused import 'org.example.util.FileUtil'.(í”Û£8ô¯¼µœ1
-Z
-java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8ô¯¼µœ1
-T
-java:S11444"2Remove this unused private "splitFileName" method.(ü¨™³úÿÿÿÿ8¢¹›1

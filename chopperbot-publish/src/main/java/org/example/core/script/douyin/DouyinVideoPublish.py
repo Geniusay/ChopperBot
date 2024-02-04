@@ -47,6 +47,7 @@ class douyin(object):
         if not loginFlag is None:
             self.click(userMsg)
             time.sleep(2)
+
             videoPage = '/html/body/div[2]/div[1]/div[3]/div[3]/div/div/div[3]/div[2]/div[2]/div[1]/div[2]/div/div[1]/a'
             self.click(videoPage)
             all_h = self.browser.window_handles

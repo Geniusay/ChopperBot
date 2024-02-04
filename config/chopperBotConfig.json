@@ -6,22 +6,22 @@
 			"LiveRecord":"./config/LiveRecord",
 			"SectionWork":"./config/SectionWork",
 			"Hot":"./config/Hot",
-			"Section":"./config/Section",
 			"Barrage":"./config/Barrage",
+			"Section":"./config/Section",
 			"Publish":"./config/Publish"
 		},
 		"pluginStart":{
 			"HotGuard":true,
 			"SectionWorkShop":true,
 			"BarrageConfig":true,
-			"BarrageFileListen":true,
+			"BarrageFileListen":false,
 			"BarrageEvent":true,
+			"channel":true,
 			"LiveConfig":true,
 			"BarrageScoreCurve":true,
-			"EmotionAnalysis":true,
+			"EmotionAnalysis":false,
 			"FileCacheManager":true,
 			"LiverFollower":true,
-			"ChatGPT":true,
 			"TaskMonitor":true,
 			"HotConfig":true,
 			"TaskCenter":true,
@@ -41,5 +41,5 @@
 			"OpenAPI":true
 		}
 	},
-	"updateTime":"2023-11-16 00:17:16"
+	"updateTime":"2023-11-21 18:37:43"
 }

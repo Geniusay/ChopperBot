@@ -19,4 +19,5 @@ public class PackageSection extends VideoSection{
     private String coverPath;
     private String content;
     private List<String> labels;
+
 }

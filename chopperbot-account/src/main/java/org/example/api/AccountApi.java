@@ -1,11 +1,11 @@
 package org.example.api;
 
 import org.example.core.account.AccountOperateCenter;
-import org.example.core.account.Impl.AccountOperator;
+import org.example.core.channel.AccountBindChannel;
 import org.example.pojo.Account;
-import org.example.pojo.AccountVO;
+import org.example.pojo.Channel;
+import org.example.pojo.vo.AccountVO;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +20,8 @@ public class AccountApi {
 
     @Resource
     AccountOperateCenter accountOperator;
+    @Resource
+    AccountBindChannel channel;
 
     /*
      * 第一次登陆调用此方法将账号对应cookie存入数据库中
@@ -52,5 +54,13 @@ public class AccountApi {
 
     public void deleteUser(int uid){
         accountOperator.deleteAccount(uid);
+    }
+
+    public void bindChannel(String userId,String channelId){
+        channel.bindChannel(channelId,userId);
+    }
+
+    public void unBindChannel(String userId,String channelId){
+        channel.unbindChannel(channelId,userId);
     }
 }
