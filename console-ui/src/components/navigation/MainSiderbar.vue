@@ -31,18 +31,20 @@ const openGithubSite = () => {
         height="100"
         class="d-flex align-center justify-center"
       >
-        <img
-          v-if="customizeTheme.darkTheme"
-          width="200"
-          src="@/assets/logo_dark.svg"
-          alt=""
-        />
-        <img
-          v-else="customizeTheme.darkTheme"
-          width="200"
-          src="@/assets/logo_light.svg"
-          alt=""
-        />
+        <h1 v-if="customizeTheme.darkTheme" style="background-image:-webkit-linear-gradient(left,#4f4f4f,#a1a1a1,#c9c9c9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-family: 华文琥珀;font-size: 35px;margin-bottom: 10px">ChopperBot</h1>
+        <h1 v-else="customizeTheme.darkTheme" style="background-image:-webkit-linear-gradient(left,#4f4f4f,#a1a1a1,#c9c9c9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-family: 华文琥珀;font-size: 35px;margin-bottom: 10px">ChopperBot</h1>
+<!--        <img-->
+<!--          v-if="customizeTheme.darkTheme"-->
+<!--          width="200"-->
+<!--          src="@/assets/logo_dark.svg"-->
+<!--          alt=""-->
+<!--        />-->
+<!--        <img-->
+<!--          v-else="customizeTheme.darkTheme"-->
+<!--          width="200"-->
+<!--          src="@/assets/logo_light.svg"-->
+<!--          alt=""-->
+<!--        />-->
       </v-card>
     </template>
 
@@ -56,7 +58,7 @@ const openGithubSite = () => {
     <!---Bottom Area -->
     <!-- ---------------------------------------------- -->
     <template v-if="!customizeTheme.miniSidebar" v-slot:append>
-      <v-card theme="dark" height="225" class="pa-3" variant="text">
+      <v-card theme="dark" height="225" class="pa-3" style="margin-bottom: 100px" variant="text">
         <v-card
           class="d-flex flex-column gradient pa-2"
           :class="customizeTheme.primaryColor.colorName"
@@ -72,12 +74,12 @@ const openGithubSite = () => {
             >
               <Icon width="30" icon="line-md:github-loop" />
             </v-btn>
-            TML
+            <a target="_blank" href="https://github.com/Time-Machine-Lab">TML</a>
           </v-card-title>
           <v-card-subtitle> </v-card-subtitle>
           <v-card-text>
             <div><b>Github:</b></div>
-            <div>github.com/ChopperBot</div>
+            <div><a target="_blank" href="https://github.com/Geniusay/ChopperBot">github.com/ChopperBot</a></div>
           </v-card-text>
           <v-card-actions>
             <v-btn

@@ -8,7 +8,7 @@ import { useSnackbarStore } from "@/stores/snackbarStore";
 export const usePluginStore = defineStore({
   id: "plugin",
   state:()=>({
-    pluginList: ref([]),
+    pluginList: ref<Plugin[]>([]),
     currentLabel: "running",
     labels:[
       {

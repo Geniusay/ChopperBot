@@ -43,6 +43,7 @@ export default {
     pages: "Pages",
     others: "Others",
     email: "Email",
+    tool: "Online clips",
     chat: "Chat",
     todo: "To Do",
     nitori: "Nitori",
@@ -127,7 +128,13 @@ export default {
     heat_recommend:"Heat Recommend",
     live_follow:"Live Follow",
     barrage_curve:"Barrage Curve",
-    hot_live:"Hot Live"
+    hot_live:"Hot Live",
+    profileDetails: "Profile Details",
+    plansAndBilling: "Plans and bills",
+    team: "teams",
+    apiDashboard: "api Dashboard",
+    integrations: "integrations",
+    askCommunity: "askCommunity"
   },
   monitor:{
     totalDownload:"Total",

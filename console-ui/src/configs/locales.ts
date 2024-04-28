@@ -2,8 +2,8 @@ import enMessages from "../locales/en";
 import zhHansMessages from "../locales/zhHans";
 import jaMessages from "../locales/ja";
 
-const supported = ["en", "zhHans", "ja"];
-let locale = "en";
+const supported = ["zhHans", "en", "ja"];
+let locale = "zhHans";
 
 try {
   // get browser default language
@@ -19,7 +19,7 @@ export default {
   locale,
 
   // when translation is not available fallback to that locale
-  fallbackLocale: "en",
+  fallbackLocale: "zhHans",
 
   // availabled locales for user selection
   availableLocales: [
