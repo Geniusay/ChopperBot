@@ -1,7 +1,7 @@
 <!--
 * @Component: ToolbarNotifications
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import StatusMenu from "./StatusMenu.vue";
@@ -108,8 +108,8 @@ const navs = [
       <v-list variant="flat" elevation="0" :lines="false" density="compact">
         <v-list-item
           color="primary"
-          v-for="(nav, i) in navs"
-          :key="i"
+          v-for="nav in navs"
+          :key="nav.key"
           :to="nav.link"
           link
           density="compact"
@@ -122,7 +122,7 @@ const navs = [
 
           <div>
             <v-list-item-subtitle class="text-body-2">{{
-              nav.title
+              nav.key ? $t(nav.key) : nav.title
             }}</v-list-item-subtitle>
           </div>
         </v-list-item>
