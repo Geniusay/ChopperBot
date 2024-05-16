@@ -121,6 +121,7 @@ export default {
     },
     chatbot_v1: "Chatbot v1",
     chatbot_v2: "Chatbot v2",
+    Online_Clip: "Online_Clip",
     plugin_setting:"Plugin Setting",
     creeper_library:"Creeper Library",
     task_center:"Task Center",
