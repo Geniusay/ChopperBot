@@ -117,6 +117,7 @@ export default {
     },
     chatbot_v1: "AI助手 v1",
     chatbot_v2: "AI助手 v2",
+    Online_Clip: "在线剪辑",
     plugin_setting: "插件设置",
     creeper_library: "爬虫仓库",
     task_center:"任务中心",

@@ -20,4 +20,14 @@ export default [
       title: "ChatBotV2",
     },
   },
+  {
+    path: "/ai/Online_Clip",
+      component: () => import("@/views/chatgpt/OnlineClip.vue"),
+    meta: {
+      requiresAuth: true,
+      layout: "ui",
+      category: "AI",
+      title: "ChatBotV2",
+    },
+  },
 ];

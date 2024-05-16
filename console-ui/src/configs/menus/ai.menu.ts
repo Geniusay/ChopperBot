@@ -11,4 +11,10 @@ export default [
     text: "Chatbot_V2",
     link: "/ai/chatbot_v2",
   },
+  {
+    icon: "mdi-robot-love-outline",
+    key: "menu.Online_Clip",
+    text: "Online_Clip",
+    link: "/ai/Online_Clip",
+  },
 ];

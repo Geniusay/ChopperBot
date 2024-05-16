@@ -4,9 +4,12 @@ import { useSnackbarStore } from "@/stores/snackbarStore";
 
 const request = axios.create({
   baseURL: "/appApi",
-  timeout: 100000,
+  timeout: 10000,
 });
 
+const retries = 2; // 设置重试次数为3次
+const retryDelay = 1000; // 设置重试的间隔时间
+// request 拦截器
 request.interceptors.request.use(
   (config) => {
     //config.headers['Content-Type'] = 'application/json';
@@ -45,6 +48,40 @@ request.interceptors.response.use(
     return res;
   },
   (error) => {
+    // 失败重连
+    if(error.response &&
+      (error.response.status === 500 || // 服务器发生错误
+        error.response.status === 502 || // 网关错误
+        error.response.status === 503 || // 服务不可用
+        error.response.status === 504 || // 网关超时
+        error.response.status === 408// 请求超时
+      )
+    ){
+      const config = error.config
+      // 如果config不存在或未设置重试选项，则拒绝
+      if (!config || !retries) {
+        return Promise.reject(error)
+      }
+      // 设置变量来跟踪重试次数
+      config.__retryCount = config.__retryCount || 0
+      // 检查是否达到最大重试次数
+      if (config.__retryCount >= retries) {
+        return Promise.reject(error)
+      }
+      // 增加重试计数器
+      config.__retryCount += 1
+      // 创建一个新的Promise来处理每次重试之前等待一段时间
+      const backoff = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('重新请求：' + config.__retryCount)
+        }, retryDelay || 1)
+      })
+      // 返回Promise，以便Axios知道我们已经处理了错误
+      return backoff.then((txt) => {
+        return request(config)
+      })
+    }
+    // 状态码列表
     const statusTextMap: Record<number, string> = {
       204: '无内容',
       400: '您的请求存在语法错误，服务器无法理解',
