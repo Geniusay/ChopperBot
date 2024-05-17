@@ -6,9 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.api.VideoPublishApi;
 import org.example.bean.section.PackageSection;
 import org.example.core.channel.AccountBindChannel;
+import org.example.core.guard.VideoPushChannelGuard;
 import org.example.core.route.DefaultRouteRuler;
 
 import org.example.pojo.Account;
+import org.example.pojo.PacketSectionVideo;
 import org.example.pojo.VideoToPublish;
 import org.example.pojo.VideoToPush;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,7 +23,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 /**
- * @Description 视频管道交换机
+ * @Description 用户视频管道
  * @Author welsir
  * @Date 2023/9/4 22:07
  */
@@ -29,7 +31,7 @@ import java.util.*;
 @Slf4j
 public class Exchange {
     //存储不同管道对应的切片集合
-    private final Map<String, List<PackageSection>> channels = new HashMap<>();
+    private final Map<String, List<PacketSectionVideo>> channels = new HashMap<>();
     //存储管道的匹配规则
     private Map<String,String> channelRoute;
 
@@ -39,18 +41,18 @@ public class Exchange {
     AccountBindChannel channel;
     @Resource
     VideoPublishApi pushVideo;
+    @Resource
+    VideoPushChannelGuard videoCollections;
 
-    @Scheduled(fixedDelay = 5000)
-    public void publishVideo(){
+    public void work(){
         log.info("listen video to push...");
         Map<String, List<Account>> channelAccount = channel.getChannelAccount();
         channels.forEach((k,v)->{
             if(channels.get(k)==null||channelAccount.get(k)==null){
                 return;
             }
-            log.debug("channel:"+k+" videos:"+ Arrays.toString(v.toArray()));
             List<Account> accountList = channelAccount.get(k);
-            List<PackageSection> packageSections = channels.get(k);
+            List<PacketSectionVideo> packageSections = channels.get(k);
             for (Account account : accountList) {
                 for (PackageSection packageSection : packageSections) {
                     VideoToPublish video = new VideoToPublish();
@@ -70,15 +72,14 @@ public class Exchange {
         });
     }
 
-
-    public void pushToQueue(String routingKey,PackageSection packageSection) {
+    public void pushToQueue(String routingKey,PacketSectionVideo packageSection) {
         channelRoute = channel.getChannelRoute();
         for (String key : channelRoute.keySet()) {
             String route = channelRoute.get(key);
             boolean flag = defaultRouteRuler.matchRoute(routingKey, route);
             if (flag){
                 channels.putIfAbsent(key,new ArrayList<>());
-                List<PackageSection> packageSections = channels.get(key);
+                List<PacketSectionVideo> packageSections = channels.get(key);
                 packageSections.add(packageSection);
             }
         }

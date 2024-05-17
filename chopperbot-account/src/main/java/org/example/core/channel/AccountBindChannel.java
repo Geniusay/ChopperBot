@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
- * @Description 账号通道类
+ * @Description 账号通道绑定
  * @Author welsir
  * @Date 2023/11/17 8:18
  */
@@ -117,13 +117,12 @@ public class AccountBindChannel extends SpringBootPlugin {
                 "  PRIMARY KEY (id),\n" +
                 "  UNIQUE (name)\n" +
                 ")");
-        ArrayList<Channel> channels = new ArrayList<>();
+
         Channel channel = new Channel();
         channel.setRoute("*.*.*");
         channel.setName("default");
         channel.setId(1L);
-        channels.add(channel);
-        sqlInitHelper.initData(channels,channelMapper);
+        sqlInitHelper.initData(List.of(channel),channelMapper);
         sqlInitHelper.initTable("account_channel","CREATE TABLE `account_channel`  (\n" +
                 "  `id` INTEGER NOT NULL,\n" +
                 "  `channel_id` TEXT ,\n" +

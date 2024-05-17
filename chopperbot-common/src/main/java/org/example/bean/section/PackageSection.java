@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PackageSection extends VideoSection{
+
     private String title;
     private String description;
     private String coverPath;
