@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @Description
+ * @Description 用户通道API
  * @Author welsir
  * @Date 2023/11/17 8:34
  */
