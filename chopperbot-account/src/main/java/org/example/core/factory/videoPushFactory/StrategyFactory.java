@@ -5,7 +5,7 @@ package org.example.core.factory.videoPushFactory;
  * @Author welsir
  * @Date 2024/5/17 12:14
  */
-public abstract class StrategyFactory implements VideoStrategy{
+public abstract class StrategyFactory implements VideoPushStrategy {
 
     public static StrategyFactory connect(int x){
         switch (x) {

@@ -10,7 +10,7 @@ import java.util.List;
  * @Author welsir
  * @Date 2024/5/17 12:24
  */
-public interface VideoStrategy {
+public interface VideoPushStrategy {
 
     PacketSectionVideo rule(PackageSection obj);
 

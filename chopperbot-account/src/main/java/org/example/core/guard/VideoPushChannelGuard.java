@@ -41,6 +41,7 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
         }
         PacketSectionVideo packedVideo = factory.rule(p);
         videosCollection.put(packedVideo.getId(),packedVideo);
+
     }
 
     public void sendVideo(PackageSection p) {
