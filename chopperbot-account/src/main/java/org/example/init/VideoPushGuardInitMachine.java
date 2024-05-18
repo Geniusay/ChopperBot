@@ -2,7 +2,7 @@ package org.example.init;
 
 import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
-import org.example.core.guard.VideoPushGuard;
+import org.example.core.guard.VideoPushChannelGuard;
 import org.example.plugin.annotation.Plugin;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
         pluginName_CN = "视频推送插件",
         pluginDescription = "用于将切片好的视频自动推送至对应类型账号",
         needPlugin = {PluginName.ACCOUNT_MANAGER},
-        pluginClass= VideoPushGuard.class,
+        pluginClass= VideoPushChannelGuard.class,
         springBootPlugin = true,
         ignore = true
 )

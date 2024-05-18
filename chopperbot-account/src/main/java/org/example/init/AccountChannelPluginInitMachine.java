@@ -3,9 +3,7 @@ package org.example.init;
 import org.example.constpool.ModuleName;
 import org.example.constpool.PluginName;
 import org.example.core.channel.AccountBindChannel;
-import org.example.core.guard.VideoPushGuard;
 import org.example.plugin.annotation.Plugin;
-import org.example.pojo.AccountChannel;
 import org.springframework.stereotype.Component;
 
 /**
