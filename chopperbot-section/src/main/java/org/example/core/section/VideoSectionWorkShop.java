@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -45,6 +46,8 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
     public void start() {
         try {
             SectionRequest request = requests.poll(1000, TimeUnit.SECONDS);
+            if (Objects.isNull(request))
+                return;
             VideoSection videoSection = generateSection(request);
             sectionParking.parking(videoSection);
         }catch (InterruptedException e){
