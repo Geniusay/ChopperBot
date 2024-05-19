@@ -10,7 +10,7 @@ import org.example.core.loadtask.LoadTask;
 import org.example.pojo.record.RecordDayEntry;
 import org.example.pojo.record.RecordEntry;
 import org.example.pojo.record.RecordList;
-import org.example.utils.HttpClientUtil;
+import org.example.util.HttpClientUtil;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

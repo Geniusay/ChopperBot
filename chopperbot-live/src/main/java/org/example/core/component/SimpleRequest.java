@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.example.pojo.record.RecordDayEntry;
 import org.example.pojo.record.RecordEntry;
 import org.example.pojo.record.RecordList;
-import org.example.utils.HttpClientUtil;
+import org.example.util.HttpClientUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,10 @@
 package org.example.core.factory;
 
-import org.example.core.creeper.loadconfig.BilibiliLiveOnlineConfig;
-import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
-import org.example.core.creeper.loadconfig.HuyaLiveOnlineConfig;
-import org.example.core.creeper.loadconfig.LoadLiveConfig;
+import org.example.core.creeper.loadconfig.*;
 import org.example.core.parser.PlatformVideoUrlParser;
 import org.example.core.parser.impl.BilibiliFlvUrlParser;
 import org.example.core.component.LiveStreamTask;
+import org.example.core.parser.impl.DouyinFlvUrlParser;
 import org.example.core.parser.impl.DouyuFlvUrlParser;
 import org.example.core.parser.impl.HuyaFlvUrlParser;
 
@@ -23,7 +21,8 @@ public class LiveTaskFactory {
     private final Map<Class<? extends LoadLiveConfig>, PlatformVideoUrlParser> parserMap = Map.of(
             BilibiliLiveOnlineConfig.class,new BilibiliFlvUrlParser(),
             DouyuLiveOnlineConfig.class, new DouyuFlvUrlParser(),
-            HuyaLiveOnlineConfig.class, new HuyaFlvUrlParser()
+            HuyaLiveOnlineConfig.class, new HuyaFlvUrlParser(),
+            DouyinLiveOnlineConfig.class, new DouyinFlvUrlParser()
     );
 
     public LiveTaskFactory() {

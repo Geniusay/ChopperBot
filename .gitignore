@@ -1,13 +1,15 @@
 # Project exclude paths
-/console/target/
-/common/target/
-/HotModule/target/
-/FileModule/target/
-/BarrageModule/target/
-/SectionModule/target/
-/SectionWorkModule/target/
-/PublishModule/target/
-/LiveRecordModule/target/
+/chopperbot-console/target/
+/chopperbot-account/target/
+/chopperbot-creeper/target/
+/chopperbot-common/target/
+/chopperbot-hot/target/
+/chopperbot-file/target/
+/chopperbot-barrage/target/
+/chopperbot-section/target/
+/chopperbot-section-work/target/
+/chopperbot-publish/target/
+/chopperbot-live/target/
 /doc/docs/.vuepress/dist/
 /CreeperModule/target/
 /config/
