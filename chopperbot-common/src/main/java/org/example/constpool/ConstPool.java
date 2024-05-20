@@ -34,7 +34,7 @@ public class ConstPool {
         DOUYU("douyu"),
         HUYA("huya"),
         BILIBILI("bilibili"),
-        DOUYING("douyin"),
+        DOUYIN("douyin"),
         TIKTOK("tiktok"),
         TWITCH("twitch");
         private final String name;
@@ -48,7 +48,7 @@ public class ConstPool {
 
     }
     public static final String DOUYU = "douyu";
-
+    public static final String DOUYIN = "douyin";
     public static final String HUYA = "huya";
     public static final String BILIBILI = "bilibili";
 

@@ -2,7 +2,7 @@ package org.example.core.parser.impl;
 
 import org.example.core.creeper.loadconfig.BilibiliLiveOnlineConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
-import org.example.utils.HttpClientUtil;
+import org.example.util.HttpClientUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
