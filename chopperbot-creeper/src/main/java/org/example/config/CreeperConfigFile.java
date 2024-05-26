@@ -25,7 +25,8 @@ public class CreeperConfigFile extends ConfigFile<Map<String,Object>> {
                 Map.of("taskCenter",new TaskCenterConfig(10,50,1000),
                         "spiderConfig",Map.of(
                                 ConstPool.PLATFORM.DOUYU.getName(),new SpiderConfig(),
-                                ConstPool.PLATFORM.BILIBILI.getName(),new SpiderConfig()
+                                ConstPool.PLATFORM.BILIBILI.getName(),new SpiderConfig(),
+                                ConstPool.PLATFORM.DOUYIN.getName(),new SpiderConfig()
                         )
                 ));
     }
