@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @Date 2023/9/5 22:36
  */
 @RestController
-@RequestMapping("")
+@RequestMapping("/video")
 public class VideoPushApi {
 
     @Resource

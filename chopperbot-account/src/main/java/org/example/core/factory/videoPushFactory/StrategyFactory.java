@@ -7,7 +7,7 @@ package org.example.core.factory.videoPushFactory;
  */
 public abstract class StrategyFactory implements VideoPushStrategy {
 
-    public static StrategyFactory connect(int x){
+    public static StrategyFactory selectStrategy(int x){
         switch (x) {
             case 0:
                 return new DefaultVideoPushStrategy();

@@ -5,8 +5,10 @@ import org.example.bean.section.PackageSection;
 import org.example.core.factory.videoPushFactory.StrategyFactory;
 import org.example.plugin.SpringGuardPlugin;
 import org.example.pojo.PacketSectionVideo;
+import org.example.sql.SQLInitHelper;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -29,9 +31,12 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
     private int val = 0;
 
     private AtomicInteger count = new AtomicInteger(0);
+    @Resource
+    SQLInitHelper sqlInitHelper;
     @Override
     public boolean init() {
-        factory = StrategyFactory.connect(val);
+        factory = StrategyFactory.selectStrategy(val);
+        sqlInitHelper.initTable("videoTemp","");
         return true;
     }
 
@@ -41,7 +46,8 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
         if(p==null){
             return;
         }
-        PacketSectionVideo packedVideo = factory.rule(p);
+        //数据库持久化保存
+        PacketSectionVideo packedVideo = factory.wrapperSectionVideo(p);
         videosCollection.put(packedVideo.getId(),packedVideo);
         count.incrementAndGet();
     }
@@ -51,10 +57,10 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
     }
 
     public boolean pushNotify(){
-        return  count.get()!=0;
+        return count.get()!=0;
     }
 
-    public void setCount(){
+    public void decrementCount(){
         count.decrementAndGet();
     }
     public List<String> priority(){
@@ -72,4 +78,5 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
                 .forEach(list::add);
         return list;
     }
+
 }

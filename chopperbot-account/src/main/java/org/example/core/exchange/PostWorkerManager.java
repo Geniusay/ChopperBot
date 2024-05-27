@@ -27,10 +27,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class PostWorkerManager extends SpringBootPlugin {
 
-    int coreSize = 15;
-    int maxSize = 20;
-    ThreadPoolExecutor executor;
-
     HashMap<String,PacketSectionVideo>  temporaryPool = new HashMap<>();
     @Resource
     Exchange exchange;
@@ -40,7 +36,6 @@ public class PostWorkerManager extends SpringBootPlugin {
     VideoTemporaryMapper mapper;
     @Override
     public boolean init() {
-        executor = new ThreadPoolExecutor(coreSize,maxSize,0, TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadPoolExecutor.AbortPolicy());
         startProcess();
         return super.init();
     }
@@ -60,15 +55,17 @@ public class PostWorkerManager extends SpringBootPlugin {
                     for (PacketSectionVideo video : videoList) {
                         String route = String.join(".", video.getLabels());
                         //是否自动推送
-                        if(video.isRelay()){
+                        if(!video.isAuto()){
                             temporaryPool.put(video.getId(),video);
                             continue;
                         }
                         exchange.pushToQueue(route,video);
                         video.setFinish(true);
-                        videoStorehouse.setCount();
+                        videoStorehouse.decrementCount();
                     }
                 }
+                //如何保证数据一定会被消费且不会重复消费
+
                 exchange.work();
                 saveToLocal();
             }
