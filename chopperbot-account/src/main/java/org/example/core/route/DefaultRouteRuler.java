@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 public class DefaultRouteRuler extends AbstractRouteRuler{
 
     //todo: 需要重构规则匹配
+    //目前的匹配规则是：管道依据 '.' 来区分字段 例如 “平台A.主播B.游戏C”
+    //未来可能会支持运算符 '&&'&'||'
     @Override
     public boolean matchRoute(String route,String channelRoute) {
 
@@ -20,14 +22,16 @@ public class DefaultRouteRuler extends AbstractRouteRuler{
         }
 
         String[] routes = route.split("\\.");
+
         String[] channelRoutes = channelRoute.split("\\.");
-        //这里匹配规则换成模糊匹配。只要前两位匹配成功即可
-        for (int i = 0; i < 2; i++) {
-            // 如果 channelRoute 的这一段不是 "*"，则必须与 route 的相应段相等
-            if (!"*".equals(channelRoutes[i]) && !channelRoutes[i].equals(routes[i])) {
-                return false;
+        int channelLen = channelRoutes.length;
+        for(String s:channelRoutes){
+            for(String r:routes){
+                if(s.equals(r)){
+                    channelLen--;
+                }
             }
         }
-        return true;
+        return channelLen == 0;
     }
 }

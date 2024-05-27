@@ -41,11 +41,10 @@ public class Exchange {
     AccountBindChannel channel;
     @Resource
     VideoPublishApi pushVideo;
-    @Resource
-    VideoPushChannelGuard videoCollections;
 
+    //切片推送
     public void work(){
-        log.info("listen video to push...");
+        System.out.println("执行视频发布推送工作..........");
         Map<String, List<Account>> channelAccount = channel.getChannelAccount();
         channels.forEach((k,v)->{
             if(channels.get(k)==null||channelAccount.get(k)==null){

@@ -13,7 +13,8 @@ import javax.annotation.Resource;
  * @Author welsir
  * @Date 2023/9/5 22:36
  */
-@RestController(value = "/")
+@RestController
+@RequestMapping("")
 public class VideoPushApi {
 
     @Resource

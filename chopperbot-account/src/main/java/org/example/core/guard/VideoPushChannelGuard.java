@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Description 切片推送通道 负责将切片工厂包装好的切片存放 并给切片打上额外标签
@@ -25,8 +26,9 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
     StrategyFactory factory;
     BlockingQueue<PackageSection> queue = new ArrayBlockingQueue<>(1024);
     ConcurrentHashMap<String, PacketSectionVideo> videosCollection = new ConcurrentHashMap<>();
-    int val = 0;
+    private int val = 0;
 
+    private AtomicInteger count = new AtomicInteger(0);
     @Override
     public boolean init() {
         factory = StrategyFactory.connect(val);
@@ -41,13 +43,20 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
         }
         PacketSectionVideo packedVideo = factory.rule(p);
         videosCollection.put(packedVideo.getId(),packedVideo);
-
+        count.incrementAndGet();
     }
 
     public void sendVideo(PackageSection p) {
         queue.add(p);
     }
 
+    public boolean pushNotify(){
+        return  count.get()!=0;
+    }
+
+    public void setCount(){
+        count.decrementAndGet();
+    }
     public List<String> priority(){
         return factory.queryPriority();
     }
