@@ -72,7 +72,7 @@ public class AccountBindChannel extends SpringBootPlugin {
         return channelMapper.getChannelAccounts(id);
     }
 
-    public void bindChannel (String channelId,String accountId){
+    public void bindChannel(String channelId,String accountId){
         try {
             AccountChannel accountChannel = new AccountChannel();
             accountChannel.setAccountId(accountId);

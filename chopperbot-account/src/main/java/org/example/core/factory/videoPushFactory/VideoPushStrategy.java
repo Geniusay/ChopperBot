@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface VideoPushStrategy {
 
-    PacketSectionVideo rule(PackageSection obj);
+    PacketSectionVideo wrapperSectionVideo(PackageSection obj);
 
     List<String> queryPriority();
 

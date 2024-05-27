@@ -5,13 +5,16 @@ import org.example.bean.section.PackageSection;
 import org.example.core.factory.videoPushFactory.StrategyFactory;
 import org.example.plugin.SpringGuardPlugin;
 import org.example.pojo.PacketSectionVideo;
+import org.example.sql.SQLInitHelper;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Description 切片推送通道 负责将切片工厂包装好的切片存放 并给切片打上额外标签
@@ -25,11 +28,15 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
     StrategyFactory factory;
     BlockingQueue<PackageSection> queue = new ArrayBlockingQueue<>(1024);
     ConcurrentHashMap<String, PacketSectionVideo> videosCollection = new ConcurrentHashMap<>();
-    int val = 0;
+    private int val = 0;
 
+    private AtomicInteger count = new AtomicInteger(0);
+    @Resource
+    SQLInitHelper sqlInitHelper;
     @Override
     public boolean init() {
-        factory = StrategyFactory.connect(val);
+        factory = StrategyFactory.selectStrategy(val);
+        sqlInitHelper.initTable("videoTemp","");
         return true;
     }
 
@@ -39,15 +46,23 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
         if(p==null){
             return;
         }
-        PacketSectionVideo packedVideo = factory.rule(p);
+        //数据库持久化保存
+        PacketSectionVideo packedVideo = factory.wrapperSectionVideo(p);
         videosCollection.put(packedVideo.getId(),packedVideo);
-
+        count.incrementAndGet();
     }
 
     public void sendVideo(PackageSection p) {
         queue.add(p);
     }
 
+    public boolean pushNotify(){
+        return count.get()!=0;
+    }
+
+    public void decrementCount(){
+        count.decrementAndGet();
+    }
     public List<String> priority(){
         return factory.queryPriority();
     }
@@ -63,4 +78,5 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
                 .forEach(list::add);
         return list;
     }
+
 }

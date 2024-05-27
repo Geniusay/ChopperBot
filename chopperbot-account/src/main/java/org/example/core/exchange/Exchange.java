@@ -41,11 +41,10 @@ public class Exchange {
     AccountBindChannel channel;
     @Resource
     VideoPublishApi pushVideo;
-    @Resource
-    VideoPushChannelGuard videoCollections;
 
+    //切片推送
     public void work(){
-        log.info("listen video to push...");
+        log.info("执行视频发布推送工作..........");
         Map<String, List<Account>> channelAccount = channel.getChannelAccount();
         channels.forEach((k,v)->{
             if(channels.get(k)==null||channelAccount.get(k)==null){
@@ -55,6 +54,7 @@ public class Exchange {
             List<PacketSectionVideo> packageSections = channels.get(k);
             for (Account account : accountList) {
                 for (PackageSection packageSection : packageSections) {
+                    //换成builder
                     VideoToPublish video = new VideoToPublish();
                     video.setCookies(account.getCookies());
                     video.setTitle(packageSection.getTitle());

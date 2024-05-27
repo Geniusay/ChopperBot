@@ -18,9 +18,8 @@ public class DefaultVideoPushStrategy extends StrategyFactory {
 
     private List<String> priorityImportWord = new ArrayList<>();
 
-
     @Override
-    public PacketSectionVideo rule(PackageSection obj) {
+    public PacketSectionVideo wrapperSectionVideo(PackageSection obj) {
         if(obj != null){
             return wrapPacketSection(obj);
         }
