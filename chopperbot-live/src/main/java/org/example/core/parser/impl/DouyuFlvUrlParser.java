@@ -3,8 +3,8 @@ package org.example.core.parser.impl;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.example.core.creeper.loadconfig.DouyuLiveOnlineConfig;
 import org.example.core.parser.PlatformVideoUrlParser;
-import org.example.utils.HttpClientUtil;
-import org.example.utils.RegexUtil;
+import org.example.util.RegexUtil;
+import org.example.util.HttpClientUtil;
 import org.json.JSONObject;
 
 import javax.script.Invocable;
