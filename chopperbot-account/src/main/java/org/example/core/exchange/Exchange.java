@@ -44,7 +44,6 @@ public class Exchange {
 
     //切片推送
     public void work(){
-        log.info("执行视频发布推送工作..........");
         Map<String, List<Account>> channelAccount = channel.getChannelAccount();
         channels.forEach((k,v)->{
             if(channels.get(k)==null||channelAccount.get(k)==null){
@@ -64,7 +63,7 @@ public class Exchange {
                     video.setCoverPath(packageSection.getCoverPath());
                     video.setDescription(packageSection.getDescription());
                     video.setLabels(packageSection.getLabels());
-                    video.setPlatform(packageSection.getPlatform());
+                    video.setPlatform(String.valueOf(account.getPlatformId()));
                     pushVideo.publishVideo(video);
                 }
             }
@@ -92,5 +91,4 @@ public class Exchange {
         String directory = (directoryPath != null) ? directoryPath.toString() : "No Directory";
         return directory+"\\"+fileName+"\\";
     }
-
 }

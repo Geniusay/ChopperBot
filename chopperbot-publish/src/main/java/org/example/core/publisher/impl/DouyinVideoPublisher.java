@@ -10,8 +10,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @Author welsir
  * @Date 2023/10/13 20:11
  */
+@Component
 public class DouyinVideoPublisher implements PlatformVideoPublisher {
 
     final String DOUYIN_PUBLISH_VIDEO = "org/example/core/script/douyin/DouyinVideoPublish.py";
@@ -34,8 +37,6 @@ public class DouyinVideoPublisher implements PlatformVideoPublisher {
             ChromeDriver webDriver = new ChromeDriver(options);
             String url = "https://www.douyin.com/";
             webDriver.get(url);
-            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            webDriver.manage().deleteAllCookies();
             String cookies = video.getCookies().substring(1, video.getCookies().length() - 1);
             String[] split = cookies.split(", ");
             Set<Cookie> cookies1 = new HashSet<>();
@@ -49,8 +50,9 @@ public class DouyinVideoPublisher implements PlatformVideoPublisher {
                 Cookie cookie = new Cookie(map.get("name"), map.get("value"), map.get("path"), null);
                 cookies1.add(cookie);
             }
-            webDriver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+            webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             webDriver.manage().deleteAllCookies();
+            Thread.sleep(5000L);
             for (Cookie cookie : cookies1) {
                 webDriver.manage().addCookie(cookie);
             }

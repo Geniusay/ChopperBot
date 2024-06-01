@@ -1,9 +1,6 @@
 package org.example.core.channel;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.example.mapper.AccountChannelMapper;
 import org.example.mapper.AccountMapper;
 import org.example.mapper.ChannelMapper;
 import org.example.plugin.SpringBootPlugin;

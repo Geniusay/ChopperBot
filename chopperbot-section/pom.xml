@@ -112,6 +112,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>chopperbot-account</artifactId>
+        </dependency>
 
     </dependencies>
 </project>
