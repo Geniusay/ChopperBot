@@ -26,7 +26,7 @@ public class Account implements Serializable {
     private Long id;
     private String username;
     private String cookies;
-    private boolean is_complete_match;
-    private int platform_id;
+    private Boolean isCompleteMatch;
+    private Integer platformId;
 
 }

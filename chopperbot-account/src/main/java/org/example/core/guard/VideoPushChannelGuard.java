@@ -2,6 +2,7 @@ package org.example.core.guard;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.bean.section.PackageSection;
+import org.example.bean.section.VideoSection;
 import org.example.core.factory.videoPushFactory.StrategyFactory;
 import org.example.plugin.SpringGuardPlugin;
 import org.example.pojo.PacketSectionVideo;
@@ -46,14 +47,15 @@ public class VideoPushChannelGuard extends SpringGuardPlugin {
         if(p==null){
             return;
         }
+        System.out.println(p);
         //数据库持久化保存
         PacketSectionVideo packedVideo = factory.wrapperSectionVideo(p);
         videosCollection.put(packedVideo.getId(),packedVideo);
         count.incrementAndGet();
     }
 
-    public void sendVideo(PackageSection p) {
-        queue.add(p);
+    public void sendVideo(VideoSection p) {
+        queue.add((PackageSection) p);
     }
 
     public boolean pushNotify(){

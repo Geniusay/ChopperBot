@@ -5,6 +5,7 @@ import org.example.bean.section.VideoSection;
 import org.example.constpool.ConstPool;
 import org.example.constpool.FileNameBuilder;
 import org.example.constpool.GlobalFileCache;
+import org.example.core.guard.VideoPushChannelGuard;
 import org.example.plugin.SpringGuardPlugin;
 import org.example.sql.annotation.SQLInit;
 import org.example.util.ExceptionUtil;
@@ -34,6 +35,8 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
 
     @Resource
     SectionParking sectionParking;
+    @Resource
+    VideoPushChannelGuard videoGuard;
 
     @Override
     public boolean init() {
@@ -50,6 +53,7 @@ public class VideoSectionWorkShop extends SpringGuardPlugin {
                 return;
             VideoSection videoSection = generateSection(request);
             sectionParking.parking(videoSection);
+            videoGuard.sendVideo(videoSection);
         }catch (InterruptedException e){
             return;
         }catch (Exception e){

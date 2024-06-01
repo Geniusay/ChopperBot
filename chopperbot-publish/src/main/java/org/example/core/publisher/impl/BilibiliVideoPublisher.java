@@ -20,6 +20,7 @@ import org.example.utils.FileUtil;
 import org.example.utils.HttpClientUtil;
 import org.example.utils.VideoDeviceUtil;
 import org.openqa.selenium.Cookie;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +36,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author dhx
  * @date 2023/9/18 20:49
  */
+@Component
 public class BilibiliVideoPublisher implements PlatformVideoPublisher {
 
     @Override

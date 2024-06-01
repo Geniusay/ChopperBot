@@ -6,6 +6,7 @@ import org.example.pojo.VideoToPublish;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Map;
 @Component
 public class VideoPublishApi {
 
+    @Resource
+    platformSelectionFactory platformSelectionFactory;
     public void publishVideo(VideoToPublish video){
         PlatformVideoPublisher publisher = platformSelectionFactory.creatPlatformPublisher(video.getPlatform());
         publisher.publishVideo(video);

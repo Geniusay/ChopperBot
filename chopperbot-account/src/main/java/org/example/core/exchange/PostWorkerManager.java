@@ -63,11 +63,10 @@ public class PostWorkerManager extends SpringBootPlugin {
                         video.setFinish(true);
                         videoStorehouse.decrementCount();
                     }
+                    //如何保证数据一定会被消费且不会重复消费
+                    exchange.work();
+                    saveToLocal();
                 }
-                //如何保证数据一定会被消费且不会重复消费
-
-                exchange.work();
-                saveToLocal();
             }
         };
         timer.scheduleAtFixedRate(task,0,2000);

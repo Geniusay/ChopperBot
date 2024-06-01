@@ -53,7 +53,7 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
         }
         String realCookies = list.toString();
         Account account = new Account();
-        account.setPlatform_id(platformId);
+        account.setPlatformId(platformId);
         account.setCookies(realCookies);
         account.setUsername(username);
         System.out.println(account);
@@ -91,7 +91,7 @@ public class AccountOperator extends ServiceImpl<AccountMapper,Account> implemen
                 accountVO.setTypeList(types);
                 accountVO.setUid(account.getId());
                 accountVO.setUsername(account.getUsername());
-                accountVO.setPlatform(ConstPool.AccountPlatForm.fromId(account.getPlatform_id()));
+                accountVO.setPlatform(ConstPool.AccountPlatForm.fromId(account.getPlatformId()));
                 accountVOList.add(accountVO);
             }
         }
