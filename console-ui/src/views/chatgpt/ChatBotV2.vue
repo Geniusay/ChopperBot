@@ -1,7 +1,7 @@
 <!--
-* @Component: 
+* @Component:
 * @Maintainer: J.K. Yang
-* @Description: 
+* @Description:
 -->
 <script setup lang="ts">
 import { useSnackbarStore } from "@/stores/snackbarStore";
