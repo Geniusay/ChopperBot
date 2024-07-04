@@ -60,3 +60,21 @@ export function getTimeAgo(input: string): string {
     return 'now';
   }
 }
+
+/**
+ * 将number类型的时间转换成“00:00:00:00”格式
+ */
+function padZero(num: number, size = 2): string {
+  let s = num.toString();
+  while (s.length < size) s = '0' + s;
+  return s;
+}
+export function formatDuration(durationInSeconds: number): string {
+  const totalMilliseconds = Math.round(durationInSeconds * 1000); // 四舍五入到最近的毫秒
+  const seconds = Math.floor((totalMilliseconds / 1000) % 60);
+  const minutes = Math.floor((totalMilliseconds / (1000 * 60)) % 60);
+  const hours = Math.floor((totalMilliseconds / (1000 * 60 * 60)) % 24);
+  const milliseconds = ('00' + (totalMilliseconds % 1000)).slice(-2); // 保留毫秒的前两位
+
+  return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}:${milliseconds}`;
+}
