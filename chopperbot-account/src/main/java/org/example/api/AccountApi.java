@@ -6,6 +6,9 @@ import org.example.pojo.Account;
 import org.example.pojo.Channel;
 import org.example.pojo.vo.AccountVO;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,7 +18,8 @@ import java.util.List;
  * @Author welsir
  * @Date 2023/9/22 14:11
  */
-@Component
+@RestController
+@RequestMapping("/account")
 public class AccountApi {
 
     @Resource
@@ -30,6 +34,7 @@ public class AccountApi {
      * 抖音登录默认为验证码登录
      * b站登录默认为账号密码登录
      */
+    @PostMapping("/login")
     public void addAccountSaveCookie(int platformId,  String username){
         accountOperator.insertAccount(platformId,username);
     }

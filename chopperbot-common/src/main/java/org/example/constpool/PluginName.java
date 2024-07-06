@@ -51,6 +51,8 @@ public class PluginName {
 
     public static final String CHANNEL = "channel";
 
+    public static final String POST_WORKER = "postWorker";
+
 
     public static final String LIVE_CONFIG_PLUGIN= "LiveConfig";
     public static final String LIVE_MANAGER_PLUGIN= "LiveDownLoadManager";
