@@ -17,20 +17,20 @@ import java.util.Map;
  * @date 2023/10/13 17:52
  **/
 @RestController
-@RequestMapping("/barrage")
-public class BarrageController {
+@RequestMapping("/barrage/barrageScoreCurve")
+@CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
+public class BarrageScoreCurveController {
 
     @Resource
     BarrageService barrageService;
 
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @GetMapping("/barrageScoreCurve/curveList")
+
+    @GetMapping("/curveList")
     public Result curveVOList(){
         return Result.success(Map.of("list",barrageService.barrageScoreCurvePluginApi().curveVOList()));
     }
 
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @GetMapping("/barrageScoreCurve/generate")
+    @GetMapping("/generate")
     public Result generateCurve(@RequestParam(required = false) String filePath,@RequestParam(required = false) String liver){
         if(!StringUtils.hasText(filePath)){
             filePath = "E:\\Project\\ChopperBot\\config\\Barrage\\online\\huya\\Uzi_2023-10-18 21_22_57.json";
@@ -43,36 +43,30 @@ public class BarrageController {
         return Result.success(Map.of("curve",barrageCurveVO));
     }
 
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @GetMapping("/barrageScoreCurve/keywords")
+    @GetMapping("/keywords")
     public Result getKeyWords(@RequestParam(required = false) String liver) {
         return Result.success(Map.of("list", barrageService.barrageScoreCurvePluginApi().getKeyWords(liver)));
     }
 
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @GetMapping("/barrageScoreCurve/delete")
+    @GetMapping("/delete")
     public Result deleteKeyWords(@RequestParam String liver,@RequestParam String keyWord) {
         return Result.success(Map.of("success",
                 barrageService.barrageScoreCurvePluginApi().deleteKeyWord(liver,keyWord)));
     }
 
-
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @PostMapping("/barrageScoreCurve/add")
+    @PostMapping("/add")
     public Result addKeyWords(@RequestBody LiverKeyword keyword) {
         return Result.success(Map.of("success",
                 barrageService.barrageScoreCurvePluginApi().addKeyWord(keyword)));
     }
 
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @PostMapping("/barrageScoreCurve/update")
+    @PostMapping("/update")
     public Result updateKeyWords(@RequestBody LiverKeyword keyword) {
         return Result.success(Map.of("success",
                 barrageService.barrageScoreCurvePluginApi().updateKeyWord(keyword)));
     }
 
-    @CheckPlugin(needPlugin = {PluginName.BARRAGE_SCORE_CURVE_PLUGIN})
-    @GetMapping("/barrageScoreCurve/setting")
+    @GetMapping("/setting")
     public Result getSetting(){
         return Result.success(Map.of("curve",barrageService.barrageScoreCurvePluginApi().getSetting()));
     }

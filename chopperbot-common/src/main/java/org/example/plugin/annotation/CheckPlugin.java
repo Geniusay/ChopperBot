@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * api需要哪些插件的注解
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD,ElementType.TYPE})
 public @interface CheckPlugin {
 
     String[] needPlugin() default {};
