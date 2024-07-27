@@ -6,3 +6,4 @@ export interface FollowDog{
   top:number;
   banLiver:string;
 }
+

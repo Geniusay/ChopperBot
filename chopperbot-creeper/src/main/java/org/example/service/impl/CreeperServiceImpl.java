@@ -4,7 +4,6 @@ import org.example.api.CreeperManagerApi;
 import org.example.api.MonitorCenterApi;
 import org.example.api.TaskCenterApi;
 import org.example.service.CreeperService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

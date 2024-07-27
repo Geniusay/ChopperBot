@@ -14,9 +14,6 @@ import java.util.List;
  **/
 @Component
 public class CreeperManagerApi {
-
-
-
     public  List<CreeperBean> getAllCreeper(){
         CreeperManager plugin = InitPluginRegister.getPlugin(PluginName.CREEPER_MANAGER_PLUGIN, CreeperManager.class);
         assert plugin != null;

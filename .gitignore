@@ -17,3 +17,4 @@
 /chopperbot-test/config/
 /chopperbot-test/database.db/
 /.idea/
+/database.db

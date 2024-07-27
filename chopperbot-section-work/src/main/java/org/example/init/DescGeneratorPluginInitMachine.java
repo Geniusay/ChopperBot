@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Plugin(moduleName = ModuleName.SECTION_WORK,
         pluginName = PluginName.DESC_GENERATE,
-        pluginName_CN = "标题生成插件",
+        pluginName_CN = "视频描述生成插件",
         pluginDescription = "根据切片内容自动生成切片标题",
         pluginClass= DescGeneratorPlugin.class,
         springBootPlugin = true,
